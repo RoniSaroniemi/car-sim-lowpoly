@@ -15,6 +15,6 @@ p.write_text(json.dumps({name: hashlib.sha256(Path(name).read_bytes()).hexdigest
                          for name in files}, indent=2) + '\n')
 ```
 
-The GitHub workflow checks package integrity, the seven cabin-fit unit cases, six structural crash runs, bone binding, replay and reset on Linux using the pinned standard Godot release. Rendered screenshot review remains separate because headless dummy rendering does not validate shader appearance.
+The GitHub workflow checks package integrity, the seven cabin-fit unit cases, six structural crash runs, seven wheel cases, bone binding, wheel load transfer, detachment, replay and reset on Linux using the pinned standard Godot release. Rendered screenshot review remains separate because headless dummy rendering does not validate shader appearance.
 
-Do not introduce a second full-mass chassis or make mesh detail responsible for physical load transfer. If adding wheel rotation, breakable joints, general-world contact or detached bodies, define which solver owns each mass and how momentum crosses the boundary.
+Do not introduce a second full-mass chassis or make mesh detail responsible for physical load transfer. When extending wheel rotation, breakable joints, general-world contact or detached bodies, define which solver owns each mass and how momentum crosses the boundary.

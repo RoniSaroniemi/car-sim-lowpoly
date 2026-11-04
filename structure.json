@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "mass_kg": 1210.0,
   "enforce_symmetry": true,
   "fixed_step_s": 0.0020833333333333333,
@@ -2061,121 +2061,433 @@
       "a": 34,
       "b": 4,
       "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
-    },
-    {
-      "a": 34,
-      "b": 6,
-      "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        -0.11,
+        -0.045,
+        0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
     },
     {
       "a": 34,
       "b": 8,
       "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0.11,
+        -0.045,
+        0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 34,
+      "b": 6,
+      "kind": "suspension",
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0,
+        0.13,
+        0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 34,
+      "b": 0,
+      "kind": "steering_link",
+      "stiffness_n_per_m": 90000,
+      "yield_n": 14000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0.14,
+        0.025,
+        0.075
+      ],
+      "break_force_n": 48000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 34,
+      "b": 10,
+      "kind": "upper_arm",
+      "stiffness_n_per_m": 350000,
+      "yield_n": 30000,
+      "max_compression": 0.3,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 600,
+      "wheel_anchor": [
+        0.1,
+        0.18,
+        0.07
+      ],
+      "break_force_n": 110000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 34,
+      "b": 2,
+      "kind": "upper_arm",
+      "stiffness_n_per_m": 350000,
+      "yield_n": 30000,
+      "max_compression": 0.3,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 600,
+      "wheel_anchor": [
+        -0.1,
+        0.18,
+        0.07
+      ],
+      "break_force_n": 110000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
     },
     {
       "a": 35,
       "b": 5,
       "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
-    },
-    {
-      "a": 35,
-      "b": 7,
-      "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        -0.11,
+        -0.045,
+        -0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
     },
     {
       "a": 35,
       "b": 9,
       "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0.11,
+        -0.045,
+        -0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 35,
+      "b": 7,
+      "kind": "suspension",
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0,
+        0.13,
+        -0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 35,
+      "b": 1,
+      "kind": "steering_link",
+      "stiffness_n_per_m": 90000,
+      "yield_n": 14000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0.14,
+        0.025,
+        -0.075
+      ],
+      "break_force_n": 48000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 35,
+      "b": 11,
+      "kind": "upper_arm",
+      "stiffness_n_per_m": 350000,
+      "yield_n": 30000,
+      "max_compression": 0.3,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 600,
+      "wheel_anchor": [
+        0.1,
+        0.18,
+        -0.07
+      ],
+      "break_force_n": 110000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 35,
+      "b": 3,
+      "kind": "upper_arm",
+      "stiffness_n_per_m": 350000,
+      "yield_n": 30000,
+      "max_compression": 0.3,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 600,
+      "wheel_anchor": [
+        -0.1,
+        0.18,
+        -0.07
+      ],
+      "break_force_n": 110000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
     },
     {
       "a": 36,
       "b": 16,
       "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
-    },
-    {
-      "a": 36,
-      "b": 18,
-      "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        -0.11,
+        -0.045,
+        0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
     },
     {
       "a": 36,
       "b": 20,
       "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0.11,
+        -0.045,
+        0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 36,
+      "b": 18,
+      "kind": "suspension",
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0,
+        0.13,
+        0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 36,
+      "b": 12,
+      "kind": "steering_link",
+      "stiffness_n_per_m": 90000,
+      "yield_n": 14000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0.14,
+        0.025,
+        0.075
+      ],
+      "break_force_n": 48000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 36,
+      "b": 22,
+      "kind": "upper_arm",
+      "stiffness_n_per_m": 350000,
+      "yield_n": 30000,
+      "max_compression": 0.3,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 600,
+      "wheel_anchor": [
+        0.1,
+        0.18,
+        0.07
+      ],
+      "break_force_n": 110000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 36,
+      "b": 14,
+      "kind": "upper_arm",
+      "stiffness_n_per_m": 350000,
+      "yield_n": 30000,
+      "max_compression": 0.3,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 600,
+      "wheel_anchor": [
+        -0.1,
+        0.18,
+        0.07
+      ],
+      "break_force_n": 110000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
     },
     {
       "a": 37,
       "b": 17,
       "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
-    },
-    {
-      "a": 37,
-      "b": 19,
-      "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        -0.11,
+        -0.045,
+        -0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
     },
     {
       "a": 37,
       "b": 21,
       "kind": "suspension",
-      "stiffness_n_per_m": 130000,
-      "yield_n": 36000,
-      "max_compression": 0.45,
-      "max_extension": 0.45,
-      "damping_ns_per_m": 1400
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0.11,
+        -0.045,
+        -0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 37,
+      "b": 19,
+      "kind": "suspension",
+      "stiffness_n_per_m": 160000,
+      "yield_n": 26000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0,
+        0.13,
+        -0.045
+      ],
+      "break_force_n": 90000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 37,
+      "b": 13,
+      "kind": "steering_link",
+      "stiffness_n_per_m": 90000,
+      "yield_n": 14000,
+      "max_compression": 0.38,
+      "max_extension": 0.35,
+      "damping_ns_per_m": 450,
+      "wheel_anchor": [
+        0.14,
+        0.025,
+        -0.075
+      ],
+      "break_force_n": 48000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 37,
+      "b": 23,
+      "kind": "upper_arm",
+      "stiffness_n_per_m": 350000,
+      "yield_n": 30000,
+      "max_compression": 0.3,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 600,
+      "wheel_anchor": [
+        0.1,
+        0.18,
+        -0.07
+      ],
+      "break_force_n": 110000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
+    },
+    {
+      "a": 37,
+      "b": 15,
+      "kind": "upper_arm",
+      "stiffness_n_per_m": 350000,
+      "yield_n": 30000,
+      "max_compression": 0.3,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 600,
+      "wheel_anchor": [
+        -0.1,
+        0.18,
+        -0.07
+      ],
+      "break_force_n": 110000,
+      "break_delay_s": 0.012,
+      "break_plastic": 0.9
     }
   ],
   "station_x": [
@@ -2222,5 +2534,143 @@
     29
   ],
   "description": "Controlled static-wall structural bench. Mass-bearing nodes and elastic/plastic XPBD links own all car motion. Godot renders the same graph through native skeletal skinning; no second rigid chassis receives the impact.",
-  "limits": "Approximate structure and game material parameters, not factory crash certification. Analytic wall/floor contacts, no tearing, glass particles, general world integration or panel self-contact."
+  "limits": "Approximate game structure, not certified crash prediction. Analytic static box/floor and selective wheel/body contacts; no general world integration, panel self-contact or tearing.",
+  "wheel_assemblies": [
+    {
+      "node": 34,
+      "radius_m": 0.39,
+      "rim_radius_m": 0.255,
+      "half_width_m": 0.105,
+      "max_tire_compression_m": 0.045,
+      "contact_stiffness_n_per_m": 320000,
+      "axle_body_nodes": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "knuckle_stiffness_nm_per_rad": 24000,
+      "knuckle_yield_nm": 2500,
+      "knuckle_break_nm": 9500,
+      "body_capsules": [
+        {
+          "a": 0,
+          "b": 2,
+          "radius_m": 0.045
+        },
+        {
+          "a": 8,
+          "b": 10,
+          "radius_m": 0.045
+        },
+        {
+          "a": 2,
+          "b": 6,
+          "radius_m": 0.045
+        }
+      ]
+    },
+    {
+      "node": 35,
+      "radius_m": 0.39,
+      "rim_radius_m": 0.255,
+      "half_width_m": 0.105,
+      "max_tire_compression_m": 0.045,
+      "contact_stiffness_n_per_m": 320000,
+      "axle_body_nodes": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "knuckle_stiffness_nm_per_rad": 24000,
+      "knuckle_yield_nm": 2500,
+      "knuckle_break_nm": 9500,
+      "body_capsules": [
+        {
+          "a": 1,
+          "b": 3,
+          "radius_m": 0.045
+        },
+        {
+          "a": 9,
+          "b": 11,
+          "radius_m": 0.045
+        },
+        {
+          "a": 3,
+          "b": 7,
+          "radius_m": 0.045
+        }
+      ]
+    },
+    {
+      "node": 36,
+      "radius_m": 0.39,
+      "rim_radius_m": 0.255,
+      "half_width_m": 0.105,
+      "max_tire_compression_m": 0.045,
+      "contact_stiffness_n_per_m": 320000,
+      "axle_body_nodes": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "knuckle_stiffness_nm_per_rad": 24000,
+      "knuckle_yield_nm": 2500,
+      "knuckle_break_nm": 9500,
+      "body_capsules": [
+        {
+          "a": 8,
+          "b": 12,
+          "radius_m": 0.045
+        },
+        {
+          "a": 12,
+          "b": 14,
+          "radius_m": 0.045
+        },
+        {
+          "a": 18,
+          "b": 22,
+          "radius_m": 0.045
+        }
+      ]
+    },
+    {
+      "node": 37,
+      "radius_m": 0.39,
+      "rim_radius_m": 0.255,
+      "half_width_m": 0.105,
+      "max_tire_compression_m": 0.045,
+      "contact_stiffness_n_per_m": 320000,
+      "axle_body_nodes": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "knuckle_stiffness_nm_per_rad": 24000,
+      "knuckle_yield_nm": 2500,
+      "knuckle_break_nm": 9500,
+      "body_capsules": [
+        {
+          "a": 9,
+          "b": 13,
+          "radius_m": 0.045
+        },
+        {
+          "a": 13,
+          "b": 15,
+          "radius_m": 0.045
+        },
+        {
+          "a": 19,
+          "b": 23,
+          "radius_m": 0.045
+        }
+      ]
+    }
+  ]
 }

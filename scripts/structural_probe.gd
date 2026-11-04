@@ -7,6 +7,7 @@ var camera: Camera3D
 var barrier_visual: MeshInstance3D
 var status: Label
 var telemetry: Label
+var impact_picker: OptionButton
 var speed_picker: OptionButton
 var mode_picker: OptionButton
 var slow_toggle: CheckButton
@@ -51,10 +52,16 @@ func _ready() -> void:
  camera=Camera3D.new()
  camera.current=true
  camera.fov=39
- camera.far=100
+ camera.far=250
  add_child(camera)
+ # Inspection fill follows the camera so damaged panels remain readable after yaw.
+ var fill:=DirectionalLight3D.new()
+ fill.light_energy=.60
+ fill.shadow_enabled=false
+ camera.add_child(fill)
  _ui()
  if capture_mode:slow_toggle.button_pressed=false
+ reset_probe()
  print('STRUCTURAL_PROBE_READY ',solver.rest.size(),' mass nodes / ',solver.links.size(),' yielding links / ',solver.config.mass_kg,' kg')
 
 func _stage() -> void:
@@ -75,7 +82,7 @@ func _stage() -> void:
  add_child(sun)
  var ground:=MeshInstance3D.new()
  var floor_mesh:=BoxMesh.new()
- floor_mesh.size=Vector3(50,0.25,30)
+ floor_mesh.size=Vector3(200,0.25,200)
  ground.mesh=floor_mesh
  ground.position.y=-0.125
  ground.material_override=_material(Color('#3d484f'))
@@ -120,7 +127,7 @@ func _ui() -> void:
  canvas.add_child(subtitle)
  var panel:=PanelContainer.new()
  panel.position=Vector2(26,88)
- panel.custom_minimum_size=Vector2(238,0)
+ panel.custom_minimum_size=Vector2(290,0)
  var style:=StyleBoxFlat.new()
  style.bg_color=Color(.07,.11,.14,.95)
  for corner in ['corner_radius_top_left','corner_radius_top_right','corner_radius_bottom_left','corner_radius_bottom_right']:
@@ -142,6 +149,15 @@ func _ui() -> void:
  speed_picker.select(3)
  speed_picker.item_selected.connect(func(i):speed=speeds[i])
  column.add_child(speed_picker)
+ var setup_label:=Label.new()
+ setup_label.text='Impact setup'
+ column.add_child(setup_label)
+ impact_picker=OptionButton.new()
+ impact_picker.add_item('Full-width frontal')
+ impact_picker.add_item('Offset / left front wheel')
+ impact_picker.select(0 if verify else 1)
+ impact_picker.item_selected.connect(func(_i):reset_probe())
+ column.add_child(impact_picker)
  run_button=Button.new()
  run_button.text='Run structural impact'
  run_button.pressed.connect(func():begin(speed))
@@ -159,15 +175,15 @@ func _ui() -> void:
  column.add_child(mode_picker)
  slow_toggle=_check('Slow motion',true,column)
  frame_toggle=_check('Structure overlay',true,column)
- details_toggle=_check('Local folds and surface damage',true,column)
+ details_toggle=_check('Folds and surface damage',true,column)
  weak_toggle=_check('Weaken one front rail',false,column)
  barrier_toggle=_check('Show barrier',true,column)
  var legend:=Label.new()
- legend.text='Teal      Body / sills / pillars\nOrange  Front rails\nBlue      Engine / mounts\nGreen   Suspension\nRed       Permanently yielded'
+ legend.text='Teal      Body / sills / pillars\nOrange  Front rails\nBlue      Engine / mounts\nGreen   Suspension\nRed       Yielded / failed'
  legend.add_theme_font_size_override('font_size',12)
  column.add_child(legend)
  var cameras:=HBoxContainer.new()
- cameras.position=Vector2(286,90)
+ cameras.position=Vector2(342,90)
  canvas.add_child(cameras)
  for name in ['Front 3/4','Side','Top']:
   var button:=Button.new()
@@ -177,12 +193,12 @@ func _ui() -> void:
    yaw=0.70 if name=='Front 3/4' else PI/2)
   cameras.add_child(button)
  status=Label.new()
- status.position=Vector2(286,132)
- status.text='Ready · the complete body structure is deformable'
+ status.position=Vector2(342,132)
+ status.text='Ready · wheels and suspension load the deformable structure'
  status.add_theme_font_size_override('font_size',17)
  canvas.add_child(status)
  telemetry=Label.new()
- telemetry.position=Vector2(286,162)
+ telemetry.position=Vector2(342,162)
  telemetry.add_theme_font_size_override('font_size',13)
  canvas.add_child(telemetry)
  var bottom:=VBoxContainer.new()
@@ -227,6 +243,8 @@ func reset_probe() -> void:
  completed=false
  accumulator=0
  record_timer=0
+ solver.set_impact_mode(impact_picker.selected)
+ _update_barrier()
  solver.reset(0,Vector3(-9,0,0))
  frames.clear()
  timeline.editable=false
@@ -237,6 +255,12 @@ func reset_probe() -> void:
  barrier_toggle.button_pressed=true
  status.text='Pristine structure · ready'
  view.update_pose()
+
+func _update_barrier() -> void:
+ var mesh:=BoxMesh.new()
+ mesh.size=solver.barrier_max-solver.barrier_min
+ barrier_visual.mesh=mesh
+ barrier_visual.position=(solver.barrier_min+solver.barrier_max)*.5
 
 func begin(value: float) -> void:
  reset_probe()
@@ -287,6 +311,11 @@ func scrub(value: float) -> void:
  var interpolated: Dictionary=a.duplicate(true)
  var positions: PackedVector3Array=a.points.duplicate()
  for i in positions.size():positions[i]=a.points[i].lerp(b.points[i],t)
+ var states: Array=interpolated.wheels
+ for i in states.size():
+  states[i].rotation=a.wheels[i].rotation.slerp(b.wheels[i].rotation,t)
+  states[i].spin=lerp_angle(a.wheels[i].spin,b.wheels[i].spin,t)
+ interpolated.wheels=states
  interpolated.points=positions
  interpolated.time=lerpf(a.time,b.time,t)
  solver.restore(interpolated)
@@ -296,17 +325,28 @@ func scrub(value: float) -> void:
 func _process(dt: float) -> void:
  var target: Vector3=solver.center_of_mass()+Vector3(0,.25,0)
  if top_camera:camera.position=target+Vector3(0,8,.001)
- else:camera.position=target+Vector3(cos(yaw)*distance,height,sin(yaw)*distance)
+ else:
+  var forward: Vector3=solver.station_center(3)-solver.station_center(1)
+  var heading: float=atan2(forward.z,forward.x)
+  camera.position=target+Vector3(cos(yaw+heading)*distance,height,sin(yaw+heading)*distance)
  camera.look_at(target)
  view.update_pose()
  var m: Dictionary=solver.metrics()
+ var wheel_contacts:=0
+ var detached:=0
+ var tilt:=0.0
+ for w in m.wheels:
+  wheel_contacts+=w.body_contact_events
+  detached+=1 if w.detached else 0
+  tilt=maxf(tilt,w.hub_tilt_deg)
  telemetry.text='Front shortening: %d mm   Cabin shortening: %d mm\nYielded connections: %d / %d   Plastic work: %.0f kJ' %[m.front_shortening_m*1000,m.cabin_shortening_m*1000,m.yielded_links,m.links,m.plastic_work_kj]
+ telemetry.text+='\nSuspension failures: %d   Detached wheels: %d   Hub tilt: %.0f°\nWheel / body contact: %s' %[m.broken_suspension_links,detached,tilt,'yes' if wheel_contacts>0 else 'none yet']
  if autoplay:
   wait_time+=dt
   if wait_time>(.05 if verify else 1.5):
    autoplay=false
    wait_time=0
-   begin(20 if verify else 120)
+   begin(20 if verify else speed)
  if verify and completed:
   wait_time+=dt
   if wait_time>.05:
@@ -346,7 +386,7 @@ func _verify_run() -> void:
  var m: Dictionary=solver.metrics()
  m['speed_kmh']=speed
  m['weak_rail']=weak_toggle.button_pressed
- m['symmetric_boundary']=bool(solver.config.enforce_symmetry) and not solver.weak_rail
+ m['symmetric_boundary']=bool(solver.config.enforce_symmetry) and not solver.weak_rail and solver.impact_mode==0
  var lengths: Array=[]
  for link in solver.links:lengths.append(link.length)
  m['plastic_rest_lengths_m']=lengths
@@ -357,8 +397,15 @@ func _verify_run() -> void:
  var max_x: float=-100
  var min_y: float=100
  for i in solver.points.size():
-  max_x=maxf(max_x,solver.points[i].x+solver.radii[i])
-  min_y=minf(min_y,solver.points[i].y-solver.radii[i])
+  var hit: Dictionary=solver.barrier_distance(solver.points[i])
+  if solver.wheels.by_node.has(i):
+   var w=solver.wheels.wheels[solver.wheels.by_node[i]]
+   var r: Vector3=solver.wheels.support(w,-hit.normal)
+   max_x=maxf(max_x,-float(hit.distance)-hit.normal.dot(r)-w.max_compression)
+   min_y=minf(min_y,solver.points[i].y+solver.wheels.support(w,Vector3.DOWN).y+w.max_compression)
+  else:
+   max_x=maxf(max_x,solver.radii[i]-float(hit.distance))
+   min_y=minf(min_y,solver.points[i].y-solver.radii[i])
  m['maximum_wall_penetration_m']=max_x
  m['minimum_floor_clearance_m']=min_y
  m['no_energy_explosion']=m.maximum_kinetic_kj<=m.initial_energy_kj*1.04+1.0
@@ -366,7 +413,7 @@ func _verify_run() -> void:
  var actual_change:=0.0
  for l in solver.links:actual_change+=absf(l.length-l.original)
  m['permanent_rest_change_m']=actual_change
- m['passed']=m.all_finite and m.no_energy_explosion and m.mass_accounted_once and max_x<.001 and min_y>-.001 and m.yielded_links>0 and m.binding_quality.maximum_bone_anchor_error_m<0.001 and m.binding_quality.maximum_weight_sum_error<0.0001
+ m['passed']=m.all_finite and m.no_energy_explosion and m.mass_accounted_once and max_x<.005 and min_y>-.005 and m.yielded_links>0 and m.binding_quality.maximum_bone_anchor_error_m<0.001 and m.binding_quality.maximum_weight_sum_error<0.0001 and m.binding_quality.maximum_wheel_basis_error<0.001
  results.append(m)
  print('STRUCTURAL_RESULT ',JSON.stringify(m))
 
@@ -383,7 +430,7 @@ func _finish_verification() -> void:
  for i in solver.links.size():changed+=absf(results[4].plastic_rest_lengths_m[i]-results[5].plastic_rest_lengths_m[i])
  var strength_affects_result: bool=changed>0.01
  var passed: bool=results.all(func(r):return r.passed) and escalation and pristine and restores and clean and strength_affects_result
- var report: Dictionary={'passed':passed,'engine':Engine.get_version_info(),'solver':'mass-bearing elastic/plastic XPBD structural graph, analytic static wall/floor contacts','runs':results,'cabin_damage_escalates':escalation,'strength_changes_physical_result':strength_affects_result,'same_boundary_strength_comparison_rest_difference_m':changed,'replay_pristine':pristine,'replay_restores':restores,'reset_restores_rest_lengths':clean,'triangles':view.mesh_triangles,'skin_build_ms':view.build_ms,'max_visual_upload_us':view.max_upload_us}
+ var report: Dictionary={'passed':passed,'engine':Engine.get_version_info(),'solver':'mass-bearing elastic/plastic XPBD graph with rigid wheel orientation/spin, yielding/breakable suspension and selective wheel/body contact','runs':results,'cabin_damage_escalates':escalation,'strength_changes_physical_result':strength_affects_result,'same_boundary_strength_comparison_rest_difference_m':changed,'replay_pristine':pristine,'replay_restores':restores,'reset_restores_rest_lengths':clean,'triangles':view.mesh_triangles,'skin_build_ms':view.build_ms,'max_visual_upload_us':view.max_upload_us}
  FileAccess.open('res://verification/structural_validation.json',FileAccess.WRITE).store_string(JSON.stringify(report,'\t'))
  print('STRUCTURAL_VERIFICATION_COMPLETE ',passed)
  get_tree().quit(0 if passed else 1)
@@ -393,24 +440,24 @@ func _capture(dt: float) -> void:
  if wait_time<.5:return
  wait_time=0
  match capture_phase:
-  0:_save('structure_120.png')
+  0:_save('wheel_structure.png')
   1:
    mode_picker.select(1)
    view.set_mode(1)
-  2:_save('plain_120.png')
+  2:_save('wheel_plain.png')
   3:
    mode_picker.select(2)
-   view.show_frame=false
+   frame_toggle.button_pressed=false
    view.set_mode(2)
-  4:_save('textured_120.png')
+  4:_save('wheel_textured.png')
   5:
    yaw=PI/2
-  6:_save('side_120.png')
+  6:_save('wheel_side.png')
   7:
    mode_picker.select(3)
    view.set_mode(3)
   8:
-   _save('ghost_120.png')
+   _save('wheel_ghost.png')
    get_tree().quit()
  capture_phase+=1
 

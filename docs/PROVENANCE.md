@@ -1,8 +1,8 @@
 # Snapshot provenance and rights
 
-This repository packages the validated structural Niva crash probe as an independent learning example. Its structural source was copied from a fixed archive before the experimental oriented-wheel/breakable-suspension revision. It does not read or modify the active driving sandbox or crash projects, and it has no runtime dependency on those directories.
+This repository packages the validated structural Niva crash probe as an independent learning example. The original release came from a fixed pre-wheel archive; the current revision includes a coherent copy of the later oriented-wheel/breakable-suspension implementation, reverified in this isolated repository. It does not read or modify the active driving sandbox or crash projects, and it has no runtime dependency on those directories.
 
-The archive hash, runtime paths, topology counts and tested Godot identity are recorded in `handover_manifest.json`. `checksums.json` records hashes of the shipped implementation, definition and model inputs. The checked-in baseline report belongs to this exact structural topology. Fresh local runs produce a separate ignored report.
+The original archive hash, current wheel-source hashes, runtime paths, topology counts and tested Godot identity are recorded in `handover_manifest.json`. `checksums.json` records hashes of the shipped implementation, definition and model inputs. The historical `baseline.json` belongs to the older 175-link topology. The current handover structural and wheel reports belong to the 187-link topology. Fresh local runs produce a separate ignored report.
 
 ## Code and documentation
 
@@ -23,4 +23,4 @@ This is a provenance distinction between the reusable implementation and its ill
 - Rebuilding the model uses the included Blender/Python construction source and prepared maps.
 - Regenerating the reference-derived atlas additionally uses the supplied illustration and optional Pillow/NumPy.
 - Game parameters were fitted for visual prototyping, not measured factory material data.
-- Later wheel experiments are not part of this snapshot; no validation claim is made for them here.
+- The current wheel implementation is included and checked by its own seven-case suite and focused support/detachment tests. Its parameters remain approximate game values.

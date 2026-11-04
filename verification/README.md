@@ -1,7 +1,5 @@
 # Verification output
 
-`baseline.json` is the original passing six-run report from the packaged structural snapshot. Run `python3 tools/demo.py verify` to produce a fresh `structural_validation.json` for this checkout and your selected Godot executable.
+`handover_validation.json` and `handover_wheel_validation.json` record the passing structural and wheel suites run in the isolated published handover. `baseline.json` preserves the older 175-link pre-wheel reference; the current graph has 187 links.
 
-New reports and captured screenshots in this directory are ignored by Git. The committed evidence images live in `docs/images/`. See `docs/VALIDATION.md` for what the checks cover and what they do not establish.
-
-`handover_validation.json` is the fresh passing six-run report produced in the isolated repository before publication.
+Run `python3 tools/demo.py verify` for fresh `structural_validation.json` and `wheel_validation.json` reports. Use `verify-wheels` for only the wheel suite. Generated reports/screenshots are ignored by Git. Committed evidence images live under `docs/images/`. See `docs/VALIDATION.md` for scope and limitations.

@@ -16,7 +16,7 @@ Install dependencies yourself. This repository contains no engine binaries, virt
 1. Clone or download/extract the complete repository. Preserve relative paths.
 2. Import `project.godot` with Godot. Let the GLB and texture import finish.
 3. Press F5 and click **Run structural impact**. For automatic playback use `python3 tools/demo.py run` instead.
-4. Select **Textured car**, disable **Structure overlay** and inspect the body. Compare with **Plain bodywork** and **Bare structure**.
+4. The default is an offset impact at 120 km/h. Choose Full-width frontal for the symmetric bench. Select **Textured car**, disable **Structure overlay** and inspect the body. Compare with **Plain bodywork** and **Bare structure**.
 5. Scrub the replay after the three simulated seconds finish. Reset before changing speed or rail strength.
 
 The Python runner can locate Godot in PATH or in the usual macOS application location. Pass `--godot "..."` for portable Windows executables or nonstandard installations. `Open_Demo.command` and `Open_Demo.bat` call the same runner.
@@ -39,7 +39,9 @@ python3 tools/demo.py verify
 
 `check` regenerates the graph deterministically and checks that its bytes match the committed definition. It also checks mass, link endpoints, GLB mesh naming, Blender-file presence and file hashes. It does not prove dynamic correctness.
 
-`verify` imports with the selected Godot, then runs 20/50/80/120 km/h impacts and two symmetry-free 80 km/h strength comparisons. It exits nonzero if a required check fails. Read the fresh JSON report rather than treating the screenshots as validation. On a slower machine, allow the process to finish; headless playback runs at a fixed presentation rate but still performs the structural substeps.
+`verify` imports with the selected Godot, then runs 20/50/80/120 km/h structural impacts, two symmetry-free 80 km/h strength comparisons, and seven wheel cases including offset impacts and a wheel/body-contact ablation. It exits nonzero if a required check fails. Read the fresh JSON report rather than treating the screenshots as validation. On a slower machine, allow the process to finish; headless playback runs at a fixed presentation rate but still performs the structural substeps.
+
+For only the wheel suite, use `python3 tools/demo.py verify-wheels`. The suite also checks gravity support, equal/opposite internal contact response, detachment continuity, detached-wheel contact, replay and reset. See [wheel setup](WHEEL_PHYSICS.md).
 
 ## Regenerate and tune the structure
 
@@ -57,7 +59,7 @@ After changing physics parameters, run `verify` again. The baseline thresholds i
 python3 tools/demo.py capture
 ```
 
-This uses a GPU SubViewport while hiding the root window. A graphical session is required; do not add `--headless` and expect useful rendered evidence. Images are written under `verification/`. The committed examples under `docs/images/` are from this snapshot's original validation, not generated mockups.
+This uses a GPU SubViewport while starting the main window minimised. A graphical session is required; do not add `--headless` and expect useful rendered evidence. Images are written under `verification/`. The committed examples under `docs/images/` are from this snapshot's original validation, not generated mockups.
 
 ## Common problems
 

@@ -36,7 +36,7 @@ def run(command):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('run', 'verify', 'capture', 'import', 'check'))
+    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'capture', 'import', 'check'))
     parser.add_argument('--godot', help='Godot executable, or set GODOT_BIN')
     parser.add_argument('--no-import', action='store_true', help='Skip import after the first successful run')
     args = parser.parse_args()
@@ -53,13 +53,19 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--editor', '--import', '--quit'])
     if args.command == 'import':
         return
-    if args.command == 'verify':
-        run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
+    if args.command in ('verify', 'verify-wheels'):
         import json
-        report = json.loads((ROOT / 'verification/structural_validation.json').read_text())
+        if args.command == 'verify':
+            run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
+            report = json.loads((ROOT / 'verification/structural_validation.json').read_text())
+            if not report['passed']:
+                raise SystemExit('Structural checks failed; see verification/structural_validation.json')
+            print(f"PASS: {len(report['runs'])} structural cases, skin binding, strength sensitivity, replay and reset.")
+        run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_wheels.gd'])
+        report = json.loads((ROOT / 'verification/wheel_validation.json').read_text())
         if not report['passed']:
-            raise SystemExit('Structural checks failed; see verification/structural_validation.json')
-        print(f"PASS: {len(report['runs'])} crash runs, skin binding, strength sensitivity, replay and reset.")
+            raise SystemExit('Wheel checks failed; see verification/wheel_validation.json')
+        print(f"PASS: {len(report['runs'])} wheel cases, standing support, load transfer, suspension failure, detachment and replay.")
     elif args.command == 'capture':
         run([binary, '--path', str(ROOT), '--script', 'res://scripts/capture_hidden.gd', '--', '--capture-structure'])
     else:

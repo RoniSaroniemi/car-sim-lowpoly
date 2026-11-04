@@ -2,9 +2,9 @@
 
 A small, reproducible Godot crash example: **38 physical nodes → 39 render bones → a textured car with 39,673 render triangles**. Structural links yield permanently; the skeleton carries the large deformation; a shader adds smaller folds, normal detail and surface wear.
 
-![Textured 120 km/h frontal crash](docs/images/textured_120.png)
+![Textured 120 km/h offset crash with wheel interaction](docs/images/wheel_textured.png)
 
-This is an isolated snapshot of the validated structural probe. It includes the model, textures, editable Blender file, procedural model source and six-case verification. The later experimental wheel revision is deliberately outside this release.
+This isolated example includes the latest wheel revision: finite-width oriented wheels, independent hub tilt and rim spin, yielding/breakable suspension, limited tire compression and selective wheel-to-body load transfer. It includes the model, textures, editable Blender file, procedural model source and both structural and wheel verification suites.
 
 ## Start locally
 
@@ -18,7 +18,7 @@ python3 tools/demo.py run
 
 On Windows use `py -3 tools/demo.py run --godot "C:\path\to\Godot.exe"`. On macOS the runner finds `/Applications/Godot.app` automatically. On Linux it looks for `godot` or `godot4` in PATH. Any platform can pass `--godot /path/to/executable` explicitly.
 
-Alternatively, import `project.godot` into Godot and press **F6/F5**, then click **Run structural impact**. Opening the project alone does not auto-start an impact. The runner imports assets and starts a 120 km/h slow-motion crash automatically.
+Alternatively, import `project.godot` into Godot and press **F6/F5**, then click **Run structural impact**. Opening the project alone does not auto-start an impact. The runner imports assets and starts a 120 km/h slow-motion offset crash automatically.
 
 ## Inspect the result
 
@@ -33,7 +33,7 @@ Alternatively, import `project.godot` into Godot and press **F6/F5**, then click
 | Weaken one front rail | Lower one side's strength and release the symmetry boundary |
 | B / Escape | Show barrier / close |
 
-Choose 20, 50, 80 or 120 km/h. Switch inspection views after impact to compare the same state, rather than rerunning a different crash. Slow motion changes playback rate, not the physics timestep.
+Choose 20, 50, 80 or 120 km/h and either Full-width frontal or Offset / left front wheel. The offset case releases the symmetry boundary automatically. Switch inspection views after impact to compare the same state, rather than rerunning a different crash. Slow motion changes playback rate, not the physics timestep.
 
 ## Understand and reproduce it
 
@@ -42,14 +42,15 @@ Choose 20, 50, 80 or 120 km/h. Switch inspection views after impact to compare t
 3. [Adapting the method to another car](docs/ADAPTING_A_CAR.md)
 4. [Editable model and procedural rebuild](model/README.md)
 5. [Validation scope and limitations](docs/VALIDATION.md)
-6. [Snapshot provenance and asset rights](docs/PROVENANCE.md)
+6. [Wheel physics, suspension and contact setup](docs/WHEEL_PHYSICS.md)
+7. [Snapshot provenance and asset rights](docs/PROVENANCE.md)
 
 ```sh
 python3 tools/demo.py check
 python3 tools/demo.py verify
 ```
 
-The second command runs the actual Godot simulation, verifies the native skin binding and checks replay/reset. Results go to `verification/structural_validation.json`. The checked-in `verification/baseline.json` is the original reference result; it is not substituted for a new test run.
+The second command runs six structural cases, seven wheel cases, native skin binding, replay/reset and focused support/detachment checks. Fresh reports go to `verification/structural_validation.json` and `verification/wheel_validation.json`. Checked-in handover reports record the published revision; `verification/baseline.json` preserves the older pre-wheel reference for comparison.
 
 ## What is included
 
@@ -58,6 +59,8 @@ The second command runs the actual Godot simulation, verifies the native skin bi
 | `structure.json` | Editable mass nodes and material/link properties |
 | `scripts/build_structure.py` | Reproducible structural graph generator |
 | `scripts/structure_solver.gd` | Fixed-step elastic/plastic XPBD-style simulation |
+| `scripts/wheel_physics.gd` | Hub orientation, bearing spin, rounded tire contacts and knuckle yielding |
+| `scripts/verify_wheels.gd` | Wheel-specific crash cases, contact ablation and detachment tests |
 | `scripts/structural_skin.gd` | Native Skeleton3D binding and structural visualisation |
 | `scripts/damage_surface.gdshader` | Compression-driven folds and material damage |
 | `scripts/structural_probe.gd` | Test bench, camera, controls, replay and validation |
@@ -68,8 +71,8 @@ The second command runs the actual Godot simulation, verifies the native skin bi
 
 ## Scope
 
-The custom graph owns the car's motion and 1,210 kg mass. Godot renders it. Jolt is selected in project settings, but **Jolt does not solve this deformable car**. Contacts in this baseline are analytic floor and infinite-wall tests. This is a controlled frontal-crash learning example, with approximate game parameters, rather than a driveable vehicle or calibrated crash-engineering model.
+The custom graph owns the car's motion and 1,210 kg mass. Godot renders it. Jolt is selected in project settings, but **Jolt does not solve this deformable car**. Contacts are analytic floor/finite-box tests plus selected wheel-to-structure contacts. This is a controlled frontal-crash learning example, with approximate game parameters, rather than a driveable vehicle or calibrated crash-engineering model.
 
-Wheels are mass nodes with spherical contact proxies and yielding supports in this snapshot. General-world collisions, realistic spinning wheel assemblies, self-contact, structural separation, glass debris, sheet tearing and integration with the driving sandbox remain future work. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
+Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, body-panel separation, glass debris, sheet tearing and integration with the driving sandbox remain future work. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
 
 Code and documentation: [MIT](LICENSE). See [asset provenance](docs/PROVENANCE.md) for reference imagery and vehicle marks.

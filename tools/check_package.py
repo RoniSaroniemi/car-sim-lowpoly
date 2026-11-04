@@ -13,11 +13,19 @@ before = structure_path.read_bytes()
 subprocess.run([sys.executable, str(root / 'scripts/build_structure.py')], check=True, cwd=root)
 assert structure_path.read_bytes() == before, 'Generated structure differs from the checked-in definition'
 s = json.loads(before)
-assert len(s['nodes']) == 38 and len(s['links']) == 175
+assert len(s['nodes']) == 38 and len(s['links']) == 187
 assert abs(sum(n['mass_kg'] for n in s['nodes']) - 1210) < 1e-6
 assert sum(s['nodes'][i]['mass_kg'] for i in s['engine_nodes']) == 190
 assert all(l['stiffness_n_per_m'] > 0 and l['yield_n'] > 0 for l in s['links'])
 assert all(0 <= l[k] < len(s['nodes']) for l in s['links'] for k in ('a', 'b'))
+assert s['schema_version'] == 3 and len(s['wheel_assemblies']) == 4
+assert {w['node'] for w in s['wheel_assemblies']} == set(s['wheel_nodes'])
+for wheel in s['wheel_assemblies']:
+    anchors = [l for l in s['links'] if l['a'] == wheel['node'] and 'wheel_anchor' in l]
+    assert len(anchors) == 6
+    assert all(l['break_force_n'] > l['yield_n'] and l['break_delay_s'] > 0 for l in anchors)
+    assert wheel['rim_radius_m'] < wheel['radius_m'] and wheel['half_width_m'] > 0
+    assert all(0 <= c[k] < len(s['nodes']) for c in wheel['body_capsules'] for k in ('a', 'b'))
 payload = (root / 'assets/Niva_2121_LOD0.glb').read_bytes()
 magic, version, length = struct.unpack_from('<III', payload)
 assert magic == 0x46546C67 and version == 2 and length == len(payload)

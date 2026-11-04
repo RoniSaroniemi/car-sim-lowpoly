@@ -11,6 +11,7 @@ verification/*
 !verification/README.md
 !verification/baseline.json
 !verification/handover_validation.json
+!verification/handover_wheel_validation.json
 model/previews/*
 !model/previews/.gitkeep
 model/Niva_2121_LOD*.glb

@@ -8,6 +8,7 @@ var materials: Array[ShaderMaterial]=[]
 var frame_lines: MeshInstance3D
 var node_instances: MultiMeshInstance3D
 var engine_visual: MeshInstance3D
+var wheel_visuals: Array[Node3D]=[]
 var bone_frames: Array[Basis]=[]
 var engine_rest_frame: Basis
 var engine_rest_center: Vector3
@@ -286,6 +287,24 @@ func _make_frame() -> void:
  node_instances.multimesh=multi
  node_instances.material_override=material
  add_child(node_instances)
+ for w in solver.wheels.wheels:
+  var assembly:=Node3D.new()
+  add_child(assembly)
+  wheel_visuals.append(assembly)
+  for is_hub in [false,true]:
+   var visual:=MeshInstance3D.new()
+   var cylinder:=CylinderMesh.new()
+   cylinder.top_radius=w.rim_radius if is_hub else w.radius
+   cylinder.bottom_radius=cylinder.top_radius
+   cylinder.height=w.half_width*2+(.008 if is_hub else 0)
+   cylinder.radial_segments=20
+   visual.mesh=cylinder
+   visual.rotation.x=PI/2
+   var mat:=StandardMaterial3D.new()
+   mat.albedo_color=Color('#a4b0b0') if is_hub else Color('#22282a')
+   mat.roughness=.8
+   visual.material_override=mat
+   assembly.add_child(visual)
  engine_visual=MeshInstance3D.new()
  var box:=BoxMesh.new()
  box.size=Vector3(.57,.29,.44)
@@ -307,8 +326,8 @@ func update_pose() -> void:
    rotation=frames[i/4]
   elif i<30:
    rotation=frames[3]
-  elif i>=34:
-   rotation=frames[4 if i>=36 else 1]
+  elif solver.wheels.by_node.has(i):
+   rotation=solver.wheels.render_basis(solver.wheels.by_node[i])
   else:
    rotation=_engine_frame()*engine_rest_frame.inverse()
   skeleton.set_bone_pose_position(i,solver.points[i])
@@ -334,6 +353,10 @@ func update_pose() -> void:
   m.set_shader_parameter('contact_sections',contact)
  if show_frame or mode==0 or mode==3:
   _update_frame()
+ for i in wheel_visuals.size():
+  var w=solver.wheels.wheels[i]
+  wheel_visuals[i].position=solver.points[w.node]
+  wheel_visuals[i].basis=solver.wheels.render_basis(i)
  engine_visual.position=_engine_center()
  engine_visual.basis=engine_basis
  max_upload_us=maxi(max_upload_us,Time.get_ticks_usec()-began)
@@ -342,6 +365,7 @@ func _update_frame() -> void:
  var mesh:=ImmediateMesh.new()
  mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
  for l in solver.links:
+  if l.broken:continue
   if l.kind in ['front_brace','cabin_brace','bend']:
    continue
   if l.kind=='ring' and (l.a%2 != l.b%2) and ((l.a%4>=2)!=(l.b%4>=2)):
@@ -349,6 +373,7 @@ func _update_frame() -> void:
   if l.kind=='pillar' and mini(l.a,l.b) in [8,9]:
    continue
   var a: Vector3=solver.points[l.a]
+  if l.wheel_index>=0:a+=solver.wheels.anchor(l.wheel_index,l.wheel_anchor)
   var b: Vector3=solver.points[l.b]
   var n: Vector3=(b-a).normalized()
   var tangent: Vector3=n.cross(Vector3.UP).normalized()
@@ -358,7 +383,7 @@ func _update_frame() -> void:
   var color:=Color('#6bbeb0')
   if l.kind in ['front_rail','upper_front']:color=Color('#dda35b')
   elif l.kind=='engine_rigid' or l.kind=='engine_mount':color=Color('#659ec5')
-  elif l.kind=='suspension':color=Color('#bdca79')
+  elif l.kind in ['suspension','steering_link','upper_arm']:color=Color('#bdca79')
   color=color.lerp(Color('#db493c'),clampf(float(l.damage),0,1))
   for k in 4:
    var p: Vector3=tangent*cos(k*TAU/4)*r+bitangent*sin(k*TAU/4)*r
@@ -386,10 +411,17 @@ func set_mode(value: int) -> void:
  frame_lines.visible=show_frame or mode==0 or mode==3
  node_instances.visible=frame_lines.visible
  engine_visual.visible=frame_lines.visible
+ for wheel_visual in wheel_visuals:wheel_visual.visible=mode==0 or mode==3
  update_pose()
 
 func binding_quality() -> Dictionary:
  var error:=0.0
  for i in solver.points.size():
   error=maxf(error,skeleton.get_bone_global_pose(i).origin.distance_to(solver.points[i]))
- return {'maximum_bone_anchor_error_m':error,'maximum_weight_sum_error':max_weight_error,'physical_nodes':solver.points.size(),'render_bones':skeleton.get_bone_count(),'rigid_engine_bone':bone_rest.size()-1}
+ var wheel_error:=0.0
+ for i in solver.wheels.wheels.size():
+  var w=solver.wheels.wheels[i]
+  var actual: Basis=skeleton.get_bone_global_pose(w.node).basis
+  var expected: Basis=solver.wheels.render_basis(i)
+  wheel_error=maxf(wheel_error,maxf(actual.x.distance_to(expected.x),maxf(actual.y.distance_to(expected.y),actual.z.distance_to(expected.z))))
+ return {'maximum_wheel_basis_error':wheel_error,'maximum_bone_anchor_error_m':error,'maximum_weight_sum_error':max_weight_error,'physical_nodes':solver.points.size(),'render_bones':skeleton.get_bone_count(),'rigid_engine_bone':bone_rest.size()-1}

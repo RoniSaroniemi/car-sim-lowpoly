@@ -1,10 +1,10 @@
 {
   "name": "car-sim-lowpoly",
-  "snapshot": "validated structural probe before experimental wheel revision",
+  "snapshot": "structural probe with oriented wheel assemblies, bearing spin, breakable suspension and selective wheel/body contact",
   "source_archive_sha256": "4cad2927be31cd548e837c3e3dbe416bc67d5521775dd0c8a9c87dc3a9b4ec38",
   "godot_tested": "4.7.2.stable.official.ed1daf0bf",
   "nodes": 38,
-  "links": 175,
+  "links": 187,
   "render_bones": 39,
   "render_triangles": 39673,
   "mass_kg": 1210,
@@ -15,9 +15,29 @@
   "validation_report": "verification/structural_validation.json",
   "runtime_model": "assets/Niva_2121_LOD0.glb",
   "editable_model": "model/Niva_2121.blend",
-  "handover_verified_utc": "2026-11-04T19:52:54.269603+00:00",
   "handover_validation": "verification/handover_validation.json",
   "handover_validation_passed": true,
   "optional_model_rebuild_verified": "Blender 4.5.9 LTS; fresh temporary copy; 32947 LOD0 / 16123 LOD1 triangles",
-  "cabin_fit_tests_passed": 7
+  "cabin_fit_tests_passed": 7,
+  "schema_version": 3,
+  "wheel_assemblies": 4,
+  "suspension_links": 24,
+  "wheel_validation_report": "verification/wheel_validation.json",
+  "wheel_snapshot_sha256": {
+    "structure.json": "8672a84a1cf880881894adfec39e045ba6df0a4b53b4a597070feb419a79dafa",
+    "scripts/build_structure.py": "ee30f8eaa4195642d8d5e9d9d30b53c9bc90403f6ac3e3b1174d6a0ee344c212",
+    "scripts/structure_solver.gd": "badff84f8cbcca9162cd1fb89ecbd5c8ca5779a115289032712b07745628f8ba",
+    "scripts/structural_skin.gd": "ab29b5dc13d8dc319b8f197b2b11bffbeac9d0f07be1157705e3813694306da6",
+    "scripts/structural_probe.gd": "bbf5dd4581f0b7f3ef7609067bd5def7828c0166adc7b24251defa36bea9875a",
+    "scripts/wheel_physics.gd": "dc3b613c3fd34e67b27a7d94ad3fba08e117bec3fcce656b99ee70b803ad5c7c",
+    "scripts/wheel_physics.gd.uid": "546b1defc78ec5f3adfe0465723d651ea0728a9a3178299b188db6a0e74bcb6d",
+    "scripts/verify_wheels.gd": "f72524f5942912884059e2241be4a3ce4eea45af94c62cf71a463d97596e2804"
+  },
+  "handover_verified_utc": "2026-11-04T20:03:46.388246+00:00",
+  "handover_wheel_validation": "verification/handover_wheel_validation.json",
+  "handover_wheel_validation_passed": true,
+  "verification_cases": {
+    "structural": 6,
+    "wheel": 7
+  }
 }

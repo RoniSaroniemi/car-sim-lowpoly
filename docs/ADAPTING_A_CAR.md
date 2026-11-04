@@ -16,7 +16,7 @@ Separate these concerns before building a dense mesh:
 
 - Deformable body shell: rails, sills, floor, pillars, roof and crossmembers.
 - Stiffer mass clusters: engine/gearbox and other concentrated heavy components.
-- Wheels and suspension attachment points.
+- Oriented wheel assemblies, six hub hardpoints per wheel, yielding angular knuckles and selected nearby body-contact segments.
 - Render-only small details: trim, handles, grille internals, markings and fine seams.
 
 Keep rigid components out of broadly blended shell weights. Existing doors, bonnet and tailgate can remain part of the deformation skin initially; opening hinges, thickness and later detachment need their own coherent ownership. This crash example does not operate the source GLB's panel animations or lights.
@@ -41,7 +41,7 @@ The demo and validation hardcode 1,210 kg in places. Update the assertions when 
 
 ## 5. Tune basic support before crashes
 
-Set moderate connection stiffness and damping, then check that the graph remains supported under gravity. Watch the bare structure. A car that folds or oscillates uncontrollably before impact needs geometry/constraint fixes before material tuning.
+Set moderate connection stiffness and damping, then check that the graph remains supported under gravity. Watch the bare structure. Run the wheel standing-support check before crash tuning; it catches hubs collapsing under gravity without an impact. A car that folds or oscillates uncontrollably before impact needs geometry/constraint fixes before material tuning.
 
 Use a low-speed frontal run first. Check that connections rebound elastically below yield and retain rest-length changes above yield. Increase speed gradually. Tune the crumple-zone load path before changing the cabin; inspect whether engine inertia and mounts contribute as intended.
 
@@ -93,6 +93,7 @@ These locations currently rely on Niva-specific topology:
 |---|---|
 | `build_structure.py` | Seven stations, four nodes per station, explicit engine/pillar/wheel connections |
 | `structure_solver.gd` | Station indexing, shortening metrics and paired-node symmetry map |
+| `wheel_physics.gd` / `wheel_assemblies` | Tire dimensions, inertia approximation, body-frame anchors and contact capsules; see [wheel configuration](WHEEL_PHYSICS.md) |
 | `structural_skin.gd` | Seven frames, mesh names, engine region, floor height and refinement limits |
 | `damage_surface.gdshader` | Seven section coordinates and fixed fold scale |
 | `structural_probe.gd` | Speeds, camera framing and validation expectations |
