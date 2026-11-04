@@ -3,9 +3,20 @@
   "structure": "res://structure.json",
   "model": "res://assets/Niva_2121_LOD0.glb",
   "dynamics": {
-    "driven_wheels": [0, 1, 2, 3],
-    "steering_wheels": [2, 3],
-    "handbrake_wheels": [0, 1],
+    "driven_wheels": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "steering_wheels": [
+      2,
+      3
+    ],
+    "handbrake_wheels": [
+      0,
+      1
+    ],
     "drive_torque_nm": 3500.0,
     "power_w": 220000.0,
     "brake_torque_nm": 6500.0,
@@ -16,6 +27,14 @@
     "steering_rate_deg_s": 55.0,
     "high_speed_steering_fraction": 0.35,
     "tire_friction": 0.65,
-    "aero_drag_n_per_mps2": 0.48
+    "aero_drag_n_per_mps2": 0.48,
+    "rolling_resistance": 0.015
+  },
+  "adaptive": {
+    "lookahead_s": 0.18,
+    "deformation_sleep_energy_j": 2.0,
+    "energy_quiet_s": 0.25,
+    "false_alarm_energy_j": 5.0,
+    "forecast_clear_s": 0.15
   }
 }

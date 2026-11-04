@@ -70,6 +70,10 @@ func step(dt: float) -> void:
   var brake_torque: float=brake*float(parameters.brake_torque_nm)/g.wheels.wheels.size()
   if index in parameters.handbrake_wheels:
    brake_torque+=handbrake*float(parameters.handbrake_torque_nm)/parameters.handbrake_wheels.size()
+  if g.contact_floor[w.node]:
+   # Bearing/tire rolling loss, shared by full and compact modes. This arrests
+   # the small roll induced while the initially unloaded suspension settles.
+   brake_torque+=float(parameters.get('rolling_resistance',.015))*float(g.config.mass_kg)*float(g.config.gravity_mps2)*w.radius/g.wheels.wheels.size()
   w.spin_speed=move_toward(w.spin_speed,0,brake_torque*dt/w.inertia_spin)
  # External aerodynamic drag, distributed by mass without an extra chassis.
  var drag: Vector3=-velocity*velocity.length()*float(parameters.aero_drag_n_per_mps2)

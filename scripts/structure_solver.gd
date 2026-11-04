@@ -29,7 +29,13 @@ class Edge:
  var peak_force:=0.0
  var broken:=false
 
+var compact: RefCounted
+var compact_active:=false
+var wake_requested: String=''
+var wake_hold_seconds:=0.0
 var wheels: RefCounted
+var terrain: RefCounted
+var floor_normals:=PackedVector3Array()
 var barrier_enabled:=true
 var impact_mode:=0
 var barrier_min:=Vector3(0,0,-2.25)
@@ -100,12 +106,45 @@ func setup(definition_path: String='res://structure.json') -> void:
  contact_wall.resize(rest.size())
  contact_floor.resize(rest.size())
  wall_normals.resize(rest.size())
+ floor_normals.resize(rest.size())
  reset(0)
+
+func floor_sample(p: Vector3) -> Vector4:
+ return terrain.sample(p) if terrain!=null else Vector4(0,1,0,0)
+
+func point(i: int) -> Vector3:
+ return compact.point(i) if compact_active and compact.mask[i] else points[i]
+
+func point_velocity(i: int) -> Vector3:
+ return compact.point_velocity(i) if compact_active and compact.mask[i] else velocities[i]
+
+func constraint_weight(a: int,b: int,ga: Vector3,gb: Vector3) -> float:
+ if compact_active:return compact.constraint_weight(a,b,ga,gb)
+ return inverse_masses[a]*ga.length_squared()+(inverse_masses[b]*gb.length_squared() if b>=0 else 0.0)
+
+func correct_constraint(a: int,b: int,ga: Vector3,gb: Vector3,impulse: float,velocity_only: bool=false) -> void:
+ if compact_active:
+  compact.correct(a,b,ga,gb,impulse,velocity_only)
+  return
+ if velocity_only:
+  velocities[a]+=ga*(inverse_masses[a]*impulse)
+  if b>=0:velocities[b]+=gb*(inverse_masses[b]*impulse)
+ else:
+  points[a]+=ga*(inverse_masses[a]*impulse)
+  if b>=0:points[b]+=gb*(inverse_masses[b]*impulse)
+
+func request_full_solve(reason: String,hold_seconds: float=0) -> void:
+ wake_requested=reason
+ wake_hold_seconds=maxf(wake_hold_seconds,hold_seconds)
 
 func reset(speed_kmh: float,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -> void:
  points=rest.duplicate()
  velocities.resize(rest.size())
  old_points.resize(rest.size())
+ contact_wall.fill(0)
+ contact_floor.fill(0)
+ wall_normals.fill(Vector3.ZERO)
+ floor_normals.fill(Vector3.UP)
  for i in points.size():
   points[i]+=start
   velocities[i]=Vector3(speed_kmh/3.6,0,0)
@@ -167,15 +206,14 @@ func step(dt: float) -> void:
    if inward<0:
     last_impulse-=masses[i]*inward
     velocities[i]-=wall_normals[i]*inward
-  if contact_floor[i] and velocities[i].y<0:
-   velocities[i].y=0
+  if contact_floor[i]:
+   var inward: float=velocities[i].dot(floor_normals[i])
+   if inward<0:velocities[i]-=floor_normals[i]*inward
   if contact_floor[i]:
    var is_wheel: bool=config.nodes[i].group=='wheel'
    var friction: float=0.03 if is_wheel else 0.7
-   var flat:=Vector2(velocities[i].x,velocities[i].z)
-   flat=flat.move_toward(Vector2.ZERO,friction*float(config.gravity_mps2)*dt)
-   velocities[i].x=flat.x
-   velocities[i].z=flat.y
+   var tangent: Vector3=velocities[i]-floor_normals[i]*velocities[i].dot(floor_normals[i])
+   velocities[i]+=tangent.move_toward(Vector3.ZERO,friction*float(config.gravity_mps2)*dt)-tangent
  wheels.finish_step(dt)
  _damping(dt)
  _break_links(dt)
@@ -192,12 +230,12 @@ func _solve_link(l: Edge,dt: float) -> void:
  var b: int=l.b
  var anchor:=Vector3.ZERO
  if l.wheel_index>=0:anchor=wheels.anchor(l.wheel_index,l.wheel_anchor)
- var d: Vector3=points[b]-points[a]-anchor
+ var d: Vector3=point(b)-point(a)-anchor
  var distance: float=d.length()
  if distance<0.00001:
   return
  var normal: Vector3=d/distance
- var w: float=l.weight_sum
+ var w: float=constraint_weight(a,b,-normal,normal) if compact_active else l.weight_sum
  if l.wheel_index>=0:w+=wheels.rotational_weight(l.wheel_index,anchor,normal)
  var alpha: float=l.compliance/(dt*dt)
  var c: float=distance-l.length
@@ -205,6 +243,7 @@ func _solve_link(l: Edge,dt: float) -> void:
  var trial: float=l.lambda+dl
  var force: float=absf(trial)/(dt*dt)
  l.peak_force=maxf(l.peak_force,force)
+ if compact_active and force>l.yield_n*.8:compact.wake_reason='suspension_load'
  var max_plastic: float=l.max_compression if trial>0 else l.max_extension
  var amount: float=absf(l.length-l.original)/maxf(0.001,l.original*max_plastic)
  var yield_n: float=l.yield_n*(1.0+hardening*amount)
@@ -227,8 +266,10 @@ func _solve_link(l: Edge,dt: float) -> void:
    c=distance-new_length
    dl=(-c-alpha*l.lambda)/(w+alpha)
  l.lambda+=dl
- points[a]-=normal*(inverse_masses[a]*dl)
- points[b]+=normal*(inverse_masses[b]*dl)
+ if compact_active:correct_constraint(a,b,-normal,normal,dl)
+ else:
+  points[a]-=normal*(inverse_masses[a]*dl)
+  points[b]+=normal*(inverse_masses[b]*dl)
  if l.wheel_index>=0:wheels.correct_rotation(l.wheel_index,anchor,normal,-dl)
 
 func set_impact_mode(value: int) -> void:
@@ -265,9 +306,13 @@ func _contacts() -> void:
     contact_wall[i]=1
     wall_normals[i]=hit.normal
     p+=hit.normal*(radii[i]-float(hit.distance))
-  if p.y<radii[i]:
+  var surface: Vector4=floor_sample(p)
+  var floor_normal:=Vector3(surface.x,surface.y,surface.z)
+  var distance: float=(p.y-surface.w)*surface.y
+  if distance<radii[i]:
    contact_floor[i]=1
-   p.y=radii[i]
+   floor_normals[i]=floor_normal
+   p+=floor_normal*(radii[i]-distance)
   points[i]=p
 
 func _break_links(dt: float) -> void:
@@ -284,7 +329,8 @@ func _break_links(dt: float) -> void:
    wheels.detach(wheel,'suspension')
 
 func _damping(dt: float) -> void:
- for l in links:
+ var active_links: Array=compact.suspension_links if compact_active else links
+ for l in active_links:
   if l.broken:continue
   var a: int=l.a
   var b: int=l.b
@@ -293,14 +339,16 @@ func _damping(dt: float) -> void:
   if l.wheel_index>=0:
    anchor=wheels.anchor(l.wheel_index,l.wheel_anchor)
    anchor_velocity=wheels.anchor_velocity(l.wheel_index,anchor)
-  var normal: Vector3=(points[b]-points[a]-anchor).normalized()
-  var w: float=l.weight_sum
+  var normal: Vector3=(point(b)-point(a)-anchor).normalized()
+  var w: float=constraint_weight(a,b,-normal,normal) if compact_active else l.weight_sum
   if l.wheel_index>=0:w+=wheels.rotational_weight(l.wheel_index,anchor,normal)
-  var relative: float=(velocities[b]-velocities[a]-anchor_velocity).dot(normal)
-  var fraction: float=l.damping_fraction
+  var relative: float=(point_velocity(b)-point_velocity(a)-anchor_velocity).dot(normal)
+  var fraction: float=1.0-exp(-l.damping_ns_per_m*w*dt) if compact_active else l.damping_fraction
   var impulse: float=-relative*fraction/w
-  velocities[a]-=normal*(inverse_masses[a]*impulse)
-  velocities[b]+=normal*(inverse_masses[b]*impulse)
+  if compact_active:correct_constraint(a,b,-normal,normal,impulse,true)
+  else:
+   velocities[a]-=normal*(inverse_masses[a]*impulse)
+   velocities[b]+=normal*(inverse_masses[b]*impulse)
   if l.wheel_index>=0:wheels.damp_rotation(l.wheel_index,anchor,-normal*impulse)
 
 func kinetic_energy() -> float:

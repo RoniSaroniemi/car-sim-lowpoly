@@ -52,18 +52,20 @@ for front,x,s in [(False,-1.10,1),(True,1.10,4)]:
   anchors=[[-.11,-.045,-side*.045],[.11,-.045,-side*.045],[0,.13,-side*.045],[.14,.025,-side*.075]]
   for index,(target,anchor) in enumerate(zip(targets,anchors)):
    link(w,target,'steering_link' if index==3 else 'suspension',90000 if index==3 else 160000,14000 if index==3 else 26000,.38,.35,450,
-        wheel_anchor=anchor,break_force_n=48000 if index==3 else 90000,break_delay_s=.012,break_plastic=.90)
+        wheel_anchor=anchor,break_force_n=48000 if index==3 else 90000,break_delay_s=.035,break_plastic=.90)
   # Upper-arm support closes the otherwise free camber mechanism of a hub
   # represented by only four distance constraints (five non-spin freedoms).
   for target,anchor in [((s+1)*4+j+2,[.10,.18,-side*.07]),((s-1)*4+j+2,[-.10,.18,-side*.07])]:
-   link(w,target,'upper_arm',350000,30000,.30,.25,600,wheel_anchor=anchor,break_force_n=110000,break_delay_s=.012,break_plastic=.90)
+   link(w,target,'upper_arm',350000,30000,.30,.25,600,wheel_anchor=anchor,break_force_n=110000,break_delay_s=.035,break_plastic=.90)
   # Only nearby load-bearing members; deliberately leave the wheel opening free.
   segments=([[8+j,12+j],[12+j,14+j],[18+j,22+j]] if front else [[j,j+2],[8+j,10+j],[2+j,6+j]])
+  # Retain normal ramp landings; only sustained overload or catastrophic
+  # permanent mount displacement releases the six supports as one assembly.
   assemblies.append(dict(node=w,radius_m=.390,rim_radius_m=.255,half_width_m=.105,max_tire_compression_m=.045,
                          contact_stiffness_n_per_m=320000,axle_body_nodes=[s*4,s*4+1,s*4+2,s*4+3],
-                         knuckle_stiffness_nm_per_rad=24000,knuckle_yield_nm=2500,knuckle_break_nm=9500,
+                         knuckle_stiffness_nm_per_rad=24000,knuckle_yield_nm=6500,knuckle_break_nm=18000,
                          rigid_mount_until_yield=True,lateral_yield_n=18000,lateral_break_n=90000,
-                         mount_break_delay_s=.012,detach_alignment_deg=35,detach_lateral_offset_m=.12,
+                         mount_break_delay_s=.035,detach_alignment_deg=65,detach_lateral_offset_m=.20,
                          body_capsules=[dict(a=a,b=b,radius_m=.045)for a,b in segments]))
 cfg=dict(schema_version=2,mass_kg=sum(n['mass_kg']for n in nodes),enforce_symmetry=True,fixed_step_s=1/480,iterations=8,gravity_mps2=9.81,hardening=0.35,nodes=nodes,links=links,station_x=[s[0]for s in stations],station_top_y=[s[1]for s in stations],station_half_width=[s[2]for s in stations],engine_nodes=engine,wheel_nodes=wheels,aux_roof_nodes=roof,description='Controlled static-wall structural bench. Mass-bearing nodes and elastic/plastic XPBD links own all car motion. Godot renders the same graph through native skeletal skinning; no second rigid chassis receives the impact.',limits='Approximate structure and game material parameters, not factory crash certification. Analytic wall/floor contacts, no tearing, glass particles, general world integration or panel self-contact.')
 cfg.update(schema_version=3,wheel_assemblies=assemblies,limits='Approximate game structure, not certified crash prediction. Analytic static box/floor and selective wheel/body contacts; no general world integration, panel self-contact or tearing.')

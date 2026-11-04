@@ -25,17 +25,20 @@ python3 tools/demo.py run
 python3 tools/demo.py verify
 ```
 
-`drive` opens a flat practice area with the same finite-box crash barrier that
+`drive` opens a practice area with two smooth ramps with the same finite-box crash barrier that
 the custom solver supports. W accelerates, S brakes, A/D steer left/right,
 Space applies the rear handbrake, Q selects forward/reverse, R repairs/resets,
-C changes camera, T runs the aligned/bent/detached wheel-mount test, and 1/3 switches structure/textured views. You can drive into
+C changes camera, H stages a head-on approach, J/K stage the two jumps, T runs the aligned/bent/detached wheel-mount test, and 1/3 switches structure/textured views. You can drive into
 the barrier, inspect the wreck, and continue applying controls without resetting
 its damage. Opening a new scene or pressing R creates a pristine state.
 
 This is the first driving scene for the deformable vehicle. It is separate from
 the earlier VehicleBody3D/Jolt demo: no older project folder is needed. The course
-currently has a flat analytic floor and one static box; ramps, halfpipes and
-arbitrary Jolt-world contact are not ported into this scene yet.
+has a shared analytic floor/ramp heightfield and one static box. Halfpipes and
+arbitrary Jolt-world contact remain future work. The [adaptive runtime](ADAPTIVE_SIMULATION.md)
+uses a rigid body aggregate during ordinary driving and wakes the deformable
+solver before forecast impacts; cleared forecasts and low residual energy can
+return it to the lighter state.
 
 Actual driving and post-impact frames from the shared runtime:
 
@@ -62,13 +65,13 @@ var vehicle = preload('res://scripts/vehicle_simulation.gd').new()
 vehicle.setup('res://vehicles/niva.json', true) # enable driving forces
 vehicle.reset(0, Vector3(-25, 0, 0))
 vehicle.set_controls(throttle, brake, steering, handbrake)
-vehicle.advance(frame_delta) # fixed structural substeps
+vehicle.advance(frame_delta) # adaptive fixed substeps
 ```
 
 The crash scene calls `step(fixed_delta)` so it can record every substep and hold
 at three seconds. The driving scene calls `advance(elapsed)` for continuous
-operation. Both enter the same `step` implementation with the profile's
-structural timestep. The tests compare 30 Hz and 120 Hz frame chunking.
+operation. The runtime selects 120 Hz aggregate driving or 480 Hz structural
+substeps; a passive bench remains on the full structural baseline. The tests compare 30 Hz and 120 Hz frame chunking.
 
 `setup(..., false)` is the controlled passive crash baseline: initial velocity,
 gravity, contacts and material deformation, with motor/brake/aero controls
@@ -128,8 +131,9 @@ capture is `python3 tools/demo.py capture-driving`; it writes a driving frame
 and a post-impact frame. These render the real scene with scripted controls;
 headless reports alone do not establish visual quality. The existing Linux CI
 command runs the new checks too. Rendering and actual multi-car performance
-remain separate checks; there is no second optimized driving solver to drift
-from the crash implementation.
+remain separate checks. Aggregate/full handoff, forecast recovery and energy
+cutoff have their own adaptive checks; the same wheel module and state are used
+in both modes. Baked playback is a [separate controlled probe](BAKED_CRASH_PROBE.md).
 
 Wheel mounts now restrain sideways drift and unwanted tilt until yield. Strong
 loads create permanent alignment/offset; the configured damage/load limits

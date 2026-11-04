@@ -29,7 +29,7 @@ func _run() -> void:
  checks['small_load_no_lateral_flex']=absf(small.lateral_error_m)<.001
  checks['small_load_no_permanent_change']=absf(small.permanent_lateral_offset_m)<.00001 and small.permanent_alignment_deg<.01 and not small.detached
  var bent=setup_bench()
- load_wheel(bent,0,4000,.0125)
+ load_wheel(bent,0,10000,.0125)
  var loaded: Dictionary=bent.wheels.metrics()[3]
  load_wheel(bent,0,0,.08)
  var unloaded: Dictionary=bent.wheels.metrics()[3]
@@ -38,7 +38,7 @@ func _run() -> void:
  checks['strong_load_permanently_twists_mount']=loaded.permanent_alignment_deg>.05 and not loaded.detached
  checks['permanent_twist_survives_unloading']=unloaded.permanent_alignment_deg>.05 and not unloaded.detached
  var twisted_off=setup_bench()
- load_wheel(twisted_off,0,8000,.06)
+ load_wheel(twisted_off,0,30000,.10)
  var angular_failure: Dictionary=twisted_off.wheels.metrics()[3]
  observations['angular_failure']=angular_failure
  checks['excessive_twist_releases_complete_wheel']=angular_failure.detached and angular_failure.detach_reason in ['permanent_alignment','angular_overload'] and twisted_off.wheels.wheels[3].links.all(func(l):return l.broken)

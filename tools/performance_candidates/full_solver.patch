@@ -1,0 +1,174 @@
+--- a/scripts/structure_solver.gd
++++ b/scripts/structure_solver.gd
+@@ -28,7 +28,20 @@
+  var overload_time:=0.0
+  var peak_force:=0.0
+  var broken:=false
+-
++ var alpha_cached: float
++ var denominator_cached: float
++ var minimum_length: float
++ var maximum_length: float
++ var compression_scale: float
++ var extension_scale: float
++ var compression_damage_scale: float
++ var extension_damage_scale: float
++ var weak_eligible: bool
++
++var cached_dt: float=-1
++var reversed_links: Array[Edge]=[]
++var body_nodes:=PackedInt32Array()
++var suspension_links: Array[Edge]=[]
+ var compact: RefCounted
+ var compact_active:=false
+ var wake_requested: String=''
+@@ -75,6 +88,7 @@
+   masses.append(n.mass_kg)
+   inverse_masses.append(1.0/float(n.mass_kg))
+   radii.append(n.radius_m)
++  if n.group!='wheel':body_nodes.append(rest.size()-1)
+  wheels=WheelPhysics.new()
+  wheels.setup(self)
+  for raw in config.links:
+@@ -98,8 +112,18 @@
+   l.compliance=1.0/l.stiffness_n_per_m
+   l.weight_sum=inverse_masses[l.a]+inverse_masses[l.b]
+   l.damping_fraction=1.0-exp(-l.damping_ns_per_m*l.weight_sum*float(config.fixed_step_s))
++  l.minimum_length=l.original*(1.0-l.max_compression)
++  l.maximum_length=l.original*(1.0+l.max_extension)
++  l.compression_scale=maxf(0.001,l.original*l.max_compression)
++  l.extension_scale=maxf(0.001,l.original*l.max_extension)
++  l.compression_damage_scale=maxf(0.001,l.original*maxf(0.05,l.max_compression))
++  l.extension_damage_scale=maxf(0.001,l.original*maxf(0.05,l.max_extension))
++  l.weak_eligible=l.kind in ['front_rail','front_brace','sill'] and rest[l.a].z>0 and rest[l.b].z>0
+   links.append(l)
++  if l.wheel_index>=0:suspension_links.append(l)
+   if l.wheel_index>=0:wheels.wheels[l.wheel_index].links.append(l)
++ reversed_links.assign(links)
++ reversed_links.reverse()
+  hardening=config.hardening
+  node_damage.resize(rest.size())
+  node_contact.resize(rest.size())
+@@ -174,6 +198,11 @@
+ 
+ func step(dt: float) -> void:
+  var began: int=Time.get_ticks_usec()
++ if dt!=cached_dt:
++  cached_dt=dt
++  for l in links:
++   l.alpha_cached=l.compliance/(dt*dt)
++   l.denominator_cached=l.weight_sum+l.alpha_cached
+  simulated_time+=dt
+  last_impulse=0
+  wheels.predict(dt)
+@@ -189,9 +218,8 @@
+   l.peak_force=0
+  for iteration in int(config.iterations):
+   # Reverse the sweep every iteration to limit directional solver bias.
+-  for offset in links.size():
+-   var index: int=offset if iteration%2==0 else links.size()-1-offset
+-   _solve_link(links[index],dt)
++  var ordered: Array[Edge]=links if iteration%2==0 else reversed_links
++  for l in ordered:_solve_link(l,dt)
+   wheels.constrain_lateral_mounts(dt)
+   wheels.constrain_knuckles(dt)
+   _contacts()
+@@ -224,7 +252,7 @@
+  total_step_us+=duration
+  max_step_us=maxi(max_step_us,duration)
+ 
+-func _solve_link(l: Edge,dt: float) -> void:
++func _solve_compact_link(l: Edge,dt: float) -> void:
+  if l.broken:return
+  var a: int=l.a
+  var b: int=l.b
+@@ -272,6 +300,55 @@
+   points[b]+=normal*(inverse_masses[b]*dl)
+  if l.wheel_index>=0:wheels.correct_rotation(l.wheel_index,anchor,normal,-dl)
+ 
++func _solve_link(l: Edge,dt: float) -> void:
++ if compact_active:
++  _solve_compact_link(l,dt)
++  return
++ if l.broken:return
++ var a: int=l.a
++ var b: int=l.b
++ var anchor:=Vector3.ZERO
++ if l.wheel_index>=0:anchor=wheels.anchor(l.wheel_index,l.wheel_anchor)
++ var d: Vector3=points[b]-points[a]-anchor
++ var distance: float=d.length()
++ if distance<0.00001:return
++ var normal: Vector3=d/distance
++ var denominator: float=l.denominator_cached
++ if l.wheel_index>=0:denominator=(l.weight_sum+wheels.rotational_weight(l.wheel_index,anchor,normal))+l.alpha_cached
++ var alpha: float=l.alpha_cached
++ var c: float=distance-l.length
++ var dl: float=(-c-alpha*l.lambda)/denominator
++ var trial: float=l.lambda+dl
++ var force: float=absf(trial)/(dt*dt)
++ l.peak_force=maxf(l.peak_force,force)
++ # Hardening and tension can only raise this lower bound; no material change
++ # is possible below it. The expensive plastic path still uses original math.
++ var lower_yield: float=l.yield_n*(0.55 if weak_rail and l.weak_eligible else 1.0)
++ if force>lower_yield:
++  var max_plastic: float=l.max_compression if trial>0 else l.max_extension
++  var amount: float=absf(l.length-l.original)/(l.compression_scale if trial>0 else l.extension_scale)
++  var yield_n: float=l.yield_n*(1.0+hardening*amount)
++  if trial<0:yield_n*=2.0
++  if weak_rail and l.weak_eligible:yield_n*=0.55
++  if force>yield_n and max_plastic>0:
++   var capped: float=signf(trial)*yield_n*dt*dt
++   var wanted: float=distance+alpha*capped
++   var new_length: float=clampf(wanted,l.minimum_length,l.maximum_length)
++   var delta: float=new_length-l.length
++   if absf(delta)>0.0000001:
++    l.length=new_length
++    l.plastic+=absf(delta)
++    plastic_work+=yield_n*absf(delta)
++    l.damage=maxf(l.damage,absf(new_length-l.original)/(l.compression_damage_scale if trial>0 else l.extension_damage_scale))
++    node_damage[a]=maxf(node_damage[a],minf(1.0,l.damage))
++    node_damage[b]=maxf(node_damage[b],minf(1.0,l.damage))
++    c=distance-new_length
++    dl=(-c-alpha*l.lambda)/denominator
++ l.lambda+=dl
++ points[a]-=normal*(inverse_masses[a]*dl)
++ points[b]+=normal*(inverse_masses[b]*dl)
++ if l.wheel_index>=0:wheels.correct_rotation(l.wheel_index,anchor,normal,-dl)
++
+ func set_impact_mode(value: int) -> void:
+  impact_mode=value
+  barrier_min=Vector3(0,0,.48) if value==1 else Vector3(0,0,-2.25)
+@@ -296,8 +373,7 @@
+  node_contact[i]=maxf(node_contact[i],clampf(velocities[i].length()/24.0,0,1))
+ 
+ func _contacts() -> void:
+- for i in points.size():
+-  if config.nodes[i].group=='wheel':continue
++ for i in body_nodes:
+   var p: Vector3=points[i]
+   if barrier_enabled and p.x>=barrier_min.x-radii[i]:
+    var hit: Dictionary=barrier_distance(p)
+@@ -316,8 +392,8 @@
+   points[i]=p
+ 
+ func _break_links(dt: float) -> void:
+- for l in links:
+-  if l.wheel_index<0 or l.broken:continue
++ for l in suspension_links:
++  if l.broken:continue
+   var overload: bool=l.peak_force>l.break_force or l.damage>l.break_plastic
+   l.overload_time=maxf(0,l.overload_time+(dt if overload else -dt*2))
+   if l.overload_time>=l.break_delay:
+@@ -339,10 +415,10 @@
+   if l.wheel_index>=0:
+    anchor=wheels.anchor(l.wheel_index,l.wheel_anchor)
+    anchor_velocity=wheels.anchor_velocity(l.wheel_index,anchor)
+-  var normal: Vector3=(point(b)-point(a)-anchor).normalized()
++  var normal: Vector3=(((point(b)-point(a)) if compact_active else (points[b]-points[a]))-anchor).normalized()
+   var w: float=constraint_weight(a,b,-normal,normal) if compact_active else l.weight_sum
+   if l.wheel_index>=0:w+=wheels.rotational_weight(l.wheel_index,anchor,normal)
+-  var relative: float=(point_velocity(b)-point_velocity(a)-anchor_velocity).dot(normal)
++  var relative: float=(((point_velocity(b)-point_velocity(a)) if compact_active else (velocities[b]-velocities[a]))-anchor_velocity).dot(normal)
+   var fraction: float=1.0-exp(-l.damping_ns_per_m*w*dt) if compact_active else l.damping_fraction
+   var impulse: float=-relative*fraction/w
+   if compact_active:correct_constraint(a,b,-normal,normal,impulse,true)

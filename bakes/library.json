@@ -1,0 +1,641 @@
+{
+	"records": [
+		{
+			"bytes": 794236.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 20.0,
+			"id": "front_left_20_120",
+			"path": "res://bakes/front_left_20_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 38.0,
+					"incident_energy_proxy_j": 564666.605956292,
+					"incident_impulse_proxy_ns": 33879.9976497968,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 41.0,
+					"incident_energy_proxy_j": 107555.544945664,
+					"incident_impulse_proxy_ns": 6453.33294291497,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 796284.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -20.0,
+			"id": "front_right_20_120",
+			"path": "res://bakes/front_right_20_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 36.0,
+					"incident_energy_proxy_j": 564666.605956292,
+					"incident_impulse_proxy_ns": 33879.9976497968,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 39.0,
+					"incident_energy_proxy_j": 107555.544945664,
+					"incident_impulse_proxy_ns": 6453.33294291497,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 652800.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "frontal_120",
+			"path": "res://bakes/frontal_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 36.0,
+					"incident_energy_proxy_j": 282333.302978146,
+					"incident_impulse_proxy_ns": 16939.9988248984,
+					"weight": 0.419999986886978
+				},
+				{
+					"id": 38.0,
+					"incident_energy_proxy_j": 282333.302978146,
+					"incident_impulse_proxy_ns": 16939.9988248984,
+					"weight": 0.419999986886978
+				},
+				{
+					"id": 39.0,
+					"incident_energy_proxy_j": 53777.7724728321,
+					"incident_impulse_proxy_ns": 3226.66647145748,
+					"weight": 0.0799999982118607
+				},
+				{
+					"id": 41.0,
+					"incident_energy_proxy_j": 53777.7724728321,
+					"incident_impulse_proxy_ns": 3226.66647145748,
+					"weight": 0.0799999982118607
+				}
+			]
+		},
+		{
+			"bytes": 632045.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "impact_000_60",
+			"path": "res://bakes/impact_000_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 36.0,
+					"incident_energy_proxy_j": 70583.3257445365,
+					"incident_impulse_proxy_ns": 8469.99941244921,
+					"weight": 0.419999986886978
+				},
+				{
+					"id": 38.0,
+					"incident_energy_proxy_j": 70583.3257445365,
+					"incident_impulse_proxy_ns": 8469.99941244921,
+					"weight": 0.419999986886978
+				},
+				{
+					"id": 39.0,
+					"incident_energy_proxy_j": 13444.443118208,
+					"incident_impulse_proxy_ns": 1613.33323572874,
+					"weight": 0.0799999982118607
+				},
+				{
+					"id": 41.0,
+					"incident_energy_proxy_j": 13444.443118208,
+					"incident_impulse_proxy_ns": 1613.33323572874,
+					"weight": 0.0799999982118607
+				}
+			]
+		},
+		{
+			"bytes": 825329.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "impact_030_120",
+			"path": "res://bakes/impact_030_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 38.0,
+					"incident_energy_proxy_j": 564666.605956292,
+					"incident_impulse_proxy_ns": 33879.9976497968,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 41.0,
+					"incident_energy_proxy_j": 107555.544945664,
+					"incident_impulse_proxy_ns": 6453.33294291497,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 754058.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "impact_030_60",
+			"path": "res://bakes/impact_030_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 38.0,
+					"incident_energy_proxy_j": 141166.651489073,
+					"incident_impulse_proxy_ns": 16939.9988248984,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 41.0,
+					"incident_energy_proxy_j": 26888.8862364161,
+					"incident_impulse_proxy_ns": 3226.66647145748,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 826648.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 60.0,
+			"id": "impact_060_120",
+			"path": "res://bakes/impact_060_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 38.0,
+					"incident_energy_proxy_j": 630854.655190004,
+					"incident_impulse_proxy_ns": 37851.280755312,
+					"weight": 0.938461542129517
+				},
+				{
+					"id": 41.0,
+					"incident_energy_proxy_j": 41367.5182499565,
+					"incident_impulse_proxy_ns": 2482.05118968013,
+					"weight": 0.0615384615957737
+				}
+			]
+		},
+		{
+			"bytes": 748167.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 60.0,
+			"id": "impact_060_60",
+			"path": "res://bakes/impact_060_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 38.0,
+					"incident_energy_proxy_j": 157713.663797501,
+					"incident_impulse_proxy_ns": 18925.640377656,
+					"weight": 0.938461542129517
+				},
+				{
+					"id": 41.0,
+					"incident_energy_proxy_j": 10341.8795624891,
+					"incident_impulse_proxy_ns": 1241.02559484006,
+					"weight": 0.0615384615957737
+				}
+			]
+		},
+		{
+			"bytes": 751192.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 90.0,
+			"id": "impact_090_120",
+			"path": "res://bakes/impact_090_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 11.0,
+					"incident_energy_proxy_j": 336111.085467869,
+					"incident_impulse_proxy_ns": 20166.6658973694,
+					"weight": 0.5
+				},
+				{
+					"id": 29.0,
+					"incident_energy_proxy_j": 336111.085467869,
+					"incident_impulse_proxy_ns": 20166.6658973694,
+					"weight": 0.5
+				}
+			]
+		},
+		{
+			"bytes": 691893.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 90.0,
+			"id": "impact_090_60",
+			"path": "res://bakes/impact_090_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 29.0,
+					"incident_energy_proxy_j": 168055.542733934,
+					"incident_impulse_proxy_ns": 20166.6658973694,
+					"weight": 1.0
+				}
+			]
+		},
+		{
+			"bytes": 807179.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 120.0,
+			"id": "impact_120_120",
+			"path": "res://bakes/impact_120_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 2.0,
+					"incident_energy_proxy_j": 672222.170935738,
+					"incident_impulse_proxy_ns": 40333.3317947388,
+					"weight": 1.0
+				}
+			]
+		},
+		{
+			"bytes": 703208.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 120.0,
+			"id": "impact_120_60",
+			"path": "res://bakes/impact_120_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 2.0,
+					"incident_energy_proxy_j": 168055.542733934,
+					"incident_impulse_proxy_ns": 20166.6658973694,
+					"weight": 1.0
+				}
+			]
+		},
+		{
+			"bytes": 806213.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 150.0,
+			"id": "impact_150_120",
+			"path": "res://bakes/impact_150_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 2.0,
+					"incident_energy_proxy_j": 564666.605956292,
+					"incident_impulse_proxy_ns": 33879.9976497968,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 5.0,
+					"incident_energy_proxy_j": 107555.544945664,
+					"incident_impulse_proxy_ns": 6453.33294291497,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 705754.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": 150.0,
+			"id": "impact_150_60",
+			"path": "res://bakes/impact_150_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 2.0,
+					"incident_energy_proxy_j": 141166.651489073,
+					"incident_impulse_proxy_ns": 16939.9988248984,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 5.0,
+					"incident_energy_proxy_j": 26888.8862364161,
+					"incident_impulse_proxy_ns": 3226.66647145748,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 778459.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -180.0,
+			"id": "impact_180_120",
+			"path": "res://bakes/impact_180_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 0.0,
+					"incident_energy_proxy_j": 282333.302978146,
+					"incident_impulse_proxy_ns": 16939.9988248984,
+					"weight": 0.419999986886978
+				},
+				{
+					"id": 2.0,
+					"incident_energy_proxy_j": 282333.302978146,
+					"incident_impulse_proxy_ns": 16939.9988248984,
+					"weight": 0.419999986886978
+				},
+				{
+					"id": 3.0,
+					"incident_energy_proxy_j": 53777.7724728321,
+					"incident_impulse_proxy_ns": 3226.66647145748,
+					"weight": 0.0799999982118607
+				},
+				{
+					"id": 5.0,
+					"incident_energy_proxy_j": 53777.7724728321,
+					"incident_impulse_proxy_ns": 3226.66647145748,
+					"weight": 0.0799999982118607
+				}
+			]
+		},
+		{
+			"bytes": 725470.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -180.0,
+			"id": "impact_180_60",
+			"path": "res://bakes/impact_180_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 0.0,
+					"incident_energy_proxy_j": 70583.3257445365,
+					"incident_impulse_proxy_ns": 8469.99941244921,
+					"weight": 0.419999986886978
+				},
+				{
+					"id": 2.0,
+					"incident_energy_proxy_j": 70583.3257445365,
+					"incident_impulse_proxy_ns": 8469.99941244921,
+					"weight": 0.419999986886978
+				},
+				{
+					"id": 3.0,
+					"incident_energy_proxy_j": 13444.443118208,
+					"incident_impulse_proxy_ns": 1613.33323572874,
+					"weight": 0.0799999982118607
+				},
+				{
+					"id": 5.0,
+					"incident_energy_proxy_j": 13444.443118208,
+					"incident_impulse_proxy_ns": 1613.33323572874,
+					"weight": 0.0799999982118607
+				}
+			]
+		},
+		{
+			"bytes": 806255.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -150.0,
+			"id": "impact_210_120",
+			"path": "res://bakes/impact_210_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 0.0,
+					"incident_energy_proxy_j": 564666.605956292,
+					"incident_impulse_proxy_ns": 33879.9976497968,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 3.0,
+					"incident_energy_proxy_j": 107555.544945664,
+					"incident_impulse_proxy_ns": 6453.33294291497,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 709878.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -150.0,
+			"id": "impact_210_60",
+			"path": "res://bakes/impact_210_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 0.0,
+					"incident_energy_proxy_j": 141166.651489073,
+					"incident_impulse_proxy_ns": 16939.9988248984,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 3.0,
+					"incident_energy_proxy_j": 26888.8862364161,
+					"incident_impulse_proxy_ns": 3226.66647145748,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 807756.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -120.0,
+			"id": "impact_240_120",
+			"path": "res://bakes/impact_240_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 0.0,
+					"incident_energy_proxy_j": 672222.170935738,
+					"incident_impulse_proxy_ns": 40333.3317947388,
+					"weight": 1.0
+				}
+			]
+		},
+		{
+			"bytes": 704274.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -120.0,
+			"id": "impact_240_60",
+			"path": "res://bakes/impact_240_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 0.0,
+					"incident_energy_proxy_j": 168055.542733934,
+					"incident_impulse_proxy_ns": 20166.6658973694,
+					"weight": 1.0
+				}
+			]
+		},
+		{
+			"bytes": 754618.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -90.0,
+			"id": "impact_270_120",
+			"path": "res://bakes/impact_270_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 9.0,
+					"incident_energy_proxy_j": 336111.085467869,
+					"incident_impulse_proxy_ns": 20166.6658973694,
+					"weight": 0.5
+				},
+				{
+					"id": 27.0,
+					"incident_energy_proxy_j": 336111.085467869,
+					"incident_impulse_proxy_ns": 20166.6658973694,
+					"weight": 0.5
+				}
+			]
+		},
+		{
+			"bytes": 693590.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -90.0,
+			"id": "impact_270_60",
+			"path": "res://bakes/impact_270_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 27.0,
+					"incident_energy_proxy_j": 168055.542733934,
+					"incident_impulse_proxy_ns": 20166.6658973694,
+					"weight": 1.0
+				}
+			]
+		},
+		{
+			"bytes": 828110.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -60.0,
+			"id": "impact_300_120",
+			"path": "res://bakes/impact_300_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 36.0,
+					"incident_energy_proxy_j": 630854.655190004,
+					"incident_impulse_proxy_ns": 37851.280755312,
+					"weight": 0.938461542129517
+				},
+				{
+					"id": 39.0,
+					"incident_energy_proxy_j": 41367.5182499565,
+					"incident_impulse_proxy_ns": 2482.05118968013,
+					"weight": 0.0615384615957737
+				}
+			]
+		},
+		{
+			"bytes": 748299.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -60.0,
+			"id": "impact_300_60",
+			"path": "res://bakes/impact_300_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 36.0,
+					"incident_energy_proxy_j": 157713.663797501,
+					"incident_impulse_proxy_ns": 18925.640377656,
+					"weight": 0.938461542129517
+				},
+				{
+					"id": 39.0,
+					"incident_energy_proxy_j": 10341.8795624891,
+					"incident_impulse_proxy_ns": 1241.02559484006,
+					"weight": 0.0615384615957737
+				}
+			]
+		},
+		{
+			"bytes": 827857.0,
+			"contact_speed_mps": 33.3333320617676,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "impact_330_120",
+			"path": "res://bakes/impact_330_120.crashclip",
+			"speed_kmh": 120.0,
+			"zones": [
+				{
+					"id": 36.0,
+					"incident_energy_proxy_j": 564666.605956292,
+					"incident_impulse_proxy_ns": 33879.9976497968,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 39.0,
+					"incident_energy_proxy_j": 107555.544945664,
+					"incident_impulse_proxy_ns": 6453.33294291497,
+					"weight": 0.159999996423721
+				}
+			]
+		},
+		{
+			"bytes": 750788.0,
+			"contact_speed_mps": 16.6666660308838,
+			"duration_s": 2.5,
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "impact_330_60",
+			"path": "res://bakes/impact_330_60.crashclip",
+			"speed_kmh": 60.0,
+			"zones": [
+				{
+					"id": 36.0,
+					"incident_energy_proxy_j": 141166.651489073,
+					"incident_impulse_proxy_ns": 16939.9988248984,
+					"weight": 0.839999973773956
+				},
+				{
+					"id": 39.0,
+					"incident_energy_proxy_j": 26888.8862364161,
+					"incident_impulse_proxy_ns": 3226.66647145748,
+					"weight": 0.159999996423721
+				}
+			]
+		}
+	],
+	"version": 1
+}

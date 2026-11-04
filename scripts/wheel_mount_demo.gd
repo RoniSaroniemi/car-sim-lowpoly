@@ -11,6 +11,7 @@ var largest_retained_bend:=0.0
 
 func start(solver: RefCounted) -> void:
  graph=weakref(solver)
+ solver.request_full_solve('wheel_mount_fixture',3.1)
  active=true
  time=0
  phase='Normal support — wheel stays aligned'
@@ -34,7 +35,7 @@ func step(dt: float) -> void:
  if time>=.4 and time<.6:
   force=side*2000.0
  if time>=1.0 and time<1.0125:
-  torque=forward*4000.0
+  torque=forward*10000.0
  if time>=1.04 and time<2.3:
   phase='Over yield — permanent bend'
   var angle: float=rad_to_deg(acos(clampf(w.alignment.dot(Vector3.BACK),-1,1)))
@@ -44,7 +45,7 @@ func step(dt: float) -> void:
  if time>=2.3 and not w.detached:
   phase='Over break threshold — releasing wheel'
   force=side*100000.0
-  torque=forward*8000.0
+  torque=forward*30000.0
  if w.detached:
   phase='Wheel released — R repairs the car'
   saw_detached=true

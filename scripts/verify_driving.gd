@@ -45,8 +45,8 @@ func _run() -> void:
   advance(turn,1.5)
   turns.append({'z':turn.solver.station_center(2).z,'forward':turn.forward(),'finite':finite_vehicle(turn),'broken':turn.solver.metrics().broken_suspension_links,'work':turn.solver.plastic_work})
  observations['turns']=turns
- checks['left_input_turns_left']=turns[0].z>.05
- checks['right_input_turns_right']=turns[1].z<-.05
+ checks['left_input_turns_left']=turns[0].z<-.05
+ checks['right_input_turns_right']=turns[1].z>.05
  checks['ordinary_turning_keeps_suspension']=turns.all(func(t):return t.broken==0)
  checks['ordinary_turning_does_not_yield_structure']=turns.all(func(t):return t.work==0)
  checks['finite_turns']=turns.all(func(t):return t.finite)

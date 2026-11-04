@@ -15,16 +15,16 @@ class Wheel:
  var lateral_yield:=18000.0
  var lateral_break:=90000.0
  var lateral_overload:=0.0
- var mount_break_delay:=.012
- var detach_alignment:=deg_to_rad(35)
- var detach_offset:=.12
+ var mount_break_delay:=.035
+ var detach_alignment:=deg_to_rad(65)
+ var detach_offset:=.20
  var detach_reason: String=''
  var joint_peak:=0.0
  var joint_overload:=0.0
  var joint_broken:=false
  var joint_stiffness:=24000.0
- var joint_yield:=2500.0
- var joint_break:=9500.0
+ var joint_yield:=6500.0
+ var joint_break:=18000.0
  var node: int
  var radius: float
  var rim_radius: float
@@ -64,9 +64,9 @@ func setup(owner: RefCounted) -> void:
   w.rigid_mount=raw.get('rigid_mount_until_yield',true)
   w.lateral_yield=raw.get('lateral_yield_n',18000.0)
   w.lateral_break=raw.get('lateral_break_n',90000.0)
-  w.mount_break_delay=raw.get('mount_break_delay_s',.012)
-  w.detach_alignment=deg_to_rad(raw.get('detach_alignment_deg',35.0))
-  w.detach_offset=raw.get('detach_lateral_offset_m',.12)
+  w.mount_break_delay=raw.get('mount_break_delay_s',.035)
+  w.detach_alignment=deg_to_rad(raw.get('detach_alignment_deg',65.0))
+  w.detach_offset=raw.get('detach_lateral_offset_m',.20)
   w.body_nodes=raw.axle_body_nodes
   var a: int=w.body_nodes[0]
   var b: int=w.body_nodes[1]
@@ -192,8 +192,8 @@ func _mount_origin(w: Wheel) -> int:
 
 func lateral_error(w: Wheel) -> float:
  var g: RefCounted=graph.get_ref()
- var axis: Vector3=(g.points[w.body_nodes[1]]-g.points[w.body_nodes[0]]).normalized()
- return (g.points[w.node]-g.points[_mount_origin(w)]).dot(axis)-w.lateral_rest
+ var axis: Vector3=(g.point(w.body_nodes[1])-g.point(w.body_nodes[0])).normalized()
+ return (g.point(w.node)-g.point(_mount_origin(w))).dot(axis)-w.lateral_rest
 
 func constrain_lateral_mounts(dt: float) -> void:
  var g: RefCounted=graph.get_ref()
@@ -201,22 +201,23 @@ func constrain_lateral_mounts(dt: float) -> void:
   if w.detached:continue
   var a: int=w.body_nodes[0]
   var b: int=w.body_nodes[1]
-  var span: Vector3=g.points[b]-g.points[a]
+  var span: Vector3=g.point(b)-g.point(a)
   var length: float=span.length()
   if length<.05:continue
   var z: Vector3=span/length
   var origin: int=_mount_origin(w)
-  var arm: Vector3=g.points[w.node]-g.points[origin]
+  var arm: Vector3=g.point(w.node)-g.point(origin)
   var coordinate: float=arm.dot(z)
   var transverse: Vector3=(arm-z*coordinate)/length
   # These derivatives also react against rotation of the deforming body axis.
   var ga: Vector3=-transverse-(z if origin==a else Vector3.ZERO)
   var gb: Vector3=transverse-(z if origin==b else Vector3.ZERO)
-  var weight: float=g.inverse_masses[w.node]+ga.length_squared()*g.inverse_masses[a]+gb.length_squared()*g.inverse_masses[b]
+  var weight: float=g.inverse_masses[w.node]+g.constraint_weight(a,b,ga,gb)
   var c: float=coordinate-w.lateral_rest
   var requested: float=-c/weight
   var trial: float=w.lateral_lambda+requested
   w.lateral_peak=maxf(w.lateral_peak,absf(trial)/(dt*dt))
+  if g.compact_active and w.lateral_peak>w.lateral_yield*.8:g.compact.wake_reason='lateral_load'
   var capped: float=clampf(trial,-w.lateral_yield*dt*dt,w.lateral_yield*dt*dt)
   var dl: float=capped-w.lateral_lambda
   if absf(trial)>w.lateral_yield*dt*dt:
@@ -226,8 +227,7 @@ func constrain_lateral_mounts(dt: float) -> void:
    w.lateral_rest=new_rest
   w.lateral_lambda=capped
   g.points[w.node]+=z*(g.inverse_masses[w.node]*dl)
-  g.points[a]+=ga*(g.inverse_masses[a]*dl)
-  g.points[b]+=gb*(g.inverse_masses[b]*dl)
+  g.correct_constraint(a,b,ga,gb,dl)
 
 func constrain_knuckles(dt: float) -> void:
  var g: RefCounted=graph.get_ref()
@@ -235,13 +235,13 @@ func constrain_knuckles(dt: float) -> void:
   if w.detached or w.joint_broken:continue
   var a: int=w.body_nodes[0]
   var b: int=w.body_nodes[1]
-  var span: Vector3=g.points[b]-g.points[a]
+  var span: Vector3=g.point(b)-g.point(a)
   var length: float=span.length()
   if length<.05:continue
   var z: Vector3=span/length
-  var y: Vector3=(g.points[w.body_nodes[2]]+g.points[w.body_nodes[3]]-g.points[a]-g.points[b])*.5
+  var y: Vector3=(g.point(w.body_nodes[2])+g.point(w.body_nodes[3])-g.point(a)-g.point(b))*.5
   y=(y-z*y.dot(z)).normalized()
-  var frame: Basis=Basis(y.cross(z),y,z)*Basis(Vector3.UP,-w.steering_angle)
+  var frame: Basis=Basis(y.cross(z),y,z)*Basis(Vector3.UP,w.steering_angle)
   var desired: Vector3=frame*w.alignment
   var axle: Vector3=Basis(w.rotation).z
   var cross_axis: Vector3=axle.cross(desired)
@@ -251,13 +251,14 @@ func constrain_knuckles(dt: float) -> void:
   var angle: float=atan2(sine,clampf(axle.dot(desired),-1,1))
   var ga: Vector3=n.cross(z)/length
   var gb: Vector3=-ga
-  var weight: float=n.dot(inverse_inertia(w,n))+ga.length_squared()*g.inverse_masses[a]+gb.length_squared()*g.inverse_masses[b]
+  var weight: float=n.dot(inverse_inertia(w,n))+g.constraint_weight(a,b,ga,gb)
   var alpha: float=0.0 if w.rigid_mount else 1.0/(w.joint_stiffness*dt*dt)
   var along: float=w.joint_impulse.dot(n)
   var requested: float=(angle-alpha*along)/(weight+alpha)
   var trial: Vector3=w.joint_impulse+n*requested
   var torque: float=trial.length()/(dt*dt)
   w.joint_peak=maxf(w.joint_peak,torque)
+  if g.compact_active and torque>w.joint_yield*.8:g.compact.wake_reason='angular_load'
   var impulse: float=_limited_increment(w.joint_impulse,n,requested,w.joint_yield*dt*dt)
   if torque>w.joint_yield:
    var plastic: float=maxf(0,angle-weight*impulse-alpha*(along+impulse))
@@ -266,8 +267,7 @@ func constrain_knuckles(dt: float) -> void:
     g.plastic_work+=plastic*w.joint_yield
   w.joint_impulse+=n*impulse
   _rotate(w,inverse_inertia(w,n)*impulse)
-  g.points[a]+=ga*(g.inverse_masses[a]*impulse)
-  g.points[b]+=gb*(g.inverse_masses[b]*impulse)
+  g.correct_constraint(a,b,ga,gb,impulse)
 
 func detach(w: Wheel,reason: String) -> void:
  # A mount failure releases every constraint. No teleport, velocity rewrite,
@@ -287,10 +287,13 @@ func contacts(dt: float) -> void:
  var g: RefCounted=graph.get_ref()
  for index in wheels.size():
   var w: Wheel=wheels[index]
-  var floor_offset: Vector3=support(w,Vector3.DOWN)
-  _world_contact(index,Vector3.UP,g.points[w.node].y+floor_offset.y,floor_offset,0,dt)
-  if g.barrier_enabled and g.points[w.node].x>=g.barrier_min.x-w.radius:
-   var hit: Dictionary=g.barrier_distance(g.points[w.node])
+  var surface: Vector4=g.floor_sample(g.point(w.node))
+  var floor_normal:=Vector3(surface.x,surface.y,surface.z)
+  var floor_offset: Vector3=support(w,-floor_normal)
+  var floor_distance: float=(g.point(w.node).y-surface.w)*surface.y+floor_normal.dot(floor_offset)
+  _world_contact(index,floor_normal,floor_distance,floor_offset,0,dt)
+  if g.barrier_enabled and g.point(w.node).x>=g.barrier_min.x-w.radius:
+   var hit: Dictionary=g.barrier_distance(g.point(w.node))
    var offset: Vector3=support(w,-hit.normal)
    _world_contact(index,hit.normal,float(hit.distance)+hit.normal.dot(offset),offset,1,dt)
   if body_contact_enabled:
@@ -336,9 +339,9 @@ func _body_contact(index: int,capsule: int,dt: float) -> void:
  var cap: Dictionary=w.capsules[capsule]
  var a: int=cap.a
  var b: int=cap.b
- var ab: Vector3=g.points[b]-g.points[a]
- var t: float=clampf((g.points[w.node]-g.points[a]).dot(ab)/maxf(1e-8,ab.length_squared()),0,1)
- var delta: Vector3=g.points[w.node]-g.points[a].lerp(g.points[b],t)
+ var ab: Vector3=g.point(b)-g.point(a)
+ var t: float=clampf((g.point(w.node)-g.point(a)).dot(ab)/maxf(1e-8,ab.length_squared()),0,1)
+ var delta: Vector3=g.point(w.node)-g.point(a).lerp(g.point(b),t)
  var distance: float=delta.length()
  if distance<1e-8 or distance>w.radius+float(cap.radius_m)+.01:return
  var n: Vector3=delta/distance
@@ -348,7 +351,7 @@ func _body_contact(index: int,capsule: int,dt: float) -> void:
  if c>=0 and old<=0:return
  var wa: float=1-t
  var wb: float=t
- var weight: float=g.inverse_masses[w.node]+rotational_weight(index,r,n)+wa*wa*g.inverse_masses[a]+wb*wb*g.inverse_masses[b]
+ var weight: float=g.inverse_masses[w.node]+rotational_weight(index,r,n)+g.constraint_weight(a,b,-n*wa,-n*wb)
  var alpha: float=w.compliance/(dt*dt)
  var impulse: float=maxf(0,old+(-c-alpha*old)/(weight+alpha))-old
  var remaining: float=c+weight*impulse+w.max_compression
@@ -356,9 +359,9 @@ func _body_contact(index: int,capsule: int,dt: float) -> void:
  w.body_lambdas[capsule]+=impulse
  g.points[w.node]+=n*(g.inverse_masses[w.node]*impulse)
  correct_rotation(index,r,n,impulse)
- g.points[a]-=n*(g.inverse_masses[a]*wa*impulse)
- g.points[b]-=n*(g.inverse_masses[b]*wb*impulse)
+ g.correct_constraint(a,b,-n*wa,-n*wb,impulse)
  if impulse>0:
+  if g.compact_active:g.compact.wake_reason='wheel_body_contact'
   w.body_impulse+=impulse/dt
   w.maximum_body_impulse=maxf(w.maximum_body_impulse,impulse/dt)
   w.contact_events+=1
@@ -459,6 +462,6 @@ func metrics() -> Array:
  var g: RefCounted=graph.get_ref()
  var result: Array=[]
  for w in wheels:
-  var body_axis: Vector3=(g.points[w.body_nodes[1]]-g.points[w.body_nodes[0]]).normalized()
+  var body_axis: Vector3=(g.point(w.body_nodes[1])-g.point(w.body_nodes[0])).normalized()
   result.append({'lateral_error_m':lateral_error(w),'permanent_lateral_offset_m':w.lateral_rest-w.initial_lateral_rest,'peak_lateral_force_n':w.lateral_peak,'detach_reason':w.detach_reason,'node':w.node,'name':g.config.nodes[w.node].name,'detached':w.detached,'knuckle_broken':w.joint_broken,'permanent_alignment_deg':rad_to_deg(acos(clampf(w.alignment.dot(Vector3.BACK),-1,1))),'hub_tilt_deg':rad_to_deg(acos(clampf(Basis(w.rotation).z.dot(body_axis),-1,1))),'spin_rad_s':w.spin_speed,'peak_tire_compression_m':w.peak_compression,'wheel_body_constraint_impulse_ns':w.body_impulse,'body_contact_events':w.contact_events,'angular_finite':w.rotation.is_finite() and w.angular_velocity.is_finite() and is_finite(w.spin_speed)})
  return result

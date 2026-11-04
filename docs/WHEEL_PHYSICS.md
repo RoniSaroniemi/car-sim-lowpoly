@@ -44,7 +44,7 @@ sliding remain possible. Commanded steering is included in the neutral target
 and is not counted as permanent damage.
 
 Lateral force above 18,000 N can move the permanent mount offset; torque above
-2,500 N·m can permanently change alignment. Angular correction stores a vector
+6,500 N·m can permanently change alignment. Angular correction stores a vector
 impulse, so reversing correction axes does not lose the signed load history.
 Both constraints cap the transmitted impulse at yield and record the unresolved
 motion as plastic deformation. Below yield the lateral constraint has zero
@@ -52,14 +52,24 @@ compliance; `rigid_mount_until_yield` also gives the angular constraint zero
 compliance. Setting that flag false restores the configured angular stiffness.
 
 Each suspension link still has its own force/damage overload timer. In addition,
-a sustained mount force above 90,000 N or torque above 9,500 N·m, a permanent
-alignment of 35 degrees, or a permanent lateral offset of 0.12 m releases the
-whole wheel. Force overload must persist for 0.012 s; geometric damage limits
+a sustained mount force above 90,000 N or torque above 18,000 N·m, a permanent
+alignment of 65 degrees, or a permanent lateral offset of 0.20 m releases the
+whole wheel. Force overload must persist for 0.035 s; geometric damage limits
 are checked at the end of the substep. Complete mount release removes all six
 links and the lateral/angular restraints together. It retains position,
 velocity, orientation and spin. Failure no longer leaves a broken angular
 knuckle hanging from the remaining supports. Loss of all six individual links
 also uses this same release path.
+
+The angular yield now sits above ordinary practice-ramp landing loads. The
+previous 2,500 N·m threshold let normal landing corrections accumulate permanent
+rear camber; on the high 60 km/h ramp this reached 17–21 degrees. With the current
+mount, both ramps complete takeoff and landing without broken supports or
+measurable permanent alignment. The longer overload interval rejects short
+inertial correction spikes; force alone must persist to count as mount rupture.
+Geometric release still catches a severely pulled-apart or twisted mount. These
+are local constraint demands and irreversible mount displacement, with no
+vehicle-speed or front/rear-specific immunity.
 
 Replay records permanent lateral offsets and release reasons along with wheel
 orientation/spin, alignment and broken links. Reset restores every mount.
@@ -100,13 +110,13 @@ Edit `scripts/build_structure.py` for persistent changes, then regenerate `struc
 | `knuckle_stiffness_nm_per_rad` | 24,000 N·m/rad when rigid angular mode is disabled |
 | `rigid_mount_until_yield` | true: zero angular compliance before yielding |
 | `lateral_yield_n` / `lateral_break_n` | 18,000 / 90,000 N |
-| `mount_break_delay_s` | 0.012 s sustained overload |
-| `detach_alignment_deg` / `detach_lateral_offset_m` | 35 degrees / 0.12 m permanent damage |
-| `knuckle_yield_nm` / `knuckle_break_nm` | 2,500 / 9,500 N·m |
+| `mount_break_delay_s` | 0.035 s sustained overload |
+| `detach_alignment_deg` / `detach_lateral_offset_m` | 65 degrees / 0.20 m permanent damage |
+| `knuckle_yield_nm` / `knuckle_break_nm` | 6,500 / 18,000 N·m |
 | `body_capsules` | Three local node-pair segments, radius 0.045 m |
 | Link `wheel_anchor` | Hub-local hardpoint offset, metres |
 | Link `break_force_n` | 48,000 steering / 90,000 suspension / 110,000 upper arm |
-| Link `break_delay_s` | 0.012 s accumulated overload |
+| Link `break_delay_s` | 0.035 s accumulated overload |
 | Link `break_plastic` | 0.90 of the configured plastic deformation allowance |
 
 Fit radii, width, axle/body frame, anchor offsets and capsule candidates first. Run the standing-support check before tuning yield/break strength. Keep a neutral clearance around the wheel opening, then inspect low-speed and severe offset impacts. Do not lower every break threshold simply to force a spectacular ejection.
@@ -150,3 +160,23 @@ the floor with gravity. `verify` and `verify-wheels` include these checks.
 ![Retained wheel bend under the test load](images/mount_bent.png)
 
 ![Wheel released after the damage threshold](images/mount_detached.png)
+
+A focused retention regression is available separately:
+
+```sh
+godot --headless --path . --script scripts/verify_wheel_retention.gd
+```
+
+It checks 80/120 km/h full-width impacts in both the structural bench and live
+adaptive driving runtime, 80/120 km/h offset impacts, and both practice ramps
+at an initial 60 km/h. Rear mounts must remain attached in every impact case;
+the severe offset case must still release a front wheel. Ramp checks require
+actual flight and landing, all supports retained, finite wheel/body states,
+and less than 0.1 degree permanent alignment. The report is written to
+`verification/wheel_retention_validation.json`. Optional `-- crash`,
+`-- driving`, `-- offset`, or `-- ramp` arguments limit the scenarios.
+
+The direct load fixture still distinguishes alignment, permanent bending and
+complete release: its bend pulse is 10,000 N·m for 0.0125 s, and its extreme
+angular test applies 30,000 N·m for 0.10 s. Instantaneous release itself preserves
+position, velocity, orientation and spin.

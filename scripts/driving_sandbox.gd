@@ -1,5 +1,7 @@
 extends Node3D
 ## World/input/camera only. Vehicle physics is shared with the crash bench.
+const Terrain=preload('res://scripts/practice_terrain.gd')
+var terrain: RefCounted
 const Simulation=preload('res://scripts/vehicle_simulation.gd')
 const MountDemo=preload('res://scripts/wheel_mount_demo.gd')
 var mount_demo: RefCounted
@@ -17,13 +19,23 @@ var orbit:=0.0
 var elapsed:=0.0
 var capture_mode:=false
 var capture_stage:=0
+var head_on_case:=false
+var capture_adaptive:=false
+var adaptive_capture_stage:=0
+var capture_jumps:=false
+var jump_capture_index:=0
+var jump_air_saved:=false
 
 func _ready() -> void:
  capture_mode='--capture-driving' in OS.get_cmdline_user_args()
  capture_mounts='--capture-mounts' in OS.get_cmdline_user_args()
+ capture_adaptive='--capture-adaptive' in OS.get_cmdline_user_args()
+ capture_jumps='--capture-jumps' in OS.get_cmdline_user_args()
+ terrain=Terrain.new()
  _world()
  vehicle=Simulation.new()
  vehicle.setup(vehicle_profile,true)
+ vehicle.solver.terrain=terrain
  mount_demo=MountDemo.new()
  vehicle.before_step.connect(mount_demo.step)
  vehicle.solver.barrier_min=Vector3(40,0,-8)
@@ -45,6 +57,8 @@ func _ready() -> void:
  camera.add_child(fill)
  _hud()
  if capture_mounts or '--mount-test' in OS.get_cmdline_user_args():call_deferred('_start_mount_test')
+ if capture_jumps:call_deferred('_capture_jump_start')
+ if capture_adaptive or '--head-on' in OS.get_cmdline_user_args():call_deferred('_start_head_on')
  print('DRIVING_SANDBOX_READY shared vehicle=',vehicle.profile.name)
 
 func _material(color: String) -> StandardMaterial3D:
@@ -81,6 +95,7 @@ func _world() -> void:
  _box(Vector3(1500,.2,1500),Vector3(0,-.1,0),'#738078')
  _box(Vector3(180,.01,120),Vector3(0,-.004,0),'#444e53')
  _box(Vector3(1,3,16),Vector3(40.5,1.5,0),'#b1aaa0')
+ _ramps()
  for z in [-8.0,8.0]:
   _box(Vector3(1.08,.15,.15),Vector3(40.5,3,z),'#dfae4c')
  for x in range(-80,81,10):
@@ -91,6 +106,39 @@ func _world() -> void:
   _box(Vector3(1.5,.009,.09),Vector3(x,.01,0),'#d1c79b')
  for z in [-9.0,9.0]:
   _box(Vector3(95,.009,.10),Vector3(-8,.01,z),'#d1c79b')
+
+func _ramps() -> void:
+ for i in terrain.ramps.size():
+  var ramp: Dictionary=terrain.ramps[i]
+  var surface:=MeshInstance3D.new()
+  surface.mesh=terrain.mesh(ramp)
+  surface.material_override=_material('#708991')
+  add_child(surface)
+  var label:=Label3D.new()
+  label.text=('J / ' if i==0 else 'K / ')+str(ramp.name)
+  label.position=Vector3(ramp.start-3,2.7,ramp.z)
+  label.font_size=48
+  label.pixel_size=.012
+  label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
+  add_child(label)
+  for x in range(int(ramp.start)-20,int(ramp.start+ramp.length)+15,3):
+   var p:=Vector3(x,0,ramp.z)
+   p.y=terrain.sample(p).w+.014
+   _box(Vector3(.7,.015,.10),p,'#d1c79b')
+
+func _jump_start(index: int) -> void:
+ _reset()
+ var ramp: Dictionary=terrain.ramps[index]
+ vehicle.reset(0,Vector3(float(ramp.start)-30,0,ramp.z))
+ camera_mode=0
+ orbit=0
+
+func _capture_jump_start() -> void:
+ _jump_start(jump_capture_index)
+ var ramp: Dictionary=terrain.ramps[jump_capture_index]
+ vehicle.reset(60,Vector3(float(ramp.start)-18,0,ramp.z))
+ camera_mode=2
+ jump_air_saved=false
 
 func _hud() -> void:
  var canvas:=CanvasLayer.new()
@@ -115,7 +163,7 @@ func _hud() -> void:
  readout.add_theme_font_size_override('font_size',17)
  column.add_child(readout)
  var controls:=Label.new()
- controls.text='W throttle · S brake · A/D steer · Space handbrake\nQ forward/reverse · R repair/reset · C camera · T wheel test\n1 structure · 3 textured car · Drag: orbit · Esc: close'
+ controls.text='W throttle · S brake · A/D steer · Space handbrake\nQ forward/reverse · R repair/reset · C camera\nH head-on · T wheel test · J/K jump starts\n1 structure · 3 textured car · Drag: orbit · Esc: close'
  controls.add_theme_font_size_override('font_size',13)
  column.add_child(controls)
  var reset:=Button.new()
@@ -126,6 +174,17 @@ func _hud() -> void:
  test_button.text='Test wheel mount'
  test_button.pressed.connect(_start_mount_test)
  column.add_child(test_button)
+ var head_on:=Button.new()
+ head_on.text='Head-on forecast test'
+ head_on.pressed.connect(_start_head_on)
+ column.add_child(head_on)
+
+func _start_head_on() -> void:
+ _reset()
+ head_on_case=true
+ camera_mode=2
+ orbit=0
+ vehicle.reset(80,Vector3(-50,0,0))
 
 func _start_mount_test() -> void:
  _reset()
@@ -135,6 +194,7 @@ func _start_mount_test() -> void:
 
 func _reset() -> void:
  mount_demo.stop()
+ head_on_case=false
  reverse=false
  elapsed=0
  vehicle.reset(0,Vector3(-25,0,0))
@@ -148,7 +208,14 @@ func _physics_process(dt: float) -> void:
  if capture_mode:
   throttle=1.0 if elapsed<6 else 0.0
   brake=1.0 if elapsed>=6 else 0.0
- if mount_demo.active:
+ if capture_jumps:
+  vehicle.set_controls(.1,0,0,0)
+  vehicle.advance(dt)
+ elif head_on_case:
+  vehicle.set_controls(0,0,0,0)
+  vehicle.advance(dt)
+  if vehicle.solver.impact_started and vehicle.solver.simulated_time>vehicle.solver.impact_time+2.0:head_on_case=false
+ elif mount_demo.active:
   vehicle.set_controls(0,0,0,0)
   vehicle.advance(dt,.5)
  else:
@@ -169,6 +236,37 @@ func _process(_dt: float) -> void:
  var speed: float=vehicle.velocity().length()*3.6
  var damage: Dictionary=g.metrics()
  readout.text='%3.0f km/h   %s\nSuspension failures: %d   Yielded members: %d' %[speed,'R' if reverse else 'D',damage.broken_suspension_links,damage.yielded_links]
+ var performance: Dictionary=vehicle.statistics()
+ var mode_name: Dictionary={'DRIVE':'Light driving','FULL':'Full deformation','SLEEP':'Parked / sleeping'}
+ readout.text+='\nPhysics: '+mode_name[vehicle.mode]
+ readout.text+='\nFull structural steps: %d   Average: %.2f ms / 120 Hz frame' %[vehicle.full_steps,performance.cpu_ms_per_sim_second/120.0]
+ if capture_adaptive:
+  if vehicle.solver.simulated_time>1 and adaptive_capture_stage==0:
+   adaptive_capture_stage=1
+   _capture('adaptive_drive.png')
+  elif vehicle.mode=='FULL' and not g.impact_started and adaptive_capture_stage==1:
+   adaptive_capture_stage=2
+   _capture('adaptive_forecast.png')
+  elif g.impact_started and g.simulated_time>g.impact_time+.7 and adaptive_capture_stage==2:
+   _capture('adaptive_impact.png')
+   get_tree().quit()
+ if vehicle.mode=='FULL':
+  readout.text+='\nTrigger: '+vehicle.last_wake_reason.replace('_',' ')
+  readout.text+='\nInternal motion: %.2f J · quiet cutoff %.1f J' %[vehicle.deformation_energy_j,vehicle.deformation_sleep_energy_j]
+ if capture_jumps:
+  var gap:=INF
+  for w in g.wheels.wheels:
+   var p: Vector3=g.points[w.node]
+   gap=minf(gap,p.y+g.wheels.support(w,Vector3.DOWN).y-terrain.sample(p).w)
+  if gap>.25 and not jump_air_saved:
+   jump_air_saved=true
+   _capture('ramp_%d_air.png'%jump_capture_index)
+  elif jump_air_saved and gap<.025:
+   _capture('ramp_%d_landing.png'%jump_capture_index)
+   if jump_capture_index==0:
+    jump_capture_index=1
+    _capture_jump_start()
+   else:get_tree().quit()
  if mount_demo.phase!='':
   readout.text+='\n'+mount_demo.phase
   readout.text+='\nFront-left permanent bend: %.1f°'%damage.wheels[3].permanent_alignment_deg
@@ -201,6 +299,9 @@ func _unhandled_input(event: InputEvent) -> void:
   match event.physical_keycode:
    KEY_R:_reset()
    KEY_T:_start_mount_test()
+   KEY_H:_start_head_on()
+   KEY_J:_jump_start(0)
+   KEY_K:_jump_start(1)
    KEY_Q:reverse=not reverse
    KEY_C:
     camera_mode=(camera_mode+1)%3

@@ -27,13 +27,27 @@ python3 tools/demo.py drive
 ```
 
 W throttle, S brake, A/D steer, Space handbrake, Q forward/reverse, R repair/reset,
-C camera, and T wheel-mount test. The new flat practice area uses the same deformable car, wheels
-and damage state as the crash bench. It is a first driving implementation;
-the earlier sandbox's ramps and general Jolt-world collision are not ported.
+C camera, T wheel-mount test, H head-on approach, and J/K low/high jump starts.
+Hold W after a jump start. Two smooth ramps share their visual/contact surfaces.
+The practice area uses the same car, wheels and damage state as the crash bench,
+with [adaptive simulation](docs/ADAPTIVE_SIMULATION.md) to skip structural solves during ordinary driving.
 
 Both scenes use one [shared vehicle runtime](docs/SHARED_VEHICLE_RUNTIME.md).
 Tune `vehicles/niva.json` or improve the shared dynamics/wheel code once, then
 run both scenes and the combined checks. There is no duplicated driving chassis.
+
+## Try a baked crash
+
+```sh
+python3 tools/demo.py baked
+```
+
+Choose an impact angle and 60/120 km/h. The library covers the full circle every
+30°, plus the two ±20° frontal cases: 26 recordings. Space triggers contact-time
+selection of the closest compatible bake; L records a fresh case; Z shows the
+invisible 5 × 3 × 3 classifier grid. Buttons play the frontal trio or the whole bank.
+Replay applies the saved deformation and wheel states with zero structural solver steps.
+See [the round-trip procedure and limits](docs/BAKED_CRASH_PROBE.md).
 
 ## Inspect the result
 
@@ -59,14 +73,16 @@ Choose 20, 50, 80 or 120 km/h and either Full-width frontal or Offset / left fro
 5. [Validation scope and limitations](docs/VALIDATION.md)
 6. [Wheel physics, suspension and contact setup](docs/WHEEL_PHYSICS.md)
 7. [Shared runtime, driving and future dynamics](docs/SHARED_VEHICLE_RUNTIME.md)
-8. [Snapshot provenance and asset rights](docs/PROVENANCE.md)
+8. [Adaptive simulation, recovery and ramps](docs/ADAPTIVE_SIMULATION.md)
+9. [Baked crash round trip](docs/BAKED_CRASH_PROBE.md)
+10. [Snapshot provenance and asset rights](docs/PROVENANCE.md)
 
 ```sh
 python3 tools/demo.py check
 python3 tools/demo.py verify
 ```
 
-The second command runs six structural cases, seven wheel cases, native skin binding, replay/reset, support/detachment checks, rigid-mount load checks and shared-runtime driving checks. Fresh reports go to `verification/structural_validation.json` and `verification/wheel_validation.json`. Fresh driving results go to `verification/driving_validation.json`. Checked-in handover reports record the earlier published revision; `verification/baseline.json` preserves the older pre-wheel reference for comparison.
+The second command runs six structural cases, seven wheel cases, native skin binding, replay/reset, support/detachment checks, rigid-mount load checks, shared-runtime driving checks, adaptive wake/recovery, ramps, wheel retention and baked round-trip checks. Fresh reports go to `verification/structural_validation.json` and `verification/wheel_validation.json`. Fresh driving results go to `verification/driving_validation.json`. Checked-in handover reports record the earlier published revision; `verification/baseline.json` preserves the older pre-wheel reference for comparison.
 
 ## What is included
 
@@ -93,6 +109,6 @@ The second command runs six structural cases, seven wheel cases, native skin bin
 
 The custom graph owns the car's motion and 1,210 kg mass. Godot renders it. Jolt is selected in project settings, but **Jolt does not solve this deformable car**. Contacts are analytic floor/finite-box tests plus selected wheel-to-structure contacts. This is a driving/crash learning example with approximate game parameters, not a calibrated crash-engineering model.
 
-Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, body-panel separation, glass debris, sheet tearing and porting the earlier sandbox course remain future work. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
+Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, body-panel separation, glass debris, sheet tearing and a broader course remain future work. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
 
 Code and documentation: [MIT](LICENSE). See [asset provenance](docs/PROVENANCE.md) for reference imagery and vehicle marks.

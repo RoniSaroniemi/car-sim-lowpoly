@@ -1,0 +1,125 @@
+{
+	"clip_bytes": 825329,
+	"contact_velocity_normalized": true,
+	"duration_s": 2.5,
+	"frame_count": 301,
+	"full_solver_steps": 1301,
+	"grid": [
+		5,
+		3,
+		3
+	],
+	"heading_deg": 30.0,
+	"id": "impact_030_120",
+	"input_sha256": {
+		"scripts/collision_forecast.gd": "459be14469a1d5ec5b53329dbecb5161e98fa3f2aabbbbcf73846ea12d5a4523",
+		"scripts/compact_chassis.gd": "f052338c2af313abb904819c68d0f8a5bde8879c2239751c231ee323018fb377",
+		"scripts/impact_zone_grid.gd": "5a0409da7a324e80a09882470c11cbdae4a252df1d2baaa80efdf7b3bdd27f4c",
+		"scripts/structure_solver.gd": "47294081e79bb8d78672cd8bc7b302ec3faea462e41066593f4c6bb0da345574",
+		"scripts/vehicle_dynamics.gd": "8d2cdf2296e38d3d8aefd6358fbe6c5acd807bdb431e87d41e9dd51cd55c923a",
+		"scripts/vehicle_simulation.gd": "755f9cc7d23f4d7d16f3c766980b8f36228e2094b7cbe6ed93927808f478e3af",
+		"scripts/wheel_physics.gd": "04741f3228a0cbc27044f079f9a8eb464499549e0dc04672fd3e826410f2f663",
+		"structure.json": "aeeb02cc7380cd9173ce7d5cd79dc8c8c1dedc36e3db0d93386c0898bcf3d67e",
+		"vehicles/niva.json": "8f1b39489ac889e93ae76b6b46fe1bf2f384882bc6b2fccfe0285ea1b94c533e"
+	},
+	"launch_mode": "wall_normal_slam",
+	"origin": [
+		-2.33910918235779,
+		1.16908228397369,
+		0.0884441733360291
+	],
+	"physics_hz": 480,
+	"preparation_speed_mps": 32.6389389038086,
+	"record_cpu_ms": 4004.935,
+	"sample_hz": 120,
+	"scope": "Frontal or oblique car heading into a fixed flat barrier; symmetry is disabled for oblique cases. Incident severity and nodal momentum-loss values are proxies, not calibrated contact-force measurements. Frames include root motion, damage and wheel states.",
+	"signature": {
+		"closing_speed_mps": 33.3333320617676,
+		"grid": [
+			5,
+			3,
+			3
+		],
+		"hit_nodes": [
+			25,
+			27
+		],
+		"incident_energy_proxy_j": 672222.170935738,
+		"incident_impulse_proxy_ns": 40333.3317947388,
+		"normal": [
+			-0.868298232555389,
+			0.0,
+			-0.496042460203171
+		],
+		"velocity": [
+			33.3333320617676,
+			0.0,
+			0.0
+		],
+		"world_normal": [
+			-1.0,
+			0.0,
+			0.0
+		],
+		"zones": [
+			{
+				"id": 38,
+				"incident_energy_proxy_j": 564666.605956292,
+				"incident_impulse_proxy_ns": 33879.9976497968,
+				"weight": 0.839999973773956
+			},
+			{
+				"id": 41,
+				"incident_energy_proxy_j": 107555.544945664,
+				"incident_impulse_proxy_ns": 6453.33294291497,
+				"weight": 0.159999996423721
+			}
+		]
+	},
+	"speed_kmh": 120.0,
+	"structure_sha256": "aeeb02cc7380cd9173ce7d5cd79dc8c8c1dedc36e3db0d93386c0898bcf3d67e",
+	"version": 2,
+	"wheel_solver_sha256": "04741f3228a0cbc27044f079f9a8eb464499549e0dc04672fd3e826410f2f663",
+	"zone_contact_history": {
+		"11": {
+			"contact_substeps": 80,
+			"nodal_momentum_loss_proxy_ns": 1847.12649611068
+		},
+		"27": {
+			"contact_substeps": 3,
+			"nodal_momentum_loss_proxy_ns": 760.777975860983
+		},
+		"29": {
+			"contact_substeps": 18,
+			"nodal_momentum_loss_proxy_ns": 3852.57692993805
+		},
+		"31": {
+			"contact_substeps": 18,
+			"nodal_momentum_loss_proxy_ns": 1190.88005416095
+		},
+		"32": {
+			"contact_substeps": 84,
+			"nodal_momentum_loss_proxy_ns": 714.454104885459
+		},
+		"36": {
+			"contact_substeps": 81,
+			"nodal_momentum_loss_proxy_ns": 1339.45090161357
+		},
+		"38": {
+			"contact_substeps": 101,
+			"nodal_momentum_loss_proxy_ns": 1870.47438120772
+		},
+		"39": {
+			"contact_substeps": 112,
+			"nodal_momentum_loss_proxy_ns": 139.811197314411
+		},
+		"40": {
+			"contact_substeps": 64,
+			"nodal_momentum_loss_proxy_ns": 1501.41902716015
+		},
+		"41": {
+			"contact_substeps": 55,
+			"nodal_momentum_loss_proxy_ns": 207.398282311857
+		}
+	}
+}

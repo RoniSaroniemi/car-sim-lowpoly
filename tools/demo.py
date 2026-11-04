@@ -36,7 +36,7 @@ def run(command):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'drive', 'capture-driving', 'capture', 'import', 'check'))
+    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'capture-driving', 'capture', 'import', 'check'))
     parser.add_argument('--godot', help='Godot executable, or set GODOT_BIN')
     parser.add_argument('--no-import', action='store_true', help='Skip import after the first successful run')
     args = parser.parse_args()
@@ -53,7 +53,7 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--editor', '--import', '--quit'])
     if args.command == 'import':
         return
-    if args.command in ('verify', 'verify-wheels', 'verify-driving'):
+    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked'):
         import json
         if args.command == 'verify':
             run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
@@ -79,6 +79,43 @@ def main():
             if not report['passed']:
                 raise SystemExit('Driving checks failed; see verification/driving_validation.json')
             print('PASS: shared runtime, throttle, brakes, steering direction, reverse, tuning and persistent damage.')
+        if args.command in ('verify', 'verify-adaptive'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_adaptive.gd'])
+            report = json.loads((ROOT / 'verification/adaptive_validation.json').read_text())
+            run([sys.executable, str(ROOT / 'tools/format_adaptive_report.py')])
+            if not report['passed']:
+                raise SystemExit('Adaptive checks failed; see verification/adaptive_validation.json')
+            print('PASS: adaptive driving, forecast wake-up, continuous handoff, collision and timing comparison.')
+        if args.command in ('verify', 'verify-ramps'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_ramps.gd'])
+            report = json.loads((ROOT / 'verification/ramp_validation.json').read_text())
+            if not report['passed']:
+                raise SystemExit('Ramp checks failed; see verification/ramp_validation.json')
+            print('PASS: matching ramp/contact surfaces, natural takeoff and landing on both jumps.')
+        if args.command in ('verify', 'verify-retention'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_wheel_retention.gd'])
+            report = json.loads((ROOT / 'verification/wheel_retention_validation.json').read_text())
+            if not report['passed']:
+                raise SystemExit('Wheel retention checks failed')
+            print('PASS: rear wheel retention in crashes, extreme front release, and suspension absorbing both ramp landings.')
+        if args.command in ('verify', 'verify-baked'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_baked_roundtrip.gd'])
+            report = json.loads((ROOT / 'verification/baked_roundtrip_validation.json').read_text())
+            if not report['passed']:
+                raise SystemExit('Baked round-trip checks failed')
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_crash_library.gd'])
+            library_report = json.loads((ROOT / 'verification/crash_library_validation.json').read_text())
+            if not library_report['passed']:
+                raise SystemExit('Crash library checks failed')
+            print('PASS: complete impact library, contact-time nearest selection, registered replay and zero full solver steps.')
+    elif args.command == 'bake':
+        run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/bake_frontal_clip.gd'])
+    elif args.command == 'index-bakes':
+        run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/bake_frontal_clip.gd', '--', '--index-only'])
+    elif args.command == 'baked':
+        run([binary, '--path', str(ROOT), 'res://baked_probe.tscn'])
+    elif args.command == 'capture-baked':
+        run([binary, '--path', str(ROOT), '--script', 'res://scripts/capture_baked.gd', '--', '--capture-baked'])
     elif args.command == 'drive':
         run([binary, '--path', str(ROOT), 'res://driving.tscn'])
     elif args.command == 'capture-driving':
