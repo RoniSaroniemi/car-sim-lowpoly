@@ -1,0 +1,21 @@
+# Godot imports and local editor state
+.godot/
+*.import
+.DS_Store
+__pycache__/
+*.pyc
+*.blend1
+# Generated reports, renders, rebuilt model outputs
+verification/*
+!verification/.gdignore
+!verification/README.md
+!verification/baseline.json
+!verification/handover_validation.json
+model/previews/*
+!model/previews/.gitkeep
+model/Niva_2121_LOD*.glb
+model/vehicle_controls.json
+model/asset_manifest.json
+model/source/*_report.json
+model/source/operations_build_report.json
+*.log

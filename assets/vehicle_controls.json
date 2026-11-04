@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "coordinates": "Blender metres, X forward, Z up; runtime adapter converts to glTF Y up",
+  "panels": [
+    {
+      "id": "door_left",
+      "label": "Left door",
+      "node": "Hinge_Door_Left",
+      "pivot": [
+        0.54,
+        -0.905,
+        1.04
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "open_degrees": 72,
+      "thickness": 0.035,
+      "side_sign": -1,
+      "polygon_px": [
+        [
+          397,
+          600
+        ],
+        [
+          515,
+          600
+        ],
+        [
+          535,
+          612
+        ],
+        [
+          619,
+          710
+        ],
+        [
+          619,
+          847
+        ],
+        [
+          614,
+          862
+        ],
+        [
+          602,
+          870
+        ],
+        [
+          414,
+          870
+        ],
+        [
+          398,
+          858
+        ],
+        [
+          395,
+          839
+        ]
+      ],
+      "glass": "Glass_Door_Left",
+      "interior_parts": [
+        "Interior_Door_Panel_-1",
+        "Interior_Door_Armrest_-1"
+      ],
+      "attachments": [
+        "Left_Door_Handle",
+        "Left_Mirror_Stem",
+        "Left_Mirror_Housing",
+        "Left_Mirror_Glass"
+      ],
+      "lower_thickness": 0.1
+    },
+    {
+      "id": "door_right",
+      "label": "Right door",
+      "node": "Hinge_Door_Right",
+      "pivot": [
+        0.54,
+        0.905,
+        1.04
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "open_degrees": -72,
+      "thickness": 0.035,
+      "side_sign": 1,
+      "polygon_px": [
+        [
+          397,
+          600
+        ],
+        [
+          515,
+          600
+        ],
+        [
+          535,
+          612
+        ],
+        [
+          619,
+          710
+        ],
+        [
+          619,
+          847
+        ],
+        [
+          614,
+          862
+        ],
+        [
+          602,
+          870
+        ],
+        [
+          414,
+          870
+        ],
+        [
+          398,
+          858
+        ],
+        [
+          395,
+          839
+        ]
+      ],
+      "glass": "Glass_Door_Right",
+      "interior_parts": [
+        "Interior_Door_Panel_1",
+        "Interior_Door_Armrest_1"
+      ],
+      "attachments": [
+        "Right_Door_Handle",
+        "Right_Mirror_Stem",
+        "Right_Mirror_Housing",
+        "Right_Mirror_Glass"
+      ],
+      "lower_thickness": 0.1
+    },
+    {
+      "id": "tailgate",
+      "label": "Tailgate",
+      "node": "Hinge_Tailgate",
+      "pivot": [
+        -1.36,
+        0,
+        1.78
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "open_degrees": 95,
+      "thickness": 0.028,
+      "polygon_px": [
+        [
+          1101,
+          595
+        ],
+        [
+          1363,
+          595
+        ],
+        [
+          1381,
+          607
+        ],
+        [
+          1398,
+          742
+        ],
+        [
+          1392,
+          758
+        ],
+        [
+          1378,
+          766
+        ],
+        [
+          1092,
+          766
+        ],
+        [
+          1077,
+          754
+        ],
+        [
+          1075,
+          740
+        ],
+        [
+          1090,
+          610
+        ]
+      ],
+      "glass": "Glass_Rear",
+      "interior_parts": [
+        "Interior_Tailgate_Inside"
+      ],
+      "attachments": []
+    },
+    {
+      "id": "bonnet",
+      "label": "Bonnet",
+      "node": "Hinge_Bonnet",
+      "pivot": [
+        1.615,
+        0,
+        1.07
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "open_degrees": 72,
+      "thickness": 0.022,
+      "polygon_px": [
+        [
+          644,
+          112
+        ],
+        [
+          800,
+          112
+        ],
+        [
+          826,
+          130
+        ],
+        [
+          832,
+          157
+        ],
+        [
+          832,
+          383
+        ],
+        [
+          826,
+          410
+        ],
+        [
+          800,
+          428
+        ],
+        [
+          644,
+          428
+        ]
+      ],
+      "glass": null,
+      "interior_parts": [],
+      "attachments": []
+    }
+  ],
+  "lights": {
+    "blink_period_seconds": 0.9,
+    "groups": {
+      "headlights": {
+        "material": "Light_Headlamps",
+        "color": [
+          1.0,
+          0.9,
+          0.72
+        ],
+        "strength": 4.0
+      },
+      "tail_brake": {
+        "material": "Light_TailBrake",
+        "color": [
+          1.0,
+          0.012,
+          0.005
+        ],
+        "tail_strength": 0.65,
+        "brake_strength": 5.0
+      },
+      "indicator_left": {
+        "material": "Light_Indicator_Left",
+        "color": [
+          1.0,
+          0.23,
+          0.005
+        ],
+        "strength": 5.0
+      },
+      "indicator_right": {
+        "material": "Light_Indicator_Right",
+        "color": [
+          1.0,
+          0.23,
+          0.005
+        ],
+        "strength": 5.0
+      },
+      "reverse": {
+        "material": "Light_Reverse",
+        "color": [
+          0.85,
+          0.94,
+          1.0
+        ],
+        "strength": 3.0
+      }
+    },
+    "beam_anchors": [
+      {
+        "node": "Anchor_Headlamp_Left",
+        "position": [
+          1.68,
+          -0.674,
+          0.821
+        ]
+      },
+      {
+        "node": "Anchor_Headlamp_Right",
+        "position": [
+          1.68,
+          0.674,
+          0.821
+        ]
+      }
+    ]
+  },
+  "animation": {
+    "name": "Panels_Open_Close",
+    "closed_frame": 1,
+    "open_frame": 31,
+    "hold_frame": 61,
+    "end_frame": 91,
+    "fps": 30
+  }
+}

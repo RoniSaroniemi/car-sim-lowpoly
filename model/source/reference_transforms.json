@@ -1,0 +1,30 @@
+{
+  "metres_per_master_pixel": 0.00439121756487026,
+  "side": {
+    "x_origin_px": 500.5,
+    "ground_y_px": 991,
+    "scale_x": 1,
+    "scale_y": 1
+  },
+  "front": {
+    "centre_x_px": 1233.5,
+    "ground_y_px": 479,
+    "scale_x": 1,
+    "scale_y": 1
+  },
+  "rear": {
+    "centre_x_px": 1233,
+    "ground_y_px": 990,
+    "scale_x": 1.0023923444976077,
+    "scale_y": 1.0073529411764706
+  },
+  "top": {
+    "bumper_rear_x_px": 86,
+    "bumper_rear_master_x_px": 59,
+    "centre_y_px": 269.5,
+    "scale_length": 1.0799492385786802,
+    "scale_width": 1.1606648199445984,
+    "extra_width_over_uniform_scale": 1.0747401622988761
+  },
+  "reason": "Side length/height and front width are authoritative; top is expanded independently on each axis. These reconcile artwork, not survey measurements."
+}

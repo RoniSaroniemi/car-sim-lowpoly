@@ -1,0 +1,66 @@
+{
+  "source": "source/reference.png",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "coordinate_system": "original image pixels, x right, y down",
+  "measurement_method": "approximate manual endpoint selection; roughly +/- 3-5 px per endpoint",
+  "crops_xyxy": {
+    "top": [
+      45,
+      50,
+      910,
+      490
+    ],
+    "front": [
+      980,
+      45,
+      1490,
+      495
+    ],
+    "side": [
+      40,
+      565,
+      930,
+      1000
+    ],
+    "rear": [
+      980,
+      565,
+      1490,
+      1000
+    ]
+  },
+  "measurements": {
+    "top_bumper_to_bumper_length_px": 788,
+    "side_bumper_to_bumper_length_px": 851,
+    "top_body_width_excluding_mirrors_px": 361,
+    "front_body_width_excluding_mirrors_px": 419,
+    "rear_body_width_excluding_mirrors_px": 418,
+    "side_roof_to_ground_height_px": 411,
+    "front_roof_to_ground_height_px": 411,
+    "rear_roof_to_ground_height_px": 408,
+    "side_wheelbase_px": 501,
+    "side_tyre_diameter_px_approx": 178
+  },
+  "side_wheel_centres_xy": [
+    [
+      250,
+      904
+    ],
+    [
+      751,
+      904
+    ]
+  ],
+  "inference": {
+    "top_to_side_length_scale": 0.9259694477085781,
+    "front_to_side_height_scale": 1.0,
+    "expected_top_body_width_if_views_are_consistent_px": 387.98119858989423,
+    "observed_top_body_width_shortfall_percent": 6.954254146323735,
+    "assumptions": "orthographic views; matching physical body width and overall length/height; endpoint choices approximate",
+    "interpretation": "a consistency warning, not proof of perspective, distortion, or image generation"
+  },
+  "status": "reference diagnostics only; no 3D model exists and no model-to-reference errors have been measured"
+}

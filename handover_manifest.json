@@ -1,0 +1,23 @@
+{
+  "name": "car-sim-lowpoly",
+  "snapshot": "validated structural probe before experimental wheel revision",
+  "source_archive_sha256": "4cad2927be31cd548e837c3e3dbe416bc67d5521775dd0c8a9c87dc3a9b4ec38",
+  "godot_tested": "4.7.2.stable.official.ed1daf0bf",
+  "nodes": 38,
+  "links": 175,
+  "render_bones": 39,
+  "render_triangles": 39673,
+  "mass_kg": 1210,
+  "engine_mass_kg": 190,
+  "fixed_step_s": 0.0020833333333333333,
+  "iterations": 8,
+  "baseline_report": "verification/baseline.json",
+  "validation_report": "verification/structural_validation.json",
+  "runtime_model": "assets/Niva_2121_LOD0.glb",
+  "editable_model": "model/Niva_2121.blend",
+  "handover_verified_utc": "2026-11-04T19:52:54.269603+00:00",
+  "handover_validation": "verification/handover_validation.json",
+  "handover_validation_passed": true,
+  "optional_model_rebuild_verified": "Blender 4.5.9 LTS; fresh temporary copy; 32947 LOD0 / 16123 LOD1 triangles",
+  "cabin_fit_tests_passed": 7
+}
