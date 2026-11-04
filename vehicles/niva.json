@@ -1,0 +1,21 @@
+{
+  "name": "Niva 2121",
+  "structure": "res://structure.json",
+  "model": "res://assets/Niva_2121_LOD0.glb",
+  "dynamics": {
+    "driven_wheels": [0, 1, 2, 3],
+    "steering_wheels": [2, 3],
+    "handbrake_wheels": [0, 1],
+    "drive_torque_nm": 3500.0,
+    "power_w": 220000.0,
+    "brake_torque_nm": 6500.0,
+    "handbrake_torque_nm": 5000.0,
+    "max_speed_kmh": 160.0,
+    "reverse_speed_kmh": 25.0,
+    "steering_angle_deg": 27.0,
+    "steering_rate_deg_s": 55.0,
+    "high_speed_steering_fraction": 0.35,
+    "tire_friction": 0.65,
+    "aero_drag_n_per_mps2": 0.48
+  }
+}

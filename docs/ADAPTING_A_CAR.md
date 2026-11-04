@@ -99,3 +99,10 @@ These locations currently rely on Niva-specific topology:
 | `structural_probe.gd` | Speeds, camera framing and validation expectations |
 
 If you change section/node counts, update all of these together. This is a complete example implementation, not a vehicle-independent graph compiler. Once a second car works, extract the common layout/schema with evidence from both vehicles.
+
+## Share a fitted car between scenes
+
+Create a profile alongside `vehicles/niva.json` with the fitted graph/model
+paths and dynamics values. Set `vehicle_profile` on either scene. The two scenes
+then use the same runtime, wheel implementation and skin. A profile does not
+remove the topology/fitting requirements above. See [Shared runtime](SHARED_VEHICLE_RUNTIME.md).

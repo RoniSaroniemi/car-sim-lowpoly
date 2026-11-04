@@ -4,6 +4,7 @@ extends RefCounted
 class Wheel:
  var links: Array=[]
  var body_nodes: Array=[]
+ var steering_angle:=0.0
  var alignment:=Vector3.BACK
  var joint_lambda:=0.0
  var joint_peak:=0.0
@@ -41,6 +42,7 @@ var graph: WeakRef
 var wheels: Array[Wheel]=[]
 var by_node: Dictionary={}
 var body_contact_enabled:=true
+var friction_coefficient:=.65
 
 func setup(owner: RefCounted) -> void:
  graph=weakref(owner)
@@ -67,6 +69,7 @@ func setup(owner: RefCounted) -> void:
 
 func reset(speed: float) -> void:
  for w in wheels:
+  w.steering_angle=0
   w.alignment=Vector3.BACK
   w.joint_lambda=0
   w.joint_peak=0
@@ -156,7 +159,7 @@ func constrain_knuckles(dt: float) -> void:
   var z: Vector3=span/length
   var y: Vector3=(g.points[w.body_nodes[2]]+g.points[w.body_nodes[3]]-g.points[a]-g.points[b])*.5
   y=(y-z*y.dot(z)).normalized()
-  var frame:=Basis(y.cross(z),y,z)
+  var frame: Basis=Basis(y.cross(z),y,z)*Basis(Vector3.UP,-w.steering_angle)
   var desired: Vector3=frame*w.alignment
   var axle: Vector3=Basis(w.rotation).z
   var cross_axis: Vector3=axle.cross(desired)
@@ -190,7 +193,7 @@ func contacts(dt: float) -> void:
   var w: Wheel=wheels[index]
   var floor_offset: Vector3=support(w,Vector3.DOWN)
   _world_contact(index,Vector3.UP,g.points[w.node].y+floor_offset.y,floor_offset,0,dt)
-  if g.points[w.node].x>=g.barrier_min.x-w.radius:
+  if g.barrier_enabled and g.points[w.node].x>=g.barrier_min.x-w.radius:
    var hit: Dictionary=g.barrier_distance(g.points[w.node])
    var offset: Vector3=support(w,-hit.normal)
    _world_contact(index,hit.normal,float(hit.distance)+hit.normal.dot(offset),offset,1,dt)
@@ -296,7 +299,7 @@ func finish_step(dt: float) -> void:
     var torque: Vector3=r.cross(direction)
     var friction_weight: float=g.inverse_masses[w.node]+torque.dot(inverse_inertia(w,torque,true))
     var normal_budget: float=w.contact_lambdas[contact.slot]/dt+normal_impulse
-    var friction: float=minf(length/friction_weight,.65*normal_budget)
+    var friction: float=minf(length/friction_weight,friction_coefficient*normal_budget)
     _velocity_impulse(w,r,-direction*friction)
    if int(contact.slot)==1:g.last_impulse+=normal_impulse+w.contact_lambdas[1]/dt
   # Low bearing/rolling loss; no isotropic fake sliding friction on the hub.
@@ -329,13 +332,14 @@ func render_basis(index: int) -> Basis:
 func capture() -> Array:
  var states: Array=[]
  for w in wheels:
-  states.append({'alignment':w.alignment,'joint_broken':w.joint_broken,'rotation':w.rotation,'angular_velocity':w.angular_velocity,'spin':w.spin,'spin_speed':w.spin_speed,'compression':w.tire_compression,'peak_compression':w.peak_compression,'detached':w.detached,'body_impulse':w.body_impulse,'body_events':w.contact_events})
+  states.append({'steering_angle':w.steering_angle,'alignment':w.alignment,'joint_broken':w.joint_broken,'rotation':w.rotation,'angular_velocity':w.angular_velocity,'spin':w.spin,'spin_speed':w.spin_speed,'compression':w.tire_compression,'peak_compression':w.peak_compression,'detached':w.detached,'body_impulse':w.body_impulse,'body_events':w.contact_events})
  return states
 
 func restore(states: Array) -> void:
  for i in wheels.size():
   var w: Wheel=wheels[i]
   var s: Dictionary=states[i]
+  w.steering_angle=s.steering_angle
   w.alignment=s.alignment
   w.joint_broken=s.joint_broken
   w.rotation=s.rotation

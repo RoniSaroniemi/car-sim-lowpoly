@@ -30,6 +30,7 @@ class Edge:
  var broken:=false
 
 var wheels: RefCounted
+var barrier_enabled:=true
 var impact_mode:=0
 var barrier_min:=Vector3(0,0,-2.25)
 var barrier_max:=Vector3(.5,3.5,2.25)
@@ -61,8 +62,8 @@ var total_step_us := 0
 var max_step_us := 0
 var last_impulse := 0.0
 
-func setup() -> void:
- config=JSON.parse_string(FileAccess.get_file_as_string('res://structure.json'))
+func setup(definition_path: String='res://structure.json') -> void:
+ config=JSON.parse_string(FileAccess.get_file_as_string(definition_path))
  for n in config.nodes:
   rest.append(Vector3(n.position[0],n.position[1],n.position[2]))
   masses.append(n.mass_kg)
@@ -256,7 +257,7 @@ func _contacts() -> void:
  for i in points.size():
   if config.nodes[i].group=='wheel':continue
   var p: Vector3=points[i]
-  if p.x>=barrier_min.x-radii[i]:
+  if barrier_enabled and p.x>=barrier_min.x-radii[i]:
    var hit: Dictionary=barrier_distance(p)
    if float(hit.distance)<radii[i]:
     mark_impact(i)

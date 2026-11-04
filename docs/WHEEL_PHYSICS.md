@@ -41,7 +41,7 @@ A suspension link records its peak force estimate during a step. Force above its
 
 When all six translation-support links have failed, the wheel is detached and its angular knuckle is released immediately. Removal does not change its position, velocity or spin. Broken links disappear from the structural overlay. Failed supports also disable that wheel pair's mirror constraint in the symmetric bench, avoiding an invisible tether.
 
-This is an approximate generalized suspension/knuckle model, not a dimensionally exact reconstruction of the Niva's real suspension or a complete steering/drive/brake implementation.
+This is an approximate generalized suspension/knuckle model, not a dimensionally exact reconstruction of the Niva's real suspension. The driving layer supplies basic steering/drive/brake commands, rather than a complete powertrain model.
 
 ## Finite-width tire contact
 
@@ -49,7 +49,7 @@ A sphere is cheap but cannot represent the width of a tilted wheel. The new cont
 
 World contact is against the analytic floor and finite static barrier box. Soft contact permits up to **45 mm** of tire compression; after that allowance is exhausted a harder constraint carries the load. This is a contact-envelope approximation: the rendered tire is not a physically pressurised, visibly flattening sidewall/rim simulation.
 
-Contact friction applies an impulse at the wheel support point, affecting translation, hub tilt and rim spin. The coefficient is currently a single fixed game value, 0.65, with small rolling/bearing loss. There is no slip curve, separate longitudinal/lateral tire model, gyroscopic treatment, puncture or pressure model. The static bench does not contain throttle/brake controls.
+Contact friction applies an impulse at the wheel support point, affecting translation, hub tilt and rim spin. The coefficient is currently a single fixed game value, 0.65, with small rolling/bearing loss. There is no slip curve, separate longitudinal/lateral tire model, gyroscopic treatment, puncture or pressure model. The static bench remains a passive controlled test. The shared driving layer now supplies wheel torque, braking and steering; see [Shared runtime](SHARED_VEHICLE_RUNTIME.md).
 
 ## Wheel-to-body load transfer
 
@@ -86,7 +86,7 @@ Fit radii, width, axle/body frame, anchor offsets and capsule candidates first. 
 
 ## Verification
 
-`python3 tools/demo.py verify` runs both the structural suite and wheel suite. For only the latter:
+`python3 tools/demo.py verify` runs the structural, wheel and driving suites. For only the latter:
 
 ```sh
 python3 tools/demo.py verify-wheels

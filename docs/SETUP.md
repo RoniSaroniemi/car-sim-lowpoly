@@ -75,3 +75,9 @@ This uses a GPU SubViewport while starting the main window minimised. A graphica
 | New model deforms in the wrong direction | Check metres, axes, baked transforms, station coordinates and mesh naming |
 
 The baseline holds the state after three simulated seconds, even if some residual motion remains. This makes replay inspection repeatable; it is not an automatic equilibrium detector.
+
+## Shared driving scene
+
+Run `python3 tools/demo.py drive` for the new driving/crash practice area.
+Run `python3 tools/demo.py verify-driving` for the control/tuning checks.
+See [Shared runtime](SHARED_VEHICLE_RUNTIME.md) for controls and extension points.

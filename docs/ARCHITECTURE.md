@@ -1,5 +1,15 @@
 # Architecture: physical graph → skeleton → surface detail
 
+## Shared runtime
+
+Both scenes now instantiate `vehicle_simulation.gd` with a vehicle profile.
+The driving scene supplies controls; the crash bench supplies initial velocity
+and recording. They share the structural/wheel solver and native skin. The
+powertrain/input layer lives in `vehicle_dynamics.gd`; suspension and tire
+physics remain common to passive crashes and driving. See
+[Shared vehicle runtime](SHARED_VEHICLE_RUNTIME.md) for boundaries and extension
+instructions. There is no parallel rigid-body driving chassis.
+
 ## Three representations of the same car
 
 The physical representation is deliberately small. Mass-bearing points and compliant connections determine load propagation. The render representation is a much denser skin driven by those points. The damage material provides fine detail that would be expensive and unnecessary to solve as physics.
@@ -39,7 +49,7 @@ Coordinates in the runtime and graph are metres, +X forward, +Y up and Z across 
 
 ## Fixed-step integration
 
-`structural_probe.gd` accumulates elapsed simulation time and feeds `structure_solver.gd` a fixed **1/480 s** timestep. Each step performs eight alternating constraint sweeps:
+`vehicle_simulation.gd` supplies the common step entry point; the crash recorder and continuous driving scene feed `structure_solver.gd` a fixed **1/480 s** timestep. Each step performs eight alternating constraint sweeps:
 
 1. Save old positions, apply gravity and predict positions from velocity.
 2. Clear each connection's per-step Lagrange multiplier.

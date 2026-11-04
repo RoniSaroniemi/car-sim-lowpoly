@@ -26,6 +26,16 @@ for wheel in s['wheel_assemblies']:
     assert all(l['break_force_n'] > l['yield_n'] and l['break_delay_s'] > 0 for l in anchors)
     assert wheel['rim_radius_m'] < wheel['radius_m'] and wheel['half_width_m'] > 0
     assert all(0 <= c[k] < len(s['nodes']) for c in wheel['body_capsules'] for k in ('a', 'b'))
+profile = json.loads((root / 'vehicles/niva.json').read_text())
+for key in ('structure', 'model'):
+    assert profile[key].startswith('res://')
+    assert (root / profile[key][6:]).is_file(), profile[key]
+for key in ('driven_wheels', 'steering_wheels', 'handbrake_wheels'):
+    assert profile['dynamics'][key]
+    assert all(type(i) is int and 0 <= i < len(s['wheel_assemblies'])
+               for i in profile['dynamics'][key])
+assert profile['dynamics']['drive_torque_nm'] > 0
+assert profile['dynamics']['max_speed_kmh'] > profile['dynamics']['reverse_speed_kmh'] > 0
 payload = (root / 'assets/Niva_2121_LOD0.glb').read_bytes()
 magic, version, length = struct.unpack_from('<III', payload)
 assert magic == 0x46546C67 and version == 2 and length == len(payload)
@@ -40,4 +50,4 @@ manifest = json.loads((root / 'checksums.json').read_text())
 for filename, expected in manifest.items():
     assert hashlib.sha256((root / filename).read_bytes()).hexdigest() == expected, filename
 assert json.loads((root / 'verification/baseline.json').read_text())['passed']
-print('PASS: reproducible graph, 1,210 kg, GLB structure, editable model and published file checksums.')
+print('PASS: reproducible graph, 1,210 kg, GLB structure, editable model, shared vehicle profile and published file checksums.')

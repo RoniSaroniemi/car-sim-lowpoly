@@ -1,5 +1,7 @@
 extends Node3D
-const Solver=preload('res://scripts/structure_solver.gd')
+const VehicleSimulation=preload('res://scripts/vehicle_simulation.gd')
+@export_file('*.json') var vehicle_profile: String='res://vehicles/niva.json'
+var simulation: RefCounted
 const SkinView=preload('res://scripts/structural_skin.gd')
 var solver: RefCounted
 var view: Node3D
@@ -43,12 +45,13 @@ func _ready() -> void:
  capture_mode='--capture-structure' in OS.get_cmdline_user_args()
  autoplay=verify or capture_mode or '--autoplay' in OS.get_cmdline_user_args()
  _stage()
- solver=Solver.new()
- solver.setup()
+ simulation=VehicleSimulation.new()
+ simulation.setup(vehicle_profile)
+ solver=simulation.solver
  view=Node3D.new()
  view.set_script(SkinView)
  add_child(view)
- view.setup(solver)
+ view.setup(solver,simulation.profile.model)
  camera=Camera3D.new()
  camera.current=true
  camera.fov=39
@@ -117,7 +120,7 @@ func _ui() -> void:
  add_child(canvas)
  var title:=Label.new()
  title.position=Vector2(26,20)
- title.text='NIVA / STRUCTURAL CRASH PROBE'
+ title.text=simulation.profile.name.to_upper()+' / STRUCTURAL CRASH PROBE'
  title.add_theme_font_size_override('font_size',24)
  canvas.add_child(title)
  var subtitle:=Label.new()
@@ -245,7 +248,7 @@ func reset_probe() -> void:
  record_timer=0
  solver.set_impact_mode(impact_picker.selected)
  _update_barrier()
- solver.reset(0,Vector3(-9,0,0))
+ simulation.reset(0,Vector3(-9,0,0))
  frames.clear()
  timeline.editable=false
  scrub_guard=true
@@ -265,7 +268,7 @@ func _update_barrier() -> void:
 func begin(value: float) -> void:
  reset_probe()
  speed=value
- solver.reset(value,Vector3(-9,0,0),weak_toggle.button_pressed)
+ simulation.reset(value,Vector3(-9,0,0),weak_toggle.button_pressed)
  running=true
  run_button.disabled=true
  status.text='Approaching barrier · %d km/h'%value
@@ -276,7 +279,7 @@ func _physics_process(dt: float) -> void:
  accumulator+=dt*(0.25 if slow_toggle.button_pressed and not verify else 1.0)
  var step: float=solver.config.fixed_step_s
  while accumulator>=step and running:
-  solver.step(step)
+  simulation.step(step)
   accumulator-=step
   record_timer+=step
   if record_timer>=1.0/120.0:

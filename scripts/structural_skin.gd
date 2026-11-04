@@ -24,7 +24,7 @@ var ghost_shader: Shader
 var last_material_damage := PackedFloat32Array()
 var bone_rest := PackedVector3Array()
 
-func setup(graph: RefCounted) -> void:
+func setup(graph: RefCounted,model_path: String='res://assets/Niva_2121_LOD0.glb') -> void:
  var began: int=Time.get_ticks_usec()
  solver=graph
  shader=load('res://scripts/damage_surface.gdshader')
@@ -43,7 +43,7 @@ func setup(graph: RefCounted) -> void:
  for s in 7:
   bone_frames.append(_station_frame(s,true))
  engine_rest_frame=_engine_frame(true)
- body=load('res://assets/Niva_2121_LOD0.glb').instantiate()
+ body=load(model_path).instantiate()
  add_child(body)
  var nodes: Array[Node]=body.find_children('*','MeshInstance3D',true,false)
  for node in nodes:
