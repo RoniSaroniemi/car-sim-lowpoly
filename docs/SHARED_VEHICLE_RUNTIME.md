@@ -28,7 +28,7 @@ python3 tools/demo.py verify
 `drive` opens a flat practice area with the same finite-box crash barrier that
 the custom solver supports. W accelerates, S brakes, A/D steer left/right,
 Space applies the rear handbrake, Q selects forward/reverse, R repairs/resets,
-C changes camera, and 1/3 switches structure/textured views. You can drive into
+C changes camera, T runs the aligned/bent/detached wheel-mount test, and 1/3 switches structure/textured views. You can drive into
 the barrier, inspect the wreck, and continue applying controls without resetting
 its damage. Opening a new scene or pressing R creates a pristine state.
 
@@ -130,3 +130,7 @@ headless reports alone do not establish visual quality. The existing Linux CI
 command runs the new checks too. Rendering and actual multi-car performance
 remain separate checks; there is no second optimized driving solver to drift
 from the crash implementation.
+
+Wheel mounts now restrain sideways drift and unwanted tilt until yield. Strong
+loads create permanent alignment/offset; the configured damage/load limits
+release every support through one shared method. See [Wheel physics](WHEEL_PHYSICS.md).

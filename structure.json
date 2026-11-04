@@ -2552,6 +2552,12 @@
       "knuckle_stiffness_nm_per_rad": 24000,
       "knuckle_yield_nm": 2500,
       "knuckle_break_nm": 9500,
+      "rigid_mount_until_yield": true,
+      "lateral_yield_n": 18000,
+      "lateral_break_n": 90000,
+      "mount_break_delay_s": 0.012,
+      "detach_alignment_deg": 35,
+      "detach_lateral_offset_m": 0.12,
       "body_capsules": [
         {
           "a": 0,
@@ -2586,6 +2592,12 @@
       "knuckle_stiffness_nm_per_rad": 24000,
       "knuckle_yield_nm": 2500,
       "knuckle_break_nm": 9500,
+      "rigid_mount_until_yield": true,
+      "lateral_yield_n": 18000,
+      "lateral_break_n": 90000,
+      "mount_break_delay_s": 0.012,
+      "detach_alignment_deg": 35,
+      "detach_lateral_offset_m": 0.12,
       "body_capsules": [
         {
           "a": 1,
@@ -2620,6 +2632,12 @@
       "knuckle_stiffness_nm_per_rad": 24000,
       "knuckle_yield_nm": 2500,
       "knuckle_break_nm": 9500,
+      "rigid_mount_until_yield": true,
+      "lateral_yield_n": 18000,
+      "lateral_break_n": 90000,
+      "mount_break_delay_s": 0.012,
+      "detach_alignment_deg": 35,
+      "detach_lateral_offset_m": 0.12,
       "body_capsules": [
         {
           "a": 8,
@@ -2654,6 +2672,12 @@
       "knuckle_stiffness_nm_per_rad": 24000,
       "knuckle_yield_nm": 2500,
       "knuckle_break_nm": 9500,
+      "rigid_mount_until_yield": true,
+      "lateral_yield_n": 18000,
+      "lateral_break_n": 90000,
+      "mount_break_delay_s": 0.012,
+      "detach_alignment_deg": 35,
+      "detach_lateral_offset_m": 0.12,
       "body_capsules": [
         {
           "a": 9,

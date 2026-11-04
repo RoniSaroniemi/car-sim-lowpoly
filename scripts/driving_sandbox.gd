@@ -1,6 +1,10 @@
 extends Node3D
 ## World/input/camera only. Vehicle physics is shared with the crash bench.
 const Simulation=preload('res://scripts/vehicle_simulation.gd')
+const MountDemo=preload('res://scripts/wheel_mount_demo.gd')
+var mount_demo: RefCounted
+var capture_mounts:=false
+var mount_capture_stage:=0
 const SkinView=preload('res://scripts/structural_skin.gd')
 @export_file('*.json') var vehicle_profile: String='res://vehicles/niva.json'
 var vehicle: RefCounted
@@ -16,9 +20,12 @@ var capture_stage:=0
 
 func _ready() -> void:
  capture_mode='--capture-driving' in OS.get_cmdline_user_args()
+ capture_mounts='--capture-mounts' in OS.get_cmdline_user_args()
  _world()
  vehicle=Simulation.new()
  vehicle.setup(vehicle_profile,true)
+ mount_demo=MountDemo.new()
+ vehicle.before_step.connect(mount_demo.step)
  vehicle.solver.barrier_min=Vector3(40,0,-8)
  vehicle.solver.barrier_max=Vector3(41,3,8)
  vehicle.reset(0,Vector3(-25,0,0))
@@ -37,6 +44,7 @@ func _ready() -> void:
  fill.light_energy=.5
  camera.add_child(fill)
  _hud()
+ if capture_mounts or '--mount-test' in OS.get_cmdline_user_args():call_deferred('_start_mount_test')
  print('DRIVING_SANDBOX_READY shared vehicle=',vehicle.profile.name)
 
 func _material(color: String) -> StandardMaterial3D:
@@ -107,15 +115,26 @@ func _hud() -> void:
  readout.add_theme_font_size_override('font_size',17)
  column.add_child(readout)
  var controls:=Label.new()
- controls.text='W throttle · S brake · A/D steer · Space handbrake\nQ forward/reverse · R repair/reset · C camera\n1 structure · 3 textured car · Drag: orbit · Esc: close'
+ controls.text='W throttle · S brake · A/D steer · Space handbrake\nQ forward/reverse · R repair/reset · C camera · T wheel test\n1 structure · 3 textured car · Drag: orbit · Esc: close'
  controls.add_theme_font_size_override('font_size',13)
  column.add_child(controls)
  var reset:=Button.new()
  reset.text='Repair and reset'
  reset.pressed.connect(_reset)
  column.add_child(reset)
+ var test_button:=Button.new()
+ test_button.text='Test wheel mount'
+ test_button.pressed.connect(_start_mount_test)
+ column.add_child(test_button)
+
+func _start_mount_test() -> void:
+ _reset()
+ camera_mode=1
+ orbit=0
+ mount_demo.start(vehicle.solver)
 
 func _reset() -> void:
+ mount_demo.stop()
  reverse=false
  elapsed=0
  vehicle.reset(0,Vector3(-25,0,0))
@@ -129,8 +148,12 @@ func _physics_process(dt: float) -> void:
  if capture_mode:
   throttle=1.0 if elapsed<6 else 0.0
   brake=1.0 if elapsed>=6 else 0.0
- vehicle.set_controls(-throttle if reverse else throttle,brake,steering,handbrake)
- vehicle.advance(dt)
+ if mount_demo.active:
+  vehicle.set_controls(0,0,0,0)
+  vehicle.advance(dt,.5)
+ else:
+  vehicle.set_controls(-throttle if reverse else throttle,brake,steering,handbrake)
+  vehicle.advance(dt)
 
 func _process(_dt: float) -> void:
  var g: RefCounted=vehicle.solver
@@ -146,6 +169,19 @@ func _process(_dt: float) -> void:
  var speed: float=vehicle.velocity().length()*3.6
  var damage: Dictionary=g.metrics()
  readout.text='%3.0f km/h   %s\nSuspension failures: %d   Yielded members: %d' %[speed,'R' if reverse else 'D',damage.broken_suspension_links,damage.yielded_links]
+ if mount_demo.phase!='':
+  readout.text+='\n'+mount_demo.phase
+  readout.text+='\nFront-left permanent bend: %.1f°'%damage.wheels[3].permanent_alignment_deg
+ if capture_mounts:
+  if mount_demo.time>.85 and mount_capture_stage==0:
+   mount_capture_stage=1
+   _capture('mount_aligned.png')
+  elif mount_demo.time>1.8 and mount_capture_stage==1:
+   mount_capture_stage=2
+   _capture('mount_bent.png')
+  elif mount_demo.time>2.65 and mount_capture_stage==2:
+   _capture('mount_detached.png')
+   get_tree().quit()
  if capture_mode:
   if elapsed>2.5 and capture_stage==0:
    capture_stage=1
@@ -164,6 +200,7 @@ func _unhandled_input(event: InputEvent) -> void:
  if event is InputEventKey and event.pressed and not event.echo:
   match event.physical_keycode:
    KEY_R:_reset()
+   KEY_T:_start_mount_test()
    KEY_Q:reverse=not reverse
    KEY_C:
     camera_mode=(camera_mode+1)%3

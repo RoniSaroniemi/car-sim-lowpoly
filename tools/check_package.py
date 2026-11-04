@@ -25,6 +25,10 @@ for wheel in s['wheel_assemblies']:
     assert len(anchors) == 6
     assert all(l['break_force_n'] > l['yield_n'] and l['break_delay_s'] > 0 for l in anchors)
     assert wheel['rim_radius_m'] < wheel['radius_m'] and wheel['half_width_m'] > 0
+    assert wheel['rigid_mount_until_yield'] is True
+    assert wheel['lateral_break_n'] > wheel['lateral_yield_n'] > 0
+    assert 0 < wheel['detach_alignment_deg'] < 90
+    assert wheel['detach_lateral_offset_m'] > 0 and wheel['mount_break_delay_s'] > 0
     assert all(0 <= c[k] < len(s['nodes']) for c in wheel['body_capsules'] for k in ('a', 'b'))
 profile = json.loads((root / 'vehicles/niva.json').read_text())
 for key in ('structure', 'model'):

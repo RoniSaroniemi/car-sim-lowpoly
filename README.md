@@ -27,7 +27,7 @@ python3 tools/demo.py drive
 ```
 
 W throttle, S brake, A/D steer, Space handbrake, Q forward/reverse, R repair/reset,
-and C camera. The new flat practice area uses the same deformable car, wheels
+C camera, and T wheel-mount test. The new flat practice area uses the same deformable car, wheels
 and damage state as the crash bench. It is a first driving implementation;
 the earlier sandbox's ramps and general Jolt-world collision are not ported.
 
@@ -66,7 +66,7 @@ python3 tools/demo.py check
 python3 tools/demo.py verify
 ```
 
-The second command runs six structural cases, seven wheel cases, native skin binding, replay/reset, support/detachment checks and shared-runtime driving checks. Fresh reports go to `verification/structural_validation.json` and `verification/wheel_validation.json`. Fresh driving results go to `verification/driving_validation.json`. Checked-in handover reports record the earlier published revision; `verification/baseline.json` preserves the older pre-wheel reference for comparison.
+The second command runs six structural cases, seven wheel cases, native skin binding, replay/reset, support/detachment checks, rigid-mount load checks and shared-runtime driving checks. Fresh reports go to `verification/structural_validation.json` and `verification/wheel_validation.json`. Fresh driving results go to `verification/driving_validation.json`. Checked-in handover reports record the earlier published revision; `verification/baseline.json` preserves the older pre-wheel reference for comparison.
 
 ## What is included
 

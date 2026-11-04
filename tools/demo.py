@@ -67,6 +67,12 @@ def main():
             if not report['passed']:
                 raise SystemExit('Wheel checks failed; see verification/wheel_validation.json')
             print(f"PASS: {len(report['runs'])} wheel cases, standing support, load transfer, suspension failure, detachment and replay.")
+        if args.command in ('verify', 'verify-wheels'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_wheel_mounts.gd'])
+            report = json.loads((ROOT / 'verification/wheel_mount_validation.json').read_text())
+            if not report['passed']:
+                raise SystemExit('Wheel mount checks failed; see verification/wheel_mount_validation.json')
+            print('PASS: rigid lateral mounts, permanent bending, full release and visible load fixture.')
         if args.command in ('verify', 'verify-driving'):
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_driving.gd'])
             report = json.loads((ROOT / 'verification/driving_validation.json').read_text())

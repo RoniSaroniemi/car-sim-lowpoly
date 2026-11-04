@@ -35,11 +35,34 @@ rotational_weight = (r × normal) · inverse_inertia(r × normal)
 
 That makes an off-centre load tilt the wheel as well as move it. The body endpoint receives the opposite linear reaction. Axial damping includes the anchor velocity from hub rotation.
 
-The angular knuckle constraint resists alignment change relative to the adjacent body section, preventing an unsupported camber mechanism under gravity. It applies a reaction through the body's section nodes. Excess torque changes the permanent alignment; sustained overload or excessive permanent alignment can break the angular constraint.
+The default mount has no intentional lateral or angular elastic flex below
+yield. Its lateral coordinate follows the adjacent chassis side rail and local
+cross-car axis; vertical suspension travel and bearing spin remain free. The
+constraint reacts against the deforming body nodes. It is not a lock to the
+world or to the velocity vector, so reversing, standing still and whole-car
+sliding remain possible. Commanded steering is included in the neutral target
+and is not counted as permanent damage.
 
-A suspension link records its peak force estimate during a step. Force above its break threshold, or accumulated deformation above its damage threshold, adds to an overload timer; otherwise the timer decays. Once the configured delay is reached the link stops solving and damping. A single iteration spike is therefore insufficient to break it.
+Lateral force above 18,000 N can move the permanent mount offset; torque above
+2,500 N·m can permanently change alignment. Angular correction stores a vector
+impulse, so reversing correction axes does not lose the signed load history.
+Both constraints cap the transmitted impulse at yield and record the unresolved
+motion as plastic deformation. Below yield the lateral constraint has zero
+compliance; `rigid_mount_until_yield` also gives the angular constraint zero
+compliance. Setting that flag false restores the configured angular stiffness.
 
-When all six translation-support links have failed, the wheel is detached and its angular knuckle is released immediately. Removal does not change its position, velocity or spin. Broken links disappear from the structural overlay. Failed supports also disable that wheel pair's mirror constraint in the symmetric bench, avoiding an invisible tether.
+Each suspension link still has its own force/damage overload timer. In addition,
+a sustained mount force above 90,000 N or torque above 9,500 N·m, a permanent
+alignment of 35 degrees, or a permanent lateral offset of 0.12 m releases the
+whole wheel. Force overload must persist for 0.012 s; geometric damage limits
+are checked at the end of the substep. Complete mount release removes all six
+links and the lateral/angular restraints together. It retains position,
+velocity, orientation and spin. Failure no longer leaves a broken angular
+knuckle hanging from the remaining supports. Loss of all six individual links
+also uses this same release path.
+
+Replay records permanent lateral offsets and release reasons along with wheel
+orientation/spin, alignment and broken links. Reset restores every mount.
 
 This is an approximate generalized suspension/knuckle model, not a dimensionally exact reconstruction of the Niva's real suspension. The driving layer supplies basic steering/drive/brake commands, rather than a complete powertrain model.
 
@@ -74,7 +97,11 @@ Edit `scripts/build_structure.py` for persistent changes, then regenerate `struc
 | `max_tire_compression_m` | 0.045 m contact-envelope allowance |
 | `contact_stiffness_n_per_m` | 320,000 N/m |
 | `axle_body_nodes` | Four adjacent section nodes defining the moving body frame |
-| `knuckle_stiffness_nm_per_rad` | 24,000 N·m/rad |
+| `knuckle_stiffness_nm_per_rad` | 24,000 N·m/rad when rigid angular mode is disabled |
+| `rigid_mount_until_yield` | true: zero angular compliance before yielding |
+| `lateral_yield_n` / `lateral_break_n` | 18,000 / 90,000 N |
+| `mount_break_delay_s` | 0.012 s sustained overload |
+| `detach_alignment_deg` / `detach_lateral_offset_m` | 35 degrees / 0.12 m permanent damage |
 | `knuckle_yield_nm` / `knuckle_break_nm` | 2,500 / 9,500 N·m |
 | `body_capsules` | Three local node-pair segments, radius 0.045 m |
 | Link `wheel_anchor` | Hub-local hardpoint offset, metres |
@@ -106,3 +133,20 @@ Focused checks also cover:
 The detached-wheel test deliberately overloads supports to exercise that branch. It does not claim that all supports detach in the default crash. Tire/body motion is checked for finite state, contact clearance and excessive energy growth. The structural scene suite additionally verifies that rendered wheel bone bases match the simulated hub/spin transforms.
 
 Replay is for inspection, not a complete checkpoint from which arbitrary solver continuation is guaranteed. Passing these checks supports reproducibility of this game approximation; it does not calibrate a real vehicle crash or prove general-world collision robustness.
+
+## Visible mount test
+
+In the driving scene press **T** or click **Test wheel mount**. The same fixed-step
+external-load fixture used by verification applies a modest side load, a brief
+bend load, and then a larger failure load to the front-left wheel. It displays
+aligned, permanently bent, and released stages at half speed. Press **R** to
+repair/reset and resume driving. These are deliberately applied test loads,
+not a calibrated curb-strike reconstruction.
+
+`verification/wheel_mount_validation.json` records the isolated load checks and
+checks that the visible fixture actually passes through all three states on
+the floor with gravity. `verify` and `verify-wheels` include these checks.
+
+![Retained wheel bend under the test load](images/mount_bent.png)
+
+![Wheel released after the damage threshold](images/mount_detached.png)

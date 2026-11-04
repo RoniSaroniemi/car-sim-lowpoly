@@ -31,6 +31,7 @@ func _run() -> void:
  checks['throttle_accelerates_same_structural_vehicle']=forward_speed>3 and observations.distance_m>4
  checks['ordinary_straight_driving_keeps_suspension']=car.solver.links.all(func(l):return not l.broken)
  checks['ordinary_straight_driving_does_not_yield_structure']=car.solver.plastic_work==0
+ checks['ordinary_driving_locks_sideways_wheel_mounts']=car.solver.wheels.metrics().all(func(w):return absf(w.lateral_error_m)<.001 and absf(w.permanent_lateral_offset_m)<.00001)
  car.set_controls(0,1,0)
  advance(car,2)
  observations['braked_speed_kmh']=car.velocity().length()*3.6
@@ -49,6 +50,13 @@ func _run() -> void:
  checks['ordinary_turning_keeps_suspension']=turns.all(func(t):return t.broken==0)
  checks['ordinary_turning_does_not_yield_structure']=turns.all(func(t):return t.work==0)
  checks['finite_turns']=turns.all(func(t):return t.finite)
+ var full_lock=make_vehicle()
+ full_lock.reset(12,Vector3(-30,0,0))
+ full_lock.set_controls(.1,0,1)
+ advance(full_lock,1.5)
+ observations['full_lock_mounts']=full_lock.solver.wheels.metrics()
+ observations['full_lock_work_kj']=full_lock.solver.plastic_work/1000.0
+ checks['commanded_full_lock_does_not_damage_mounts']=full_lock.solver.wheels.metrics().all(func(w):return not w.detached and w.permanent_alignment_deg<.01 and absf(w.permanent_lateral_offset_m)<.00001) and full_lock.solver.plastic_work==0
  var reverse=make_vehicle()
  reverse.set_controls(-1,0,0)
  advance(reverse,2)

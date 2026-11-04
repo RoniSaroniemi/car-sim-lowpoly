@@ -6,7 +6,19 @@ class Wheel:
  var body_nodes: Array=[]
  var steering_angle:=0.0
  var alignment:=Vector3.BACK
- var joint_lambda:=0.0
+ var joint_impulse:=Vector3.ZERO
+ var rigid_mount:=true
+ var lateral_rest:=0.0
+ var initial_lateral_rest:=0.0
+ var lateral_lambda:=0.0
+ var lateral_peak:=0.0
+ var lateral_yield:=18000.0
+ var lateral_break:=90000.0
+ var lateral_overload:=0.0
+ var mount_break_delay:=.012
+ var detach_alignment:=deg_to_rad(35)
+ var detach_offset:=.12
+ var detach_reason: String=''
  var joint_peak:=0.0
  var joint_overload:=0.0
  var joint_broken:=false
@@ -49,7 +61,20 @@ func setup(owner: RefCounted) -> void:
  for raw in owner.config.wheel_assemblies:
   var w:=Wheel.new()
   w.node=raw.node
+  w.rigid_mount=raw.get('rigid_mount_until_yield',true)
+  w.lateral_yield=raw.get('lateral_yield_n',18000.0)
+  w.lateral_break=raw.get('lateral_break_n',90000.0)
+  w.mount_break_delay=raw.get('mount_break_delay_s',.012)
+  w.detach_alignment=deg_to_rad(raw.get('detach_alignment_deg',35.0))
+  w.detach_offset=raw.get('detach_lateral_offset_m',.12)
   w.body_nodes=raw.axle_body_nodes
+  var a: int=w.body_nodes[0]
+  var b: int=w.body_nodes[1]
+  var axis: Vector3=(owner.rest[b]-owner.rest[a]).normalized()
+  var centre: Vector3=(owner.rest[a]+owner.rest[b])*.5
+  var origin: int=b if (owner.rest[w.node]-centre).dot(axis)>0 else a
+  w.initial_lateral_rest=(owner.rest[w.node]-owner.rest[origin]).dot(axis)
+  w.lateral_rest=w.initial_lateral_rest
   w.joint_stiffness=raw.knuckle_stiffness_nm_per_rad
   w.joint_yield=raw.knuckle_yield_nm
   w.joint_break=raw.knuckle_break_nm
@@ -71,9 +96,14 @@ func reset(speed: float) -> void:
  for w in wheels:
   w.steering_angle=0
   w.alignment=Vector3.BACK
-  w.joint_lambda=0
+  w.joint_impulse=Vector3.ZERO
+  w.lateral_lambda=0
+  w.lateral_peak=0
   w.joint_peak=0
   w.joint_overload=0
+  w.lateral_overload=0
+  w.lateral_rest=w.initial_lateral_rest
+  w.detach_reason=''
   w.joint_broken=false
   w.rotation=Quaternion.IDENTITY
   w.previous_rotation=w.rotation
@@ -93,7 +123,9 @@ func reset(speed: float) -> void:
 func predict(dt: float) -> void:
  for w in wheels:
   w.previous_rotation=w.rotation
-  w.joint_lambda=0
+  w.joint_impulse=Vector3.ZERO
+  w.lateral_lambda=0
+  w.lateral_peak=0
   w.joint_peak=0
   _rotate(w,w.angular_velocity*dt)
   w.spin=wrapf(w.spin+w.spin_speed*dt,-PI,PI)
@@ -147,10 +179,60 @@ func support(w: Wheel,direction: Vector3) -> Vector3:
   p+=(radial*shoulder*shoulder+axle*(axial*w.half_width*w.half_width))/denom
  return p
 
+func _limited_increment(previous: Vector3,axis: Vector3,requested: float,limit: float) -> float:
+ # Keep the accumulated angular impulse inside the yield ball. The axis can
+ # reverse between sweeps, so a scalar unsigned-angle multiplier is insufficient.
+ var along: float=previous.dot(axis)
+ var perpendicular_squared: float=maxf(0,previous.length_squared()-along*along)
+ var available: float=sqrt(maxf(0,limit*limit-perpendicular_squared))
+ return clampf(requested,-along-available,-along+available)
+
+func _mount_origin(w: Wheel) -> int:
+ return w.body_nodes[1] if w.initial_lateral_rest>0 else w.body_nodes[0]
+
+func lateral_error(w: Wheel) -> float:
+ var g: RefCounted=graph.get_ref()
+ var axis: Vector3=(g.points[w.body_nodes[1]]-g.points[w.body_nodes[0]]).normalized()
+ return (g.points[w.node]-g.points[_mount_origin(w)]).dot(axis)-w.lateral_rest
+
+func constrain_lateral_mounts(dt: float) -> void:
+ var g: RefCounted=graph.get_ref()
+ for w in wheels:
+  if w.detached:continue
+  var a: int=w.body_nodes[0]
+  var b: int=w.body_nodes[1]
+  var span: Vector3=g.points[b]-g.points[a]
+  var length: float=span.length()
+  if length<.05:continue
+  var z: Vector3=span/length
+  var origin: int=_mount_origin(w)
+  var arm: Vector3=g.points[w.node]-g.points[origin]
+  var coordinate: float=arm.dot(z)
+  var transverse: Vector3=(arm-z*coordinate)/length
+  # These derivatives also react against rotation of the deforming body axis.
+  var ga: Vector3=-transverse-(z if origin==a else Vector3.ZERO)
+  var gb: Vector3=transverse-(z if origin==b else Vector3.ZERO)
+  var weight: float=g.inverse_masses[w.node]+ga.length_squared()*g.inverse_masses[a]+gb.length_squared()*g.inverse_masses[b]
+  var c: float=coordinate-w.lateral_rest
+  var requested: float=-c/weight
+  var trial: float=w.lateral_lambda+requested
+  w.lateral_peak=maxf(w.lateral_peak,absf(trial)/(dt*dt))
+  var capped: float=clampf(trial,-w.lateral_yield*dt*dt,w.lateral_yield*dt*dt)
+  var dl: float=capped-w.lateral_lambda
+  if absf(trial)>w.lateral_yield*dt*dt:
+   # Move the permanent mount target only by the unresolved plastic displacement.
+   var new_rest: float=coordinate+weight*dl
+   g.plastic_work+=w.lateral_yield*absf(new_rest-w.lateral_rest)
+   w.lateral_rest=new_rest
+  w.lateral_lambda=capped
+  g.points[w.node]+=z*(g.inverse_masses[w.node]*dl)
+  g.points[a]+=ga*(g.inverse_masses[a]*dl)
+  g.points[b]+=gb*(g.inverse_masses[b]*dl)
+
 func constrain_knuckles(dt: float) -> void:
  var g: RefCounted=graph.get_ref()
  for w in wheels:
-  if w.joint_broken:continue
+  if w.detached or w.joint_broken:continue
   var a: int=w.body_nodes[0]
   var b: int=w.body_nodes[1]
   var span: Vector3=g.points[b]-g.points[a]
@@ -167,25 +249,39 @@ func constrain_knuckles(dt: float) -> void:
   if sine<1e-7:continue
   var n: Vector3=cross_axis/sine
   var angle: float=atan2(sine,clampf(axle.dot(desired),-1,1))
-  var ga: Vector3=-n.cross(z)/length
+  var ga: Vector3=n.cross(z)/length
   var gb: Vector3=-ga
   var weight: float=n.dot(inverse_inertia(w,n))+ga.length_squared()*g.inverse_masses[a]+gb.length_squared()*g.inverse_masses[b]
-  var alpha: float=1.0/(w.joint_stiffness*dt*dt)
-  var dl: float=(-angle-alpha*w.joint_lambda)/(weight+alpha)
-  var trial: float=w.joint_lambda+dl
-  var torque: float=absf(trial)/(dt*dt)
+  var alpha: float=0.0 if w.rigid_mount else 1.0/(w.joint_stiffness*dt*dt)
+  var along: float=w.joint_impulse.dot(n)
+  var requested: float=(angle-alpha*along)/(weight+alpha)
+  var trial: Vector3=w.joint_impulse+n*requested
+  var torque: float=trial.length()/(dt*dt)
   w.joint_peak=maxf(w.joint_peak,torque)
+  var impulse: float=_limited_increment(w.joint_impulse,n,requested,w.joint_yield*dt*dt)
   if torque>w.joint_yield:
-   var plastic: float=maxf(0,angle-w.joint_yield/w.joint_stiffness)
+   var plastic: float=maxf(0,angle-weight*impulse-alpha*(along+impulse))
    if plastic>0:
     w.alignment=(frame.transposed()*(Quaternion(n,-plastic)*desired)).normalized()
-    angle-=plastic
     g.plastic_work+=plastic*w.joint_yield
-    dl=(-angle-alpha*w.joint_lambda)/(weight+alpha)
-  w.joint_lambda+=dl
-  _rotate(w,inverse_inertia(w,-n)*dl)
-  g.points[a]+=ga*(g.inverse_masses[a]*dl)
-  g.points[b]+=gb*(g.inverse_masses[b]*dl)
+  w.joint_impulse+=n*impulse
+  _rotate(w,inverse_inertia(w,n)*impulse)
+  g.points[a]+=ga*(g.inverse_masses[a]*impulse)
+  g.points[b]+=gb*(g.inverse_masses[b]*impulse)
+
+func detach(w: Wheel,reason: String) -> void:
+ # A mount failure releases every constraint. No teleport, velocity rewrite,
+ # mass handoff or residual angular/lateral tether is introduced here.
+ if w.detached:return
+ w.detached=true
+ w.joint_broken=true
+ w.detach_reason=reason
+ w.joint_impulse=Vector3.ZERO
+ w.lateral_lambda=0
+ for l in w.links:
+  l.broken=true
+  l.lambda=0
+  l.damage=1.0
 
 func contacts(dt: float) -> void:
  var g: RefCounted=graph.get_ref()
@@ -307,10 +403,15 @@ func finish_step(dt: float) -> void:
   var active:=0
   for l in w.links:
    if not l.broken:active+=1
-  var overloaded: bool=w.joint_peak>w.joint_break or w.alignment.dot(Vector3.BACK)<cos(deg_to_rad(45))
-  w.joint_overload=maxf(0,w.joint_overload+(dt if overloaded else -2*dt))
-  if active==0 or w.joint_overload>.012:w.joint_broken=true
-  w.detached=active==0
+  var angular_overload: bool=w.joint_peak>w.joint_break
+  w.joint_overload=maxf(0,w.joint_overload+(dt if angular_overload else -2*dt))
+  w.lateral_overload=maxf(0,w.lateral_overload+(dt if w.lateral_peak>w.lateral_break else -2*dt))
+  var angle: float=acos(clampf(w.alignment.dot(Vector3.BACK),-1,1))
+  if active==0:detach(w,'suspension')
+  elif angle>=w.detach_alignment:detach(w,'permanent_alignment')
+  elif absf(w.lateral_rest-w.initial_lateral_rest)>=w.detach_offset:detach(w,'permanent_lateral_offset')
+  elif w.joint_overload>=w.mount_break_delay:detach(w,'angular_overload')
+  elif w.lateral_overload>=w.mount_break_delay:detach(w,'lateral_overload')
 
 func _velocity_impulse(w: Wheel,r: Vector3,impulse: Vector3) -> void:
  var g: RefCounted=graph.get_ref()
@@ -332,13 +433,15 @@ func render_basis(index: int) -> Basis:
 func capture() -> Array:
  var states: Array=[]
  for w in wheels:
-  states.append({'steering_angle':w.steering_angle,'alignment':w.alignment,'joint_broken':w.joint_broken,'rotation':w.rotation,'angular_velocity':w.angular_velocity,'spin':w.spin,'spin_speed':w.spin_speed,'compression':w.tire_compression,'peak_compression':w.peak_compression,'detached':w.detached,'body_impulse':w.body_impulse,'body_events':w.contact_events})
+  states.append({'lateral_rest':w.lateral_rest,'detach_reason':w.detach_reason,'steering_angle':w.steering_angle,'alignment':w.alignment,'joint_broken':w.joint_broken,'rotation':w.rotation,'angular_velocity':w.angular_velocity,'spin':w.spin,'spin_speed':w.spin_speed,'compression':w.tire_compression,'peak_compression':w.peak_compression,'detached':w.detached,'body_impulse':w.body_impulse,'body_events':w.contact_events})
  return states
 
 func restore(states: Array) -> void:
  for i in wheels.size():
   var w: Wheel=wheels[i]
   var s: Dictionary=states[i]
+  w.lateral_rest=s.lateral_rest
+  w.detach_reason=s.detach_reason
   w.steering_angle=s.steering_angle
   w.alignment=s.alignment
   w.joint_broken=s.joint_broken
@@ -357,5 +460,5 @@ func metrics() -> Array:
  var result: Array=[]
  for w in wheels:
   var body_axis: Vector3=(g.points[w.body_nodes[1]]-g.points[w.body_nodes[0]]).normalized()
-  result.append({'node':w.node,'name':g.config.nodes[w.node].name,'detached':w.detached,'knuckle_broken':w.joint_broken,'permanent_alignment_deg':rad_to_deg(acos(clampf(w.alignment.dot(Vector3.BACK),-1,1))),'hub_tilt_deg':rad_to_deg(acos(clampf(Basis(w.rotation).z.dot(body_axis),-1,1))),'spin_rad_s':w.spin_speed,'peak_tire_compression_m':w.peak_compression,'wheel_body_constraint_impulse_ns':w.body_impulse,'body_contact_events':w.contact_events,'angular_finite':w.rotation.is_finite() and w.angular_velocity.is_finite() and is_finite(w.spin_speed)})
+  result.append({'lateral_error_m':lateral_error(w),'permanent_lateral_offset_m':w.lateral_rest-w.initial_lateral_rest,'peak_lateral_force_n':w.lateral_peak,'detach_reason':w.detach_reason,'node':w.node,'name':g.config.nodes[w.node].name,'detached':w.detached,'knuckle_broken':w.joint_broken,'permanent_alignment_deg':rad_to_deg(acos(clampf(w.alignment.dot(Vector3.BACK),-1,1))),'hub_tilt_deg':rad_to_deg(acos(clampf(Basis(w.rotation).z.dot(body_axis),-1,1))),'spin_rad_s':w.spin_speed,'peak_tire_compression_m':w.peak_compression,'wheel_body_constraint_impulse_ns':w.body_impulse,'body_contact_events':w.contact_events,'angular_finite':w.rotation.is_finite() and w.angular_velocity.is_finite() and is_finite(w.spin_speed)})
  return result

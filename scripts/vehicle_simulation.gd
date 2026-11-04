@@ -1,5 +1,6 @@
 extends RefCounted
 ## The scenes supply input/time; this is the single live vehicle implementation.
+signal before_step(dt: float)
 const Structure=preload('res://scripts/structure_solver.gd')
 const Dynamics=preload('res://scripts/vehicle_dynamics.gd')
 var solver: RefCounted
@@ -26,6 +27,7 @@ func set_controls(throttle: float,brake: float,steering: float,handbrake: float=
  dynamics.set_controls(throttle,brake,steering,handbrake)
 
 func step(dt: float) -> void:
+ before_step.emit(dt)
  if driving:dynamics.step(dt)
  solver.step(dt)
 

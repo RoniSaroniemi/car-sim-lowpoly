@@ -153,6 +153,7 @@ func step(dt: float) -> void:
   for offset in links.size():
    var index: int=offset if iteration%2==0 else links.size()-1-offset
    _solve_link(links[index],dt)
+  wheels.constrain_lateral_mounts(dt)
   wheels.constrain_knuckles(dt)
   _contacts()
   wheels.contacts(dt)
@@ -280,8 +281,7 @@ func _break_links(dt: float) -> void:
    l.damage=1.0
  for wheel in wheels.wheels:
   if wheel.links.all(func(l):return l.broken):
-   wheel.joint_broken=true
-   wheel.detached=true
+   wheels.detach(wheel,'suspension')
 
 func _damping(dt: float) -> void:
  for l in links:
