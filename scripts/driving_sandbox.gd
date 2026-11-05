@@ -196,6 +196,10 @@ func _hud() -> void:
  reset.text='Repair and reset'
  reset.pressed.connect(_reset)
  column.add_child(reset)
+ var arena_button:=Button.new()
+ arena_button.text='Open colosseum arena'
+ arena_button.pressed.connect(func():get_tree().change_scene_to_file('res://arena/colosseum.tscn'))
+ column.add_child(arena_button)
  var test_button:=Button.new()
  test_button.text='Test wheel mount'
  test_button.pressed.connect(_start_mount_test)

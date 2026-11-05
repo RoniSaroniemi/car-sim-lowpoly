@@ -36,7 +36,7 @@ def run(command):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'capture-surfaces', 'damage-studio', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'drive-sequence', 'capture-driving', 'capture', 'import', 'check'))
+    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena', 'capture-surfaces', 'damage-studio', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'drive-sequence', 'arena', 'capture-driving', 'capture', 'import', 'check'))
     parser.add_argument('--godot', help='Godot executable, or set GODOT_BIN')
     parser.add_argument('--no-import', action='store_true', help='Skip import after the first successful run')
     args = parser.parse_args()
@@ -53,7 +53,7 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--editor', '--import', '--quit'])
     if args.command == 'import':
         return
-    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces'):
+    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena'):
         import json
         if args.command == 'verify':
             run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
@@ -135,6 +135,12 @@ def main():
             print('PASS: live/baked surface lifecycle, deterministic seeking, persistence, repair and native skin.')
         if args.command in ('verify', 'verify-roof'):
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_roof_bank.gd'])
+        if args.command in ('verify', 'verify-arena'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://arena/verify.gd'])
+            report = json.loads((ROOT / 'verification/arena_validation.json').read_text())
+            if not report['passed']:
+                raise SystemExit('Arena driving/contact checks failed')
+            print('PASS: arena contact surfaces, jump landings, paired ramps, wheel retention and ring boundary.')
     elif args.command == 'damage-studio':
         run([binary, '--path', str(ROOT), '--resolution', '1600x1000', 'res://probes/damage_studio/studio.tscn'])
     elif args.command == 'capture-surfaces':
@@ -160,6 +166,8 @@ def main():
         if args.command == 'drive-sequence':
             command += ['--', '--baked-sequence']
         run(command)
+    elif args.command == 'arena':
+        run([binary, '--path', str(ROOT), 'res://arena/colosseum.tscn'])
     elif args.command == 'capture-driving':
         run([binary, '--path', str(ROOT), '--script', 'res://scripts/capture_driving.gd', '--', '--capture-driving'])
     elif args.command == 'capture':
