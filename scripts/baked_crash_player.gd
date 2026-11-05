@@ -110,7 +110,11 @@ func _begin_replay() -> void:
  var velocity_before: PackedVector3Array=g.velocities.duplicate()
  var wheel_before: Array=g.wheels.capture()
  var panels_before: Dictionary=g.panels.capture() if g.panels_runtime_enabled else {}
- if g.effects!=null:g.effects.begin_playback(data.frames[0].get('effects',{}))
+ var retained: Dictionary=_retained_components(g)
+ if g.effects!=null:
+  var initial_effects: Dictionary=data.frames[0].get('effects',{}).duplicate(true)
+  for id in retained.get('glass',{}):initial_effects.glass.panes[id]=retained.glass[id]
+  g.effects.begin_playback(initial_effects)
  # Register selected clip in the incoming car heading and contact anchor.
  if data.metadata.has('contact_rotation_xyzw'):
   var q: Array=data.metadata.contact_rotation_xyzw
@@ -121,7 +125,7 @@ func _begin_replay() -> void:
   var actual_heading: float=rad_to_deg(atan2(-body_x.z,body_x.x))
   replay_rotation=Basis(Vector3.UP,deg_to_rad(actual_heading-float(data.metadata.heading_deg)))
  origin=g.station_center(2)
- Clip.apply(g,data,0,origin,replay_rotation)
+ Clip.apply(g,data,0,origin,replay_rotation,retained)
  panel_handoff={}
  if g.panels_runtime_enabled and not panels_before.is_empty():
   for old in panels_before.panels:
@@ -162,7 +166,7 @@ func apply_pose(at_time: float) -> void:
    if p.id in persistent_free_panels:free_panels.append(p)
  if not persistent_free_wheels.is_empty():
   preserved={'wheels':g.wheels.capture(),'points':g.points.duplicate(),'velocities':g.velocities.duplicate()}
- Clip.apply(g,data,at_time,origin,replay_rotation)
+ Clip.apply(g,data,at_time,origin,replay_rotation,_retained_components(g))
  var s: float=clampf(at_time/blend_seconds,0,1)
  var weight: float=1-3*s*s+2*s*s*s
  var velocity_weight: float=s*s*s-2*s*s+s
@@ -250,3 +254,14 @@ func _restore_free_panel(snapshot: Dictionary) -> void:
  var p: Dictionary=vehicle.solver.panels.find(snapshot.id)
  vehicle.solver.panels.restore_panel(snapshot)
  if not p.get('reduced',false):vehicle.reduced_panels.freeze(p)
+
+func _retained_components(g: RefCounted) -> Dictionary:
+ var retained: Dictionary={'panels':[],'glass':{}}
+ if not g.panels_runtime_enabled or persistent_free_panels.is_empty():return retained
+ for p in g.panels.capture().panels:
+  if p.id in persistent_free_panels:retained.panels.append(p)
+ if g.effects!=null:
+  var glass: Dictionary=g.effects.glass.capture()
+  for id in glass.panes:
+   if g.panels.panel_for_glass(id) in persistent_free_panels:retained.glass[id]=glass.panes[id]
+ return retained

@@ -44,12 +44,16 @@ func _initialize() -> void:
  for anchor in p.anchors:anchor.broken=true
  for seat in p.closing_supports:seat.broken=true
  p.closing_engaged=false;p.latched=false
+ v.solver.effects.glass.hit_window('door_right',1.3)
+ var glass_before: Dictionary=v.solver.effects.glass.capture().panes.door_right
  var free_before: PackedVector3Array=p.points.duplicate()
  var player:=Player.new();player.attach_live(v,[clip],{}, {'index':0})
  assert(p.detached and p.active)
+ assert(v.solver.effects.glass.capture().panes.door_right.mask==glass_before.mask)
  for k in 10:assert(p.points[k].distance_to(free_before[k])<.0001)
  player.advance(1.0/240)
  assert(p.detached and absf(v.solver.owned_mass_kg()-1210)<.001)
+ assert(v.solver.effects.glass.capture().panes.door_right.mask==glass_before.mask)
  assert(v.solver.step_count==calls and v.solver.panels.active_steps==cages)
  # Runtime strict path remains cheap with an open panel, no banks required.
  v.reset();v.solver.barrier_enabled=false;v.baked_enabled=true;v.set_panel_open('door_right',55)

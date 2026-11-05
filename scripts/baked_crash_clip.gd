@@ -88,7 +88,7 @@ static func local_frame(g: RefCounted,origin: Vector3) -> Dictionary:
  if state.has('panels'):state.panels=PanelState.transformed(state.panels,Basis.IDENTITY,-origin)
  return state
 
-static func apply(g: RefCounted,data: Dictionary,time: float,origin: Vector3,rotation: Basis=Basis.IDENTITY) -> void:
+static func apply(g: RefCounted,data: Dictionary,time: float,origin: Vector3,rotation: Basis=Basis.IDENTITY,retained_components: Dictionary={}) -> void:
  if g.panels_runtime_enabled and not data.frames[0].has('panels'):
   if g.panels.panels.any(func(p):return p.active or not p.latched or p.plastic_work>.01 or p.anchors.any(func(a):return a.broken)):
    push_warning('Historical closed-body clip cannot replace independent/damaged panels');return
@@ -118,10 +118,18 @@ static func apply(g: RefCounted,data: Dictionary,time: float,origin: Vector3,rot
  state.time=lerpf(a.time,b.time,t)
  if a.has('panels') and g.panels_runtime_enabled:
   state.panels=PanelState.transformed(PanelState.interpolated(a.panels,b.panels,t),rotation,origin)
+  for saved in retained_components.get('panels',[]):
+   for i in state.panels.panels.size():
+    if state.panels.panels[i].id==saved.id:state.panels.panels[i]=saved.duplicate(true)
   g.panels.playback=true
  g.restore(state,false)
  if g.effects!=null:
-  g.effects.restore_interpolated(a.get('effects',{}),b.get('effects',{}),t)
+  var effects_a: Dictionary=a.get('effects',{});var effects_b: Dictionary=b.get('effects',{})
+  if not retained_components.get('glass',{}).is_empty():
+   effects_a=effects_a.duplicate(true);effects_b=effects_b.duplicate(true)
+   for id in retained_components.glass:
+    effects_a.glass.panes[id]=retained_components.glass[id];effects_b.glass.panes[id]=retained_components.glass[id]
+  g.effects.restore_interpolated(effects_a,effects_b,t)
   # Discrete cumulative cosmetic events are sampled at the earlier frame.
   # This is deterministic for backward/random seeking and never runs physics.
   g.effects.surface.restore(data._surface_track[floori(n)])
