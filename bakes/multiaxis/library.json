@@ -4,6 +4,1751 @@
 	"records": [
 		{
 			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				-0.382683306932449,
+				0.923879623413086
+			],
+			"direction_key": "lower_az000",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 0.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.70710676908493,
+					-0.70710676908493,
+					0.0
+				],
+				"key": "lower_az000",
+				"reaction_car_normal": [
+					-0.70710676908493,
+					0.70710676908493,
+					0.0
+				],
+				"rotation_xyzw": [
+					0.0,
+					0.0,
+					-0.382683455944061,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az000_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az000_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 24.0,
+						"panel": "",
+						"source": "body",
+						"zone": 36.0
+					},
+					{
+						"gap_m": 0.0,
+						"node": 25.0,
+						"panel": "",
+						"source": "body",
+						"zone": 38.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.707106590270996,
+					0.70710700750351,
+					0.0
+				],
+				"velocity": [
+					0.00000035780360008,
+					-33.3333320617676,
+					0.00000014114932866
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 36.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					},
+					{
+						"id": 38.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 92435.155
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				-0.382683306932449,
+				0.923879623413086
+			],
+			"direction_key": "lower_az000",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 0.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.70710676908493,
+					-0.70710676908493,
+					0.0
+				],
+				"key": "lower_az000",
+				"reaction_car_normal": [
+					-0.70710676908493,
+					0.70710676908493,
+					0.0
+				],
+				"rotation_xyzw": [
+					0.0,
+					0.0,
+					-0.382683455944061,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az000_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az000_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000018998980522,
+						"node": 24.0,
+						"panel": "",
+						"source": "body",
+						"zone": 36.0
+					},
+					{
+						"gap_m": 0.0,
+						"node": 25.0,
+						"panel": "",
+						"source": "body",
+						"zone": 38.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					-0.707106590270996,
+					0.70710700750351,
+					0.0
+				],
+				"velocity": [
+					0.00000018879691765,
+					-16.6666660308838,
+					0.00000113496616904
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 36.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					},
+					{
+						"id": 38.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 101193.827
+		},
+		{
+			"contact_rotation_xyzw": [
+				-0.270597815513611,
+				0.00000016532123936,
+				-0.270598441362381,
+				0.923879504203796
+			],
+			"direction_key": "lower_az045",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 45.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.5,
+					-0.70710676908493,
+					-0.5
+				],
+				"key": "lower_az045",
+				"reaction_car_normal": [
+					-0.5,
+					0.70710676908493,
+					0.5
+				],
+				"rotation_xyzw": [
+					-0.27059805393219,
+					0.0,
+					-0.27059805393219,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az045_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az045_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 36.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 36.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.500000774860382,
+					0.707106649875641,
+					0.499999523162842
+				],
+				"velocity": [
+					0.0000000834976106,
+					-33.3333320617676,
+					-0.0000631636212347
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 36.0,
+						"incident_energy_proxy_j": 672222.170935738,
+						"incident_impulse_proxy_ns": 40333.3317947388,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 89486.821
+		},
+		{
+			"contact_rotation_xyzw": [
+				-0.270597785711288,
+				0.00000045160930994,
+				-0.270599216222763,
+				0.923879265785217
+			],
+			"direction_key": "lower_az045",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 45.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.5,
+					-0.70710676908493,
+					-0.5
+				],
+				"key": "lower_az045",
+				"reaction_car_normal": [
+					-0.5,
+					0.70710676908493,
+					0.5
+				],
+				"rotation_xyzw": [
+					-0.27059805393219,
+					0.0,
+					-0.27059805393219,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az045_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az045_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 36.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 36.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					-0.500002264976501,
+					0.707105755805969,
+					0.499999195337296
+				],
+				"velocity": [
+					0.00000014045731688,
+					-16.6666660308838,
+					-0.00001938654168043
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 36.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 90032.843
+		},
+		{
+			"contact_rotation_xyzw": [
+				-0.382690250873566,
+				-0.00000025032517214,
+				-0.00000014401264536,
+				0.923876702785492
+			],
+			"direction_key": "lower_az090",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 90.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.00000000000000004,
+					-0.70710676908493,
+					-0.70710676908493
+				],
+				"key": "lower_az090",
+				"reaction_car_normal": [
+					-0.00000000000000004,
+					0.70710676908493,
+					0.70710676908493
+				],
+				"rotation_xyzw": [
+					-0.382683455944061,
+					0.0,
+					-0.00000000000000002,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az090_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az090_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000512599945068,
+						"node": 34.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 9.0
+					},
+					{
+						"gap_m": -0.00000002980232238,
+						"node": 36.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 27.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.00000007450583439,
+					0.70709639787674,
+					0.707117199897766
+				],
+				"velocity": [
+					0.00000025947809945,
+					-33.3333320617676,
+					-0.00000716688464308
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 9.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					},
+					{
+						"id": 27.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 88975.923
+		},
+		{
+			"contact_rotation_xyzw": [
+				-0.382711887359619,
+				0.00000351895050698,
+				-0.00000088099716322,
+				0.923867762088776
+			],
+			"direction_key": "lower_az090",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 90.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.00000000000000004,
+					-0.70710676908493,
+					-0.70710676908493
+				],
+				"key": "lower_az090",
+				"reaction_car_normal": [
+					-0.00000000000000004,
+					0.70710676908493,
+					0.70710676908493
+				],
+				"rotation_xyzw": [
+					-0.382683455944061,
+					0.0,
+					-0.00000000000000002,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az090_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az090_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000014901161193,
+						"node": 34.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 9.0
+					},
+					{
+						"gap_m": 0.00000151991844177,
+						"node": 36.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 27.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					-0.00000432133811045,
+					0.7070631980896,
+					0.707150340080261
+				],
+				"velocity": [
+					-0.00010955777543131,
+					-16.6666660308838,
+					-0.00014216783165466
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 9.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					},
+					{
+						"id": 27.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 89046.372
+		},
+		{
+			"contact_rotation_xyzw": [
+				-0.270602762699127,
+				-0.00000271772546511,
+				0.270600110292435,
+				0.923877537250519
+			],
+			"direction_key": "lower_az135",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 135.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.5,
+					-0.70710676908493,
+					-0.5
+				],
+				"key": "lower_az135",
+				"reaction_car_normal": [
+					0.5,
+					0.70710676908493,
+					0.5
+				],
+				"rotation_xyzw": [
+					-0.27059805393219,
+					0.0,
+					0.27059805393219,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az135_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az135_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000002980232238,
+						"node": 34.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 0.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					0.500004231929779,
+					0.707099437713623,
+					0.500006198883057
+				],
+				"velocity": [
+					0.00000004400348885,
+					-33.3333320617676,
+					-0.00004430030821822
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 0.0,
+						"incident_energy_proxy_j": 672222.170935738,
+						"incident_impulse_proxy_ns": 40333.3317947388,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 90360.07
+		},
+		{
+			"contact_rotation_xyzw": [
+				-0.270607560873032,
+				-0.00000516126965521,
+				0.270601838827133,
+				0.923875629901886
+			],
+			"direction_key": "lower_az135",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 135.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.5,
+					-0.70710676908493,
+					-0.5
+				],
+				"key": "lower_az135",
+				"reaction_car_normal": [
+					0.5,
+					0.70710676908493,
+					0.5
+				],
+				"rotation_xyzw": [
+					-0.27059805393219,
+					0.0,
+					0.27059805393219,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az135_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az135_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 34.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 0.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					0.500007688999176,
+					0.70709240436554,
+					0.500012695789337
+				],
+				"velocity": [
+					0.00000069698614879,
+					-16.6666660308838,
+					0.00002978285738208
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 0.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 91989.981
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				0.382686525583267,
+				0.923878252506256
+			],
+			"direction_key": "lower_az180",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 180.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.70710676908493,
+					-0.70710676908493,
+					-0.00000000000000008
+				],
+				"key": "lower_az180",
+				"reaction_car_normal": [
+					0.70710676908493,
+					0.70710676908493,
+					0.00000000000000008
+				],
+				"rotation_xyzw": [
+					-0.00000000000000004,
+					0.0,
+					0.382683455944061,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az180_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az180_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 34.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 0.0
+					},
+					{
+						"gap_m": 0.0,
+						"node": 35.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 2.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					0.707111537456512,
+					0.707102060317993,
+					0.0
+				],
+				"velocity": [
+					0.00000026194990709,
+					-33.3333320617676,
+					-0.00000013888285366
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 0.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					},
+					{
+						"id": 2.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 88928.867
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				0.382685750722885,
+				0.92387855052948
+			],
+			"direction_key": "lower_az180",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 180.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.70710676908493,
+					-0.70710676908493,
+					-0.00000000000000008
+				],
+				"key": "lower_az180",
+				"reaction_car_normal": [
+					0.70710676908493,
+					0.70710676908493,
+					0.00000000000000008
+				],
+				"rotation_xyzw": [
+					-0.00000000000000004,
+					0.0,
+					0.382683455944061,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az180_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az180_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 34.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 0.0
+					},
+					{
+						"gap_m": 0.0,
+						"node": 35.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 2.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					0.707110285758972,
+					0.707103252410889,
+					0.0
+				],
+				"velocity": [
+					-0.00000022491479967,
+					-16.6666660308838,
+					0.00000044405734911
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 0.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					},
+					{
+						"id": 2.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 96219.619
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.270602762699127,
+				0.00000272982219939,
+				0.270600110292435,
+				0.923877537250519
+			],
+			"direction_key": "lower_az225",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 225.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.5,
+					-0.70710676908493,
+					0.5
+				],
+				"key": "lower_az225",
+				"reaction_car_normal": [
+					0.5,
+					0.70710676908493,
+					-0.5
+				],
+				"rotation_xyzw": [
+					0.27059805393219,
+					0.0,
+					0.27059805393219,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az225_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az225_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000002980232238,
+						"node": 35.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 2.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					0.500004231929779,
+					0.707099437713623,
+					-0.500006198883057
+				],
+				"velocity": [
+					0.00000004361519501,
+					-33.3333320617676,
+					0.0000443018216174
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 2.0,
+						"incident_energy_proxy_j": 672222.170935738,
+						"incident_impulse_proxy_ns": 40333.3317947388,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 83200.259
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.270607560873032,
+				0.00000517336638949,
+				0.270601868629456,
+				0.923875629901886
+			],
+			"direction_key": "lower_az225",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 225.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.5,
+					-0.70710676908493,
+					0.5
+				],
+				"key": "lower_az225",
+				"reaction_car_normal": [
+					0.5,
+					0.70710676908493,
+					-0.5
+				],
+				"rotation_xyzw": [
+					0.27059805393219,
+					0.0,
+					0.27059805393219,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az225_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az225_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 35.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 2.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					0.500007748603821,
+					0.707092344760895,
+					-0.500012755393982
+				],
+				"velocity": [
+					0.00000069743998665,
+					-16.6666660308838,
+					-0.00002978243355755
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 2.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 84956.797
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.382690250873566,
+				-0.000000059778678,
+				-0.00000036334137121,
+				0.923876702785492
+			],
+			"direction_key": "lower_az270",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 270.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.00000000000000012,
+					-0.70710676908493,
+					0.70710676908493
+				],
+				"key": "lower_az270",
+				"reaction_car_normal": [
+					0.00000000000000012,
+					0.70710676908493,
+					-0.70710676908493
+				],
+				"rotation_xyzw": [
+					0.382683455944061,
+					0.0,
+					0.00000000000000007,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az270_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az270_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000876188278198,
+						"node": 35.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 11.0
+					},
+					{
+						"gap_m": 0.00000005960464477,
+						"node": 37.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 29.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.00000071711866667,
+					0.70709639787674,
+					-0.707117199897766
+				],
+				"velocity": [
+					0.00000019061853606,
+					-33.3333320617676,
+					0.00014034358900971
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 11.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					},
+					{
+						"id": 29.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 83785.331
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.382714688777924,
+				0.00000230287287195,
+				0.00000035147928656,
+				0.92386656999588
+			],
+			"direction_key": "lower_az270",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 270.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.00000000000000012,
+					-0.70710676908493,
+					0.70710676908493
+				],
+				"key": "lower_az270",
+				"reaction_car_normal": [
+					0.00000000000000012,
+					0.70710676908493,
+					-0.70710676908493
+				],
+				"rotation_xyzw": [
+					0.382683455944061,
+					0.0,
+					0.00000000000000007,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az270_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az270_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0000099241733551,
+						"node": 35.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 11.0
+					},
+					{
+						"gap_m": 0.0,
+						"node": 37.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 29.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					0.00000241212637774,
+					0.707058966159821,
+					-0.707154631614685
+				],
+				"velocity": [
+					-0.00017543569265399,
+					-16.6666660308838,
+					0.00015920399164315
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 11.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					},
+					{
+						"id": 29.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 81392.39
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.270597875118256,
+				-0.00000017338568625,
+				-0.270598411560059,
+				0.923879504203796
+			],
+			"direction_key": "lower_az315",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 315.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.5,
+					-0.70710676908493,
+					0.5
+				],
+				"key": "lower_az315",
+				"reaction_car_normal": [
+					-0.5,
+					0.70710676908493,
+					-0.5
+				],
+				"rotation_xyzw": [
+					0.27059805393219,
+					0.0,
+					-0.27059805393219,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az315_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az315_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000005960464477,
+						"node": 37.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 38.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.500000774860382,
+					0.707106590270996,
+					-0.499999582767487
+				],
+				"velocity": [
+					0.00000017982162603,
+					-33.3333320617676,
+					0.00006301336543401
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 38.0,
+						"incident_energy_proxy_j": 672222.170935738,
+						"incident_impulse_proxy_ns": 40333.3317947388,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 83172.394
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.270597785711288,
+				-0.0000004475770936,
+				-0.270599216222763,
+				0.923879265785217
+			],
+			"direction_key": "lower_az315",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 315.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.5,
+					-0.70710676908493,
+					0.5
+				],
+				"key": "lower_az315",
+				"reaction_car_normal": [
+					-0.5,
+					0.70710676908493,
+					-0.5
+				],
+				"rotation_xyzw": [
+					0.27059805393219,
+					0.0,
+					-0.27059805393219,
+					0.923879563808441
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "lower_az315_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/lower_az315_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 37.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 38.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					-0.500002264976501,
+					0.707105755805969,
+					-0.499999165534973
+				],
+				"velocity": [
+					-0.00000028790753958,
+					-16.6666660308838,
+					-0.00000850380274641
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 38.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 83773.579
+		},
+		{
+			"contact_rotation_xyzw": [
+				1.0,
+				0.0,
+				0.0,
+				-0.00000008278422569
+			],
+			"direction_key": "top",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 0.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 90.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"key": "top",
+				"reaction_car_normal": [
+					0.0,
+					-1.0,
+					0.0
+				],
+				"rotation_xyzw": [
+					1.0,
+					0.0,
+					0.0,
+					-0.00000004371138828
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "top_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/top_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": -0.00000000834465026,
+						"node": 0.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 6.0
+					},
+					{
+						"gap_m": 0.00000010341405868,
+						"node": 1.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 7.0
+					},
+					{
+						"gap_m": 0.00000021889805793,
+						"node": 2.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 8.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					0.0,
+					-1.0,
+					0.00000016556845139
+				],
+				"velocity": [
+					0.00000015017809573,
+					-33.3333320617676,
+					0.00000106683341982
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 6.0,
+						"incident_energy_proxy_j": 224074.056978579,
+						"incident_impulse_proxy_ns": 13444.4439315796,
+						"weight": 0.333333333333333
+					},
+					{
+						"id": 7.0,
+						"incident_energy_proxy_j": 224074.056978579,
+						"incident_impulse_proxy_ns": 13444.4439315796,
+						"weight": 0.333333333333333
+					},
+					{
+						"id": 8.0,
+						"incident_energy_proxy_j": 224074.056978579,
+						"incident_impulse_proxy_ns": 13444.4439315796,
+						"weight": 0.333333333333333
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 88540.409
+		},
+		{
+			"contact_rotation_xyzw": [
 				1.0,
 				0.0,
 				0.0,
@@ -122,6 +1867,140 @@
 			},
 			"speed_kmh": 60.0,
 			"total_wall_ms": 94494.178
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"direction_key": "underside",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 0.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": -90.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.0,
+					-1.0,
+					0.0
+				],
+				"key": "underside",
+				"reaction_car_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"rotation_xyzw": [
+					0.0,
+					0.0,
+					0.0,
+					1.0
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "underside_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/underside_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000593066215515,
+						"node": 34.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 9.0
+					},
+					{
+						"gap_m": 0.00000593066215515,
+						"node": 35.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 11.0
+					},
+					{
+						"gap_m": 0.0,
+						"node": 36.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 27.0
+					},
+					{
+						"gap_m": 0.00000002980232238,
+						"node": 37.0,
+						"panel": "",
+						"source": "wheel",
+						"zone": 29.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"velocity": [
+					0.00000013428984857,
+					-33.3333320617676,
+					0.00000015808859643
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 9.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.25
+					},
+					{
+						"id": 11.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.25
+					},
+					{
+						"id": 27.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.25
+					},
+					{
+						"id": 29.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.25
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 69454.708
 		},
 		{
 			"contact_rotation_xyzw": [
@@ -259,6 +2138,317 @@
 		},
 		{
 			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				0.923879504203796,
+				-0.382683485746384
+			],
+			"direction_key": "upper_az000",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 0.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.70710676908493,
+					0.70710676908493,
+					0.0
+				],
+				"key": "upper_az000",
+				"reaction_car_normal": [
+					-0.70710676908493,
+					-0.70710676908493,
+					0.0
+				],
+				"rotation_xyzw": [
+					0.0,
+					0.0,
+					0.923879563808441,
+					-0.382683455944061
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az000_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az000_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000037997961044,
+						"node": 26.0,
+						"panel": "",
+						"source": "body",
+						"zone": 39.0
+					},
+					{
+						"gap_m": 0.0,
+						"node": 27.0,
+						"panel": "",
+						"source": "body",
+						"zone": 41.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.70710688829422,
+					-0.707106709480286,
+					0.0
+				],
+				"velocity": [
+					-0.00000039681827956,
+					-33.3333320617676,
+					-0.00002283277717651
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 39.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					},
+					{
+						"id": 41.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 108180.39
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				0.923879504203796,
+				-0.382683455944061
+			],
+			"direction_key": "upper_az000",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 0.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.70710676908493,
+					0.70710676908493,
+					0.0
+				],
+				"key": "upper_az000",
+				"reaction_car_normal": [
+					-0.70710676908493,
+					-0.70710676908493,
+					0.0
+				],
+				"rotation_xyzw": [
+					0.0,
+					0.0,
+					0.923879563808441,
+					-0.382683455944061
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az000_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az000_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 26.0,
+						"panel": "",
+						"source": "body",
+						"zone": 39.0
+					},
+					{
+						"gap_m": 0.00000273808836936,
+						"node": 27.0,
+						"panel": "",
+						"source": "body",
+						"zone": 41.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					-0.707106828689575,
+					-0.707106709480286,
+					0.0
+				],
+				"velocity": [
+					-0.00000047349740839,
+					-16.6666660308838,
+					-0.00001474035525461
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 39.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					},
+					{
+						"id": 41.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 108965.614
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.653281509876251,
+				-0.00000001140485483,
+				0.653281509876251,
+				-0.382683366537094
+			],
+			"direction_key": "upper_az045",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 45.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.5,
+					0.70710676908493,
+					-0.5
+				],
+				"key": "upper_az045",
+				"reaction_car_normal": [
+					-0.5,
+					-0.70710676908493,
+					0.5
+				],
+				"rotation_xyzw": [
+					0.653281509876251,
+					0.0,
+					0.653281509876251,
+					-0.382683426141739
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az045_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az045_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 26.0,
+						"panel": "",
+						"source": "body",
+						"zone": 39.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.499999970197678,
+					-0.70710688829422,
+					0.499999910593033
+				],
+				"velocity": [
+					-0.00000037943382835,
+					-33.3333320617676,
+					-0.00000821492358227
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 39.0,
+						"incident_energy_proxy_j": 672222.170935738,
+						"incident_impulse_proxy_ns": 40333.3317947388,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 109805.946
+		},
+		{
+			"contact_rotation_xyzw": [
 				0.653281509876251,
 				-0.00000004561941935,
 				0.653281509876251,
@@ -351,6 +2541,1250 @@
 			},
 			"speed_kmh": 60.0,
 			"total_wall_ms": 129495.293
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.923879444599152,
+				0.00000003268769432,
+				0.00000012758825107,
+				-0.382683724164963
+			],
+			"direction_key": "upper_az090",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 90.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.00000000000000004,
+					0.70710676908493,
+					-0.70710676908493
+				],
+				"key": "upper_az090",
+				"reaction_car_normal": [
+					-0.00000000000000004,
+					-0.70710676908493,
+					0.70710676908493
+				],
+				"rotation_xyzw": [
+					0.923879563808441,
+					0.0,
+					0.00000000000000005,
+					-0.382683455944061
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az090_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az090_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": -0.00000000089406967,
+						"node": 5.0,
+						"panel": "door_right",
+						"source": "panel",
+						"zone": 24.0
+					},
+					{
+						"gap_m": 0.00000139981508254,
+						"node": 8.0,
+						"panel": "door_right",
+						"source": "panel",
+						"zone": 15.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.00000003725291719,
+					-0.707106351852417,
+					0.707107245922089
+				],
+				"velocity": [
+					0.00000007307716742,
+					-33.3333320617676,
+					-0.00029300709138624
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 15.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					},
+					{
+						"id": 24.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 92912.396
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.923879742622375,
+				-0.00000035517851415,
+				-0.00000076013128591,
+				-0.382683038711548
+			],
+			"direction_key": "upper_az090",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 90.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.00000000000000004,
+					0.70710676908493,
+					-0.70710676908493
+				],
+				"key": "upper_az090",
+				"reaction_car_normal": [
+					-0.00000000000000004,
+					-0.70710676908493,
+					0.70710676908493
+				],
+				"rotation_xyzw": [
+					0.923879563808441,
+					0.0,
+					0.00000000000000005,
+					-0.382683455944061
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az090_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az090_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000002145767211,
+						"node": 5.0,
+						"panel": "door_right",
+						"source": "panel",
+						"zone": 24.0
+					},
+					{
+						"gap_m": 0.00002515226602554,
+						"node": 8.0,
+						"panel": "door_right",
+						"source": "panel",
+						"zone": 15.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					-0.00000007450583439,
+					-0.707107484340668,
+					0.707106173038483
+				],
+				"velocity": [
+					0.00005565402534557,
+					-16.6666660308838,
+					0.00010385573841631
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 15.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					},
+					{
+						"id": 24.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 105275.14
+		},
+		{
+			"contact_rotation_xyzw": [
+				-0.653281569480896,
+				0.00000026231163019,
+				0.653281569480896,
+				0.38268318772316
+			],
+			"direction_key": "upper_az135",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 135.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.5,
+					0.70710676908493,
+					-0.5
+				],
+				"key": "upper_az135",
+				"reaction_car_normal": [
+					0.5,
+					-0.70710676908493,
+					0.5
+				],
+				"rotation_xyzw": [
+					-0.653281509876251,
+					0.0,
+					0.653281509876251,
+					0.382683426141739
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az135_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az135_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": -0.00000003442168235,
+						"node": 0.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 6.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					0.499999433755875,
+					-0.707107186317444,
+					0.500000059604645
+				],
+				"velocity": [
+					-0.0000233063219639,
+					-33.3333320617676,
+					-0.00024257872428279
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 6.0,
+						"incident_energy_proxy_j": 672222.170935738,
+						"incident_impulse_proxy_ns": 40333.3317947388,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 95478.408
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.653285324573517,
+				0.00000744732687962,
+				-0.653281450271606,
+				-0.382676988840103
+			],
+			"direction_key": "upper_az135",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 135.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.5,
+					0.70710676908493,
+					-0.5
+				],
+				"key": "upper_az135",
+				"reaction_car_normal": [
+					0.5,
+					-0.70710676908493,
+					0.5
+				],
+				"rotation_xyzw": [
+					-0.653281509876251,
+					0.0,
+					0.653281509876251,
+					0.382683426141739
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az135_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az135_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0000000549852848,
+						"node": 0.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 6.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					0.50000125169754,
+					-0.707116723060608,
+					0.499984741210938
+				],
+				"velocity": [
+					0.00002094866431434,
+					-16.6666660308838,
+					-0.00062259729020297
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 6.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 97741.42
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				0.923879504203796,
+				0.382683485746384
+			],
+			"direction_key": "upper_az180",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 180.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.70710676908493,
+					0.70710676908493,
+					-0.00000000000000008
+				],
+				"key": "upper_az180",
+				"reaction_car_normal": [
+					0.70710676908493,
+					-0.70710676908493,
+					0.00000000000000008
+				],
+				"rotation_xyzw": [
+					-0.00000000000000011,
+					0.0,
+					0.923879563808441,
+					0.382683455944061
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az180_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az180_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0000000475347042,
+						"node": 0.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 6.0
+					},
+					{
+						"gap_m": 0.0000000512599945,
+						"node": 1.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 7.0
+					},
+					{
+						"gap_m": 0.0000000512599945,
+						"node": 2.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 8.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					0.70710688829422,
+					-0.707106709480286,
+					0.0
+				],
+				"velocity": [
+					-0.00000017990608114,
+					-33.3333320617676,
+					0.0000018381888367
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 6.0,
+						"incident_energy_proxy_j": 224074.056978579,
+						"incident_impulse_proxy_ns": 13444.4439315796,
+						"weight": 0.333333333333333
+					},
+					{
+						"id": 7.0,
+						"incident_energy_proxy_j": 224074.056978579,
+						"incident_impulse_proxy_ns": 13444.4439315796,
+						"weight": 0.333333333333333
+					},
+					{
+						"id": 8.0,
+						"incident_energy_proxy_j": 224074.056978579,
+						"incident_impulse_proxy_ns": 13444.4439315796,
+						"weight": 0.333333333333333
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 95567.493
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.0,
+				0.0,
+				0.923879563808441,
+				0.382683455944061
+			],
+			"direction_key": "upper_az180",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 180.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.70710676908493,
+					0.70710676908493,
+					-0.00000000000000008
+				],
+				"key": "upper_az180",
+				"reaction_car_normal": [
+					0.70710676908493,
+					-0.70710676908493,
+					0.00000000000000008
+				],
+				"rotation_xyzw": [
+					-0.00000000000000011,
+					0.0,
+					0.923879563808441,
+					0.382683455944061
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az180_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az180_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000001400709152,
+						"node": 0.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 6.0
+					},
+					{
+						"gap_m": 0.00000001400709152,
+						"node": 1.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 7.0
+					},
+					{
+						"gap_m": 0.00000001400709152,
+						"node": 2.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 8.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					0.707106828689575,
+					-0.707106828689575,
+					0.0
+				],
+				"velocity": [
+					-0.00000002097084639,
+					-16.6666660308838,
+					0.00000029493224928
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 6.0,
+						"incident_energy_proxy_j": 56018.5142446448,
+						"incident_impulse_proxy_ns": 6722.22196578979,
+						"weight": 0.333333333333333
+					},
+					{
+						"id": 7.0,
+						"incident_energy_proxy_j": 56018.5142446448,
+						"incident_impulse_proxy_ns": 6722.22196578979,
+						"weight": 0.333333333333333
+					},
+					{
+						"id": 8.0,
+						"incident_energy_proxy_j": 56018.5142446448,
+						"incident_impulse_proxy_ns": 6722.22196578979,
+						"weight": 0.333333333333333
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 95075.321
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.653281509876251,
+				0.00000002280970967,
+				0.653281509876251,
+				0.382683366537094
+			],
+			"direction_key": "upper_az225",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 225.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.5,
+					0.70710676908493,
+					0.5
+				],
+				"key": "upper_az225",
+				"reaction_car_normal": [
+					0.5,
+					-0.70710676908493,
+					-0.5
+				],
+				"rotation_xyzw": [
+					0.653281509876251,
+					0.0,
+					0.653281509876251,
+					0.382683426141739
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az225_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az225_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": -0.00000000834465026,
+						"node": 2.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 8.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					0.499999970197678,
+					-0.70710688829422,
+					-0.499999910593033
+				],
+				"velocity": [
+					0.00000951410584093,
+					-33.3333320617676,
+					0.00009373573266202
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 8.0,
+						"incident_energy_proxy_j": 672222.170935738,
+						"incident_impulse_proxy_ns": 40333.3317947388,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 94520.596
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.653283655643463,
+				0.00000336442099069,
+				0.653281569480896,
+				0.382679551839828
+			],
+			"direction_key": "upper_az225",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 225.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.5,
+					0.70710676908493,
+					0.5
+				],
+				"key": "upper_az225",
+				"reaction_car_normal": [
+					0.5,
+					-0.70710676908493,
+					-0.5
+				],
+				"rotation_xyzw": [
+					0.653281509876251,
+					0.0,
+					0.653281509876251,
+					0.382683426141739
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az225_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az225_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": -0.00000001579523086,
+						"node": 2.0,
+						"panel": "tailgate",
+						"source": "panel",
+						"zone": 8.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					0.49999937415123,
+					-0.707112789154053,
+					-0.499992161989212
+				],
+				"velocity": [
+					0.0000377361975552,
+					-16.6666660308838,
+					0.00043709078454412
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 8.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 98973.327
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.923879444599152,
+				0.00000004783478502,
+				-0.00000016415651771,
+				0.382683724164963
+			],
+			"direction_key": "upper_az270",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 270.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.00000000000000012,
+					0.70710676908493,
+					0.70710676908493
+				],
+				"key": "upper_az270",
+				"reaction_car_normal": [
+					0.00000000000000012,
+					-0.70710676908493,
+					-0.70710676908493
+				],
+				"rotation_xyzw": [
+					0.923879563808441,
+					0.0,
+					0.00000000000000016,
+					0.382683455944061
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az270_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az270_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00000008478760719,
+						"node": 5.0,
+						"panel": "door_left",
+						"source": "panel",
+						"zone": 26.0
+					},
+					{
+						"gap_m": 0.00000123590230941,
+						"node": 8.0,
+						"panel": "door_left",
+						"source": "panel",
+						"zone": 17.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.00000003725291719,
+					-0.707106351852417,
+					-0.707107245922089
+				],
+				"velocity": [
+					0.00000040127827105,
+					-33.3333320617676,
+					0.00014772702706977
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 17.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					},
+					{
+						"id": 26.0,
+						"incident_energy_proxy_j": 336111.085467869,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 97388.049
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.923879444599152,
+				-0.00000022634158369,
+				0.00000061944638218,
+				0.38268369436264
+			],
+			"direction_key": "upper_az270",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 270.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					-0.00000000000000012,
+					0.70710676908493,
+					0.70710676908493
+				],
+				"key": "upper_az270",
+				"reaction_car_normal": [
+					0.00000000000000012,
+					-0.70710676908493,
+					-0.70710676908493
+				],
+				"rotation_xyzw": [
+					0.923879563808441,
+					0.0,
+					0.00000000000000016,
+					0.382683455944061
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az270_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az270_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.00003117978572845,
+						"node": 5.0,
+						"panel": "door_left",
+						"source": "panel",
+						"zone": 26.0
+					},
+					{
+						"gap_m": 0.00000000283122062,
+						"node": 8.0,
+						"panel": "door_left",
+						"source": "panel",
+						"zone": 17.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					0.00000005587937579,
+					-0.707106471061707,
+					-0.707107186317444
+				],
+				"velocity": [
+					-0.00011271973926341,
+					-16.6666660308838,
+					-0.00032910640584304
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 17.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					},
+					{
+						"id": 26.0,
+						"incident_energy_proxy_j": 84027.7713669672,
+						"incident_impulse_proxy_ns": 10083.3329486847,
+						"weight": 0.5
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 97038.983
+		},
+		{
+			"contact_rotation_xyzw": [
+				-0.653281509876251,
+				0.00000001140485483,
+				0.653281509876251,
+				-0.382683366537094
+			],
+			"direction_key": "upper_az315",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 315.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.5,
+					0.70710676908493,
+					0.5
+				],
+				"key": "upper_az315",
+				"reaction_car_normal": [
+					-0.5,
+					-0.70710676908493,
+					-0.5
+				],
+				"rotation_xyzw": [
+					-0.653281509876251,
+					0.0,
+					0.653281509876251,
+					-0.382683426141739
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az315_120",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az315_120.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 33.3333320617676,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 27.0,
+						"panel": "",
+						"source": "body",
+						"zone": 41.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 672222.170935738,
+				"incident_impulse_proxy_ns": 40333.3317947388,
+				"normal": [
+					-0.499999970197678,
+					-0.70710688829422,
+					-0.499999910593033
+				],
+				"velocity": [
+					-0.00000038704757798,
+					-33.3333320617676,
+					0.0000081104972196
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 41.0,
+						"incident_energy_proxy_j": 672222.170935738,
+						"incident_impulse_proxy_ns": 40333.3317947388,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 120.0,
+			"total_wall_ms": 102543.783
+		},
+		{
+			"contact_rotation_xyzw": [
+				0.653281509876251,
+				-0.00000004561941935,
+				-0.653281509876251,
+				0.382683366537094
+			],
+			"direction_key": "upper_az315",
+			"family": "multiaxis_floor",
+			"fixture_descriptor": {
+				"azimuth_deg": 315.0,
+				"clearance_m": 1.0,
+				"closed_latched_initial_panels": true,
+				"contact_policy": "earliest_body_sphere_or_oriented_tire_or_panel_cage_floor_contact",
+				"elevation_deg": 45.0,
+				"family": "multiaxis_floor",
+				"incoming_car_direction": [
+					0.5,
+					0.70710676908493,
+					0.5
+				],
+				"key": "upper_az315",
+				"reaction_car_normal": [
+					-0.5,
+					-0.70710676908493,
+					-0.5
+				],
+				"rotation_xyzw": [
+					-0.653281509876251,
+					0.0,
+					0.653281509876251,
+					-0.382683426141739
+				],
+				"version": 1.0,
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"world_velocity_direction": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			"id": "upper_az315_60",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/multiaxis/upper_az315_60.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 16.6666660308838,
+				"contact_source": "body_or_oriented_tire_or_panel_cage_floor",
+				"first_contacts": [
+					{
+						"gap_m": 0.0,
+						"node": 27.0,
+						"panel": "",
+						"source": "body",
+						"zone": 41.0
+					}
+				],
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"incident_energy_proxy_j": 168055.542733934,
+				"incident_impulse_proxy_ns": 20166.6658973694,
+				"normal": [
+					-0.499999970197678,
+					-0.707106947898865,
+					-0.49999988079071
+				],
+				"velocity": [
+					-0.00000070135718033,
+					-16.6666660308838,
+					0.0000041624161895
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 41.0,
+						"incident_energy_proxy_j": 168055.542733934,
+						"incident_impulse_proxy_ns": 20166.6658973694,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 60.0,
+			"total_wall_ms": 101305.389
 		}
 	],
 	"version": 1
