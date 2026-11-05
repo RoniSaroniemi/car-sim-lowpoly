@@ -42,13 +42,20 @@ def main():
     output = ROOT / 'verification' / 'bake_campaign'
     output.mkdir(parents=True, exist_ok=True)
     report_path = output / (args.family + '.json')
+    previous = json.loads(report_path.read_text()) if args.resume and report_path.exists() else {}
     report = {'started_utc': datetime.now(timezone.utc).isoformat(), 'family': args.family,
               'workers': args.workers, 'quality_multiplier': 4, 'jobs': [], 'complete': False}
+    report['first_started_utc'] = previous.get('first_started_utc', previous.get('started_utc', report['started_utc']))
+    report['previous_attempts'] = previous.get('previous_attempts', [])
+    if previous:
+        report['previous_attempts'].append({key: previous.get(key) for key in ('started_utc', 'workers', 'wall_elapsed_s', 'complete')})
     began = time.monotonic()
     lock = threading.Lock()
 
     def save():
         report['wall_elapsed_s'] = time.monotonic() - began
+        first = datetime.fromisoformat(report['first_started_utc'])
+        report['campaign_elapsed_s'] = (datetime.now(timezone.utc) - first).total_seconds()
         temporary = report_path.with_suffix('.tmp')
         temporary.write_text(json.dumps(report, indent=2) + '\n')
         temporary.replace(report_path)
@@ -79,7 +86,7 @@ def main():
             result.update(status='reused_exact_source', frames=meta['frame_count'],
                           bytes=meta['clip_bytes'], record_elapsed_ms=meta.get('record_cpu_ms'))
             # Retain an independently measured pilot when resuming this batch.
-            pilot = output / ('pilot_frontal_60.log' if job['id'] == 'impact_000_60' else '_absent')
+            pilot = output / ('pilot_frontal_60.log' if job['id'] == 'impact_000_60' else job['id'] + '.log')
             if pilot.exists():
                 for name, value in re.findall(r'^(real|user|sys)\s+([\d.]+)$', pilot.read_text(), re.M):
                     result[name + '_s'] = float(value)
