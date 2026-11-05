@@ -10,6 +10,14 @@ static func specifications() -> Array:
   for angle in [0.0,30.0,-30.0]:
    for side in ['left','right']:
     for overlap in [.25,.50,.75]:cases.append({'angle':angle,'speed':speed,'side':side,'overlap':overlap})
+ # Measured first-corner changes at10° cannot safely use either the0° or30°
+ # 75% clip without breaking the voxel or18°normal gate. Add only these4.
+ for speed in [60.0,120.0]:
+  cases.append({'angle':10.0,'speed':speed,'side':'right','overlap':.75})
+  cases.append({'angle':-10.0,'speed':speed,'side':'left','overlap':.75})
+ for speed in [60.0,120.0]:
+  for spec in [[10.0,'left',.25],[-10.0,'right',.25],[20.0,'right',.50],[-20.0,'left',.50]]:
+   cases.append({'angle':spec[0],'speed':speed,'side':spec[1],'overlap':spec[2]})
  return cases
 static func read_library(directory: String=DIRECTORY) -> Array:
  var result: Array=[]

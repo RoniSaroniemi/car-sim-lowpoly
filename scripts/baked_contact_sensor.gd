@@ -70,6 +70,22 @@ func _basis(points: PackedVector3Array) -> Basis:
  var z: Vector3=x.cross(Vector3.UP).normalized()
  return Basis(x,z.cross(x).normalized(),z)
 
+func _sphere_contact_toi(g: RefCounted,index: int,start: float,end: float) -> float:
+ # Expanded-box entry is only a broad phase at a box corner. Conservative
+ # advancement confirms the unpadded structural sphere's real distance before
+ # replay can start. Planar entries normally complete in one query.
+ var time: float=maxf(0,start)
+ var velocity: Vector3=g.velocities[index]
+ for iteration in 12:
+  var hit: Dictionary=g.barrier_distance(g.points[index]+velocity*time)
+  var gap: float=float(hit.distance)-g.radii[index]
+  if gap<=.00001:return time
+  var closing: float=-velocity.dot(hit.normal)
+  if closing<=.00001:return INF
+  time+=gap/closing
+  if time>end+1e-8:return INF
+ return INF
+
 func _sweep(g: RefCounted,horizon: float,padding: float=0) -> Dictionary:
  var earliest:=INF;var first:=-1
  for i in g.points.size():
@@ -87,8 +103,10 @@ func _sweep(g: RefCounted,horizon: float,padding: float=0) -> Dictionary:
     var b: float=(high[axis]-g.points[i][axis])/velocity
     entry=maxf(entry,minf(a,b));exit=minf(exit,maxf(a,b))
    if entry>exit:hit=false
-  if hit and exit>=0 and entry<=horizon and maxf(0,entry)<earliest:
-   earliest=maxf(0,entry);first=i
+  if hit and exit>=0 and entry<=horizon:
+   var contact: float=maxf(0,entry)
+   if padding==0:contact=_sphere_contact_toi(g,i,contact,minf(exit,horizon))
+   if contact<earliest:earliest=contact;first=i
  return {'toi':earliest,'node':first}
 
 func _invalidate(g: RefCounted,motion: Vector3,now: float) -> void:

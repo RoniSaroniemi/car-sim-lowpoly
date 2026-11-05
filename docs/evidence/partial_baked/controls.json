@@ -1,0 +1,153 @@
+[
+  {
+    "details": {
+      "actual_contact_gap_m": -1.52736902236938e-07,
+      "clip": "partial_000_60_right_50",
+      "heavy_steps": 0,
+      "legacy_forecasts": 0,
+      "permanent_rest_change_m": 0.388021096587181,
+      "rigid_contacts": 0
+    },
+    "name": "aftermath_driving_0",
+    "passed": true
+  },
+  {
+    "details": {
+      "actual_contact_gap_m": 3.57627868652344e-07,
+      "clip": "partial_020_60_right_50",
+      "heavy_steps": 0,
+      "legacy_forecasts": 0,
+      "permanent_rest_change_m": 0.388021096587181,
+      "rigid_contacts": 0
+    },
+    "name": "aftermath_driving_20",
+    "passed": true
+  },
+  {
+    "details": {
+      "actual_contact_gap_m": -1.52736902236938e-07,
+      "clip": "partial_000_60_right_50",
+      "heavy_steps": 0,
+      "legacy_forecasts": 0,
+      "permanent_rest_change_m": 0.403568708896637,
+      "rigid_contacts": 455
+    },
+    "name": "aftermath_arena_0",
+    "passed": true
+  },
+  {
+    "details": {
+      "actual_contact_gap_m": 3.57627868652344e-07,
+      "clip": "partial_020_60_right_50",
+      "heavy_steps": 0,
+      "legacy_forecasts": 0,
+      "permanent_rest_change_m": 0.388021096587181,
+      "rigid_contacts": 0
+    },
+    "name": "aftermath_arena_20",
+    "passed": true
+  },
+  {
+    "details": {
+      "actual_sweeps": 24,
+      "arm_count": 1,
+      "armed": false,
+      "broadphase_checks": 43,
+      "cancel_count": 1,
+      "forecast_checks": 6,
+      "forecast_cpu_ms": 0.325,
+      "forecast_nodes": 228,
+      "last_cancel": "moving_away",
+      "last_rejection": "",
+      "library_rankings": 0,
+      "manifold_queries": 0,
+      "sensor_cpu_ms": 1.738,
+      "status": "near_obstacle"
+    },
+    "name": "moving_away_cancels",
+    "passed": true
+  },
+  {
+    "details": {
+      "actual_sweeps": 58,
+      "arm_count": 0,
+      "armed": false,
+      "broadphase_checks": 138,
+      "cancel_count": 0,
+      "forecast_checks": 15,
+      "forecast_cpu_ms": 0.837,
+      "forecast_nodes": 570,
+      "last_cancel": "clear_road",
+      "last_rejection": "",
+      "library_rankings": 0,
+      "manifold_queries": 0,
+      "sensor_cpu_ms": 4.196,
+      "status": "clear_road"
+    },
+    "name": "near_miss",
+    "passed": true
+  },
+  {
+    "details": {
+      "actual_sweeps": 80,
+      "arm_count": 3,
+      "armed": false,
+      "broadphase_checks": 160,
+      "cancel_count": 3,
+      "forecast_checks": 22,
+      "forecast_cpu_ms": 1.276,
+      "forecast_nodes": 836,
+      "last_cancel": "steering_changed",
+      "last_rejection": "no_short_wall_recording",
+      "library_rankings": 0,
+      "manifold_queries": 6,
+      "sensor_cpu_ms": 6.491,
+      "status": "near_obstacle"
+    },
+    "name": "short_wall_uncovered",
+    "passed": true
+  },
+  {
+    "details": {
+      "actual_sweeps": 61,
+      "arm_count": 2,
+      "armed": false,
+      "broadphase_checks": 141,
+      "cancel_count": 2,
+      "forecast_checks": 17,
+      "forecast_cpu_ms": 0.955,
+      "forecast_nodes": 646,
+      "last_cancel": "clear_road",
+      "last_rejection": "empty_contact",
+      "library_rankings": 0,
+      "manifold_queries": 24,
+      "sensor_cpu_ms": 6.443,
+      "status": "clear_road"
+    },
+    "name": "tiny_footprint_no_full_wall_clip",
+    "passed": true
+  },
+  {
+    "details": {
+      "sensor": {
+        "actual_sweeps": 0,
+        "arm_count": 0,
+        "armed": false,
+        "broadphase_checks": 1000,
+        "cancel_count": 0,
+        "forecast_checks": 0,
+        "forecast_cpu_ms": 0.0,
+        "forecast_nodes": 0,
+        "last_cancel": "clear_road",
+        "last_rejection": "",
+        "library_rankings": 0,
+        "manifold_queries": 0,
+        "sensor_cpu_ms": 0.0,
+        "status": "clear_road"
+      },
+      "us_per_query": 5.506
+    },
+    "name": "clear_road_cost",
+    "passed": true
+  }
+]

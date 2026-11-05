@@ -13,11 +13,14 @@ static func describe(g: RefCounted,packet: Dictionary,signature: Dictionary) -> 
  if signature.is_empty():return {'schema':SCHEMA,'valid':false,'reason':'empty_contact'}
  var normal: Vector3=_normal(signature)
  var body: Basis=Grid.new().body_basis(g)
+ var incoming: Array=signature.get('velocity',[0,0,0])
+ var plane_normal:=Vector3(-signf(float(incoming[0])),0,0)
+ if plane_normal.length()<.5:plane_normal=Vector3.LEFT
  # +tangent follows the body's +Z (right) projected onto the wall face.
  # For the supported frontal 0±30° family, low tangent is body-left.
- var tangent: Vector3=body.z-normal*body.z.dot(normal)
+ var tangent: Vector3=body.z-plane_normal*body.z.dot(plane_normal)
  tangent.y=0
- if tangent.length()<.2:tangent=Vector3.UP.cross(normal)
+ if tangent.length()<.2:tangent=Vector3.UP.cross(plane_normal)
  if tangent.length()<.2:return {'schema':SCHEMA,'valid':false,'reason':'vertical_face'}
  tangent=tangent.normalized()
  var low:=INF;var high:=-INF;var bottom:=INF;var top:=-INF
@@ -45,9 +48,16 @@ static func describe(g: RefCounted,packet: Dictionary,signature: Dictionary) -> 
  var feature: String='end_face' if absf(normal.z)>.99 else ('front_face' if absf(normal.x)>.99 else 'corner')
  var anchor:=Vector3.ZERO
  for i in range(8,12):anchor+=(g.points[i]+g.velocities[i]*toi)*.25
- var centroid: Array=signature.get('contact_centroid_world',_array(anchor))
+ var centroid: Array=signature.get('contact_centroid_world',[])
+ if centroid.is_empty():
+  var sum:=Vector3.ZERO;var mass:=0.0
+  for index in signature.get('hit_nodes',[]):
+   var p: Vector3=g.points[index]+g.velocities[index]*toi
+   var hit: Dictionary=g.barrier_distance(p)
+   sum+=(p-hit.normal*float(hit.distance))*g.masses[index];mass+=g.masses[index]
+  centroid=_array(sum/maxf(.0001,mass)) if mass>0 else _array(anchor)
  var local_centroid: Vector3=body.transposed()*(Vector3(centroid[0],centroid[1],centroid[2])-anchor)
- return {'schema':SCHEMA,'valid':true,'source':'barrier_box','feature':feature,'edge_side':side,'overlap':overlap,'kept_interval':[a,b],'full_width':side=='none','full_height':full_height,'height_interval':[clampf((g.barrier_min.y-bottom)/maxf(.1,top-bottom),0,1),clampf((g.barrier_max.y-bottom)/maxf(.1,top-bottom),0,1)],'body_tangent_span_m':span,'normal_local':signature.normal,'tangent_local':_array(body.transposed()*tangent),'contact_centroid_local':_array(local_centroid),'wall_size_m':_array(g.barrier_max-g.barrier_min),'material_profile':g.config.get('material_profile','legacy'),'mass_kg':g.config.mass_kg,'node_count':g.points.size(),'wheel_count':g.wheels.wheels.size()}
+ return {'schema':SCHEMA,'valid':true,'source':'barrier_box','feature':feature,'edge_side':side,'overlap':overlap,'kept_interval':[a,b],'full_width':side=='none','full_height':full_height,'height_interval':[clampf((g.barrier_min.y-bottom)/maxf(.1,top-bottom),0,1),clampf((g.barrier_max.y-bottom)/maxf(.1,top-bottom),0,1)],'body_tangent_span_m':span,'normal_local':signature.normal,'plane_normal_local':_array(body.transposed()*plane_normal),'plane_closing_kmh':absf(float(incoming[0]))*3.6,'tangent_local':_array(body.transposed()*tangent),'contact_centroid_local':_array(local_centroid),'wall_size_m':_array(g.barrier_max-g.barrier_min),'material_profile':g.config.get('material_profile','legacy'),'mass_kg':g.config.mass_kg,'node_count':g.points.size(),'wheel_count':g.wheels.wheels.size()}
 
 static func compatible(actual: Dictionary,recorded: Dictionary={}) -> Dictionary:
  var result: Dictionary={'accepted':false,'reason':'coverage_missing'}
@@ -64,6 +74,9 @@ static func compatible(actual: Dictionary,recorded: Dictionary={}) -> Dictionary
  if actual.feature=='end_face' or recorded.get('feature','')=='end_face':result.reason='no_end_face_recording';return result
  if actual.material_profile!=recorded.get('material_profile','') or absf(actual.mass_kg-float(recorded.get('mass_kg',0)))>.01 or actual.node_count!=int(recorded.get('node_count',0)) or actual.wheel_count!=int(recorded.get('wheel_count',0)):
   result.reason='coverage_profile';return result
+ if (actual.feature=='corner')!=(recorded.get('feature','')=='corner'):result.reason='contact_feature';return result
+ var an: Array=actual.plane_normal_local;var rn: Array=recorded.get('plane_normal_local',recorded.normal_local)
+ if Vector3(an[0],an[1],an[2]).dot(Vector3(rn[0],rn[1],rn[2]))<cos(deg_to_rad(18.01)):result.reason='wall_plane_alignment';return result
  if actual.edge_side!=recorded.get('edge_side','none'):result.reason='clipped_side';return result
  var error: float=absf(actual.overlap-float(recorded.overlap))
  var interval: float=maxf(absf(actual.kept_interval[0]-recorded.kept_interval[0]),absf(actual.kept_interval[1]-recorded.kept_interval[1]))
@@ -80,12 +93,18 @@ static func compatible(actual: Dictionary,recorded: Dictionary={}) -> Dictionary
 
 static func choose(signature: Dictionary,coverage: Dictionary,library: Array,actual_speed_kmh: float) -> Dictionary:
  var best: Dictionary={'accepted':false,'reason':'no_coverage_recording','index':-1,'score':0.0}
+ if not coverage.get('valid',false):return best
+ if not coverage.full_height:best.reason='no_short_wall_recording';return best
+ if coverage.feature=='end_face':best.reason='no_end_face_recording';return best
+ if coverage.edge_side=='both':best.reason='no_narrow_obstacle_recording';return best
+ var motion: Array=signature.get('velocity',[0,0,0])
+ var plane_speed: float=float(coverage.get('plane_closing_kmh',actual_speed_kmh))
+ if plane_speed<35 or plane_speed>175:best.reason='speed_outside_bank';return best
+ if Vector2(float(motion[1]),float(motion[2])).length()>maxf(4.0,plane_speed/3.6*.65):best.reason='glancing_trajectory';return best
  var nearest:=0.0;var distance:=INF
  for clip in library:
-  var delta: float=absf(float(clip.metadata.speed_kmh)-actual_speed_kmh)
+  var delta: float=absf(float(clip.metadata.speed_kmh)-plane_speed)
   if delta<distance:distance=delta;nearest=float(clip.metadata.speed_kmh)
- var normalized: Dictionary=signature.duplicate(true)
- normalized.incident_impulse_proxy_ns*=nearest/maxf(.001,actual_speed_kmh)
  var grid:=Grid.new()
  for index in library.size():
   var clip: Dictionary=library[index]
@@ -93,12 +112,18 @@ static func choose(signature: Dictionary,coverage: Dictionary,library: Array,act
   if float(clip.metadata.speed_kmh)!=nearest:continue
   var footprint: Dictionary=compatible(coverage,clip.metadata.get('contact_coverage',{}))
   if not footprint.accepted:continue
+  # Corner contact normals need not be parallel to the authored wall plane.
+  # Compare local contact normals faithfully, but normalize severity against
+  # this recording's own contact-normal closure, not its launch speed.
+  var normalized: Dictionary=signature.duplicate(true)
+  normalized.incident_impulse_proxy_ns*=float(clip.metadata.signature.closing_speed_mps)*3.6/maxf(.001,float(signature.closing_speed_mps)*3.6)
   var match_: Dictionary=grid.match_signature(normalized,clip.metadata.signature)
   if not match_.accepted:continue
   var score: float=match_.score*float(footprint.get('score',1))
   if not best.accepted or score>best.score:
    best=match_.duplicate();best.index=index;best.id=clip.metadata.id;best.score=score
    best['coverage']=coverage;best['recorded_coverage']=clip.metadata.get('contact_coverage',{})
-   best['coverage_reason']=footprint.reason;best['actual_impact_kmh']=actual_speed_kmh;best['recorded_speed_kmh']=nearest
-   best['impulse_ratio']=actual_speed_kmh/maxf(.001,nearest)
+   best['coverage_reason']=footprint.reason;best['actual_impact_kmh']=plane_speed;best['recorded_speed_kmh']=nearest
+   best['contact_closing_kmh']=float(signature.closing_speed_mps)*3.6
+   best['impulse_ratio']=plane_speed/maxf(.001,nearest)
  return best

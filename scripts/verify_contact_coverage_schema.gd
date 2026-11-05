@@ -22,6 +22,15 @@ func _run() -> void:
  checks['tiny_is_not_half']=not Coverage.compatible(tiny,partial).accepted
  var other: Dictionary=partial.duplicate(true);other.edge_side='left' if partial.edge_side=='right' else 'right'
  checks['clipped_side_matters']=not Coverage.compatible(other,partial).accepted
+ var corner: Dictionary=partial.duplicate(true);corner.feature='corner'
+ checks['corner_requires_recorded_corner']=not Coverage.compatible(corner,partial).accepted
+ var current_packet: Dictionary=car.contact_sensor.event(car.solver,car.velocity(),1.0/120)
+ var wheel: RefCounted=car.solver.wheels.wheels[0];wheel.detached=true
+ var detached_before: Dictionary=Coverage.describe(car.solver,{'toi':0},current_packet.signature)
+ var position: Vector3=car.solver.points[wheel.node];car.solver.points[wheel.node].z+=100
+ var detached_after: Dictionary=Coverage.describe(car.solver,{'toi':0},current_packet.signature)
+ checks['detached_wheel_excluded_from_bounds']=absf(detached_before.overlap-detached_after.overlap)<.00001
+ car.solver.points[wheel.node]=position;wheel.detached=false
  var shifted: Dictionary=partial.duplicate(true)
  car.solver.barrier_min+=Vector3(120,0,50);car.solver.barrier_max+=Vector3(120,0,50)
  car.reset(120,Vector3(157.9,0,58))

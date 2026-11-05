@@ -5,6 +5,8 @@ const CrashClip=preload('res://scripts/baked_crash_clip.gd')
 const ImpactGrid=preload('res://scripts/impact_zone_grid.gd')
 const States=preload('res://scripts/conditioned_crash_transitions.gd')
 const ConditionedAuthor=preload('res://scripts/conditioned_crash_authoring.gd')
+const Coverage=preload('res://scripts/baked_contact_coverage.gd')
+const Partials=preload('res://scripts/partial_crash_library.gd')
 const ContactSensor=preload('res://scripts/baked_contact_sensor.gd')
 static var cached_library: Array=[]
 static var cached_conditioned: Array=[]
@@ -33,11 +35,13 @@ var bake_status: String='Ready'
 
 func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=true) -> void:
  super.setup(profile_path,enable_driving)
- if cached_library.is_empty():cached_library=CrashClip.read_library()
+ if cached_library.is_empty():cached_library=CrashClip.read_library()+Partials.read_library()
  bake_library=cached_library
  if cached_conditioned.is_empty():cached_conditioned=States.read_library()
  conditioned_library=cached_conditioned
- for clip in bake_library+conditioned_library:CrashClip.prepare_surfaces(solver,clip)
+ for clip in bake_library+conditioned_library:
+  if not clip.has('_input_compatibility'):clip['_input_compatibility']=CrashClip.input_compatibility(clip)
+  CrashClip.prepare_surfaces(solver,clip)
 
 func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -> void:
  contact_sensor.reset();sequence_active=false;sequence_notice=''
@@ -113,16 +117,20 @@ func stage_next_supported() -> bool:
  contact_sensor.reset();driver_accumulator=0
  return true
 
-func _choose_speed_bin(signature: Dictionary) -> Dictionary:
+func _choose_speed_bin(signature: Dictionary,coverage: Dictionary={}) -> Dictionary:
  if signature.is_empty():return {'accepted':false}
  if not _is_pristine():
   var pool: Array=[];var indices: Array=[]
   for i in conditioned_library.size():
-   if CrashClip.input_compatibility(conditioned_library[i]).compatible:pool.append(conditioned_library[i]);indices.append(i)
+   if conditioned_library[i]._input_compatibility.compatible:pool.append(conditioned_library[i]);indices.append(i)
   var transition: Dictionary=States.choose(solver,signature,pool)
-  if transition.accepted:transition.index=indices[int(transition.index)]
-  if transition.accepted:transition['library_kind']='conditioned'
+  if transition.accepted:
+   transition.index=indices[int(transition.index)]
+   var recorded: Dictionary=conditioned_library[int(transition.index)].metadata.get('contact_coverage',{})
+   if not coverage.is_empty() and not Coverage.compatible(coverage,recorded).accepted:return {'accepted':false,'reason':'no_conditioned_footprint_recording'}
+   transition['library_kind']='conditioned'
   return transition
+ if not coverage.is_empty():return Coverage.choose(signature,coverage,bake_library,float(signature.closing_speed_mps)*3.6)
  var speed: float=float(signature.closing_speed_mps)*3.6
  if speed<35 or speed>175:return {'accepted':false}
  var normal:=Vector3(signature.world_normal[0],signature.world_normal[1],signature.world_normal[2])
@@ -130,7 +138,7 @@ func _choose_speed_bin(signature: Dictionary) -> Dictionary:
  if (motion-normal*motion.dot(normal)).length()>maxf(4.0,float(signature.closing_speed_mps)*.65):return {'accepted':false}
  var nearest_speed:=0.0;var distance:=INF
  for clip in bake_library:
-  if not CrashClip.input_compatibility(clip).compatible:continue
+  if not clip._input_compatibility.compatible:continue
   var difference: float=absf(float(clip.metadata.speed_kmh)-speed)
   if difference<distance:distance=difference;nearest_speed=float(clip.metadata.speed_kmh)
  # The demo has discrete severity bins. Select speed first, then compare zones
@@ -139,7 +147,7 @@ func _choose_speed_bin(signature: Dictionary) -> Dictionary:
  normalized.incident_impulse_proxy_ns*=nearest_speed/speed
  var subset: Array=[];var indices: Array=[]
  for i in bake_library.size():
-  if float(bake_library[i].metadata.speed_kmh)==nearest_speed and CrashClip.input_compatibility(bake_library[i]).compatible:
+  if float(bake_library[i].metadata.speed_kmh)==nearest_speed and bake_library[i]._input_compatibility.compatible:
    subset.append(bake_library[i]);indices.append(i)
  var result: Dictionary=impact_grid.choose(normalized,subset)
  if result.accepted:
@@ -162,20 +170,19 @@ func _contact_event(horizon: float) -> Dictionary:
  for candidate in candidates:
   if not candidate.signature.is_empty():representative=candidate.signature;break
  if representative.is_empty():contact_sensor.note_rejection('empty_contact');return {}
- var normal:=Vector3(representative.world_normal[0],representative.world_normal[1],representative.world_normal[2])
- if absf(normal.x)<.99:contact_sensor.note_rejection('wall_end_or_corner');return {}
- if packet.bounds_min.z<solver.barrier_min.z+.1 or packet.bounds_max.z>solver.barrier_max.z-.1:
-  contact_sensor.note_rejection('no_partial_wall_recording');return {}
- if packet.bounds_max.y>solver.barrier_max.y:
-  contact_sensor.note_rejection('no_short_wall_recording');return {}
+ var coverage: Dictionary=Coverage.describe(solver,packet,representative)
+ var rejection: String='no_compatible_footprint_recording'
  for candidate in candidates:
   var signature: Dictionary=candidate.signature
   if signature.is_empty():continue
-  var selection: Dictionary=_choose_speed_bin(signature)
+  coverage=Coverage.describe(solver,packet,signature)
+  var selection: Dictionary=_choose_speed_bin(signature,coverage)
   if selection.get('accepted',false):
    selection['classification_band_m']=candidate.band_m
+   selection['contact_coverage']=coverage
    return {'toi':packet.toi,'signature':signature,'selection':selection}
- contact_sensor.note_rejection('no_compatible_recording')
+  rejection=selection.get('reason',rejection)
+ contact_sensor.note_rejection(rejection)
  return {}
 
 func _wake(reason: String) -> void:
