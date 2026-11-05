@@ -1,5 +1,8 @@
 from pathlib import Path
-import json,math
+import json,math,argparse
+parser=argparse.ArgumentParser()
+parser.add_argument('--multiaxis-live',action='store_true')
+args=parser.parse_args()
 root=Path(__file__).resolve().parents[1]
 stations=[(-1.72,1.20,.70,60),(-1.15,1.78,.72,160),(-.40,1.78,.72,290),(.45,1.25,.72,250),(.90,1.10,.70,100),(1.35,1.03,.72,50),(1.80,.97,.80,25)]
 nodes=[];links=[];pairs=set()
@@ -67,7 +70,29 @@ for front,x,s in [(False,-1.10,1),(True,1.10,4)]:
                          rigid_mount_until_yield=True,lateral_yield_n=18000,lateral_break_n=90000,
                          mount_break_delay_s=.035,detach_alignment_deg=65,detach_lateral_offset_m=.20,
                          body_capsules=[dict(a=a,b=b,radius_m=.045)for a,b in segments]))
+# Experimental live-only cabin materials. The published default/bake input is
+# unchanged unless this explicit generator flag is supplied.
+if args.multiaxis_live:
+ for raw in links:
+  a,b=raw['a'],raw['b'];kind=raw['kind']
+  if kind=='ring' and a//4<4:
+   i,j=a%4,b%4
+   if (i,j)==(2,3):values=('roof_ring',300000,12000,.55,.15,450)
+   elif (i,j) in [(0,2),(1,3)]:values=('cabin_pillar',300000,8000,.70,.12,400)
+   elif (i,j) in [(0,3),(1,2)]:values=('cabin_diagonal',100000,3500,.70,.25,200)
+   else:continue
+  elif kind=='roof':values=('roof',1400000,18000,.45,.14,750)
+  elif kind=='cabin_brace' and (a%4,b%4) in [(0,2),(2,0),(1,3),(3,1)]:values=('cabin_roof_brace',120000,3000,.75,.40,220)
+  elif kind=='cabin_brace' and (a%4,b%4) in [(2,3),(3,2)]:values=('cabin_roof_planar',180000,6000,.65,.40,250)
+  elif kind=='pillar':values=('pillar',350000,8000,.65,.20,400)
+  elif kind=='roof_crossmember':values=('roof_crossmember',500000,18000,.50,.15,450)
+  else:continue
+  for key,value in zip(('kind','stiffness_n_per_m','yield_n','max_compression','max_extension','damping_ns_per_m'),values):raw[key]=value
+
 cfg=dict(schema_version=2,mass_kg=sum(n['mass_kg']for n in nodes),enforce_symmetry=True,fixed_step_s=1/480,iterations=8,gravity_mps2=9.81,hardening=0.35,nodes=nodes,links=links,station_x=[s[0]for s in stations],station_top_y=[s[1]for s in stations],station_half_width=[s[2]for s in stations],engine_nodes=engine,wheel_nodes=wheels,aux_roof_nodes=roof,description='Controlled static-wall structural bench. Mass-bearing nodes and elastic/plastic XPBD links own all car motion. Godot renders the same graph through native skeletal skinning; no second rigid chassis receives the impact.',limits='Approximate structure and game material parameters, not factory crash certification. Analytic wall/floor contacts, no tearing, glass particles, general world integration or panel self-contact.')
 cfg.update(schema_version=3,wheel_assemblies=assemblies,limits='Approximate game structure, not certified crash prediction. Analytic static box/floor and selective wheel/body contacts; no general world integration, panel self-contact or tearing.')
-(root/'structure.json').write_text(json.dumps(cfg,indent=2)+'\n')
+output=root/('structures/niva_multiaxis_live.json' if args.multiaxis_live else 'structure.json')
+output.parent.mkdir(parents=True,exist_ok=True)
+if args.multiaxis_live:cfg['description']='Experimental live-only roof/side material probe; not the published baked-crash input.'
+output.write_text(json.dumps(cfg,indent=2)+'\n')
 print(len(nodes),'nodes',len(links),'links',cfg['mass_kg'],'kg')

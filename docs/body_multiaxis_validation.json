@@ -1,0 +1,5075 @@
+{
+	"checks": {
+		"all_six_cases_completed": true,
+		"roof_case_0_intrudes_more": true,
+		"roof_case_0_permanent_after_unload": true,
+		"roof_case_1_intrudes_more": true,
+		"roof_case_1_permanent_after_unload": true,
+		"roof_corner_baseline_finite": true,
+		"roof_corner_baseline_floor_nonpenetration": true,
+		"roof_corner_baseline_full_solver_used": true,
+		"roof_corner_baseline_mass_topology_preserved": true,
+		"roof_corner_baseline_no_energy_growth": true,
+		"roof_corner_baseline_restores_original_materials": true,
+		"roof_corner_experimental_finite": true,
+		"roof_corner_experimental_floor_nonpenetration": true,
+		"roof_corner_experimental_full_solver_used": true,
+		"roof_corner_experimental_mass_topology_preserved": true,
+		"roof_corner_experimental_no_energy_growth": true,
+		"roof_corner_experimental_restores_original_materials": true,
+		"roof_flat_baseline_finite": true,
+		"roof_flat_baseline_floor_nonpenetration": true,
+		"roof_flat_baseline_full_solver_used": true,
+		"roof_flat_baseline_mass_topology_preserved": true,
+		"roof_flat_baseline_no_energy_growth": true,
+		"roof_flat_baseline_restores_original_materials": true,
+		"roof_flat_experimental_finite": true,
+		"roof_flat_experimental_floor_nonpenetration": true,
+		"roof_flat_experimental_full_solver_used": true,
+		"roof_flat_experimental_mass_topology_preserved": true,
+		"roof_flat_experimental_no_energy_growth": true,
+		"roof_flat_experimental_restores_original_materials": true,
+		"side_case_upper_frame_intrudes_more": true,
+		"side_wall_baseline_finite": true,
+		"side_wall_baseline_floor_nonpenetration": true,
+		"side_wall_baseline_full_solver_used": true,
+		"side_wall_baseline_mass_topology_preserved": true,
+		"side_wall_baseline_no_energy_growth": true,
+		"side_wall_baseline_restores_original_materials": true,
+		"side_wall_experimental_finite": true,
+		"side_wall_experimental_floor_nonpenetration": true,
+		"side_wall_experimental_full_solver_used": true,
+		"side_wall_experimental_mass_topology_preserved": true,
+		"side_wall_experimental_no_energy_growth": true,
+		"side_wall_experimental_restores_original_materials": true
+	},
+	"passed": true,
+	"runs": [
+		{
+			"before": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21118406454722,
+				"cabin_width_m": 1.42000005245209,
+				"finite": true,
+				"kinetic_kj": 38.7200001220703,
+				"maximum_kinetic_kj": 38.7200001220703,
+				"minimum_floor_clearance_m": 0.999999966472387,
+				"plastic_work_kj": 0.0,
+				"roof_spans_m": [
+					1.39999997615814,
+					1.44000005722046,
+					1.44000005722046,
+					1.44000005722046,
+					1.3400000333786
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"case": "roof_flat",
+			"experimental": false,
+			"final": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.019381628821993,
+						"plastic_length_change_m": 0.0716018339689217,
+						"yielded": 6
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.311432264250854,
+						"plastic_length_change_m": 0.349960321029978,
+						"yielded": 7
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.109935622092477,
+						"plastic_length_change_m": 0.150220706265937,
+						"yielded": 6
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.19818611939748,
+				"cabin_width_m": 1.42041528224945,
+				"finite": true,
+				"kinetic_kj": 0.00862621233557576,
+				"maximum_kinetic_kj": 50.3683594658904,
+				"minimum_floor_clearance_m": 0.0,
+				"plastic_work_kj": 8.57876423729697,
+				"roof_spans_m": [
+					1.4002457857132,
+					1.44061064720154,
+					1.43957424163818,
+					1.44056379795074,
+					1.34094738960266
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000521540641784668,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 698.491223208828,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000044703483581543,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 648.656762610243,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000745058059692383,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 873.191578333609,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000149011611938477,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 912.889284904349,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"initial_mechanical_energy_j": 63582.0513475943,
+			"maximum_cabin_height_loss_m": 0.0162241260210672,
+			"maximum_cabin_width_loss_m": 0.000391435623168901,
+			"maximum_local_roof_span_loss_m": 0.00170683860778809,
+			"maximum_mechanical_energy_j": 63582.0513475943,
+			"samples": [
+				{
+					"height": 1.21118400494258,
+					"time": 0.00208333333333333,
+					"width": 1.42000005245209
+				},
+				{
+					"height": 1.21118406454722,
+					"time": 0.0520833333333333,
+					"width": 1.42000005245209
+				},
+				{
+					"height": 1.21118388573329,
+					"time": 0.102083333333333,
+					"width": 1.42000005245209
+				},
+				{
+					"height": 1.19837818543116,
+					"time": 0.152083333333333,
+					"width": 1.41960861682892
+				},
+				{
+					"height": 1.19794348875682,
+					"time": 0.202083333333333,
+					"width": 1.42024557590485
+				},
+				{
+					"height": 1.1973482966423,
+					"time": 0.252083333333333,
+					"width": 1.42032568454742
+				},
+				{
+					"height": 1.19719982147217,
+					"time": 0.302083333333332,
+					"width": 1.4204211473465
+				},
+				{
+					"height": 1.19841835896174,
+					"time": 0.352083333333332,
+					"width": 1.42032458782196
+				},
+				{
+					"height": 1.1987007856369,
+					"time": 0.402083333333332,
+					"width": 1.42031362056732
+				},
+				{
+					"height": 1.19849928220113,
+					"time": 0.452083333333332,
+					"width": 1.42029392719269
+				},
+				{
+					"height": 1.19915874799093,
+					"time": 0.502083333333332,
+					"width": 1.42022032737732
+				},
+				{
+					"height": 1.19887971878052,
+					"time": 0.552083333333332,
+					"width": 1.42020671367645
+				},
+				{
+					"height": 1.19923935333888,
+					"time": 0.602083333333331,
+					"width": 1.42015700340271
+				},
+				{
+					"height": 1.19495993852615,
+					"time": 0.652083333333331,
+					"width": 1.42137730121613
+				},
+				{
+					"height": 1.19896545012792,
+					"time": 0.702083333333331,
+					"width": 1.42039258480072
+				},
+				{
+					"height": 1.19855187336604,
+					"time": 0.752083333333331,
+					"width": 1.42039391994476
+				},
+				{
+					"height": 1.19887681802114,
+					"time": 0.802083333333331,
+					"width": 1.42035608291626
+				},
+				{
+					"height": 1.19851328929265,
+					"time": 0.852083333333331,
+					"width": 1.42040379047394
+				},
+				{
+					"height": 1.19878705342611,
+					"time": 0.90208333333333,
+					"width": 1.42037622928619
+				},
+				{
+					"height": 1.19635623693466,
+					"time": 0.95208333333333,
+					"width": 1.4206488609314
+				},
+				{
+					"height": 1.19823290904363,
+					"time": 1.00208333333333,
+					"width": 1.42035157680511
+				},
+				{
+					"height": 1.19822190205256,
+					"time": 1.05208333333333,
+					"width": 1.42035167217255
+				},
+				{
+					"height": 1.19852336247762,
+					"time": 1.10208333333334,
+					"width": 1.42041139602661
+				},
+				{
+					"height": 1.19836606582006,
+					"time": 1.15208333333334,
+					"width": 1.42043921947479
+				},
+				{
+					"height": 1.1976247827212,
+					"time": 1.20208333333334,
+					"width": 1.42052433490753
+				},
+				{
+					"height": 1.19803732633591,
+					"time": 1.25208333333334,
+					"width": 1.42034695148468
+				},
+				{
+					"height": 1.19814491271973,
+					"time": 1.30208333333335,
+					"width": 1.4203891992569
+				},
+				{
+					"height": 1.1980583469073,
+					"time": 1.35208333333335,
+					"width": 1.42050461769104
+				},
+				{
+					"height": 1.19806361198425,
+					"time": 1.40208333333335,
+					"width": 1.42050077915192
+				},
+				{
+					"height": 1.19793874025345,
+					"time": 1.45208333333335,
+					"width": 1.42040390968323
+				},
+				{
+					"height": 1.19794446229935,
+					"time": 1.50208333333335,
+					"width": 1.42038731575012
+				},
+				{
+					"height": 1.19805051883062,
+					"time": 1.55208333333336,
+					"width": 1.4204934835434
+				},
+				{
+					"height": 1.19808258612951,
+					"time": 1.60208333333336,
+					"width": 1.42050395011902
+				},
+				{
+					"height": 1.19808886448542,
+					"time": 1.65208333333336,
+					"width": 1.42043750286102
+				},
+				{
+					"height": 1.1980212132136,
+					"time": 1.70208333333336,
+					"width": 1.42036893367767
+				},
+				{
+					"height": 1.19807451963425,
+					"time": 1.75208333333337,
+					"width": 1.42042710781097
+				},
+				{
+					"height": 1.19822696844737,
+					"time": 1.80208333333337,
+					"width": 1.42046387195587
+				},
+				{
+					"height": 1.19831128915151,
+					"time": 1.85208333333337,
+					"width": 1.42042720317841
+				},
+				{
+					"height": 1.19828949371974,
+					"time": 1.90208333333337,
+					"width": 1.42037856578827
+				},
+				{
+					"height": 1.19827624162038,
+					"time": 1.95208333333338,
+					"width": 1.42036464214325
+				},
+				{
+					"height": 1.19835905234019,
+					"time": 2.00208333333338,
+					"width": 1.420379114151
+				},
+				{
+					"height": 1.19849057992299,
+					"time": 2.05208333333338,
+					"width": 1.42038326263428
+				},
+				{
+					"height": 1.198022544384,
+					"time": 2.10208333333337,
+					"width": 1.42054736614227
+				},
+				{
+					"height": 1.19841492176056,
+					"time": 2.15208333333337,
+					"width": 1.42044899463654
+				},
+				{
+					"height": 1.19843816757202,
+					"time": 2.20208333333337,
+					"width": 1.42046024799347
+				},
+				{
+					"height": 1.19835631052653,
+					"time": 2.25208333333337,
+					"width": 1.4204648733139
+				},
+				{
+					"height": 1.19836654265722,
+					"time": 2.30208333333336,
+					"width": 1.420467877388
+				},
+				{
+					"height": 1.19811536868413,
+					"time": 2.35208333333336,
+					"width": 1.42046589851379
+				},
+				{
+					"height": 1.19831528266271,
+					"time": 2.40208333333336,
+					"width": 1.42040359973907
+				},
+				{
+					"height": 1.19826316833496,
+					"time": 2.45208333333335,
+					"width": 1.42028052806854
+				},
+				{
+					"height": 1.19825577735901,
+					"time": 2.50208333333335,
+					"width": 1.42038087844849
+				},
+				{
+					"height": 1.19833676020304,
+					"time": 2.55208333333335,
+					"width": 1.4204329252243
+				},
+				{
+					"height": 1.19835855563482,
+					"time": 2.60208333333335,
+					"width": 1.42039895057678
+				},
+				{
+					"height": 1.19825176397959,
+					"time": 2.65208333333334,
+					"width": 1.4203715801239
+				},
+				{
+					"height": 1.19818862279256,
+					"time": 2.70208333333334,
+					"width": 1.42039577960968
+				},
+				{
+					"height": 1.19819152355194,
+					"time": 2.75208333333334,
+					"width": 1.42042310237885
+				},
+				{
+					"height": 1.19823112090429,
+					"time": 2.80208333333333,
+					"width": 1.42042655944824
+				},
+				{
+					"height": 1.19821419318517,
+					"time": 2.85208333333333,
+					"width": 1.42042372226715
+				},
+				{
+					"height": 1.19811902443568,
+					"time": 2.90208333333333,
+					"width": 1.42042422294617
+				},
+				{
+					"height": 1.19813175996145,
+					"time": 2.95208333333333,
+					"width": 1.42040958404541
+				}
+			],
+			"unloaded": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.019381628821993,
+						"plastic_length_change_m": 0.0716018339689217,
+						"yielded": 6
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.311432264250854,
+						"plastic_length_change_m": 0.349960321029978,
+						"yielded": 7
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.109935622092477,
+						"plastic_length_change_m": 0.150220706265937,
+						"yielded": 6
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.19878302017848,
+				"cabin_width_m": 1.42036156654358,
+				"finite": true,
+				"kinetic_kj": 0.497548197938693,
+				"maximum_kinetic_kj": 50.3683594658904,
+				"minimum_floor_clearance_m": 9.84387287124991,
+				"plastic_work_kj": 8.57876423729697,
+				"roof_spans_m": [
+					1.40016186237335,
+					1.44033002853394,
+					1.44010055065155,
+					1.44076764583588,
+					1.34064626693726
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0197823410294464,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.00000000745058059692383,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 118.031899826368,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0197823410294464,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.00000000745058059692383,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 67.5171559854778,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.00000000745058059692383,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 361.208100374092,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.00000000745058059692383,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 326.04699351003,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			}
+		},
+		{
+			"before": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21118402481079,
+				"cabin_width_m": 1.42000007629395,
+				"finite": true,
+				"kinetic_kj": 44.1650001392364,
+				"maximum_kinetic_kj": 44.1650001392364,
+				"minimum_floor_clearance_m": 1.00000008568168,
+				"plastic_work_kj": 0.0,
+				"roof_spans_m": [
+					1.39999997615814,
+					1.44000005722046,
+					1.44000005722046,
+					1.44000005722046,
+					1.34000015258789
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.00000000745058059692383,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000521540641784668,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000104308128356934,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000044703483581543,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"case": "roof_corner",
+			"experimental": false,
+			"final": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.00472048267157088,
+						"plastic_length_change_m": 0.00517163337185389,
+						"yielded": 1
+					},
+					"cabin_brace": {
+						"max_damage": 0.361531563874934,
+						"plastic_length_change_m": 0.397437391418231,
+						"yielded": 7
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.312601280728776,
+						"plastic_length_change_m": 0.476264140727655,
+						"yielded": 10
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.213637750333504,
+						"plastic_length_change_m": 0.122876910171832,
+						"yielded": 3
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.184021315293543,
+						"plastic_length_change_m": 0.0414061220357352,
+						"yielded": 1
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.048735473335252,
+						"plastic_length_change_m": 0.00452592041711539,
+						"yielded": 1
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.20067153374354,
+				"cabin_width_m": 1.41986086368561,
+				"finite": true,
+				"kinetic_kj": 6.46004892320102,
+				"maximum_kinetic_kj": 55.8291741683123,
+				"minimum_floor_clearance_m": 0.0,
+				"plastic_work_kj": 17.4635990392972,
+				"roof_spans_m": [
+					1.40012753009796,
+					1.44069743156433,
+					1.44123947620392,
+					1.44016468524933,
+					1.3392094373703
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000149011611938477,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 2406.62867634522,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000149011611938477,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 2201.90585951039,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000111758708953857,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 1885.49605995926,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000745058059692383,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 1608.32828192931,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"initial_mechanical_energy_j": 74457.6805765163,
+			"maximum_cabin_height_loss_m": 0.0153635938962304,
+			"maximum_cabin_width_loss_m": 0.000644540786743253,
+			"maximum_local_roof_span_loss_m": 0.00339400768280029,
+			"maximum_mechanical_energy_j": 74462.8191944983,
+			"samples": [
+				{
+					"height": 1.21118402481079,
+					"time": 0.00208333333333333,
+					"width": 1.42000005245209
+				},
+				{
+					"height": 1.21118386586507,
+					"time": 0.0520833333333333,
+					"width": 1.41999995708466
+				},
+				{
+					"height": 1.21118406454722,
+					"time": 0.102083333333333,
+					"width": 1.42000029087067
+				},
+				{
+					"height": 1.19994272788366,
+					"time": 0.152083333333333,
+					"width": 1.42165150642395
+				},
+				{
+					"height": 1.20850898822149,
+					"time": 0.202083333333333,
+					"width": 1.41999135017395
+				},
+				{
+					"height": 1.20054626464844,
+					"time": 0.252083333333333,
+					"width": 1.41967816352844
+				},
+				{
+					"height": 1.19914660851161,
+					"time": 0.302083333333332,
+					"width": 1.41940159797668
+				},
+				{
+					"height": 1.2005419532458,
+					"time": 0.352083333333332,
+					"width": 1.41986219882965
+				},
+				{
+					"height": 1.20209058125814,
+					"time": 0.402083333333332,
+					"width": 1.4193555355072
+				},
+				{
+					"height": 1.20146914323171,
+					"time": 0.452083333333332,
+					"width": 1.41971793174744
+				},
+				{
+					"height": 1.20111387968063,
+					"time": 0.502083333333332,
+					"width": 1.41978254318237
+				},
+				{
+					"height": 1.20112218459447,
+					"time": 0.552083333333332,
+					"width": 1.41981234550476
+				},
+				{
+					"height": 1.20132199923197,
+					"time": 0.602083333333331,
+					"width": 1.41977639198303
+				},
+				{
+					"height": 1.20171928405762,
+					"time": 0.652083333333331,
+					"width": 1.41969845294952
+				},
+				{
+					"height": 1.19582043091456,
+					"time": 0.702083333333331,
+					"width": 1.42139432430267
+				},
+				{
+					"height": 1.20128546158473,
+					"time": 0.752083333333331,
+					"width": 1.41965985298157
+				},
+				{
+					"height": 1.20189988613129,
+					"time": 0.802083333333331,
+					"width": 1.41966893672943
+				},
+				{
+					"height": 1.2017489473025,
+					"time": 0.852083333333331,
+					"width": 1.41971054077148
+				},
+				{
+					"height": 1.20168723662694,
+					"time": 0.90208333333333,
+					"width": 1.41972460746765
+				},
+				{
+					"height": 1.20178455114365,
+					"time": 0.95208333333333,
+					"width": 1.41967804431915
+				},
+				{
+					"height": 1.20182178417842,
+					"time": 1.00208333333333,
+					"width": 1.41968810558319
+				},
+				{
+					"height": 1.20129175980886,
+					"time": 1.05208333333333,
+					"width": 1.41979250907898
+				},
+				{
+					"height": 1.20113962888718,
+					"time": 1.10208333333334,
+					"width": 1.41993050575256
+				},
+				{
+					"height": 1.20159055789312,
+					"time": 1.15208333333334,
+					"width": 1.41972949504852
+				},
+				{
+					"height": 1.20153868198395,
+					"time": 1.20208333333334,
+					"width": 1.41976652145386
+				},
+				{
+					"height": 1.20167700449626,
+					"time": 1.25208333333334,
+					"width": 1.41970391273499
+				},
+				{
+					"height": 1.20045944054921,
+					"time": 1.30208333333335,
+					"width": 1.41995646953583
+				},
+				{
+					"height": 1.20162045955658,
+					"time": 1.35208333333335,
+					"width": 1.4197765827179
+				},
+				{
+					"height": 1.19882343212763,
+					"time": 1.40208333333335,
+					"width": 1.42041826248169
+				},
+				{
+					"height": 1.20136680205663,
+					"time": 1.45208333333335,
+					"width": 1.41985032558441
+				},
+				{
+					"height": 1.20084438721339,
+					"time": 1.50208333333335,
+					"width": 1.41989281177521
+				},
+				{
+					"height": 1.20029958089193,
+					"time": 1.55208333333336,
+					"width": 1.41966061592102
+				},
+				{
+					"height": 1.2003022034963,
+					"time": 1.60208333333336,
+					"width": 1.41964473724365
+				},
+				{
+					"height": 1.20028402407964,
+					"time": 1.65208333333336,
+					"width": 1.4198549747467
+				},
+				{
+					"height": 1.20043275753657,
+					"time": 1.70208333333336,
+					"width": 1.41998686790466
+				},
+				{
+					"height": 1.20048721631368,
+					"time": 1.75208333333337,
+					"width": 1.41986749172211
+				},
+				{
+					"height": 1.20028517643611,
+					"time": 1.80208333333337,
+					"width": 1.41966948509216
+				},
+				{
+					"height": 1.20016433795293,
+					"time": 1.85208333333337,
+					"width": 1.41976325511932
+				},
+				{
+					"height": 1.20073664188385,
+					"time": 1.90208333333337,
+					"width": 1.41985404491425
+				},
+				{
+					"height": 1.20099532604218,
+					"time": 1.95208333333338,
+					"width": 1.41983006000519
+				},
+				{
+					"height": 1.20103853940964,
+					"time": 2.00208333333338,
+					"width": 1.41986315250397
+				},
+				{
+					"height": 1.20117821296056,
+					"time": 2.05208333333338,
+					"width": 1.41976838111877
+				},
+				{
+					"height": 1.20064608256022,
+					"time": 2.10208333333337,
+					"width": 1.41994378566742
+				},
+				{
+					"height": 1.20158010721207,
+					"time": 2.15208333333337,
+					"width": 1.41975271701813
+				},
+				{
+					"height": 1.20107946793238,
+					"time": 2.20208333333337,
+					"width": 1.41984584331512
+				},
+				{
+					"height": 1.2014634013176,
+					"time": 2.25208333333337,
+					"width": 1.41979417800903
+				},
+				{
+					"height": 1.20133882761002,
+					"time": 2.30208333333336,
+					"width": 1.41979620456696
+				},
+				{
+					"height": 1.20144075155258,
+					"time": 2.35208333333336,
+					"width": 1.41978058815002
+				},
+				{
+					"height": 1.20142388343811,
+					"time": 2.40208333333336,
+					"width": 1.41978104114532
+				},
+				{
+					"height": 1.20114217201869,
+					"time": 2.45208333333335,
+					"width": 1.41980922222137
+				},
+				{
+					"height": 1.20127761363983,
+					"time": 2.50208333333335,
+					"width": 1.41980092525482
+				},
+				{
+					"height": 1.20128486553828,
+					"time": 2.55208333333335,
+					"width": 1.41979570388794
+				},
+				{
+					"height": 1.20014214515686,
+					"time": 2.60208333333335,
+					"width": 1.42004566192627
+				},
+				{
+					"height": 1.20112850268682,
+					"time": 2.65208333333334,
+					"width": 1.41984267234802
+				},
+				{
+					"height": 1.20068224271139,
+					"time": 2.70208333333334,
+					"width": 1.41988127231598
+				},
+				{
+					"height": 1.20097198088964,
+					"time": 2.75208333333334,
+					"width": 1.41984913349152
+				},
+				{
+					"height": 1.20062601566315,
+					"time": 2.80208333333333,
+					"width": 1.41978204250336
+				},
+				{
+					"height": 1.20036631822586,
+					"time": 2.85208333333333,
+					"width": 1.41970734596252
+				},
+				{
+					"height": 1.2003955245018,
+					"time": 2.90208333333333,
+					"width": 1.41979553699493
+				},
+				{
+					"height": 1.20068917671839,
+					"time": 2.95208333333333,
+					"width": 1.41983361244202
+				}
+			],
+			"unloaded": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.00472048267157088,
+						"plastic_length_change_m": 0.00517163337185389,
+						"yielded": 1
+					},
+					"cabin_brace": {
+						"max_damage": 0.361531563874934,
+						"plastic_length_change_m": 0.397437391418231,
+						"yielded": 7
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.312601280728776,
+						"plastic_length_change_m": 0.476264140727655,
+						"yielded": 10
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.213637750333504,
+						"plastic_length_change_m": 0.122876910171832,
+						"yielded": 3
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.184021315293543,
+						"plastic_length_change_m": 0.0414061220357352,
+						"yielded": 1
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.048735473335252,
+						"plastic_length_change_m": 0.00452592041711539,
+						"yielded": 1
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.2017974058787,
+				"cabin_width_m": 1.41967167854309,
+				"finite": true,
+				"kinetic_kj": 1.34185732941039,
+				"maximum_kinetic_kj": 55.8291741683123,
+				"minimum_floor_clearance_m": 9.48477825149894,
+				"plastic_work_kj": 17.4635990392972,
+				"roof_spans_m": [
+					1.40002119541168,
+					1.44032669067383,
+					1.44157361984253,
+					1.44024157524109,
+					1.33881878852844
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 418.534906722872,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000141561031341553,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 1549.12433503426,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000149011611938477,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 803.650421638696,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000968575477600098,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 1147.64377401489,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			}
+		},
+		{
+			"before": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21118402481079,
+				"cabin_width_m": 1.42000026702881,
+				"finite": true,
+				"kinetic_kj": 298.765407283453,
+				"maximum_kinetic_kj": 298.765407283453,
+				"minimum_floor_clearance_m": 0.544999983161688,
+				"plastic_work_kj": 0.0,
+				"roof_spans_m": [
+					1.39999961853027,
+					1.44000005722046,
+					1.44000053405762,
+					1.44000053405762,
+					1.34000015258789
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000298023223876953,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000178813934326172,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000223517417907715,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.00000025331974029541,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"case": "side_wall",
+			"experimental": false,
+			"final": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0448788480504659,
+						"plastic_length_change_m": 0.156499245298272,
+						"yielded": 5
+					},
+					"engine_mount": {
+						"max_damage": 0.100007436661053,
+						"plastic_length_change_m": 0.106603546924072,
+						"yielded": 6
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0677422625518494,
+						"plastic_length_change_m": 0.200817063448139,
+						"yielded": 7
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.262867636601818,
+						"plastic_length_change_m": 0.118885901039281,
+						"yielded": 7
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 1
+					},
+					"suspension": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 3
+					},
+					"upper_arm": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 2
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21373361349106,
+				"cabin_width_m": 1.41017823219299,
+				"finite": true,
+				"kinetic_kj": 0.844798272451133,
+				"maximum_kinetic_kj": 298.765407283453,
+				"minimum_floor_clearance_m": 0.0,
+				"plastic_work_kj": 31.7811491601441,
+				"roof_spans_m": [
+					1.3998761177063,
+					1.44183611869812,
+					1.44604742527008,
+					1.44266283512115,
+					1.33988392353058
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000085681676864624,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 3747.98695826995,
+						"peak_tire_compression_m": 0.0440702737135885,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.134772274643183,
+						"spin_rad_s": 4.00484770719612,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 1.09575125897364,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000521580638818131,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 2135.14863905948,
+						"peak_tire_compression_m": 0.039462531194586,
+						"permanent_alignment_deg": 1.0953940349573,
+						"permanent_lateral_offset_m": -0.183958500619703,
+						"spin_rad_s": -0.770466225082518,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0197823410294464,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.00000000372529029846191,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 515.571664588993,
+						"peak_tire_compression_m": 0.045,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.12886905670166,
+						"spin_rad_s": -2.85682754156727,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "permanent_lateral_offset",
+						"detached": true,
+						"hub_tilt_deg": 124.584512987517,
+						"knuckle_broken": true,
+						"lateral_error_m": -1.06167094409466,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.045,
+						"permanent_alignment_deg": 0.963271195874741,
+						"permanent_lateral_offset_m": -0.20107527077198,
+						"spin_rad_s": -0.651085402403928,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"initial_mechanical_energy_j": 307317.688801725,
+			"maximum_cabin_height_loss_m": 0.0000000198682148511153,
+			"maximum_cabin_width_loss_m": 0.0302495479583742,
+			"maximum_local_roof_span_loss_m": 0.0140098333358765,
+			"maximum_mechanical_energy_j": 307317.688801725,
+			"samples": [
+				{
+					"height": 1.21118400494258,
+					"time": 0.00208333333333333,
+					"width": 1.42000026702881
+				},
+				{
+					"height": 1.21140325069427,
+					"time": 0.0520833333333333,
+					"width": 1.41992182731628
+				},
+				{
+					"height": 1.2115509112676,
+					"time": 0.102083333333333,
+					"width": 1.41983919143677
+				},
+				{
+					"height": 1.21149887641271,
+					"time": 0.152083333333333,
+					"width": 1.41983425617218
+				},
+				{
+					"height": 1.22026650110881,
+					"time": 0.202083333333333,
+					"width": 1.38975071907043
+				},
+				{
+					"height": 1.21428195635478,
+					"time": 0.252083333333333,
+					"width": 1.41034114360809
+				},
+				{
+					"height": 1.21406946579615,
+					"time": 0.302083333333332,
+					"width": 1.41015765666962
+				},
+				{
+					"height": 1.21384467681249,
+					"time": 0.352083333333332,
+					"width": 1.41036560535431
+				},
+				{
+					"height": 1.21367226044337,
+					"time": 0.402083333333332,
+					"width": 1.41036667823791
+				},
+				{
+					"height": 1.21378737688065,
+					"time": 0.452083333333332,
+					"width": 1.41032803058624
+				},
+				{
+					"height": 1.2135679324468,
+					"time": 0.502083333333332,
+					"width": 1.41035759449005
+				},
+				{
+					"height": 1.21382693449656,
+					"time": 0.552083333333332,
+					"width": 1.4103376865387
+				},
+				{
+					"height": 1.21378378073374,
+					"time": 0.602083333333331,
+					"width": 1.41028685569763
+				},
+				{
+					"height": 1.21416026353836,
+					"time": 0.652083333333331,
+					"width": 1.41003260612488
+				},
+				{
+					"height": 1.2140512863795,
+					"time": 0.702083333333331,
+					"width": 1.41005759239197
+				},
+				{
+					"height": 1.21386120716731,
+					"time": 0.752083333333331,
+					"width": 1.41022229194641
+				},
+				{
+					"height": 1.21362018585205,
+					"time": 0.802083333333331,
+					"width": 1.41037077903748
+				},
+				{
+					"height": 1.21369896332423,
+					"time": 0.852083333333331,
+					"width": 1.41035988330841
+				},
+				{
+					"height": 1.21366157134374,
+					"time": 0.90208333333333,
+					"width": 1.41036555767059
+				},
+				{
+					"height": 1.21371281147003,
+					"time": 0.95208333333333,
+					"width": 1.41035974025726
+				},
+				{
+					"height": 1.21384485562642,
+					"time": 1.00208333333333,
+					"width": 1.41018197536469
+				},
+				{
+					"height": 1.21394824981689,
+					"time": 1.05208333333333,
+					"width": 1.41015660762787
+				},
+				{
+					"height": 1.21373931566874,
+					"time": 1.10208333333334,
+					"width": 1.41024115085602
+				},
+				{
+					"height": 1.21365509430567,
+					"time": 1.15208333333334,
+					"width": 1.41032655239105
+				},
+				{
+					"height": 1.21367059151332,
+					"time": 1.20208333333334,
+					"width": 1.41022174358368
+				},
+				{
+					"height": 1.21361897389094,
+					"time": 1.25208333333334,
+					"width": 1.41036305427551
+				},
+				{
+					"height": 1.21370855967204,
+					"time": 1.30208333333335,
+					"width": 1.41034114360809
+				},
+				{
+					"height": 1.21365880966187,
+					"time": 1.35208333333335,
+					"width": 1.41034371852875
+				},
+				{
+					"height": 1.21381815274556,
+					"time": 1.40208333333335,
+					"width": 1.40995335578918
+				},
+				{
+					"height": 1.21375387907028,
+					"time": 1.45208333333335,
+					"width": 1.40995523929596
+				},
+				{
+					"height": 1.21374569336573,
+					"time": 1.50208333333335,
+					"width": 1.41015317440033
+				},
+				{
+					"height": 1.21369230747223,
+					"time": 1.55208333333336,
+					"width": 1.41023073196411
+				},
+				{
+					"height": 1.2137433886528,
+					"time": 1.60208333333336,
+					"width": 1.4102814912796
+				},
+				{
+					"height": 1.21371726195018,
+					"time": 1.65208333333336,
+					"width": 1.41020147800446
+				},
+				{
+					"height": 1.21374539534251,
+					"time": 1.70208333333336,
+					"width": 1.41019763946533
+				},
+				{
+					"height": 1.21373764673869,
+					"time": 1.75208333333337,
+					"width": 1.41017785072327
+				},
+				{
+					"height": 1.21374160051346,
+					"time": 1.80208333333337,
+					"width": 1.41021039485931
+				},
+				{
+					"height": 1.21379627784093,
+					"time": 1.85208333333337,
+					"width": 1.41007709503174
+				},
+				{
+					"height": 1.21376325686773,
+					"time": 1.90208333333337,
+					"width": 1.41021118164063
+				},
+				{
+					"height": 1.21376732985179,
+					"time": 1.95208333333338,
+					"width": 1.41015236377716
+				},
+				{
+					"height": 1.21377869447072,
+					"time": 2.00208333333338,
+					"width": 1.41018435955048
+				},
+				{
+					"height": 1.21376506487528,
+					"time": 2.05208333333338,
+					"width": 1.41013753414154
+				},
+				{
+					"height": 1.21377172072728,
+					"time": 2.10208333333337,
+					"width": 1.41017374992371
+				},
+				{
+					"height": 1.21376478672028,
+					"time": 2.15208333333337,
+					"width": 1.41017243862152
+				},
+				{
+					"height": 1.21377970774968,
+					"time": 2.20208333333337,
+					"width": 1.41015362739563
+				},
+				{
+					"height": 1.21376941601435,
+					"time": 2.25208333333337,
+					"width": 1.41015965938568
+				},
+				{
+					"height": 1.21376727024714,
+					"time": 2.30208333333336,
+					"width": 1.4101665019989
+				},
+				{
+					"height": 1.21376738945643,
+					"time": 2.35208333333336,
+					"width": 1.41015944480896
+				},
+				{
+					"height": 1.21376880009969,
+					"time": 2.40208333333336,
+					"width": 1.41017336845398
+				},
+				{
+					"height": 1.21376872062683,
+					"time": 2.45208333333335,
+					"width": 1.41016237735748
+				},
+				{
+					"height": 1.21375956137975,
+					"time": 2.50208333333335,
+					"width": 1.41016652584076
+				},
+				{
+					"height": 1.21375991900762,
+					"time": 2.55208333333335,
+					"width": 1.41016080379486
+				},
+				{
+					"height": 1.21375600496928,
+					"time": 2.60208333333335,
+					"width": 1.41017029285431
+				},
+				{
+					"height": 1.21375596523285,
+					"time": 2.65208333333334,
+					"width": 1.41016874313354
+				},
+				{
+					"height": 1.21375342210134,
+					"time": 2.70208333333334,
+					"width": 1.41016821861267
+				},
+				{
+					"height": 1.21374859412511,
+					"time": 2.75208333333334,
+					"width": 1.41017036437988
+				},
+				{
+					"height": 1.21374740203222,
+					"time": 2.80208333333333,
+					"width": 1.41017286777496
+				},
+				{
+					"height": 1.21374394496282,
+					"time": 2.85208333333333,
+					"width": 1.41017351150513
+				},
+				{
+					"height": 1.21374114354451,
+					"time": 2.90208333333333,
+					"width": 1.41017332077026
+				},
+				{
+					"height": 1.21373941500982,
+					"time": 2.95208333333333,
+					"width": 1.41017634868622
+				}
+			],
+			"unloaded": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0448788480504659,
+						"plastic_length_change_m": 0.156499245298272,
+						"yielded": 5
+					},
+					"engine_mount": {
+						"max_damage": 0.100007436661053,
+						"plastic_length_change_m": 0.106603546924072,
+						"yielded": 6
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0677422625518494,
+						"plastic_length_change_m": 0.200817063448139,
+						"yielded": 7
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.262867636601818,
+						"plastic_length_change_m": 0.118885901039281,
+						"yielded": 7
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 1
+					},
+					"suspension": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 3
+					},
+					"upper_arm": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 2
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21371752023697,
+				"cabin_width_m": 1.41032433509827,
+				"finite": true,
+				"kinetic_kj": 0.00702703141305435,
+				"maximum_kinetic_kj": 298.765407283453,
+				"minimum_floor_clearance_m": 9.99370368942618,
+				"plastic_work_kj": 31.7811491601441,
+				"roof_spans_m": [
+					1.39986944198608,
+					1.44203162193298,
+					1.44602918624878,
+					1.44267463684082,
+					1.33989250659943
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0197823410294464,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.000000160187482833862,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 735.714598012697,
+						"peak_tire_compression_m": 0.0440702737135885,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.134772274643183,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 1.0953940349573,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.000000536437803275169,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 2246.19261504068,
+						"peak_tire_compression_m": 0.039462531194586,
+						"permanent_alignment_deg": 1.0953940349573,
+						"permanent_lateral_offset_m": -0.183958500619703,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.000000402331352233887,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 431.379685275759,
+						"peak_tire_compression_m": 0.045,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.12886905670166,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "permanent_lateral_offset",
+						"detached": true,
+						"hub_tilt_deg": 124.590847388879,
+						"knuckle_broken": true,
+						"lateral_error_m": -1.07735352218151,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.045,
+						"permanent_alignment_deg": 0.963271195874741,
+						"permanent_lateral_offset_m": -0.20107527077198,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			}
+		},
+		{
+			"before": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21118406454722,
+				"cabin_width_m": 1.42000005245209,
+				"finite": true,
+				"kinetic_kj": 38.7200001220703,
+				"maximum_kinetic_kj": 38.7200001220703,
+				"minimum_floor_clearance_m": 0.999999966472387,
+				"plastic_work_kj": 0.0,
+				"roof_spans_m": [
+					1.39999997615814,
+					1.44000005722046,
+					1.44000005722046,
+					1.44000005722046,
+					1.3400000333786
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"case": "roof_flat",
+			"experimental": true,
+			"final": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.0725956134858133,
+						"plastic_length_change_m": 0.254348382256244,
+						"yielded": 4
+					},
+					"cabin_pillar": {
+						"max_damage": 0.218764326734324,
+						"plastic_length_change_m": 0.592819754007654,
+						"yielded": 6
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.229074266414187,
+						"plastic_length_change_m": 1.31642807906961,
+						"yielded": 12
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0897767353730671,
+						"plastic_length_change_m": 0.117800260173321,
+						"yielded": 4
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.290190308526421,
+						"plastic_length_change_m": 1.11996270374471,
+						"yielded": 8
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.04138038555781,
+				"cabin_width_m": 1.4215430021286,
+				"finite": true,
+				"kinetic_kj": 0.0357888564945319,
+				"maximum_kinetic_kj": 50.3691799554103,
+				"minimum_floor_clearance_m": 0.0,
+				"plastic_work_kj": 22.0061076201741,
+				"roof_spans_m": [
+					1.40103733539581,
+					1.44337999820709,
+					1.44143152236938,
+					1.43823134899139,
+					1.34132170677185
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000149011611938477,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 746.342107742231,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000149011611938477,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 611.619546850023,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000149011611938477,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 863.543686156451,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0279764551182933,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 769.492114796405,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"initial_mechanical_energy_j": 63582.0513475943,
+			"maximum_cabin_height_loss_m": 0.178873419761658,
+			"maximum_cabin_width_loss_m": 0.0,
+			"maximum_local_roof_span_loss_m": 0.00521838665008545,
+			"maximum_mechanical_energy_j": 63582.0513475943,
+			"samples": [
+				{
+					"height": 1.21118398507436,
+					"time": 0.00208333333333333,
+					"width": 1.42000005245209
+				},
+				{
+					"height": 1.21118426322937,
+					"time": 0.0520833333333333,
+					"width": 1.42000007629395
+				},
+				{
+					"height": 1.21118315060933,
+					"time": 0.102083333333333,
+					"width": 1.42000012397766
+				},
+				{
+					"height": 1.04541405042013,
+					"time": 0.152083333333333,
+					"width": 1.42194259166718
+				},
+				{
+					"height": 1.06495239337285,
+					"time": 0.202083333333333,
+					"width": 1.4212922334671
+				},
+				{
+					"height": 1.04485416412354,
+					"time": 0.252083333333333,
+					"width": 1.4216456413269
+				},
+				{
+					"height": 1.03853462139765,
+					"time": 0.302083333333332,
+					"width": 1.42186043262482
+				},
+				{
+					"height": 1.04755411545436,
+					"time": 0.352083333333332,
+					"width": 1.42191660404205
+				},
+				{
+					"height": 1.04897459348043,
+					"time": 0.402083333333332,
+					"width": 1.42182700634003
+				},
+				{
+					"height": 1.04561452070872,
+					"time": 0.452083333333332,
+					"width": 1.42180309295654
+				},
+				{
+					"height": 1.0493705868721,
+					"time": 0.502083333333332,
+					"width": 1.42175054550171
+				},
+				{
+					"height": 1.04944332440694,
+					"time": 0.552083333333332,
+					"width": 1.42174537181854
+				},
+				{
+					"height": 1.05010348558426,
+					"time": 0.602083333333331,
+					"width": 1.42169878482819
+				},
+				{
+					"height": 1.05029612779617,
+					"time": 0.652083333333331,
+					"width": 1.42167427539825
+				},
+				{
+					"height": 1.0511221686999,
+					"time": 0.702083333333331,
+					"width": 1.42164735794067
+				},
+				{
+					"height": 1.05205845832825,
+					"time": 0.752083333333331,
+					"width": 1.4216460943222
+				},
+				{
+					"height": 1.03231064478556,
+					"time": 0.802083333333331,
+					"width": 1.42264666557312
+				},
+				{
+					"height": 1.03908866643906,
+					"time": 0.852083333333331,
+					"width": 1.42198090553284
+				},
+				{
+					"height": 1.04592792193095,
+					"time": 0.90208333333333,
+					"width": 1.42147467136383
+				},
+				{
+					"height": 1.0446355342865,
+					"time": 0.95208333333333,
+					"width": 1.42151045799255
+				},
+				{
+					"height": 1.04461661974589,
+					"time": 1.00208333333333,
+					"width": 1.42150349617004
+				},
+				{
+					"height": 1.04290465513865,
+					"time": 1.05208333333333,
+					"width": 1.42159442901611
+				},
+				{
+					"height": 1.03955278793971,
+					"time": 1.10208333333334,
+					"width": 1.4219212770462
+				},
+				{
+					"height": 1.03604329625765,
+					"time": 1.15208333333334,
+					"width": 1.42179715633392
+				},
+				{
+					"height": 1.04267360766729,
+					"time": 1.20208333333334,
+					"width": 1.42156891822815
+				},
+				{
+					"height": 1.04316910107931,
+					"time": 1.25208333333334,
+					"width": 1.42151460647583
+				},
+				{
+					"height": 1.0428454875946,
+					"time": 1.30208333333335,
+					"width": 1.4214644908905
+				},
+				{
+					"height": 1.04389238357544,
+					"time": 1.35208333333335,
+					"width": 1.42140061855316
+				},
+				{
+					"height": 1.04117288192113,
+					"time": 1.40208333333335,
+					"width": 1.42194213867187
+				},
+				{
+					"height": 1.04406501849492,
+					"time": 1.45208333333335,
+					"width": 1.42186543941498
+				},
+				{
+					"height": 1.0440886815389,
+					"time": 1.50208333333335,
+					"width": 1.42159497737885
+				},
+				{
+					"height": 1.04402468601863,
+					"time": 1.55208333333336,
+					"width": 1.42148621082306
+				},
+				{
+					"height": 1.04437816143036,
+					"time": 1.60208333333336,
+					"width": 1.42144207954407
+				},
+				{
+					"height": 1.04408866167068,
+					"time": 1.65208333333336,
+					"width": 1.42143349647522
+				},
+				{
+					"height": 1.04305209716161,
+					"time": 1.70208333333336,
+					"width": 1.42180030345917
+				},
+				{
+					"height": 1.04356652498245,
+					"time": 1.75208333333337,
+					"width": 1.42177276611328
+				},
+				{
+					"height": 1.04318269093831,
+					"time": 1.80208333333337,
+					"width": 1.42153928279877
+				},
+				{
+					"height": 1.04309564828873,
+					"time": 1.85208333333337,
+					"width": 1.42138628959656
+				},
+				{
+					"height": 1.0426532626152,
+					"time": 1.90208333333337,
+					"width": 1.42145273685455
+				},
+				{
+					"height": 1.04187385241191,
+					"time": 1.95208333333338,
+					"width": 1.4216650724411
+				},
+				{
+					"height": 1.03797037402789,
+					"time": 2.00208333333338,
+					"width": 1.42193028926849
+				},
+				{
+					"height": 1.03939692179362,
+					"time": 2.05208333333338,
+					"width": 1.42178683280945
+				},
+				{
+					"height": 1.04215308030446,
+					"time": 2.10208333333337,
+					"width": 1.42163717746735
+				},
+				{
+					"height": 1.04262975851695,
+					"time": 2.15208333333337,
+					"width": 1.42166473865509
+				},
+				{
+					"height": 1.04235428571701,
+					"time": 2.20208333333337,
+					"width": 1.42163398265839
+				},
+				{
+					"height": 1.0428516070048,
+					"time": 2.25208333333337,
+					"width": 1.42154502868652
+				},
+				{
+					"height": 1.04224588473638,
+					"time": 2.30208333333336,
+					"width": 1.42152655124664
+				},
+				{
+					"height": 1.04297539591789,
+					"time": 2.35208333333336,
+					"width": 1.42151694297791
+				},
+				{
+					"height": 1.04294764995575,
+					"time": 2.40208333333336,
+					"width": 1.42156460285187
+				},
+				{
+					"height": 1.04281703631083,
+					"time": 2.45208333333335,
+					"width": 1.42163786888123
+				},
+				{
+					"height": 1.04276132583618,
+					"time": 2.50208333333335,
+					"width": 1.42171528339386
+				},
+				{
+					"height": 1.04263003667196,
+					"time": 2.55208333333335,
+					"width": 1.42171647548676
+				},
+				{
+					"height": 1.04233663280805,
+					"time": 2.60208333333335,
+					"width": 1.42161858081818
+				},
+				{
+					"height": 1.0419376095136,
+					"time": 2.65208333333334,
+					"width": 1.42151834964752
+				},
+				{
+					"height": 1.04069421688716,
+					"time": 2.70208333333334,
+					"width": 1.4215879201889
+				},
+				{
+					"height": 1.03985614577929,
+					"time": 2.75208333333334,
+					"width": 1.42182660102844
+				},
+				{
+					"height": 1.04079906145732,
+					"time": 2.80208333333333,
+					"width": 1.42180991172791
+				},
+				{
+					"height": 1.04184305667877,
+					"time": 2.85208333333333,
+					"width": 1.42175538539886
+				},
+				{
+					"height": 1.04202876488368,
+					"time": 2.90208333333333,
+					"width": 1.42173793315887
+				},
+				{
+					"height": 1.04191986719767,
+					"time": 2.95208333333333,
+					"width": 1.4216108083725
+				}
+			],
+			"unloaded": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.0725956134858133,
+						"plastic_length_change_m": 0.254348382256244,
+						"yielded": 4
+					},
+					"cabin_pillar": {
+						"max_damage": 0.218764326734324,
+						"plastic_length_change_m": 0.592819754007654,
+						"yielded": 6
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.229074266414187,
+						"plastic_length_change_m": 1.31642807906961,
+						"yielded": 12
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0897767353730671,
+						"plastic_length_change_m": 0.117800260173321,
+						"yielded": 4
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.290190308526421,
+						"plastic_length_change_m": 1.11996270374471,
+						"yielded": 8
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.04437259833018,
+				"cabin_width_m": 1.42151925563812,
+				"finite": true,
+				"kinetic_kj": 0.074272235954504,
+				"maximum_kinetic_kj": 50.3691799554103,
+				"minimum_floor_clearance_m": 9.90263256058097,
+				"plastic_work_kj": 22.0061076201741,
+				"roof_spans_m": [
+					1.40098798274994,
+					1.44262886047363,
+					1.44262254238129,
+					1.44004452228546,
+					1.34100162982941
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0197823410294464,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000149011611938477,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 850.123226808866,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0197823410294464,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000149011611938477,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 823.676437898057,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.034264020096038,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000298023223876953,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 160.954394940992,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.034264020096038,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 93.3568330670066,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			}
+		},
+		{
+			"before": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21118402481079,
+				"cabin_width_m": 1.42000007629395,
+				"finite": true,
+				"kinetic_kj": 44.1650001392364,
+				"maximum_kinetic_kj": 44.1650001392364,
+				"minimum_floor_clearance_m": 1.00000008568168,
+				"plastic_work_kj": 0.0,
+				"roof_spans_m": [
+					1.39999997615814,
+					1.44000005722046,
+					1.44000005722046,
+					1.44000005722046,
+					1.34000015258789
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.00000000745058059692383,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000521540641784668,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000104308128356934,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000044703483581543,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"case": "roof_corner",
+			"experimental": true,
+			"final": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.338910206189251,
+						"plastic_length_change_m": 1.04735340647652,
+						"yielded": 6
+					},
+					"cabin_pillar": {
+						"max_damage": 0.309481030811607,
+						"plastic_length_change_m": 0.733962837583642,
+						"yielded": 5
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.697982985111576,
+						"plastic_length_change_m": 1.77803718227371,
+						"yielded": 12
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0767332534307354,
+						"plastic_length_change_m": 0.155705771989783,
+						"yielded": 4
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0624804225447005,
+						"plastic_length_change_m": 0.0609591032296878,
+						"yielded": 6
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.378470283713874,
+						"plastic_length_change_m": 0.887137871300275,
+						"yielded": 4
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.112389309119581,
+						"plastic_length_change_m": 0.0672781696530979,
+						"yielded": 2
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.00976577628752756,
+						"plastic_length_change_m": 0.00468085791105932,
+						"yielded": 1
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.01535379886627,
+				"cabin_width_m": 1.41626119613647,
+				"finite": true,
+				"kinetic_kj": 4.53769407742764,
+				"maximum_kinetic_kj": 55.829171653395,
+				"minimum_floor_clearance_m": 0.0,
+				"plastic_work_kj": 30.5715349884744,
+				"roof_spans_m": [
+					1.38261771202087,
+					1.43196070194244,
+					1.42512011528015,
+					1.43234539031982,
+					1.34384846687317
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.00000000745058059692383,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 1826.82060142288,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000298023223876953,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 1249.35402877498,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.00000000745058059692383,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 588.504235316673,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.00000000745058059692383,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 1085.92258568712,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"initial_mechanical_energy_j": 74457.6805765163,
+			"maximum_cabin_height_loss_m": 0.200922906398773,
+			"maximum_cabin_width_loss_m": 0.00628380775451665,
+			"maximum_local_roof_span_loss_m": 0.0239535570144653,
+			"maximum_mechanical_energy_j": 74462.1995998789,
+			"samples": [
+				{
+					"height": 1.21118400494258,
+					"time": 0.00208333333333333,
+					"width": 1.42000002861023
+				},
+				{
+					"height": 1.21118332942327,
+					"time": 0.0520833333333333,
+					"width": 1.41999998092651
+				},
+				{
+					"height": 1.21118305126826,
+					"time": 0.102083333333333,
+					"width": 1.42000014781952
+				},
+				{
+					"height": 1.1530731121699,
+					"time": 0.152083333333333,
+					"width": 1.41371626853943
+				},
+				{
+					"height": 1.07180380821228,
+					"time": 0.202083333333333,
+					"width": 1.41581251621246
+				},
+				{
+					"height": 1.03654352823893,
+					"time": 0.252083333333333,
+					"width": 1.41742062568665
+				},
+				{
+					"height": 1.03794714808464,
+					"time": 0.302083333333332,
+					"width": 1.41727139949799
+				},
+				{
+					"height": 1.02226735154788,
+					"time": 0.352083333333332,
+					"width": 1.41693563461304
+				},
+				{
+					"height": 1.01944244901339,
+					"time": 0.402083333333332,
+					"width": 1.41703305244446
+				},
+				{
+					"height": 1.0249441464742,
+					"time": 0.452083333333332,
+					"width": 1.41711099147797
+				},
+				{
+					"height": 1.0286377966404,
+					"time": 0.502083333333332,
+					"width": 1.4166118144989
+				},
+				{
+					"height": 1.02490534385045,
+					"time": 0.552083333333332,
+					"width": 1.41675243377686
+				},
+				{
+					"height": 1.02439885338147,
+					"time": 0.602083333333331,
+					"width": 1.41688251495361
+				},
+				{
+					"height": 1.02832792202632,
+					"time": 0.652083333333331,
+					"width": 1.41679825782776
+				},
+				{
+					"height": 1.0287159383297,
+					"time": 0.702083333333331,
+					"width": 1.41666257381439
+				},
+				{
+					"height": 1.02385300397873,
+					"time": 0.752083333333331,
+					"width": 1.41587707996368
+				},
+				{
+					"height": 1.02376946806908,
+					"time": 0.802083333333331,
+					"width": 1.41641662120819
+				},
+				{
+					"height": 1.02160878976186,
+					"time": 0.852083333333331,
+					"width": 1.4164959192276
+				},
+				{
+					"height": 1.02177587151527,
+					"time": 0.90208333333333,
+					"width": 1.41681668758392
+				},
+				{
+					"height": 1.02267343799273,
+					"time": 0.95208333333333,
+					"width": 1.41692543029785
+				},
+				{
+					"height": 1.02366038163503,
+					"time": 1.00208333333333,
+					"width": 1.41693799495697
+				},
+				{
+					"height": 1.02168141802152,
+					"time": 1.05208333333333,
+					"width": 1.41673181056976
+				},
+				{
+					"height": 1.02136963605881,
+					"time": 1.10208333333334,
+					"width": 1.4167909860611
+				},
+				{
+					"height": 1.02399002512296,
+					"time": 1.15208333333334,
+					"width": 1.41688570976257
+				},
+				{
+					"height": 1.02378927667936,
+					"time": 1.20208333333334,
+					"width": 1.41708195209503
+				},
+				{
+					"height": 1.0142160654068,
+					"time": 1.25208333333334,
+					"width": 1.41600382328033
+				},
+				{
+					"height": 1.01650187373161,
+					"time": 1.30208333333335,
+					"width": 1.41543815135956
+				},
+				{
+					"height": 1.02231365442276,
+					"time": 1.35208333333335,
+					"width": 1.41622574329376
+				},
+				{
+					"height": 1.01832181215286,
+					"time": 1.40208333333335,
+					"width": 1.41664228439331
+				},
+				{
+					"height": 1.01674667994181,
+					"time": 1.45208333333335,
+					"width": 1.41681876182556
+				},
+				{
+					"height": 1.01363024115562,
+					"time": 1.50208333333335,
+					"width": 1.41734135150909
+				},
+				{
+					"height": 1.01026111841202,
+					"time": 1.55208333333336,
+					"width": 1.41744351387024
+				},
+				{
+					"height": 1.01344040036201,
+					"time": 1.60208333333336,
+					"width": 1.41728200912476
+				},
+				{
+					"height": 1.01508740584056,
+					"time": 1.65208333333336,
+					"width": 1.41679141521454
+				},
+				{
+					"height": 1.0151195426782,
+					"time": 1.70208333333336,
+					"width": 1.41663417816162
+				},
+				{
+					"height": 1.01633940140406,
+					"time": 1.75208333333337,
+					"width": 1.41687240600586
+				},
+				{
+					"height": 1.01309241851171,
+					"time": 1.80208333333337,
+					"width": 1.41713964939117
+				},
+				{
+					"height": 1.0140259663264,
+					"time": 1.85208333333337,
+					"width": 1.41559722423553
+				},
+				{
+					"height": 1.0161859691143,
+					"time": 1.90208333333337,
+					"width": 1.41585125923157
+				},
+				{
+					"height": 1.01639406879743,
+					"time": 1.95208333333338,
+					"width": 1.41672503948212
+				},
+				{
+					"height": 1.01578591267268,
+					"time": 2.00208333333338,
+					"width": 1.41675758361816
+				},
+				{
+					"height": 1.01723384857178,
+					"time": 2.05208333333338,
+					"width": 1.41659054756165
+				},
+				{
+					"height": 1.01694110035896,
+					"time": 2.10208333333337,
+					"width": 1.41670525074005
+				},
+				{
+					"height": 1.01528519392014,
+					"time": 2.15208333333337,
+					"width": 1.4163521528244
+				},
+				{
+					"height": 1.01407114664714,
+					"time": 2.20208333333337,
+					"width": 1.41649506092072
+				},
+				{
+					"height": 1.01618790626526,
+					"time": 2.25208333333337,
+					"width": 1.41617288589478
+				},
+				{
+					"height": 1.01485546429952,
+					"time": 2.30208333333336,
+					"width": 1.41705586910248
+				},
+				{
+					"height": 1.01463865240415,
+					"time": 2.35208333333336,
+					"width": 1.41751258373261
+				},
+				{
+					"height": 1.01403890053431,
+					"time": 2.40208333333336,
+					"width": 1.41725072860718
+				},
+				{
+					"height": 1.0135123928388,
+					"time": 2.45208333333335,
+					"width": 1.41698799133301
+				},
+				{
+					"height": 1.01320943236351,
+					"time": 2.50208333333335,
+					"width": 1.41705100536346
+				},
+				{
+					"height": 1.01401474078496,
+					"time": 2.55208333333335,
+					"width": 1.41730966567993
+				},
+				{
+					"height": 1.01435448726018,
+					"time": 2.60208333333335,
+					"width": 1.41746969223022
+				},
+				{
+					"height": 1.01518718401591,
+					"time": 2.65208333333334,
+					"width": 1.41705372333527
+				},
+				{
+					"height": 1.0155383447806,
+					"time": 2.70208333333334,
+					"width": 1.41649944782257
+				},
+				{
+					"height": 1.01399648189545,
+					"time": 2.75208333333334,
+					"width": 1.41662435531616
+				},
+				{
+					"height": 1.01479503512383,
+					"time": 2.80208333333333,
+					"width": 1.41650996208191
+				},
+				{
+					"height": 1.01575348774592,
+					"time": 2.85208333333333,
+					"width": 1.41640074253082
+				},
+				{
+					"height": 1.01613043745359,
+					"time": 2.90208333333333,
+					"width": 1.41642544269562
+				},
+				{
+					"height": 1.01497794191043,
+					"time": 2.95208333333333,
+					"width": 1.41652724742889
+				}
+			],
+			"unloaded": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.338910206189251,
+						"plastic_length_change_m": 1.04735340647652,
+						"yielded": 6
+					},
+					"cabin_pillar": {
+						"max_damage": 0.309481030811607,
+						"plastic_length_change_m": 0.733962837583642,
+						"yielded": 5
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.697982985111576,
+						"plastic_length_change_m": 1.77803718227371,
+						"yielded": 12
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0767332534307354,
+						"plastic_length_change_m": 0.155705771989783,
+						"yielded": 4
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0624804225447005,
+						"plastic_length_change_m": 0.0609591032296878,
+						"yielded": 6
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.378470283713874,
+						"plastic_length_change_m": 0.887137871300275,
+						"yielded": 4
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.112389309119581,
+						"plastic_length_change_m": 0.0672781696530979,
+						"yielded": 2
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.00976577628752756,
+						"plastic_length_change_m": 0.00468085791105932,
+						"yielded": 1
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.01580725113551,
+				"cabin_width_m": 1.41681416034698,
+				"finite": true,
+				"kinetic_kj": 0.0147488931515064,
+				"maximum_kinetic_kj": 55.829171653395,
+				"minimum_floor_clearance_m": 9.98310932144523,
+				"plastic_work_kj": 30.5715349884744,
+				"roof_spans_m": [
+					1.38276040554047,
+					1.43201148509979,
+					1.42589104175568,
+					1.43315267562866,
+					1.34583330154419
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0197823410294464,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000149011611938477,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 1408.47965335192,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.034264020096038,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000298023223876953,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 831.477059052389,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.034264020096038,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000149011611938477,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 883.013757776133,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0197823410294464,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000149011611938477,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 1174.15174522186,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			}
+		},
+		{
+			"before": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_mount": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"suspension": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_arm": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21118402481079,
+				"cabin_width_m": 1.42000026702881,
+				"finite": true,
+				"kinetic_kj": 298.765407283453,
+				"maximum_kinetic_kj": 298.765407283453,
+				"minimum_floor_clearance_m": 0.544999983161688,
+				"plastic_work_kj": 0.0,
+				"roof_spans_m": [
+					1.39999961853027,
+					1.44000005722046,
+					1.44000053405762,
+					1.44000053405762,
+					1.34000015258789
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000298023223876953,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000178813934326172,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.000000223517417907715,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.00000025331974029541,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.0,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					}
+				]
+			},
+			"case": "side_wall",
+			"experimental": true,
+			"final": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0860865798455198,
+						"plastic_length_change_m": 0.351803397275087,
+						"yielded": 6
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.0852246731037592,
+						"plastic_length_change_m": 0.310270881126458,
+						"yielded": 6
+					},
+					"cabin_pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0771163814078062,
+						"plastic_length_change_m": 0.241339491612859,
+						"yielded": 5
+					},
+					"engine_mount": {
+						"max_damage": 0.10008517295392,
+						"plastic_length_change_m": 0.0982517172006322,
+						"yielded": 5
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.067329150555552,
+						"plastic_length_change_m": 0.275750960110825,
+						"yielded": 8
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.520902952248544,
+						"plastic_length_change_m": 0.219715574238545,
+						"yielded": 5
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.110008455783697,
+						"plastic_length_change_m": 0.18746469317485,
+						"yielded": 3
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 2
+					},
+					"suspension": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 6
+					},
+					"upper_arm": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 4
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21331810951233,
+				"cabin_width_m": 1.36923291683197,
+				"finite": true,
+				"kinetic_kj": 0.0511382730314145,
+				"maximum_kinetic_kj": 298.765407283453,
+				"minimum_floor_clearance_m": 0.0,
+				"plastic_work_kj": 53.1943449797941,
+				"roof_spans_m": [
+					1.40297257900238,
+					1.40621209144592,
+					1.35359537601471,
+					1.38113880157471,
+					1.34007668495178
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0279764551182933,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000521540641784668,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 1807.99357596844,
+						"peak_tire_compression_m": 0.0300220540447001,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.164600856602192,
+						"spin_rad_s": -0.0108713832696063,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "permanent_lateral_offset",
+						"detached": true,
+						"hub_tilt_deg": 109.074089743349,
+						"knuckle_broken": true,
+						"lateral_error_m": -2.73839146163592,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0416743265286102,
+						"permanent_alignment_deg": 1.13487681299269,
+						"permanent_lateral_offset_m": -0.201348898147255,
+						"spin_rad_s": -0.0215203116413002,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": 0.0000000633299350738525,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 557.171559862778,
+						"peak_tire_compression_m": 0.0210905340834057,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.139737647026777,
+						"spin_rad_s": -0.0095490680406464,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 105,
+						"detach_reason": "permanent_lateral_offset",
+						"detached": true,
+						"hub_tilt_deg": 95.0605875666122,
+						"knuckle_broken": true,
+						"lateral_error_m": -2.26689935475588,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.045,
+						"permanent_alignment_deg": 0.929990659262713,
+						"permanent_lateral_offset_m": -0.203476183116436,
+						"spin_rad_s": 2.37108410517942,
+						"wheel_body_constraint_impulse_ns": 106.598140501077
+					}
+				]
+			},
+			"initial_mechanical_energy_j": 307317.688801725,
+			"maximum_cabin_height_loss_m": 0.0,
+			"maximum_cabin_width_loss_m": 0.0702298879623413,
+			"maximum_local_roof_span_loss_m": 0.100627422332764,
+			"maximum_mechanical_energy_j": 307317.688801725,
+			"samples": [
+				{
+					"height": 1.21118414402008,
+					"time": 0.00208333333333333,
+					"width": 1.42000026702881
+				},
+				{
+					"height": 1.21227896213531,
+					"time": 0.0520833333333333,
+					"width": 1.41989634037018
+				},
+				{
+					"height": 1.21356282631556,
+					"time": 0.102083333333333,
+					"width": 1.41977715492249
+				},
+				{
+					"height": 1.21335732936859,
+					"time": 0.152083333333333,
+					"width": 1.41976335048676
+				},
+				{
+					"height": 1.21541756391525,
+					"time": 0.202083333333333,
+					"width": 1.34977037906647
+				},
+				{
+					"height": 1.21161558230718,
+					"time": 0.252083333333333,
+					"width": 1.36886963844299
+				},
+				{
+					"height": 1.21506178379059,
+					"time": 0.302083333333332,
+					"width": 1.36920127868652
+				},
+				{
+					"height": 1.21371694405874,
+					"time": 0.352083333333332,
+					"width": 1.36914105415344
+				},
+				{
+					"height": 1.21387934684753,
+					"time": 0.402083333333332,
+					"width": 1.36925704479218
+				},
+				{
+					"height": 1.21274624268214,
+					"time": 0.452083333333332,
+					"width": 1.36922681331635
+				},
+				{
+					"height": 1.21384396155675,
+					"time": 0.502083333333332,
+					"width": 1.36924617290497
+				},
+				{
+					"height": 1.21346312761307,
+					"time": 0.552083333333332,
+					"width": 1.36922760009766
+				},
+				{
+					"height": 1.21372642119726,
+					"time": 0.602083333333331,
+					"width": 1.36921308040619
+				},
+				{
+					"height": 1.21375924348831,
+					"time": 0.652083333333331,
+					"width": 1.36926286220551
+				},
+				{
+					"height": 1.21331457297007,
+					"time": 0.702083333333331,
+					"width": 1.36915142536163
+				},
+				{
+					"height": 1.21320817867915,
+					"time": 0.752083333333331,
+					"width": 1.36932044029236
+				},
+				{
+					"height": 1.2138987382253,
+					"time": 0.802083333333331,
+					"width": 1.3692015171051
+				},
+				{
+					"height": 1.21391067902247,
+					"time": 0.852083333333331,
+					"width": 1.36925892829895
+				},
+				{
+					"height": 1.2132553656896,
+					"time": 0.90208333333333,
+					"width": 1.36925051212311
+				},
+				{
+					"height": 1.21273022890091,
+					"time": 0.95208333333333,
+					"width": 1.3692045211792
+				},
+				{
+					"height": 1.21352700392405,
+					"time": 1.00208333333333,
+					"width": 1.36924397945404
+				},
+				{
+					"height": 1.21363439162572,
+					"time": 1.05208333333333,
+					"width": 1.36922149658203
+				},
+				{
+					"height": 1.21367188294729,
+					"time": 1.10208333333334,
+					"width": 1.36922717094421
+				},
+				{
+					"height": 1.21321980158488,
+					"time": 1.15208333333334,
+					"width": 1.36923432350159
+				},
+				{
+					"height": 1.21313234170278,
+					"time": 1.20208333333334,
+					"width": 1.36923744678497
+				},
+				{
+					"height": 1.21339964866638,
+					"time": 1.25208333333334,
+					"width": 1.369229388237
+				},
+				{
+					"height": 1.2135226726532,
+					"time": 1.30208333333335,
+					"width": 1.36923155784607
+				},
+				{
+					"height": 1.21343946456909,
+					"time": 1.35208333333335,
+					"width": 1.36924798488617
+				},
+				{
+					"height": 1.21319637695948,
+					"time": 1.40208333333335,
+					"width": 1.3692440032959
+				},
+				{
+					"height": 1.21320986747742,
+					"time": 1.45208333333335,
+					"width": 1.36923518180847
+				},
+				{
+					"height": 1.21331955989202,
+					"time": 1.50208333333335,
+					"width": 1.36923034191132
+				},
+				{
+					"height": 1.21333356698354,
+					"time": 1.55208333333336,
+					"width": 1.36923153400421
+				},
+				{
+					"height": 1.21339257558187,
+					"time": 1.60208333333336,
+					"width": 1.36923887729645
+				},
+				{
+					"height": 1.21331681807836,
+					"time": 1.65208333333336,
+					"width": 1.36923108100891
+				},
+				{
+					"height": 1.21325329939524,
+					"time": 1.70208333333336,
+					"width": 1.36923058032989
+				},
+				{
+					"height": 1.21329706907272,
+					"time": 1.75208333333337,
+					"width": 1.36923012733459
+				},
+				{
+					"height": 1.21332238117854,
+					"time": 1.80208333333337,
+					"width": 1.36923325061798
+				},
+				{
+					"height": 1.21337447563807,
+					"time": 1.85208333333337,
+					"width": 1.36923825740814
+				},
+				{
+					"height": 1.21331387758255,
+					"time": 1.90208333333337,
+					"width": 1.3692314863205
+				},
+				{
+					"height": 1.21329675118128,
+					"time": 1.95208333333338,
+					"width": 1.36922953128815
+				},
+				{
+					"height": 1.21329687039057,
+					"time": 2.00208333333338,
+					"width": 1.36923246383667
+				},
+				{
+					"height": 1.21332923571269,
+					"time": 2.05208333333338,
+					"width": 1.36923563480377
+				},
+				{
+					"height": 1.21333199739456,
+					"time": 2.10208333333337,
+					"width": 1.36923491954803
+				},
+				{
+					"height": 1.21331663926442,
+					"time": 2.15208333333337,
+					"width": 1.36923277378082
+				},
+				{
+					"height": 1.21331300338109,
+					"time": 2.20208333333337,
+					"width": 1.3692319393158
+				},
+				{
+					"height": 1.21331842740377,
+					"time": 2.25208333333337,
+					"width": 1.36923341751099
+				},
+				{
+					"height": 1.2133186062177,
+					"time": 2.30208333333336,
+					"width": 1.36923403739929
+				},
+				{
+					"height": 1.21331053972244,
+					"time": 2.35208333333336,
+					"width": 1.36923241615295
+				},
+				{
+					"height": 1.21331944068273,
+					"time": 2.40208333333336,
+					"width": 1.36923272609711
+				},
+				{
+					"height": 1.21332327524821,
+					"time": 2.45208333333335,
+					"width": 1.36923339366913
+				},
+				{
+					"height": 1.2133281826973,
+					"time": 2.50208333333335,
+					"width": 1.36923451423645
+				},
+				{
+					"height": 1.21331216891607,
+					"time": 2.55208333333335,
+					"width": 1.36923298835754
+				},
+				{
+					"height": 1.21330912907918,
+					"time": 2.60208333333335,
+					"width": 1.36923267841339
+				},
+				{
+					"height": 1.21331963936488,
+					"time": 2.65208333333334,
+					"width": 1.36923327445984
+				},
+				{
+					"height": 1.21332708994548,
+					"time": 2.70208333333334,
+					"width": 1.36923425197601
+				},
+				{
+					"height": 1.21332134803136,
+					"time": 2.75208333333334,
+					"width": 1.36923315525055
+				},
+				{
+					"height": 1.21331365903219,
+					"time": 2.80208333333333,
+					"width": 1.36923272609711
+				},
+				{
+					"height": 1.21331308285395,
+					"time": 2.85208333333333,
+					"width": 1.36923289299011
+				},
+				{
+					"height": 1.21332105000814,
+					"time": 2.90208333333333,
+					"width": 1.36923327445984
+				},
+				{
+					"height": 1.21332234144211,
+					"time": 2.95208333333333,
+					"width": 1.36923432350159
+				}
+			],
+			"unloaded": {
+				"by_kind": {
+					"bend": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_brace": {
+						"max_damage": 0.0860865798455198,
+						"plastic_length_change_m": 0.351803397275087,
+						"yielded": 6
+					},
+					"cabin_diagonal": {
+						"max_damage": 0.0852246731037592,
+						"plastic_length_change_m": 0.310270881126458,
+						"yielded": 6
+					},
+					"cabin_pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_brace": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"cabin_roof_planar": {
+						"max_damage": 0.0771163814078062,
+						"plastic_length_change_m": 0.241339491612859,
+						"yielded": 5
+					},
+					"engine_mount": {
+						"max_damage": 0.10008517295392,
+						"plastic_length_change_m": 0.0982517172006322,
+						"yielded": 5
+					},
+					"engine_rigid": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"front_brace": {
+						"max_damage": 0.067329150555552,
+						"plastic_length_change_m": 0.275750960110825,
+						"yielded": 8
+					},
+					"front_rail": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"pillar": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"ring": {
+						"max_damage": 0.520902952248544,
+						"plastic_length_change_m": 0.219715574238545,
+						"yielded": 5
+					},
+					"roof": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_crossmember": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"roof_ring": {
+						"max_damage": 0.110008455783697,
+						"plastic_length_change_m": 0.18746469317485,
+						"yielded": 3
+					},
+					"sill": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					},
+					"steering_link": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 2
+					},
+					"suspension": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 6
+					},
+					"upper_arm": {
+						"max_damage": 1.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 4
+					},
+					"upper_front": {
+						"max_damage": 0.0,
+						"plastic_length_change_m": 0.0,
+						"yielded": 0
+					}
+				},
+				"cabin_height_m": 1.21251976490021,
+				"cabin_width_m": 1.36924862861633,
+				"finite": true,
+				"kinetic_kj": 0.0265287782756791,
+				"maximum_kinetic_kj": 298.765407283453,
+				"minimum_floor_clearance_m": 9.89331230148673,
+				"plastic_work_kj": 53.1943449797941,
+				"roof_spans_m": [
+					1.40282809734344,
+					1.40609228610992,
+					1.35378444194794,
+					1.38089239597321,
+					1.33999347686768
+				],
+				"wheel_states": [
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000372529029846191,
+						"name": "rear_wheel_-1",
+						"node": 34,
+						"peak_lateral_force_n": 1528.62086624761,
+						"peak_tire_compression_m": 0.0300220540447001,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.164600856602192,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "permanent_lateral_offset",
+						"detached": true,
+						"hub_tilt_deg": 109.074324620144,
+						"knuckle_broken": true,
+						"lateral_error_m": -2.74230677154192,
+						"name": "rear_wheel_1",
+						"node": 35,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.0416743265286102,
+						"permanent_alignment_deg": 1.13487681299269,
+						"permanent_lateral_offset_m": -0.201348898147255,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 0,
+						"detach_reason": "",
+						"detached": false,
+						"hub_tilt_deg": 0.0279764551182933,
+						"knuckle_broken": false,
+						"lateral_error_m": -0.0000000670552253723145,
+						"name": "front_wheel_-1",
+						"node": 36,
+						"peak_lateral_force_n": 643.077715128337,
+						"peak_tire_compression_m": 0.0210905340834057,
+						"permanent_alignment_deg": 0.0,
+						"permanent_lateral_offset_m": 0.139737647026777,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 0.0
+					},
+					{
+						"angular_finite": true,
+						"body_contact_events": 105,
+						"detach_reason": "permanent_lateral_offset",
+						"detached": true,
+						"hub_tilt_deg": 95.1654872542794,
+						"knuckle_broken": true,
+						"lateral_error_m": -2.26757813245058,
+						"name": "front_wheel_1",
+						"node": 37,
+						"peak_lateral_force_n": 0.0,
+						"peak_tire_compression_m": 0.045,
+						"permanent_alignment_deg": 0.929990659262713,
+						"permanent_lateral_offset_m": -0.203476183116436,
+						"spin_rad_s": 0.0,
+						"wheel_body_constraint_impulse_ns": 106.598140501077
+					}
+				]
+			}
+		}
+	],
+	"scope": "Live full solver, game material comparison; no calibrated crash-engineering prediction."
+}
