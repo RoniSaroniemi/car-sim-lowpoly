@@ -1,4 +1,5 @@
 extends RefCounted
+const PanelState=preload('res://scripts/panel_snapshot.gd')
 const PATH='res://bakes/frontal_120.crashclip'
 const ANGLES=[0.0,20.0,-20.0]
 static func case_id(angle: float,speed: float=120) -> String:
@@ -19,6 +20,10 @@ static func specifications(three_only: bool=false) -> Array:
   # Settled low-speed suspension rotates the 60° contact frame slightly.
   # Record the observed 75° coverage gap while preserving the zone/angle gates.
   cases.append({'angle':75.0,'speed':60.0})
+  # Keep the established cases and add the user's 45-degree compass coverage.
+  for speed in [60.0,120.0]:
+   for angle in [45.0,135.0,-135.0,-45.0]:cases.append({'angle':angle,'speed':speed})
+  for angle in [20.0,-20.0]:cases.append({'angle':angle,'speed':60.0})
  return cases
 static func case_path(angle: float,speed: float=120) -> String:return 'res://bakes/'+case_id(angle,speed)+'.crashclip'
 static func read_library() -> Array:
@@ -50,10 +55,11 @@ static func write_catalog() -> void:
 static func save(data: Dictionary,path: String='',update_catalog: bool=true) -> void:
  if path=='':path='res://bakes/'+str(data.metadata.id)+'.crashclip'
  DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
+ if not data.frames.is_empty() and data.frames[0].has('panels'):data.metadata['panels_schema']=PanelState.SCHEMA
  if not data.frames.is_empty() and data.frames[0].get('effects',{}).has('surface'):
   data.metadata['surface_schema']=1
   var fingerprints: Dictionary={}
-  for source in ['scripts/vehicle_surface.gd','scripts/damage_layers.gdshader','scripts/damage_skin.gd','vehicles/niva_surface.json']:
+  for source in ['scripts/vehicle_surface.gd','scripts/damage_layers.gdshader','scripts/damage_skin.gd','scripts/layered_damage_skin.gd','vehicles/niva_surface.json']:
    fingerprints[source]=FileAccess.get_sha256('res://'+source)
   data.metadata['surface_input_sha256']=fingerprints
  var file:=FileAccess.open_compressed(path,FileAccess.WRITE,FileAccess.COMPRESSION_ZSTD)
@@ -75,6 +81,7 @@ static func read(path: String=PATH) -> Dictionary:
  if not value is Dictionary:return {}
  if int(value.get('metadata',{}).get('surface_schema',0))>1:
   push_warning('Unsupported surface schema: '+path);return {}
+ if int(value.get('metadata',{}).get('panels_schema',0))>PanelState.SCHEMA:return {}
  return value
 
 static func local_frame(g: RefCounted,origin: Vector3) -> Dictionary:
@@ -82,9 +89,14 @@ static func local_frame(g: RefCounted,origin: Vector3) -> Dictionary:
  var positions: PackedVector3Array=state.points
  for i in positions.size():positions[i]-=origin
  state.points=positions
+ if state.has('panels'):state.panels=PanelState.transformed(state.panels,Basis.IDENTITY,-origin)
  return state
 
-static func apply(g: RefCounted,data: Dictionary,time: float,origin: Vector3,rotation: Basis=Basis.IDENTITY) -> void:
+static func apply(g: RefCounted,data: Dictionary,time: float,origin: Vector3,rotation: Basis=Basis.IDENTITY,retained_components: Dictionary={}) -> void:
+ if g.panels_runtime_enabled and not data.frames[0].has('panels'):
+  if g.panels.panels.any(func(p):return p.active or not p.latched or p.plastic_work>.01 or p.anchors.any(func(a):return a.broken)):
+   push_warning('Historical closed-body clip cannot replace independent/damaged panels');return
+  g.panels.playback=false
  if g.effects!=null and not prepare_surfaces(g,data):return
  var frames: Array=data.frames
  var n: float=clampf(time*float(data.metadata.sample_hz),0,frames.size()-1)
@@ -108,9 +120,20 @@ static func apply(g: RefCounted,data: Dictionary,time: float,origin: Vector3,rot
   state.wheels[i].angular_velocity=rotation*a.wheels[i].angular_velocity.lerp(b.wheels[i].angular_velocity,t)
   state.wheels[i].spin=lerp_angle(a.wheels[i].spin,b.wheels[i].spin,t)
  state.time=lerpf(a.time,b.time,t)
+ if a.has('panels') and g.panels_runtime_enabled:
+  state.panels=PanelState.transformed(PanelState.interpolated(a.panels,b.panels,t),rotation,origin)
+  for saved in retained_components.get('panels',[]):
+   for i in state.panels.panels.size():
+    if state.panels.panels[i].id==saved.id:state.panels.panels[i]=saved.duplicate(true)
+  g.panels.playback=true
  g.restore(state,false)
  if g.effects!=null:
-  g.effects.restore_interpolated(a.get('effects',{}),b.get('effects',{}),t)
+  var effects_a: Dictionary=a.get('effects',{});var effects_b: Dictionary=b.get('effects',{})
+  if not retained_components.get('glass',{}).is_empty():
+   effects_a=effects_a.duplicate(true);effects_b=effects_b.duplicate(true)
+   for id in retained_components.glass:
+    effects_a.glass.panes[id]=retained_components.glass[id];effects_b.glass.panes[id]=retained_components.glass[id]
+  g.effects.restore_interpolated(effects_a,effects_b,t)
   # Discrete cumulative cosmetic events are sampled at the earlier frame.
   # This is deterministic for backward/random seeking and never runs physics.
   g.effects.surface.restore(data._surface_track[floori(n)])

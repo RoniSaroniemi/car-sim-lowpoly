@@ -1,0 +1,1323 @@
+{
+  "cases": [
+    {
+      "angle": 0.0,
+      "contact_kmh": 59.472338104248,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "frozen_plastic",
+          "plastic_j": 542.020727887608,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "frozen_plastic",
+          "plastic_j": 547.466785305929,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 1103,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "frozen_plastic",
+          "plastic_j": 1155.98483116617,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "asleep_closed",
+          "plastic_j": 0,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 60.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 2196.37701575532,
+        "deformation_energy_j": 0.3625662355227,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 2827.371,
+        "drive_seconds": 2.72499999999999,
+        "drive_steps": 327,
+        "forecast_checks": 363,
+        "full_cpu_ms": 7047.174,
+        "full_seconds": 1.77083333333337,
+        "full_steps": 850,
+        "full_time_fraction": 0.393883225208532,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "DRIVE",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 9874.545,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 3.24063444137573,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.176385755313052
+            },
+            "reason": "forecast_box",
+            "time_s": 0.416666666666667,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          },
+          {
+            "from": "FULL",
+            "reason": "structure_settled",
+            "residual_energy_removed_j": 0.297862316016108,
+            "time_s": 2.18750000000004,
+            "to": "DRIVE"
+          }
+        ]
+      }
+    },
+    {
+      "angle": 20.0,
+      "contact_kmh": 56.5032691955566,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 146,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 814.053399359139,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 265.108988286345,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 941,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 2028.10394444229,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 104.124976126978,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 60.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 3994.7313333334,
+        "deformation_energy_j": 0.0440339952160542,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 78.855,
+        "drive_seconds": 0.425,
+        "drive_steps": 51,
+        "forecast_checks": 156,
+        "full_cpu_ms": 17897.436,
+        "full_seconds": 4.07499999999993,
+        "full_steps": 1956,
+        "full_time_fraction": 0.905555555555554,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 17976.291,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 3.10306453704834,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.171940220709696
+            },
+            "reason": "forecast_box",
+            "time_s": 0.425,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "angle": -20.0,
+      "contact_kmh": 56.5005981445313,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 266.010815485384,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 140,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 833.830347186057,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 868,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 2005.57656425709,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 103.733160317153,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 60.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 3985.7953333334,
+        "deformation_energy_j": 0.0450197137262863,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 82.218,
+        "drive_seconds": 0.425,
+        "drive_steps": 51,
+        "forecast_checks": 156,
+        "full_cpu_ms": 17853.861,
+        "full_seconds": 4.07499999999993,
+        "full_steps": 1956,
+        "full_time_fraction": 0.905555555555554,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 17936.079,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 3.10336661338806,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.171996589704094
+            },
+            "reason": "forecast_box",
+            "time_s": 0.425,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "angle": 30.0,
+      "contact_kmh": 53.9015727996826,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 650,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 1309.72229430862,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 84.1117717141988,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            true,
+            false
+          ],
+          "contacts": 644,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 2485.30952683002,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 66.2354327387677,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 60.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 4063.91977777784,
+        "deformation_energy_j": 0.0392417488463479,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 86.266,
+        "drive_seconds": 0.433333333333334,
+        "drive_steps": 52,
+        "forecast_checks": 150,
+        "full_cpu_ms": 18201.373,
+        "full_seconds": 4.0666666666666,
+        "full_steps": 1952,
+        "full_time_fraction": 0.903703703703702,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 18287.639,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 3.08255124092102,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.176154426639618
+            },
+            "reason": "forecast_box",
+            "time_s": 0.433333333333334,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "angle": -30.0,
+      "contact_kmh": 53.8938652038574,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 84.0800647618514,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 650,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 1307.62803705163,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            true,
+            false,
+            false
+          ],
+          "contacts": 638,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 2497.43392507447,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 68.4158861337196,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 60.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 4108.97644444451,
+        "deformation_energy_j": 0.0610439674572949,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 82.733,
+        "drive_seconds": 0.433333333333334,
+        "drive_steps": 52,
+        "forecast_checks": 148,
+        "full_cpu_ms": 18407.661,
+        "full_seconds": 4.0666666666666,
+        "full_steps": 1952,
+        "full_time_fraction": 0.903703703703702,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 18490.394,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 3.08284187316895,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.176149922043691
+            },
+            "reason": "forecast_box",
+            "time_s": 0.433333333333334,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "angle": 0.0,
+      "contact_kmh": 119.410427856445,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 209,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 3740.3097174319,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 201,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 3738.02144212979,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 1448,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 4476.6021689667,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 635.652038982114,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 120.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 4293.60444444453,
+        "deformation_energy_j": 3.13273758640253,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 22.192,
+        "drive_seconds": 0.116666666666667,
+        "drive_steps": 14,
+        "forecast_checks": 99,
+        "full_cpu_ms": 19299.028,
+        "full_seconds": 4.38333333333324,
+        "full_steps": 2104,
+        "full_time_fraction": 0.974074074074074,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 19321.22,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 6.27963209152222,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.179154461066749
+            },
+            "reason": "forecast_box",
+            "time_s": 0.116666666666667,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "angle": 20.0,
+      "contact_kmh": 117.431240844727,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 982,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 2845.66394648715,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 128,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 3142.62592630149,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 1007,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 6823.02297705646,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 1181.00733411381,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 120.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 4356.07488888898,
+        "deformation_energy_j": 0.119127729741357,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 22.691,
+        "drive_seconds": 0.116666666666667,
+        "drive_steps": 14,
+        "forecast_checks": 117,
+        "full_cpu_ms": 19579.646,
+        "full_seconds": 4.38333333333324,
+        "full_steps": 2104,
+        "full_time_fraction": 0.974074074074074,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 19602.337,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 6.12276077270508,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.17284597411436
+            },
+            "reason": "forecast_box",
+            "time_s": 0.116666666666667,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "angle": -20.0,
+      "contact_kmh": 117.426763916016,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 126,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 3117.38790360088,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 1353,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 2838.87000971986,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            true,
+            false,
+            false
+          ],
+          "contacts": 705,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 7010.99871330321,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 1180.35941983368,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 120.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 4542.89866666676,
+        "deformation_energy_j": 0.132202722375643,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 22.206,
+        "drive_seconds": 0.116666666666667,
+        "drive_steps": 14,
+        "forecast_checks": 116,
+        "full_cpu_ms": 20420.838,
+        "full_seconds": 4.38333333333324,
+        "full_steps": 2104,
+        "full_time_fraction": 0.974074074074074,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 20443.044,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 6.12283325195312,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.172868646738396
+            },
+            "reason": "forecast_box",
+            "time_s": 0.116666666666667,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "angle": 30.0,
+      "contact_kmh": 116.400846862793,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 6754,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 3325.05283719719,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 1890,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 3331.92847937202,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 9703,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 6026.19614465183,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 912.306885999765,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 120.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 4329.86222222231,
+        "deformation_energy_j": 2.0801763977112,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 22.051,
+        "drive_seconds": 0.116666666666667,
+        "drive_steps": 14,
+        "forecast_checks": 99,
+        "full_cpu_ms": 19462.329,
+        "full_seconds": 4.38333333333324,
+        "full_steps": 2104,
+        "full_time_fraction": 0.974074074074074,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 19484.38,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 6.13246822357178,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.173619641225696
+            },
+            "reason": "forecast_box",
+            "time_s": 0.116666666666667,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "angle": -30.0,
+      "contact_kmh": 116.400338745117,
+      "finite": true,
+      "mass_error_kg": 0.000003814697265625,
+      "parts": [
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 1907,
+          "detached": false,
+          "id": "door_left",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 3327.17303251228,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 7447,
+          "detached": false,
+          "id": "door_right",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 3357.29821249699,
+          "seats": [
+            false,
+            false
+          ]
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 8118,
+          "detached": false,
+          "id": "bonnet",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 6022.10069193535,
+          "seats": []
+        },
+        {
+          "anchors": [
+            false,
+            false,
+            false
+          ],
+          "contacts": 0,
+          "detached": false,
+          "id": "tailgate",
+          "latched": true,
+          "mode": "full_impact",
+          "plastic_j": 902.347416878973,
+          "seats": []
+        }
+      ],
+      "passed": true,
+      "speed": 120.0,
+      "stats": {
+        "bake_search_cpu_ms": 0.0,
+        "baked_count": 0,
+        "baked_cpu_ms": 0.0,
+        "baked_seconds": 0.0,
+        "baked_steps": 0,
+        "contact_sensor": {
+          "actual_sweeps": 0,
+          "arm_count": 0,
+          "armed": false,
+          "broadphase_checks": 0,
+          "cancel_count": 0,
+          "forecast_checks": 0,
+          "forecast_cpu_ms": 0.0,
+          "forecast_nodes": 0,
+          "last_cancel": "",
+          "last_rejection": "",
+          "library_rankings": 0,
+          "manifold_queries": 0,
+          "sensor_cpu_ms": 0.0,
+          "status": "clear"
+        },
+        "cpu_ms_per_sim_second": 4433.89200000009,
+        "deformation_energy_j": 4.45264427413036,
+        "deformation_sleep_energy_j": 2.0,
+        "drive_cpu_ms": 22.124,
+        "drive_seconds": 0.116666666666667,
+        "drive_steps": 14,
+        "forecast_checks": 99,
+        "full_cpu_ms": 19930.39,
+        "full_seconds": 4.38333333333324,
+        "full_steps": 2104,
+        "full_time_fraction": 0.974074074074074,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "last_bake": {},
+        "mode": "FULL",
+        "rigid_contacts": 0,
+        "sleep_energy_removed_j": 0.0,
+        "sleep_seconds": 0.0,
+        "sleep_steps": 0,
+        "total_cpu_ms": 19952.514,
+        "transitions": [
+          {
+            "from": "DRIVE",
+            "position_jump_m": 0.0,
+            "prediction": {
+              "clearance_m": 6.13247060775757,
+              "reason": "forecast_box",
+              "risk": true,
+              "time_to_contact_s": 0.173636190997816
+            },
+            "reason": "forecast_box",
+            "time_s": 0.116666666666667,
+            "to": "FULL",
+            "velocity_jump_mps": 0.0
+          }
+        ]
+      }
+    }
+  ],
+  "passed": true,
+  "throttle_from_rest_retains": true
+}

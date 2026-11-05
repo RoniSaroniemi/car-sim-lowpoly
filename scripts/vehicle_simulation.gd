@@ -5,6 +5,8 @@ const Structure=preload('res://scripts/structure_solver.gd')
 const Dynamics=preload('res://scripts/vehicle_dynamics.gd')
 const Compact=preload('res://scripts/compact_chassis.gd')
 const Forecast=preload('res://scripts/collision_forecast.gd')
+const ReducedPanels=preload('res://scripts/reduced_vehicle_panels.gd')
+var reduced_panels: RefCounted
 const Effects=preload('res://scripts/vehicle_effects.gd')
 var solver: RefCounted
 var dynamics: RefCounted
@@ -52,6 +54,7 @@ func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=
  profile=JSON.parse_string(FileAccess.get_file_as_string(profile_path))
  solver=Structure.new()
  solver.setup(profile.structure)
+ if profile.get('panels',{}).get('enabled',false):solver.configure_panels(profile.panels)
  solver.effects=Effects.new()
  solver.effects.setup(solver,profile.get('effects',{}))
  driving=enable_driving
@@ -60,6 +63,8 @@ func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=
  compact=Compact.new()
  compact.setup(solver)
  solver.compact=compact
+ if solver.panels_runtime_enabled:
+  reduced_panels=ReducedPanels.new();reduced_panels.setup(solver,compact)
  forecast=Forecast.new()
  var options: Dictionary=profile.get('adaptive',{})
  forecast.horizon=float(options.get('lookahead_s',.18))
@@ -75,6 +80,7 @@ func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false)
  solver.compact_active=false
  dynamics.reset()
  solver.reset(speed_kmh,start,weaken)
+ if reduced_panels!=null:reduced_panels.setup(solver,compact)
  solver.wake_requested=''
  solver.wake_hold_seconds=0
  compact.capture_shape()
@@ -113,6 +119,10 @@ func _wake(reason: String) -> void:
   solver.wake_requested=''
   return
  var previous: String=mode
+ if reduced_panels!=null:
+  solver.panels.playback=false
+  for p in solver.panels.panels:
+   if p.active:reduced_panels.wake_impact(p)
  # Exported node state already IS the current physical state. Keep it intact.
  var positions: PackedVector3Array=solver.points.duplicate()
  var velocities: PackedVector3Array=solver.velocities.duplicate()
@@ -153,6 +163,7 @@ func advance(elapsed: float,time_scale: float=1.0) -> void:
    else:
     last_prediction=forecast.predict(solver,compact.linear_velocity,compact.angular_velocity)
     if last_prediction.risk:_wake(last_prediction.reason)
+    elif solver.panels_runtime_enabled and solver.panels.predict_contact(coarse_step):_wake('moving_panel_contact')
   elif mode=='SLEEP':
    if solver.wake_requested!='' or sleeping_box_min!=solver.barrier_min or sleeping_box_max!=solver.barrier_max or forecast.obstacle_velocity.length()>.001:
     _wake('sleep_wakeup')
@@ -181,6 +192,7 @@ func advance(elapsed: float,time_scale: float=1.0) -> void:
   elif mode=='DRIVE':
    if driving:dynamics.step(h)
    compact.step(h)
+   step_reduced_panels(h)
    solver.effects.step_live(h)
    drive_steps+=1;drive_seconds+=h
    if compact.wake_reason!='':_wake(compact.wake_reason)
@@ -196,12 +208,14 @@ func advance(elapsed: float,time_scale: float=1.0) -> void:
    full_cpu_us+=Time.get_ticks_usec()-began
   else:
    solver.simulated_time+=h
+   step_reduced_panels(h)
    solver.effects.step_live(h)
    sleep_steps+=1;sleep_seconds+=h
    sleep_cpu_us+=Time.get_ticks_usec()-began
   accumulator=maxf(0,accumulator-h)
 
 func _stationary() -> bool:
+ if solver.panels_runtime_enabled and solver.panels.has_independent_motion():return false
  if absf(dynamics.throttle)+absf(dynamics.steering)>.001:return false
  if compact.linear_velocity.length()>.04 or compact.angular_velocity.length()>.03:return false
  for w in solver.wheels.wheels:
@@ -209,6 +223,7 @@ func _stationary() -> bool:
  return solver.kinetic_energy()<1.0
 
 func _enter_sleep() -> void:
+ prepare_lightweight_panels()
  var previous: String=mode
  var energy: float=solver.kinetic_energy()
  solver.velocities.fill(Vector3.ZERO)
@@ -271,6 +286,7 @@ func _try_settle(dt: float) -> void:
  elif _stationary():_enter_sleep()
 
 func _return_to_drive(reason: String) -> void:
+ prepare_lightweight_panels()
  var previous: String=mode
  var before_energy: float=solver.kinetic_energy()
  solver.compact_active=true
@@ -289,3 +305,30 @@ func forward() -> Vector3:
 func statistics() -> Dictionary:
  var seconds: float=drive_seconds+full_seconds+sleep_seconds
  return {'mode':mode,'drive_steps':drive_steps,'full_steps':full_steps,'sleep_steps':sleep_steps,'drive_seconds':drive_seconds,'full_seconds':full_seconds,'sleep_seconds':sleep_seconds,'drive_cpu_ms':drive_cpu_us/1000.0,'full_cpu_ms':full_cpu_us/1000.0,'total_cpu_ms':(drive_cpu_us+full_cpu_us+sleep_cpu_us)/1000.0,'cpu_ms_per_sim_second':float(drive_cpu_us+full_cpu_us+sleep_cpu_us)/1000.0/maxf(.001,seconds),'forecast_checks':forecast.checks,'full_time_fraction':full_seconds/maxf(.001,seconds),'handoff_position_jump_m':handoff_max_position_error,'handoff_velocity_jump_mps':handoff_max_velocity_error,'deformation_energy_j':deformation_energy_j,'deformation_sleep_energy_j':deformation_sleep_energy_j,'sleep_energy_removed_j':sleep_energy_removed_j,'transitions':transitions.duplicate(true)}
+
+func set_panel_open(id: String,degrees: float) -> bool:
+ if reduced_panels==null:return false
+ if mode=='BAKED':return false
+ if mode=='FULL':
+  var accepted: bool=solver.panels.set_open(id,degrees)
+  if accepted:
+   var p: Dictionary=solver.panels.find(id);p['reduced']=false;p['reduced_mode']='full_impact'
+  return accepted
+ var accepted: bool=reduced_panels.set_open(id,degrees)
+ if accepted and mode=='SLEEP':mode='DRIVE';solver.compact_active=true;compact.capture_shape()
+ return accepted
+func panel_state(id: String) -> Dictionary:
+ return solver.panels.find(id) if solver.panels_runtime_enabled else {}
+func panel_states() -> Array:
+ return solver.panels.panels if solver.panels_runtime_enabled else []
+func step_reduced_panels(dt: float) -> void:
+ if reduced_panels!=null:
+  solver.panels.playback=false
+  reduced_panels.step(dt)
+func prepare_lightweight_panels() -> void:
+ if reduced_panels==null:return
+ solver.panels.playback=false
+ compact.capture_shape()
+ for p in solver.panels.panels:
+  if p.active and not p.get('reduced',false):reduced_panels.freeze(p)
+  if p.active and reduced_panels.held_closed(p):reduced_panels.dock(p)

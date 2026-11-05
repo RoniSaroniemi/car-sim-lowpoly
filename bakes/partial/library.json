@@ -1,0 +1,2742 @@
+{
+	"family": "one_edge_barrier_box",
+	"records": [
+		{
+			"clip_bytes": 5465347.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37008500099182,
+				"contact_centroid_local": [
+					2.23502516746521,
+					-0.536323726177216,
+					0.799973607063293
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054242990231009,
+					1.0
+				],
+				"kept_interval": [
+					0.749987903457418,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					-0.00000623039477432
+				],
+				"overlap": 0.250012096542582,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					-0.00000623039477432
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.00000623039477432,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_120_left_25",
+			"path": "res://bakes/partial/partial_000_120_left_25.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5705917.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37007260322571,
+				"contact_centroid_local": [
+					2.23501491546631,
+					-0.536328077316284,
+					0.799974739551544
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054246284632213,
+					1.0
+				],
+				"kept_interval": [
+					0.499999195236201,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					-0.0000046050763558
+				],
+				"overlap": 0.500000804763799,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					-0.0000046050763558
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.0000046050763558,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_120_left_50",
+			"path": "res://bakes/partial/partial_000_120_left_50.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5729006.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.3700692653656,
+				"contact_centroid_local": [
+					2.23501801490784,
+					-0.536329746246338,
+					0.799971044063568
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054247874737402,
+					1.0
+				],
+				"kept_interval": [
+					0.250007720713573,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					-0.00000338608538186
+				],
+				"overlap": 0.749992279286427,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					-0.00000338608538186
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.00000338608538186,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_120_left_75",
+			"path": "res://bakes/partial/partial_000_120_left_75.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5469664.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37008833885193,
+				"contact_centroid_local": [
+					2.23502635955811,
+					-0.536323070526123,
+					-0.799980998039246
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054241396551426,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.250012750391792
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					0.00000081265955031
+				],
+				"overlap": 0.250012750391792,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					0.00000081265955031
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.00000081265955031,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_120_right_25",
+			"path": "res://bakes/partial/partial_000_120_right_25.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5710746.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37008690834045,
+				"contact_centroid_local": [
+					2.23502397537231,
+					-0.536323189735413,
+					-0.799973964691162
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054246306042464,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.500003017846033
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					0.00000406330173063
+				],
+				"overlap": 0.500003017846033,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					0.00000406330173063
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.00000406330173063,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_120_right_50",
+			"path": "res://bakes/partial/partial_000_120_right_50.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5727731.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37007308006287,
+				"contact_centroid_local": [
+					2.2350218296051,
+					-0.536324203014374,
+					-0.799972534179688
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054241307350193,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.749995095971585
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					0.00000148987726333
+				],
+				"overlap": 0.749995095971585,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					0.00000148987726333
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.00000148987726333,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_120_right_75",
+			"path": "res://bakes/partial/partial_000_120_right_75.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5145892.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37022185325623,
+				"contact_centroid_local": [
+					2.23592352867126,
+					-0.526479005813599,
+					0.799956083297729
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00179333785897796,
+					1.0
+				],
+				"kept_interval": [
+					0.749991273892058,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					-0.00002058110294456
+				],
+				"overlap": 0.250008726107942,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					-0.00002058110294456
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.00002058110294456,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_60_left_25",
+			"path": "res://bakes/partial/partial_000_60_left_25.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5270495.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37022185325623,
+				"contact_centroid_local": [
+					2.23595261573792,
+					-0.526473224163055,
+					0.799946844577789
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00179495942513156,
+					1.0
+				],
+				"kept_interval": [
+					0.500000704123984,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					0.00000487446368424
+				],
+				"overlap": 0.499999295876016,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					0.00000487446368424
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.00000487446368424,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_60_left_50",
+			"path": "res://bakes/partial/partial_000_60_left_50.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5267210.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37022137641907,
+				"contact_centroid_local": [
+					2.23591423034668,
+					-0.52646392583847,
+					0.800005674362183
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00179140151918425,
+					1.0
+				],
+				"kept_interval": [
+					0.250024267135037,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					-0.00002504933399904
+				],
+				"overlap": 0.749975732864963,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					-0.00002504933399904
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.00002504933399904,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_60_left_75",
+			"path": "res://bakes/partial/partial_000_60_left_75.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5111880.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37022089958191,
+				"contact_centroid_local": [
+					2.23594450950623,
+					-0.526444256305695,
+					-0.799959719181061
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00179539486656469,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.250007619630461
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					0.00001110295033868
+				],
+				"overlap": 0.250007619630461,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					0.00001110295033868
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.00001110295033868,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_60_right_25",
+			"path": "res://bakes/partial/partial_000_60_right_25.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5267460.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37022137641907,
+				"contact_centroid_local": [
+					2.2359414100647,
+					-0.5264852643013,
+					-0.800000488758087
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00179228223244904,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.500015289552438
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					-0.00001543580947327
+				],
+				"overlap": 0.500015289552438,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					-0.00001543580947327
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.00001543580947327,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_60_right_50",
+			"path": "res://bakes/partial/partial_000_60_right_50.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5270704.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.37022948265076,
+				"contact_centroid_local": [
+					2.23594856262207,
+					-0.526482701301575,
+					-0.799907624721527
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00179325240516232,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.749962907873821
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-1.0,
+					0.0,
+					0.00000636389040664
+				],
+				"overlap": 0.749962907873821,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-1.0,
+					0.0,
+					0.00000636389040664
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.00000636389040664,
+					0.0,
+					1.0
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 0.0,
+			"id": "partial_000_60_right_75",
+			"path": "res://bakes/partial/partial_000_60_right_75.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5418211.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.72817873954773,
+				"contact_centroid_local": [
+					1.86007225513458,
+					-0.785455584526062,
+					0.949866533279419
+				],
+				"edge_side": "left",
+				"feature": "corner",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00097817169964106,
+					1.0
+				],
+				"kept_interval": [
+					0.75154841760473,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.913052499294281,
+					0.0,
+					-0.407841980457306
+				],
+				"overlap": 0.24845158239527,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.984867095947266,
+					0.0,
+					-0.173311114311218
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.173311099410057,
+					0.0,
+					0.98486715555191
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 10.0,
+			"id": "partial_010_120_left_25",
+			"path": "res://bakes/partial/partial_010_120_left_25.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5522570.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.72844481468201,
+				"contact_centroid_local": [
+					2.23456764221191,
+					-0.536747753620148,
+					0.805614829063416
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00057368343715776,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.750756667706811
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.984831809997559,
+					0.0,
+					-0.173511654138565
+				],
+				"overlap": 0.750756667706811,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.984831809997559,
+					0.0,
+					-0.173511654138565
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.173511654138565,
+					0.0,
+					0.984831809997559
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 10.0,
+			"id": "partial_010_120_right_75",
+			"path": "res://bakes/partial/partial_010_120_right_75.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 4294194.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.72607731819153,
+				"contact_centroid_local": [
+					1.86315739154816,
+					-0.780844449996948,
+					0.956703901290894
+				],
+				"edge_side": "left",
+				"feature": "corner",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00343459383214711,
+					1.0
+				],
+				"kept_interval": [
+					0.756749411426293,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.898970663547516,
+					0.0,
+					-0.438009083271027
+				],
+				"overlap": 0.243250588573707,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.985099792480469,
+					0.0,
+					-0.171983763575554
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.171983763575554,
+					0.0,
+					0.985099792480469
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 10.0,
+			"id": "partial_010_60_left_25",
+			"path": "res://bakes/partial/partial_010_60_left_25.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5226073.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.7271044254303,
+				"contact_centroid_local": [
+					2.23581457138062,
+					-0.528756320476532,
+					0.803073108196259
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00215554769586723,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.753731824776486
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.984931290149689,
+					0.0,
+					-0.172946110367775
+				],
+				"overlap": 0.753731824776486,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.984931290149689,
+					0.0,
+					-0.172946110367775
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.172946110367775,
+					0.0,
+					0.984931290149689
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 10.0,
+			"id": "partial_010_60_right_75",
+			"path": "res://bakes/partial/partial_010_60_right_75.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5636195.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.02765202522278,
+				"contact_centroid_local": [
+					1.94503033161163,
+					-0.687991976737976,
+					0.00214749574661255
+				],
+				"edge_side": "right",
+				"feature": "corner",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00117667401081383,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.501709755330642
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.999677181243896,
+					0.0,
+					0.0254038274288177
+				],
+				"overlap": 0.501709755330642,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.939845323562622,
+					0.0,
+					-0.341600239276886
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.341600239276886,
+					0.0,
+					0.939845323562622
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 20.0,
+			"id": "partial_020_120_right_50",
+			"path": "res://bakes/partial/partial_020_120_right_50.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5305880.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.02808499336243,
+				"contact_centroid_local": [
+					1.79721462726593,
+					-0.780822336673737,
+					0.517643809318542
+				],
+				"edge_side": "right",
+				"feature": "corner",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00382039862385023,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.506678997211888
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.72774749994278,
+					0.0,
+					0.685845077037811
+				],
+				"overlap": 0.506678997211888,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.940320432186127,
+					0.0,
+					-0.340290248394012
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.340290248394012,
+					0.0,
+					0.940320432186127
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 20.0,
+			"id": "partial_020_60_right_50",
+			"path": "res://bakes/partial/partial_020_60_right_50.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5615695.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25909972190857,
+				"contact_centroid_local": [
+					0.0315016508102417,
+					-0.401784539222717,
+					0.740087509155273
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00379722593021087,
+					1.0
+				],
+				"kept_interval": [
+					0.755744201298423,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.831723928451538,
+					0.0,
+					-0.555189311504364
+				],
+				"overlap": 0.244255798701577,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.867646753787994,
+					0.0,
+					-0.49718114733696
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.497181117534637,
+					0.0,
+					0.867646813392639
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_120_left_25",
+			"path": "res://bakes/partial/partial_030_120_left_25.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5559650.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25837302207947,
+				"contact_centroid_local": [
+					1.84101903438568,
+					-0.786135673522949,
+					0.986211359500885
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00080412426749061,
+					1.0
+				],
+				"kept_interval": [
+					0.500937394336429,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866182565689087,
+					0.0,
+					-0.499727785587311
+				],
+				"overlap": 0.499062605663571,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.866182565689087,
+					0.0,
+					-0.499727785587311
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.499727785587311,
+					0.0,
+					0.866182565689087
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_120_left_50",
+			"path": "res://bakes/partial/partial_030_120_left_50.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5675198.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25804829597473,
+				"contact_centroid_local": [
+					2.23036551475525,
+					-0.536945521831512,
+					0.817130565643311
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00053925099451056,
+					1.0
+				],
+				"kept_interval": [
+					0.250636011282637,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866094172000885,
+					0.0,
+					-0.499880909919739
+				],
+				"overlap": 0.749363988717363,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.866094172000885,
+					0.0,
+					-0.499880909919739
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.499880909919739,
+					0.0,
+					0.866094172000885
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_120_left_75",
+			"path": "res://bakes/partial/partial_030_120_left_75.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5434887.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.2592761516571,
+				"contact_centroid_local": [
+					2.23039627075195,
+					-0.530508697032928,
+					-0.784739971160889
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00160469194485371,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.252150760822932
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.86642324924469,
+					0.0,
+					-0.499310255050659
+				],
+				"overlap": 0.252150760822932,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.86642324924469,
+					0.0,
+					-0.499310255050659
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.499310255050659,
+					0.0,
+					0.86642324924469
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_120_right_25",
+			"path": "res://bakes/partial/partial_030_120_right_25.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5678269.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25792288780212,
+				"contact_centroid_local": [
+					2.23034453392029,
+					-0.536911904811859,
+					0.817106366157532
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054144754920074,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.500552151859105
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866096377372742,
+					0.0,
+					-0.499877035617828
+				],
+				"overlap": 0.500552151859105,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.866096377372742,
+					0.0,
+					-0.499877035617828
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.499877035617828,
+					0.0,
+					0.866096377372742
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_120_right_50",
+			"path": "res://bakes/partial/partial_030_120_right_50.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5624173.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25796151161194,
+				"contact_centroid_local": [
+					2.23040008544922,
+					-0.536960363388062,
+					0.817154049873352
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00053665121086171,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.750479312626286
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866096973419189,
+					0.0,
+					-0.499875992536545
+				],
+				"overlap": 0.750479312626286,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.866096973419189,
+					0.0,
+					-0.499875992536545
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.499875962734222,
+					0.0,
+					0.866097033023834
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_120_right_75",
+			"path": "res://bakes/partial/partial_030_120_right_75.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5235426.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.24429059028625,
+				"contact_centroid_local": [
+					-0.360686331987381,
+					-0.789521455764771,
+					0.978470265865326
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00743866531925318,
+					1.0
+				],
+				"kept_interval": [
+					0.784142741146251,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.871909320354462,
+					0.0,
+					-0.489667385816574
+				],
+				"overlap": 0.215857258853749,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.871909320354462,
+					0.0,
+					-0.489667385816574
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.489667385816574,
+					0.0,
+					0.871909320354462
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_60_left_25",
+			"path": "res://bakes/partial/partial_030_60_left_25.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5231445.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25930953025818,
+				"contact_centroid_local": [
+					1.84903144836426,
+					-0.781088948249817,
+					0.981487393379211
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00292726529902855,
+					1.0
+				],
+				"kept_interval": [
+					0.503925157281701,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866786241531372,
+					0.0,
+					-0.49867981672287
+				],
+				"overlap": 0.496074842718299,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.866786241531372,
+					0.0,
+					-0.49867981672287
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.498679786920547,
+					0.0,
+					0.866786301136017
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_60_left_50",
+			"path": "res://bakes/partial/partial_030_60_left_50.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5201142.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25951790809631,
+				"contact_centroid_local": [
+					2.23148727416992,
+					-0.529347896575928,
+					0.814338743686676
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00198272580622381,
+					1.0
+				],
+				"kept_interval": [
+					0.252624034581951,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866344332695007,
+					0.0,
+					-0.499447226524353
+				],
+				"overlap": 0.747375965418049,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.866344332695007,
+					0.0,
+					-0.499447226524353
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.499447226524353,
+					0.0,
+					0.866344332695007
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_60_left_75",
+			"path": "res://bakes/partial/partial_030_60_left_75.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5139276.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.2594997882843,
+				"contact_centroid_local": [
+					2.23006176948547,
+					-0.524359881877899,
+					-0.787223875522614
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00489371810035549,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.259456960049177
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.867940425872803,
+					0.0,
+					-0.49666827917099
+				],
+				"overlap": 0.259456960049177,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.867940425872803,
+					0.0,
+					-0.49666827917099
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.496668249368668,
+					0.0,
+					0.867940485477448
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_60_right_25",
+			"path": "res://bakes/partial/partial_030_60_right_25.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5126058.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25993037223816,
+				"contact_centroid_local": [
+					2.23139023780823,
+					-0.529326498508453,
+					0.814619481563568
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00197846379902871,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.502507032218425
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866380393505096,
+					0.0,
+					-0.499384671449661
+				],
+				"overlap": 0.502507032218425,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.866380393505096,
+					0.0,
+					-0.499384671449661
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.499384671449661,
+					0.0,
+					0.866380393505096
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_60_right_50",
+			"path": "res://bakes/partial/partial_030_60_right_50.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5240319.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25984692573547,
+				"contact_centroid_local": [
+					2.23141884803772,
+					-0.529299437999725,
+					0.814625263214111
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00197082399096748,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.752297025866486
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866388916969299,
+					0.0,
+					-0.499369919300079
+				],
+				"overlap": 0.752297025866486,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.866388916969299,
+					0.0,
+					-0.499369919300079
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					-0.499369919300079,
+					0.0,
+					0.866388916969299
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": 30.0,
+			"id": "partial_030_60_right_75",
+			"path": "res://bakes/partial/partial_030_60_right_75.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5430400.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25924229621887,
+				"contact_centroid_local": [
+					2.2303614616394,
+					-0.530519306659698,
+					0.784699320793152
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00160450246656443,
+					1.0
+				],
+				"kept_interval": [
+					0.747825698617282,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.86642599105835,
+					0.0,
+					0.4993055164814
+				],
+				"overlap": 0.252174301382718,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.86642599105835,
+					0.0,
+					0.4993055164814
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.4993055164814,
+					0.0,
+					0.86642599105835
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_120_left_25",
+			"path": "res://bakes/partial/partial_330_120_left_25.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5680927.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25794148445129,
+				"contact_centroid_local": [
+					2.23035168647766,
+					-0.536919355392456,
+					-0.817113518714905
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054194191699787,
+					1.0
+				],
+				"kept_interval": [
+					0.499453193486885,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866095960140228,
+					0.0,
+					0.499877780675888
+				],
+				"overlap": 0.500546806513115,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.866095960140228,
+					0.0,
+					0.499877780675888
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.499877750873566,
+					0.0,
+					0.866096019744873
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_120_left_50",
+			"path": "res://bakes/partial/partial_330_120_left_50.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5626221.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25801634788513,
+				"contact_centroid_local": [
+					2.23039531707764,
+					-0.536962270736694,
+					-0.817150890827179
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00053760474591001,
+					1.0
+				],
+				"kept_interval": [
+					0.249528196294929,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866097748279572,
+					0.0,
+					0.49987468123436
+				],
+				"overlap": 0.75047180370507,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.866097748279572,
+					0.0,
+					0.49987468123436
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.49987468123436,
+					0.0,
+					0.866097748279572
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_120_left_75",
+			"path": "res://bakes/partial/partial_330_120_left_75.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5557749.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25913214683533,
+				"contact_centroid_local": [
+					0.0315942168235779,
+					-0.401778280735016,
+					-0.739981412887573
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00380103792753533,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.244344079583953
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.832844138145447,
+					0.0,
+					0.553507566452026
+				],
+				"overlap": 0.244344079583953,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.867603898048401,
+					0.0,
+					0.497255921363831
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.497255891561508,
+					0.0,
+					0.867603957653046
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_120_right_25",
+			"path": "res://bakes/partial/partial_330_120_right_25.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5545184.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25838923454285,
+				"contact_centroid_local": [
+					1.84106814861298,
+					-0.786126255989075,
+					-0.98626184463501
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00080340515684791,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.49907182983425
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866179525852203,
+					0.0,
+					0.499732941389084
+				],
+				"overlap": 0.49907182983425,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.866179525852203,
+					0.0,
+					0.499732941389084
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.499732911586761,
+					0.0,
+					0.866179585456848
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_120_right_50",
+			"path": "res://bakes/partial/partial_330_120_right_50.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5674938.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.2579882144928,
+				"contact_centroid_local": [
+					2.2303614616394,
+					-0.536954522132874,
+					-0.817131996154785
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00054021964844279,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.74937019726245
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866092562675476,
+					0.0,
+					0.499883681535721
+				],
+				"overlap": 0.74937019726245,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.866092562675476,
+					0.0,
+					0.499883681535721
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.499883681535721,
+					0.0,
+					0.866092562675476
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_120_right_75",
+			"path": "res://bakes/partial/partial_330_120_right_75.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5149860.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25939297676086,
+				"contact_centroid_local": [
+					2.23010206222534,
+					-0.524275243282318,
+					0.786932110786438
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00488030371724275,
+					1.0
+				],
+				"kept_interval": [
+					0.740564381896271,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.867936849594116,
+					0.0,
+					0.496674537658691
+				],
+				"overlap": 0.259435618103729,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.867936849594116,
+					0.0,
+					0.496674537658691
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.496674507856369,
+					0.0,
+					0.867936909198761
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_60_left_25",
+			"path": "res://bakes/partial/partial_330_60_left_25.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5135171.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25959753990173,
+				"contact_centroid_local": [
+					2.23141646385193,
+					-0.529353499412537,
+					-0.814561128616333
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00198304390807139,
+					1.0
+				],
+				"kept_interval": [
+					0.49748086253523,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.86642998456955,
+					0.0,
+					0.499298602342606
+				],
+				"overlap": 0.50251913746477,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.86642998456955,
+					0.0,
+					0.499298602342606
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.499298602342606,
+					0.0,
+					0.86642998456955
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_60_left_50",
+			"path": "res://bakes/partial/partial_330_60_left_50.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5242412.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25962233543396,
+				"contact_centroid_local": [
+					2.23145413398743,
+					-0.529261350631714,
+					-0.81458854675293
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00197372916917892,
+					1.0
+				],
+				"kept_interval": [
+					0.247660356351267,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866407454013824,
+					0.0,
+					0.499337643384933
+				],
+				"overlap": 0.752339643648733,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.866407454013824,
+					0.0,
+					0.499337643384933
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.499337613582611,
+					0.0,
+					0.866407513618469
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_60_left_75",
+			"path": "res://bakes/partial/partial_330_60_left_75.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5241628.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.24200129508972,
+				"contact_centroid_local": [
+					-0.360525459051132,
+					-0.789486408233643,
+					-0.977804064750671
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.0074346353501477,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.216349587978002
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.87269514799118,
+					0.0,
+					0.488265544176102
+				],
+				"overlap": 0.216349587978002,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.87269514799118,
+					0.0,
+					0.488265544176102
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.488265544176102,
+					0.0,
+					0.87269514799118
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_60_right_25",
+			"path": "res://bakes/partial/partial_330_60_right_25.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5218903.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.2593309879303,
+				"contact_centroid_local": [
+					1.84907782077789,
+					-0.781114041805267,
+					-0.981374204158783
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00292943726657826,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.496024322223746
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866799473762512,
+					0.0,
+					0.498656809329987
+				],
+				"overlap": 0.496024322223746,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.866799473762512,
+					0.0,
+					0.498656809329987
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.498656779527664,
+					0.0,
+					0.866799533367157
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_60_right_50",
+			"path": "res://bakes/partial/partial_330_60_right_50.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5211755.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.25944781303406,
+				"contact_centroid_local": [
+					2.231520652771,
+					-0.529296219348907,
+					-0.814302563667297
+				],
+				"edge_side": "right",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00198605080916905,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.747385747248853
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.866373836994171,
+					0.0,
+					0.499396055936813
+				],
+				"overlap": 0.747385747248853,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.866373836994171,
+					0.0,
+					0.499396055936813
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.499396055936813,
+					0.0,
+					0.866373836994171
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -30.0,
+			"id": "partial_330_60_right_75",
+			"path": "res://bakes/partial/partial_330_60_right_75.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5637907.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.02770590782166,
+				"contact_centroid_local": [
+					1.94498193264008,
+					-0.688000798225403,
+					-0.00220125913619995
+				],
+				"edge_side": "left",
+				"feature": "corner",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00117752405338453,
+					1.0
+				],
+				"kept_interval": [
+					0.498284841649251,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.999676585197449,
+					0.0,
+					-0.025433748960495
+				],
+				"overlap": 0.501715158350749,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.939836382865906,
+					0.0,
+					0.341624915599823
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.341624915599823,
+					0.0,
+					0.939836382865906
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -20.0,
+			"id": "partial_340_120_left_50",
+			"path": "res://bakes/partial/partial_340_120_left_50.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5294200.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 3.02750563621521,
+				"contact_centroid_local": [
+					1.79730618000031,
+					-0.780828356742859,
+					-0.517512679100037
+				],
+				"edge_side": "left",
+				"feature": "corner",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.0038402442195105,
+					1.0
+				],
+				"kept_interval": [
+					0.493236800041958,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.727319657802582,
+					0.0,
+					-0.686298966407776
+				],
+				"overlap": 0.506763199958042,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.940414130687714,
+					0.0,
+					0.340031266212463
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.340031266212463,
+					0.0,
+					0.940414130687714
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -20.0,
+			"id": "partial_340_60_left_50",
+			"path": "res://bakes/partial/partial_340_60_left_50.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 5515393.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.72847771644592,
+				"contact_centroid_local": [
+					2.23456335067749,
+					-0.536758184432983,
+					-0.805625319480896
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00057360172361393,
+					1.0
+				],
+				"kept_interval": [
+					0.249250812539076,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.984831571578979,
+					0.0,
+					0.173513308167458
+				],
+				"overlap": 0.750749187460924,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.984831571578979,
+					0.0,
+					0.173513308167458
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.173513308167458,
+					0.0,
+					0.984831571578979
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -10.0,
+			"id": "partial_350_120_left_75",
+			"path": "res://bakes/partial/partial_350_120_left_75.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5432117.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.72830510139465,
+				"contact_centroid_local": [
+					1.86001920700073,
+					-0.785457372665405,
+					-0.949907779693604
+				],
+				"edge_side": "right",
+				"feature": "corner",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00097988617466107,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.248449687901462
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.912876069545746,
+					0.0,
+					0.408236742019653
+				],
+				"overlap": 0.248449687901462,
+				"plane_closing_kmh": 119.999995422363,
+				"plane_normal_local": [
+					-0.984864175319672,
+					0.0,
+					0.173327758908272
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.173327758908272,
+					0.0,
+					0.984864175319672
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -10.0,
+			"id": "partial_350_120_right_25",
+			"path": "res://bakes/partial/partial_350_120_right_25.crashclip",
+			"speed_kmh": 120.0
+		},
+		{
+			"clip_bytes": 5244757.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.72695994377136,
+				"contact_centroid_local": [
+					2.23583650588989,
+					-0.528769373893738,
+					-0.803064942359924
+				],
+				"edge_side": "left",
+				"feature": "front_face",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00215906413940196,
+					1.0
+				],
+				"kept_interval": [
+					0.246252895796611,
+					1.0
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.984934389591217,
+					0.0,
+					0.172928482294083
+				],
+				"overlap": 0.753747104203389,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.984934389591217,
+					0.0,
+					0.172928482294083
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.172928482294083,
+					0.0,
+					0.984934389591217
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -10.0,
+			"id": "partial_350_60_left_75",
+			"path": "res://bakes/partial/partial_350_60_left_75.crashclip",
+			"speed_kmh": 60.0
+		},
+		{
+			"clip_bytes": 4292032.0,
+			"contact_coverage": {
+				"body_tangent_span_m": 2.72571778297424,
+				"contact_centroid_local": [
+					1.86332821846008,
+					-0.780824422836304,
+					-0.956700146198273
+				],
+				"edge_side": "right",
+				"feature": "corner",
+				"full_height": true,
+				"full_width": false,
+				"height_interval": [
+					0.00343688872871283,
+					1.0
+				],
+				"kept_interval": [
+					0.0,
+					0.24324453756308
+				],
+				"mass_kg": 1210.0,
+				"material_profile": "niva_multiaxis_v1",
+				"node_count": 38.0,
+				"normal_local": [
+					-0.899313747882843,
+					0.0,
+					0.437304079532623
+				],
+				"overlap": 0.24324453756308,
+				"plane_closing_kmh": 59.9999977111816,
+				"plane_normal_local": [
+					-0.985100209712982,
+					0.0,
+					0.1719810962677
+				],
+				"schema": 1.0,
+				"source": "barrier_box",
+				"tangent_local": [
+					0.171981081366539,
+					0.0,
+					0.985100269317627
+				],
+				"valid": true,
+				"wall_size_m": [
+					1.0,
+					3.0,
+					16.0
+				],
+				"wheel_count": 4.0
+			},
+			"frames": 301.0,
+			"heading_deg": -10.0,
+			"id": "partial_350_60_right_25",
+			"path": "res://bakes/partial/partial_350_60_right_25.crashclip",
+			"speed_kmh": 60.0
+		}
+	],
+	"schema": 1
+}

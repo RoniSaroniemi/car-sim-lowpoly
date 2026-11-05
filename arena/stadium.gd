@@ -1,4 +1,5 @@
 extends Node3D
+const WorldContacts=preload('res://arena/world_contacts.gd')
 const Terrain=preload('res://arena/terrain.gd')
 var terrain: RefCounted
 var materials: Array[ShaderMaterial]=[]
@@ -15,6 +16,7 @@ func build(t: RefCounted) -> void:
  for entry in [[0,'#baa071'],[1,'#b8a382'],[2,'#a9aaa1'],[3,'#94683b']]:
   var mat:=ShaderMaterial.new();mat.shader=load('res://arena/material.gdshader');mat.set_shader_parameter('kind',entry[0]);mat.set_shader_parameter('base_color',Color(entry[1]).srgb_to_linear());materials.append(mat)
  _lighting()
+ _crash_wall()
  var ground:=PlaneMesh.new();ground.size=Vector2(2000,2000);ground.subdivide_width=4;ground.subdivide_depth=4
  var ground_arrays: Array=ground.surface_get_arrays(0)
  var ground_colors:=PackedColorArray();ground_colors.resize(ground_arrays[Mesh.ARRAY_VERTEX].size());ground_colors.fill(Color(.02,1,0,1));ground_arrays[Mesh.ARRAY_COLOR]=ground_colors
@@ -148,3 +150,10 @@ func _pair_markers(f: Dictionary) -> void:
   stripe.position=Vector3(f.start-13+i*1.4,.012,f.z)
  for side in [-1,1]:
   var label:=Label3D.new();label.text='STEEP 42°' if side<0 else 'MEDIUM 24°';label.position=Vector3(f.start-5,.6,f.z+side*3.0);label.font_size=42;label.pixel_size=.012;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.outline_size=4;label.visibility_range_end=40;add_child(label)
+
+func _crash_wall() -> void:
+ var a: Vector3=WorldContacts.CRASH_MIN;var b: Vector3=WorldContacts.CRASH_MAX
+ _mesh(_boxes([[b-a,(a+b)*.5]]),materials[2])
+ for z in [a.z,b.z]:
+  var marker:=MeshInstance3D.new();var box:=BoxMesh.new();box.size=Vector3(1.08,.16,.16);marker.mesh=box;marker.position=Vector3((a.x+b.x)*.5,b.y,z);marker.material_override=materials[3];add_child(marker)
+ var label:=Label3D.new();label.text='CRASH WALL / H 60 · Y 120';label.position=Vector3(a.x-1,b.y+1,0);label.font_size=32;label.pixel_size=.007;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.visibility_range_end=55;add_child(label)

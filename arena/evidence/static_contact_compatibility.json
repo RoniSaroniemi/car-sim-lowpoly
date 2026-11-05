@@ -1,0 +1,31 @@
+{
+	"baseline": "2ad1656",
+	"passed": true,
+	"runs": [
+		{
+			"driving": false,
+			"exact": true,
+			"max_plastic_length_error_m": 0.0,
+			"max_position_error_m": 0.0,
+			"max_velocity_error_mps": 0.0,
+			"speed_kmh": 60.0
+		},
+		{
+			"driving": false,
+			"exact": true,
+			"max_plastic_length_error_m": 0.0,
+			"max_position_error_m": 0.0,
+			"max_velocity_error_mps": 0.0,
+			"speed_kmh": 120.0
+		},
+		{
+			"driving": true,
+			"exact": true,
+			"max_plastic_length_error_m": 0.0,
+			"max_position_error_m": 0.0,
+			"max_velocity_error_mps": 0.0,
+			"speed_kmh": 0.0
+		}
+	],
+	"scope": "Default null-provider state at every integration step; 60/120 frontal live and throttle/brake/steering compact run. No source-hash waiver is granted by this diagnostic."
+}

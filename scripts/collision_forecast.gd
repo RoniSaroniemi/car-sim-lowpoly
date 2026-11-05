@@ -53,6 +53,9 @@ func predict(g: RefCounted,linear: Vector3,angular: Vector3) -> Dictionary:
    result.time_to_contact_s=maxf(0,entry)
    var separation: Vector3=(g.barrier_min-high).max(low-g.barrier_max).max(Vector3.ZERO)
    result.clearance_m=separation.length()
+ if g.static_contact_provider!=null:
+  var world_risk: Dictionary=g.static_contact_provider.forecast(center,extent,linear,angular,horizon,padding)
+  if world_risk.get('risk',false):result=world_risk
  # Tire support on the road is routine; body-floor strikes/hard landings are not.
  # Yaw rotates in the ground plane. It cannot make the car fall downward.
  var vertical_angular_speed: float=Vector2(angular.x,angular.z).length()

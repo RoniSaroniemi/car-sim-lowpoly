@@ -2,6 +2,10 @@
 
 A small, reproducible Godot driving and crash example: **38 physical nodes → 39 render bones → a textured car with 39,673 render triangles**. Structural links yield permanently; the skeleton carries the large deformation; a shader adds smaller folds, normal detail and surface wear.
 
+The driving car also has four articulated panels with 40 additional render bones,
+local deformation cages and breakable mounts. Closed healthy panels use the cheap
+condensed mode; the combined car and panels still own **1,210 kg once**.
+
 ![Textured 120 km/h offset crash with wheel interaction](docs/images/wheel_textured.png)
 
 This isolated example includes the latest wheel revision: finite-width oriented wheels, independent hub tilt and rim spin, yielding/breakable suspension, limited tire compression and selective wheel-to-body load transfer. It includes the model, textures, editable Blender file, procedural model source and structural, wheel and driving verification suites.
@@ -35,6 +39,11 @@ with [baked driving](docs/BAKED_DRIVING.md) enabled by default. That mode uses z
 deformation forecast calls or full structural solves, including after a bake.
 Turn baking off to use [live adaptive simulation](docs/ADAPTIVE_SIMULATION.md).
 The live tyre-grip and engine-power sliders keep their values through repairs.
+**Roof landing**, **Roll left/right**, and **Hard roof** stage forward-moving
+roof-first landings. The shared detector selects one of six dedicated
+low-vertical-speed floor recordings at contact, including moderate roll;
+playback uses zero structural or cloth solves. The same detection works on
+unstaged compatible landings. See [roof-landing coverage and tests](docs/ROOF_LANDING_SLICE.md).
 Click **Three baked impacts** or run `python3 tools/demo.py drive-sequence` to
 play 60 frontal → 60 at +20° → 120 at −20° on the same damaged car. Glass, seats
 and the optional demo airbag are recorded too; playback performs no live cloth
@@ -52,7 +61,7 @@ python3 tools/demo.py arena
 
 The alternative arena has tiered seating, repeating arches, a sand floor, sand/concrete/timber jumps, a halfpipe, and adjacent **42° / 24° ramps** with a straddling start. W/S/A/D, Space, Q and R keep their usual controls. Use **Open colosseum arena** in the test yard or **Open test yard** in the arena to switch locations; switching starts a fresh car. Both scenes use the shared vehicle runtime and current damage materials.
 
-The arena uses sky ambient fill, material cavity shading and a shadowed sun. Its curved retaining wall uses cheap rigid contacts; it does not apply incompatible planar-wall crash recordings. See [arena controls, lighting, evidence and limits](arena/README.md).
+The arena uses sky ambient fill, material cavity shading and a shadowed sun. Its curved retaining wall uses cheap rigid contacts; it does not apply incompatible planar-wall crash recordings. Drag to orbit through 360° and tilt; use the wheel to zoom. Both driving areas expose the shared engine/grip, baked/live, precision and opening-panel controls. See [arena controls, lighting, evidence and limits](arena/README.md) and [panel mechanics, glass and replay](docs/VEHICLE_PANELS.md).
 
 ```sh
 python3 tools/demo.py verify-arena --no-import
@@ -64,12 +73,25 @@ python3 tools/demo.py verify-arena --no-import
 python3 tools/demo.py baked
 ```
 
-Choose an impact angle and 60/120 km/h. The library covers the full circle every
-30°, plus the two ±20° frontal cases and a 75°/60 km/h coverage case: 27 recordings. Space triggers contact-time
+Choose an impact angle and 60/120 km/h. The horizontal library retains the full
+30° circle and adds the 45° compass directions, frontal ±20° at both speeds,
+and a 75°/60 km/h coverage case: 37 recordings. Space triggers contact-time
 selection of the closest compatible bake; L records a fresh case; Z shows the
 invisible 5 × 3 × 3 classifier grid. Buttons play the frontal trio or the whole bank.
 Replay applies the saved deformation and wheel states with zero structural solver steps.
 See [the round-trip procedure and limits](docs/BAKED_CRASH_PROBE.md).
+
+The expanded [offline bake campaign](docs/BAKE_CAMPAIGN.md) also records partial
+wall hits, roof/underside/diagonal impacts and the supported damage sequence,
+including panels, glass and interior state. [Multiaxis authoring and its viewer](docs/MULTIAXIS_BAKING.md)
+are separate from the horizontal driving matcher; recording a direction does
+not automatically make every world contact compatible with it.
+
+```sh
+python3 tools/demo.py baked-3d
+```
+
+Choose a roof, underside or diagonal recording, replay it, or scrub the slider.
 
 ## Candidate layered damage materials
 
@@ -143,6 +165,8 @@ The second command runs six structural cases, seven wheel cases, native skin bin
 
 The custom graph owns the car's motion and 1,210 kg mass. Godot renders it. Jolt is selected in project settings, but **Jolt does not solve this deformable car**. Contacts are analytic floor/finite-box tests plus selected wheel-to-structure contacts. This is a driving/crash learning example with approximate game parameters, not a calibrated crash-engineering model.
 
-Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, body-panel separation, general panel tearing and a broader course remain future work. Mounted glass fracture/debris, front-seat flex and the optional demonstration airbag now run live and replay from baked state. Glass fragments use bounded floor/barrier collisions and add no car mass. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
+Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, whole-body splitting and general panel tearing remain future work. Doors, bonnet and tailgate can open, deform and lose mounts through the shared panel runtime. Mounted glass fracture/debris, front-seat flex and the optional demonstration airbag now run live and replay from baked state. Glass fragments use bounded floor/barrier collisions and add no car mass. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
 
 Code and documentation: [MIT](LICENSE). See [asset provenance](docs/PROVENANCE.md) for reference imagery and vehicle marks.
+
+The shared vehicle supports articulated doors, bonnet and hatch with frozen plastic shapes, conservative breakable mounts and panel-owned glass. See [vehicle panel ownership and replay](docs/VEHICLE_PANELS.md); run `python3 tools/verify_panels.py` for the focused production checks.

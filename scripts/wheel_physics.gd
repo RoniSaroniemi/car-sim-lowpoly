@@ -297,8 +297,8 @@ func contacts_one(index: int,dt: float,include_body: bool=true) -> void:
  var floor_offset: Vector3=support(w,-floor_normal)
  var floor_distance: float=(g.point(w.node).y-surface.w)*surface.y+floor_normal.dot(floor_offset)
  _world_contact(index,floor_normal,floor_distance,floor_offset,0,dt)
- if g.barrier_enabled and g.point(w.node).x>=g.barrier_min.x-w.radius:
-  var hit: Dictionary=g.barrier_distance(g.point(w.node))
+ var hit: Dictionary=g.static_contact(g.point(w.node),w.radius)
+ if is_finite(float(hit.distance)):
   var offset: Vector3=support(w,-hit.normal)
   _world_contact(index,hit.normal,float(hit.distance)+hit.normal.dot(offset),offset,1,dt)
  if body_contact_enabled and include_body:

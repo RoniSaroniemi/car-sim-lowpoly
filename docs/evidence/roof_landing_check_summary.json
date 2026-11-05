@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "source_commit": "54f1b8a1af68a3a1159a860f349caf0a02825b67",
+  "reports": {
+    "verification/adaptive_validation.json": {
+      "passed": true,
+      "checks": 51,
+      "runs": 8
+    },
+    "verification/arena_validation.json": {
+      "passed": true,
+      "checks": 35,
+      "runs": 7
+    },
+    "verification/baked_contact_sensor_validation.json": {
+      "passed": true,
+      "checks": 27,
+      "runs": 4
+    },
+    "verification/baked_roundtrip_validation.json": {
+      "passed": true,
+      "checks": 21,
+      "runs": 0
+    },
+    "verification/conditioned_bank_validation.json": {
+      "passed": true,
+      "checks": 42,
+      "runs": 3
+    },
+    "verification/conditioned_transition_validation.json": {
+      "passed": true,
+      "checks": 28,
+      "runs": 0
+    },
+    "verification/crash_library_validation.json": {
+      "passed": true,
+      "checks": 363,
+      "runs": 37
+    },
+    "verification/driving_bakes_validation.json": {
+      "passed": true,
+      "checks": 81,
+      "runs": 6
+    },
+    "verification/driving_validation.json": {
+      "passed": true,
+      "checks": 18,
+      "runs": 0
+    },
+    "verification/ramp_validation.json": {
+      "passed": true,
+      "checks": 10,
+      "runs": 2
+    },
+    "verification/roof_bank_validation.json": {
+      "passed": true,
+      "checks": 10,
+      "runs": 0
+    },
+    "verification/sandbox_sequence_validation.json": {
+      "passed": true,
+      "checks": 19,
+      "runs": 0
+    },
+    "verification/structural_validation.json": {
+      "passed": true,
+      "checks": 0,
+      "runs": 6
+    },
+    "verification/vehicle_glass_validation.json": {
+      "passed": true,
+      "checks": 49,
+      "runs": 0
+    },
+    "verification/vehicle_interior_validation.json": {
+      "passed": true,
+      "checks": 29,
+      "runs": 4
+    },
+    "verification/vehicle_surface_validation.json": {
+      "passed": true,
+      "checks": 24,
+      "runs": 0
+    },
+    "verification/wheel_mount_validation.json": {
+      "passed": true,
+      "checks": 11,
+      "runs": 0
+    },
+    "verification/wheel_retention_validation.json": {
+      "passed": true,
+      "checks": 22,
+      "runs": 8
+    },
+    "verification/wheel_validation.json": {
+      "passed": true,
+      "checks": 17,
+      "runs": 7
+    },
+    "verification/arena_parity.json": {
+      "passed": true,
+      "checks": 34,
+      "audited": null,
+      "runs": 8
+    },
+    "verification/roof_landing/validation.json": {
+      "passed": true,
+      "checks": 141,
+      "audited": null,
+      "runs": 14
+    },
+    "verification/bake_campaign/asset_audit.json": {
+      "passed": true,
+      "checks": 0,
+      "audited": 132,
+      "runs": 0
+    }
+  },
+  "verification_scope": "Full verification command completed through physical/drive/baked/effects suites. Surface persistence guard was corrected to test retained and growing footprints; surface and all remaining suites then passed in the resumed run. No physics or authored-source changes after recording.",
+  "roof_landing_script_sha256": "1d83a630f27d7f40a636b0a6317372eb37146ea436357cfe08293222b905555c"
+}

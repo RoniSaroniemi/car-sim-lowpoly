@@ -5,9 +5,17 @@ const CrashClip=preload('res://scripts/baked_crash_clip.gd')
 const ImpactGrid=preload('res://scripts/impact_zone_grid.gd')
 const States=preload('res://scripts/conditioned_crash_transitions.gd')
 const ConditionedAuthor=preload('res://scripts/conditioned_crash_authoring.gd')
+const Coverage=preload('res://scripts/baked_contact_coverage.gd')
+const Partials=preload('res://scripts/partial_crash_library.gd')
 const ContactSensor=preload('res://scripts/baked_contact_sensor.gd')
+const RoofLandingCases=preload('res://scripts/roof_landing_cases.gd')
+const RoofLandingSensor=preload('res://scripts/roof_landing_sensor.gd')
+const PanelFloorWake=preload('res://scripts/panel_floor_wake.gd')
 static var cached_library: Array=[]
 static var cached_conditioned: Array=[]
+static var cached_roof_landings: Array=[]
+var roof_landing_library: Array=[]
+var roof_landing_sensor:=RoofLandingSensor.new()
 var baked_enabled:=true
 var bake_library: Array=[]
 var conditioned_library: Array=[]
@@ -33,14 +41,28 @@ var bake_status: String='Ready'
 
 func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=true) -> void:
  super.setup(profile_path,enable_driving)
- if cached_library.is_empty():cached_library=CrashClip.read_library()
+ if cached_library.is_empty():cached_library=CrashClip.read_library()+Partials.read_library()
  bake_library=cached_library
  if cached_conditioned.is_empty():cached_conditioned=States.read_library()
  conditioned_library=cached_conditioned
- for clip in bake_library+conditioned_library:CrashClip.prepare_surfaces(solver,clip)
+ if cached_roof_landings.is_empty():cached_roof_landings=RoofLandingCases.read_library()
+ roof_landing_library=cached_roof_landings
+ for clip in bake_library+conditioned_library+roof_landing_library:
+  if not clip.has('_input_compatibility'):clip['_input_compatibility']=CrashClip.input_compatibility(clip)
+  CrashClip.prepare_surfaces(solver,clip)
+ if not before_step.is_connected(_live_panel_floor_wake):before_step.connect(_live_panel_floor_wake)
+
+func _live_panel_floor_wake(h: float) -> void:
+ if not baked_enabled and mode=='FULL':PanelFloorWake.step(solver,h)
+
+func stage_roof_landing(roll_deg: float=0,down_mps: float=4) -> void:
+ var spec: Dictionary={'roll_deg':roll_deg,'forward_kmh':60.0,'down_mps':down_mps,'roll_rate':signf(roll_deg)*.35}
+ RoofLandingCases.place(self,spec,.30)
+ baked_enabled=true;mode='DRIVE';solver.compact_active=true
 
 func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -> void:
  contact_sensor.reset();sequence_active=false;sequence_notice=''
+ roof_landing_sensor.reset()
  crash_player=null;baked_consumed=false;baked_count=0;baked_steps=0
  baked_cpu_us=0;baked_search_cpu_us=0;baked_seconds=0;rigid_contact_count=0;driver_accumulator=0;last_bake={};bake_status='Ready'
  super.reset(speed_kmh,start,weaken)
@@ -83,6 +105,7 @@ func _basic_eligibility() -> bool:
  return true
 
 func _is_pristine() -> bool:
+ if solver.panels_runtime_enabled and solver.panels.panels.any(func(p):return p.active or p.plastic_work>.01 or p.anchors.any(func(a):return a.broken)):return false
  if baked_count>0 or solver.links.any(func(link):return link.broken or link.damage>.03):return false
  for pane in solver.effects.glass.panes.values():
   if pane.stage>0:return false
@@ -107,16 +130,33 @@ func stage_next_supported() -> bool:
  var clock_before: float=solver.simulated_time
  ConditionedAuthor.prepare(solver,{'speed':next.speed,'angle':next.angle})
  solver.simulated_time=clock_before
+ prepare_lightweight_panels()
  compact.capture_shape();solver.compact_active=true;mode='DRIVE'
  contact_sensor.reset();driver_accumulator=0
  return true
 
-func _choose_speed_bin(signature: Dictionary) -> Dictionary:
+func _choose_speed_bin(signature: Dictionary,coverage: Dictionary={}) -> Dictionary:
  if signature.is_empty():return {'accepted':false}
  if not _is_pristine():
-  var transition: Dictionary=States.choose(solver,signature,conditioned_library)
-  if transition.accepted:transition['library_kind']='conditioned'
+  var pool: Array=[];var indices: Array=[]
+  for i in conditioned_library.size():
+   if conditioned_library[i]._input_compatibility.compatible:pool.append(conditioned_library[i]);indices.append(i)
+  var transition: Dictionary=States.choose(solver,signature,pool)
+  if transition.accepted:
+   transition.index=indices[int(transition.index)]
+   var recorded: Dictionary=conditioned_library[int(transition.index)].metadata.get('contact_coverage',{})
+   if not coverage.is_empty() and not Coverage.compatible(coverage,recorded).accepted:return {'accepted':false,'reason':'no_conditioned_footprint_recording'}
+   transition['library_kind']='conditioned'
   return transition
+ if not coverage.is_empty():
+  # Filter before severity binning: a stale clip must not select a speed bin
+  # that hides a compatible recording at another speed.
+  var pool: Array=[];var indices: Array=[]
+  for i in bake_library.size():
+   if bake_library[i]._input_compatibility.compatible:pool.append(bake_library[i]);indices.append(i)
+  var selection: Dictionary=Coverage.choose(signature,coverage,pool,float(signature.closing_speed_mps)*3.6)
+  if selection.get('accepted',false):selection.index=indices[int(selection.index)]
+  return selection
  var speed: float=float(signature.closing_speed_mps)*3.6
  if speed<35 or speed>175:return {'accepted':false}
  var normal:=Vector3(signature.world_normal[0],signature.world_normal[1],signature.world_normal[2])
@@ -124,6 +164,8 @@ func _choose_speed_bin(signature: Dictionary) -> Dictionary:
  if (motion-normal*motion.dot(normal)).length()>maxf(4.0,float(signature.closing_speed_mps)*.65):return {'accepted':false}
  var nearest_speed:=0.0;var distance:=INF
  for clip in bake_library:
+  if clip.metadata.has('contact_coverage'):continue
+  if not clip._input_compatibility.compatible:continue
   var difference: float=absf(float(clip.metadata.speed_kmh)-speed)
   if difference<distance:distance=difference;nearest_speed=float(clip.metadata.speed_kmh)
  # The demo has discrete severity bins. Select speed first, then compare zones
@@ -132,7 +174,7 @@ func _choose_speed_bin(signature: Dictionary) -> Dictionary:
  normalized.incident_impulse_proxy_ns*=nearest_speed/speed
  var subset: Array=[];var indices: Array=[]
  for i in bake_library.size():
-  if float(bake_library[i].metadata.speed_kmh)==nearest_speed:
+  if not bake_library[i].metadata.has('contact_coverage') and float(bake_library[i].metadata.speed_kmh)==nearest_speed and bake_library[i]._input_compatibility.compatible:
    subset.append(bake_library[i]);indices.append(i)
  var result: Dictionary=impact_grid.choose(normalized,subset)
  if result.accepted:
@@ -142,6 +184,8 @@ func _choose_speed_bin(signature: Dictionary) -> Dictionary:
  return result
 
 func _contact_event(horizon: float) -> Dictionary:
+ var roof_event: Dictionary=roof_landing_sensor.event(self,horizon,roof_landing_library)
+ if not roof_event.is_empty():return roof_event
  var motion: Vector3=velocity()
  if not contact_sensor.nearby(solver,motion):
   contact_sensor.cancel('clear_road');return {}
@@ -155,20 +199,19 @@ func _contact_event(horizon: float) -> Dictionary:
  for candidate in candidates:
   if not candidate.signature.is_empty():representative=candidate.signature;break
  if representative.is_empty():contact_sensor.note_rejection('empty_contact');return {}
- var normal:=Vector3(representative.world_normal[0],representative.world_normal[1],representative.world_normal[2])
- if absf(normal.x)<.99:contact_sensor.note_rejection('wall_end_or_corner');return {}
- if packet.bounds_min.z<solver.barrier_min.z+.1 or packet.bounds_max.z>solver.barrier_max.z-.1:
-  contact_sensor.note_rejection('no_partial_wall_recording');return {}
- if packet.bounds_max.y>solver.barrier_max.y:
-  contact_sensor.note_rejection('no_short_wall_recording');return {}
+ var coverage: Dictionary=Coverage.describe(solver,packet,representative)
+ var rejection: String='no_compatible_footprint_recording'
  for candidate in candidates:
   var signature: Dictionary=candidate.signature
   if signature.is_empty():continue
-  var selection: Dictionary=_choose_speed_bin(signature)
+  coverage=Coverage.describe(solver,packet,signature)
+  var selection: Dictionary=_choose_speed_bin(signature,coverage)
   if selection.get('accepted',false):
    selection['classification_band_m']=candidate.band_m
+   selection['contact_coverage']=coverage
    return {'toi':packet.toi,'signature':signature,'selection':selection}
- contact_sensor.note_rejection('no_compatible_recording')
+  rejection=selection.get('reason',rejection)
+ contact_sensor.note_rejection(rejection)
  return {}
 
 func _wake(reason: String) -> void:
@@ -178,7 +221,7 @@ func _wake(reason: String) -> void:
 func _rigid_body_contacts(dt: float) -> void:
  # The frozen/deformed body is one rigid aggregate. Only these cheap contact
  # projections run; the 187 structural constraints are never evaluated here.
- var nearby_wall: bool=solver.barrier_enabled and float(solver.barrier_distance(compact.center).distance)<3.5
+ var nearby_wall: bool=float(solver.static_contact(compact.center,3.5).distance)<3.5
  for iteration in 3:
   for index in compact.indices:
    var p: Vector3=compact.point(index)
@@ -188,7 +231,7 @@ func _rigid_body_contacts(dt: float) -> void:
     _rigid_contact(index,Vector3(floor_.x,floor_.y,floor_.z).normalized(),depth,dt)
     solver.contact_floor[index]=1
    if nearby_wall:
-    var hit: Dictionary=solver.barrier_distance(compact.point(index))
+    var hit: Dictionary=solver.static_contact(compact.point(index),solver.radii[index])
     depth=solver.radii[index]-float(hit.distance)
     if depth>0:
      _rigid_contact(index,hit.normal,depth,dt)
@@ -215,6 +258,7 @@ func _advance_lightweight(h: float) -> void:
  var began: int=Time.get_ticks_usec()
  if mode=='SLEEP' and absf(dynamics.throttle)+absf(dynamics.steering)<.001 and solver.wake_requested=='' and sleeping_box_min==solver.barrier_min and sleeping_box_max==solver.barrier_max:
   solver.simulated_time+=h;sleep_steps+=1;sleep_seconds+=h
+  step_reduced_panels(h)
   solver.effects.step_debris(h)
   sleep_cpu_us+=Time.get_ticks_usec()-began
   return
@@ -227,6 +271,7 @@ func _advance_lightweight(h: float) -> void:
  dynamics.step(h)
  compact.step(h)
  _rigid_body_contacts(h)
+ step_reduced_panels(h)
  solver.effects.step_debris(h)
  drive_steps+=1;drive_seconds+=h
  _try_sleep_drive(h)
@@ -234,8 +279,22 @@ func _advance_lightweight(h: float) -> void:
 
 func _begin_bake(event: Dictionary) -> void:
  var travel: float=event.toi
+ if solver.panels_runtime_enabled:solver.panels.synchronize_inactive()
  solver.compact_active=false
- for i in solver.points.size():solver.points[i]+=solver.velocities[i]*travel
+ for i in solver.points.size():
+  solver.points[i]+=solver.velocities[i]*travel
+  if event.get('floor_contact',false):
+   solver.points[i]+=Vector3.DOWN*float(solver.config.gravity_mps2)*travel*travel
+   solver.velocities[i]+=Vector3.DOWN*float(solver.config.gravity_mps2)*travel
+ if solver.panels_runtime_enabled:
+  for p in solver.panels.panels:
+   for i in 10:p.points[i]+=p.velocity[i]*travel
+   if p.has('reduced_data'):
+    p.reduced_data.center+=p.reduced_data.linear*travel
+    var omega: Vector3=p.reduced_data.omega;var angle: float=omega.length()*travel
+    if angle>1e-9:p.reduced_data.rotation=(Quaternion(omega.normalized(),angle)*p.reduced_data.rotation).normalized()
+  solver.panels.pose_revision+=1
+  if event.get('floor_contact',false):solver.panels.synchronize_inactive()
  for wheel in solver.wheels.wheels:
   wheel.spin=wrapf(wheel.spin+wheel.spin_speed*travel,-PI,PI)
   var angle: float=wheel.angular_velocity.length()*travel
@@ -246,12 +305,15 @@ func _begin_bake(event: Dictionary) -> void:
  bake_start_full_steps=solver.step_count;bake_end_full_steps=bake_start_full_steps
  baked_consumed=true;baked_count+=1
  crash_player=CrashPlayer.new()
+ var contact_gap:=RoofLandingCases.Geometry.minimum_gap(solver) if event.get('floor_contact',false) else INF
  var selected_library: Array=conditioned_library if event.selection.get('library_kind','')=='conditioned' else bake_library
+ if event.selection.get('library_kind','')=='roof_landing':selected_library=roof_landing_library
  crash_player.attach_live(self,selected_library,event.signature,event.selection)
  var previous: String=mode
  mode='BAKED';bake_status='Playing'
  solver.impact_started=true;solver.impact_time=bake_start_clock
  last_bake=event.selection.duplicate(true)
+ if event.get('floor_contact',false):last_bake['contact_gap_m']=contact_gap
  last_bake.erase('candidates')
  last_bake['start_time_s']=bake_start_clock
  last_bake['handoff_position_jump_m']=crash_player.handoff_position_jump_m
@@ -268,6 +330,7 @@ func _advance_bake(dt: float) -> void:
  if crash_player.state=='COMPLETE':_finish_bake()
 
 func _finish_bake() -> void:
+ prepare_lightweight_panels()
  bake_end_full_steps=solver.step_count
  last_bake['solver_steps_during_replay']=bake_end_full_steps-bake_start_full_steps
  last_bake['completed']=true

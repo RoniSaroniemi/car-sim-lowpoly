@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MULTIAXIS_CLIP_BAKED upper_az045_60 frames=301 physics_hz=1920 first_gap_m=0.0 contact=[{"gap_m":0.0,"node":26,"panel":"","source":"body","zone":39}] authoring_wall_ms=129282.184 simulation_wall_ms=128813.763 total_wall_ms=129495.293
+MULTIAXIS_CLIP_BAKED underside_60 frames=301 physics_hz=1920 first_gap_m=0.0 contact=[{"gap_m":0.00000286102294921875,"node":34,"panel":"","source":"wheel","zone":9},{"gap_m":0.00000286102294921875,"node":35,"panel":"","source":"wheel","zone":11},{"gap_m":0.0,"node":36,"panel":"","source":"wheel","zone":27},{"gap_m":0.000000417232513427734,"node":37,"panel":"","source":"wheel","zone":29}] authoring_wall_ms=128632.93 simulation_wall_ms=128196.206 total_wall_ms=128766.947
+real 259.43
+user 161.03
+sys 0.97
+           190414848  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               28270  page reclaims
+                   0  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 409  voluntary context switches
+              143516  involuntary context switches
+       1366089795528  instructions retired
+        361134369484  cycles elapsed
+           144360264  peak memory footprint

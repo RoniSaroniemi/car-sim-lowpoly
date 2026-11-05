@@ -31,11 +31,12 @@ func setup(owner: RefCounted,options: Dictionary={}) -> void:
   var u:=_v3(raw.u_axis);var v:=_v3(raw.v_axis);var n:=_v3(raw.normal)
   var bounds: Array=raw.uv_bounds
   var origin: Vector3=_v3(raw.origin)+u*(float(bounds[0])+float(bounds[1]))*.5+v*(float(bounds[2])+float(bounds[3]))*.5
-  var pane: Dictionary={'raw':raw,'rest_frame':Transform3D(Basis(u,v,n),origin),'node_rest':PackedVector3Array(),'node_bind':[],'last_corners':PackedVector3Array(),'last_velocity':Vector3.ZERO,'center_bind':Attachment.binding(owner,origin)}
+  var pane: Dictionary={'component':owner.panels.panel_for_glass(raw.id) if owner.panels_runtime_enabled else '', 'panel_bind':[],'raw':raw,'rest_frame':Transform3D(Basis(u,v,n),origin),'node_rest':PackedVector3Array(),'node_bind':[],'last_corners':PackedVector3Array(),'last_velocity':Vector3.ZERO,'center_bind':Attachment.binding(owner,origin)}
   for y in Membrane.NY+1:
    for x in Membrane.NX+1:
     var p: Vector3=_rest_at(pane,Vector2(float(x)/Membrane.NX,float(y)/Membrane.NY))
     pane.node_rest.append(p);pane.node_bind.append(Attachment.binding(owner,p))
+    if pane.component!='':pane.panel_bind.append(owner.panels.point_binding(pane.component,p))
   panes[raw.id]=pane
  reset()
 
@@ -47,24 +48,27 @@ func _rest_at(pane: Dictionary,uv: Vector2) -> Vector3:
 func _frame(pane: Dictionary,frames: Array) -> Transform3D:
  var g: RefCounted=graph.get_ref()
  var rest_frame: Transform3D=pane.rest_frame
- var current: Transform3D=Attachment.frame_with_rotations(g,rest_frame.origin,frames)
+ var current: Transform3D=g.panels.frame_at(pane.component,rest_frame.origin) if pane.component!='' else Attachment.frame_with_rotations(g,rest_frame.origin,frames)
  return Transform3D(current.basis*rest_frame.basis,current.origin)
 func _node_world(pane: Dictionary,frames: Array) -> PackedVector3Array:
  var result:=PackedVector3Array();var g: RefCounted=graph.get_ref()
- for i in pane.node_rest.size():result.append(Attachment.mapped(g,pane.node_rest[i],pane.node_bind[i],frames))
+ for i in pane.node_rest.size():result.append(_map_node(pane,i,frames))
  return result
 func _corner_world(pane: Dictionary,frames: Array) -> PackedVector3Array:
  var result:=PackedVector3Array();var g: RefCounted=graph.get_ref()
- for i in [0,Membrane.NX,Membrane.NY*(Membrane.NX+1),pane.node_rest.size()-1]:result.append(Attachment.mapped(g,pane.node_rest[i],pane.node_bind[i],frames))
+ for i in [0,Membrane.NX,Membrane.NY*(Membrane.NX+1),pane.node_rest.size()-1]:result.append(_map_node(pane,i,frames))
  return result
 func _body_velocity(pane: Dictionary) -> Vector3:
  var g: RefCounted=graph.get_ref();var bind: Dictionary=pane.center_bind
+ if pane.component!='':return g.panels.mapped_velocity(g.panels.point_binding(pane.component,pane.rest_frame.origin))
  var result:=Vector3.ZERO
  for i in bind.ids.size():result+=g.velocities[bind.ids[i]]*bind.weights[i]
  return result
 
 func _point_velocity(pane: Dictionary,uv: Vector2) -> Vector3:
- var g: RefCounted=graph.get_ref();var bind: Dictionary=Attachment.binding(g,_rest_at(pane,uv));var motion:=Vector3.ZERO
+ var g: RefCounted=graph.get_ref()
+ if pane.component!='':return g.panels.mapped_velocity(g.panels.point_binding(pane.component,_rest_at(pane,uv)))
+ var bind: Dictionary=Attachment.binding(g,_rest_at(pane,uv));var motion:=Vector3.ZERO
  for j in bind.ids.size():motion+=g.velocities[bind.ids[j]]*bind.weights[j]
  return motion
 func _previous_velocity(pane: Dictionary,uv: Vector2) -> Vector3:
@@ -88,6 +92,9 @@ func reset() -> void:
  synchronize()
 func _mount_velocities(pane: Dictionary) -> PackedVector3Array:
  var result:=PackedVector3Array();var g: RefCounted=graph.get_ref()
+ if pane.component!='':
+  for bind in pane.panel_bind:result.append(g.panels.mapped_velocity(bind))
+  return result
  for bind in pane.node_bind:
   var motion:=Vector3.ZERO
   for j in bind.ids.size():motion+=g.velocities[bind.ids[j]]*bind.weights[j]
@@ -96,6 +103,7 @@ func _mount_velocities(pane: Dictionary) -> PackedVector3Array:
 func _corner_velocities(pane: Dictionary) -> PackedVector3Array:
  var g: RefCounted=graph.get_ref();var result:=PackedVector3Array()
  for index in [0,Membrane.NX,Membrane.NY*(Membrane.NX+1),pane.node_rest.size()-1]:
+  if pane.component!='':result.append(g.panels.mapped_velocity(pane.panel_bind[index]));continue
   var bind: Dictionary=pane.node_bind[index];var motion:=Vector3.ZERO
   for j in bind.ids.size():motion+=g.velocities[bind.ids[j]]*bind.weights[j]
   result.append(motion)
@@ -407,3 +415,7 @@ func input_fingerprints() -> Dictionary:
  for path in ['scripts/vehicle_glass.gd','scripts/glass_membrane.gd','scripts/car_attachment.gd','scripts/vehicle_glass_visual.gd','scripts/vehicle_glass.gdshader','vehicles/niva_glass.json','assets/Niva_2121_LOD0.glb']:
   result[path]=FileAccess.get_sha256('res://'+path)
  return result
+
+func _map_node(pane: Dictionary,index: int,frames: Array) -> Vector3:
+ var g: RefCounted=graph.get_ref()
+ return g.panels.mapped(pane.panel_bind[index]) if pane.component!='' else Attachment.mapped(g,pane.node_rest[index],pane.node_bind[index],frames)

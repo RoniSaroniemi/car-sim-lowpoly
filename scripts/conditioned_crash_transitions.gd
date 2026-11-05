@@ -1,6 +1,7 @@
 extends RefCounted
 ## Damage-conditioned clip selection. This module never steps a physics solver.
 const Clip=preload('res://scripts/baked_crash_clip.gd')
+const PanelState=preload('res://scripts/panel_snapshot.gd')
 const Grid=preload('res://scripts/impact_zone_grid.gd')
 const DIRECTORY='res://bakes/conditioned'
 const BODY_SHAPE_TOLERANCE_M=.025
@@ -90,11 +91,13 @@ static func describe(graph: RefCounted,frame: Dictionary={}) -> Dictionary:
   wheels.append({'detached':wheel.detached,'joint_broken':wheel.joint_broken,'lateral_rest':wheel.lateral_rest,'alignment':wheel.alignment})
  var effects: Variant=irreversible_effects(state.get('effects',{}))
  var descriptor: Dictionary={'version':1,'valid':true,'material_sha256':_material_key(graph),'shape':shape,'lengths':state.lengths.duplicate(),'damage':state.damage.duplicate(),'link_damage':state.link_damage.duplicate(),'broken':state.broken.duplicate(),'wheels':wheels,'effects':effects,'effects_sha256':digest(effects)}
+ descriptor['panels']=PanelState.descriptor(state.get('panels',{}),transform)
  # A diagnostic/cache key. Compatibility uses measured residuals, not hash equality.
  descriptor['state_key']=digest({'material':descriptor.material_sha256,'lengths':descriptor.lengths,'damage':descriptor.damage,'links':descriptor.link_damage,'broken':descriptor.broken,'wheels':wheels,'effects':descriptor.effects_sha256})
  return descriptor
 
 static func stamp(clip: Dictionary,initial_snapshot: Dictionary,graph: RefCounted,chain_id: String='front_60_60_120',step: int=0) -> void:
+ if clip.frames[0].has('panels'):clip.metadata['panels_schema']=PanelState.SCHEMA
  var initial: Dictionary=clip.frames[0] if initial_snapshot.is_empty() else initial_snapshot
  clip.metadata['conditioned']={'version':1,'chain_id':chain_id,'step':step,'from_state':describe(graph,initial),'to_state':describe(graph,clip.frames[-1]),'body_shape_tolerance_m':BODY_SHAPE_TOLERANCE_M,'attached_wheel_tolerance_m':ATTACHED_WHEEL_TOLERANCE_M,'length_tolerance':LENGTH_TOLERANCE,'damage_tolerance':DAMAGE_TOLERANCE}
 
@@ -110,6 +113,8 @@ static func _compatible_descriptors(graph: RefCounted,actual: Dictionary,expecte
   if a.detached!=b.detached or a.joint_broken!=b.joint_broken:result.reason='wheel_attachment';return result
   if absf(a.lateral_rest-b.lateral_rest)>.0001 or a.alignment.distance_to(b.alignment)>.0001:result.reason='permanent_wheel_alignment';return result
  if actual.effects_sha256!=expected.effects_sha256:result.reason='irreversible_effects';return result
+ var panel_reason: String=PanelState.compatible(actual.get('panels',[]),expected.get('panels',[]))
+ if panel_reason!='':result.reason=panel_reason;return result
  var body:=0.0;var wheel:=0.0;var lengths:=0.0;var damage:=0.0
  for index in actual.shape.size():
   if graph.wheels.by_node.has(index):
@@ -182,6 +187,7 @@ static func next_supported(graph: RefCounted,library: Array,current_snapshot: Di
  return result
 
 static func irreversible_floor(graph: RefCounted,state: Dictionary) -> void:
+ if graph.panels_runtime_enabled and state.has('panels'):PanelState.retain_failures(graph.panels,state.panels)
  for index in graph.node_damage.size():graph.node_damage[index]=maxf(graph.node_damage[index],state.damage[index])
  for index in graph.links.size():
   graph.links[index].damage=maxf(graph.links[index].damage,state.link_damage[index])

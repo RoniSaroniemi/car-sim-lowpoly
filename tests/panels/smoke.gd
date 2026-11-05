@@ -1,0 +1,26 @@
+extends SceneTree
+const Vehicle=preload('res://scripts/driving_vehicle.gd')
+const Attachment=preload('res://scripts/car_attachment.gd')
+func _initialize() -> void:
+ var v:=Vehicle.new();v.setup();v.solver.barrier_enabled=false
+ print('PANEL_SMOKE_SETUP ',v.solver.owned_mass_kg())
+ for i in 120:v.step(1.0/120)
+ assert(v.full_steps==0)
+ assert(v.set_panel_open('door_right',65))
+ for i in 480:v.step(1.0/120)
+ var p: Dictionary=v.panel_state('door_right')
+ print('PANEL_SMOKE_OPEN ',rad_to_deg(p.angle),' mass ',v.solver.owned_mass_kg(),' body ',v.solver.body_mass_kg)
+ assert(p.active and p.reduced and p.angle>.5)
+ assert(absf(v.solver.owned_mass_kg()-1210)<.01)
+ assert(v.full_steps==0 and v.solver.panels.active_steps==0)
+ var pane: Dictionary=v.solver.effects.glass.panes.door_right
+ var frame: Transform3D=v.solver.effects.glass._frame(pane,Attachment.rotations(v.solver))
+ assert(frame.origin.distance_to(v.solver.panels.mapped(v.solver.panels.point_binding('door_right',pane.rest_frame.origin)))<.001)
+ assert(v.set_panel_open('door_right',0))
+ for i in 1200:v.step(1.0/120)
+ print('PANEL_SMOKE_CLOSE ',p.reduced_mode,' angle ',p.angle)
+ assert(not p.active)
+ assert(absf(v.solver.body_mass_kg-1210)<.01)
+ v.reset();assert(v.panel_states().all(func(item):return not item.active and item.latched))
+ print('PANEL_SMOKE_PASS')
+ quit()

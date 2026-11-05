@@ -36,6 +36,8 @@ func setup(owner: RefCounted) -> void:
 
 func capture_shape() -> void:
  var g: RefCounted=graph.get_ref()
+ mass=0
+ for i in indices:mass+=g.masses[i]
  center=Vector3.ZERO
  linear_velocity=Vector3.ZERO
  rotation=Quaternion.IDENTITY

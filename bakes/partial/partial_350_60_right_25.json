@@ -1,0 +1,173 @@
+{
+	"clip_bytes": 4292032,
+	"contact_coverage": {
+		"body_tangent_span_m": 2.72571778297424,
+		"contact_centroid_local": [
+			1.86332821846008,
+			-0.780824422836304,
+			-0.956700146198273
+		],
+		"edge_side": "right",
+		"feature": "corner",
+		"full_height": true,
+		"full_width": false,
+		"height_interval": [
+			0.00343688872871283,
+			1.0
+		],
+		"kept_interval": [
+			0.0,
+			0.24324453756308
+		],
+		"mass_kg": 1210.0,
+		"material_profile": "niva_multiaxis_v1",
+		"node_count": 38,
+		"normal_local": [
+			-0.899313747882843,
+			0.0,
+			0.437304079532623
+		],
+		"overlap": 0.24324453756308,
+		"plane_closing_kmh": 59.9999977111816,
+		"plane_normal_local": [
+			-0.985100209712982,
+			0.0,
+			0.1719810962677
+		],
+		"schema": 1,
+		"source": "barrier_box",
+		"tangent_local": [
+			0.171981081366539,
+			0.0,
+			0.985100269317627
+		],
+		"valid": true,
+		"wall_size_m": [
+			1.0,
+			3.0,
+			16.0
+		],
+		"wheel_count": 4
+	},
+	"contact_velocity_normalized": true,
+	"duration_s": 2.5,
+	"frame_count": 301,
+	"full_solver_steps": 4960,
+	"grid": [
+		5,
+		3,
+		3
+	],
+	"heading_deg": -10.0,
+	"id": "partial_350_60_right_25",
+	"input_sha256": {
+		"assets/Niva_2121_LOD0.glb": "930f43ec759d404f642b7ec4da8adc5ea65ca99fa14da58c14366dee5a7815ae",
+		"scripts/airbag_cloth.gd": "ae455bb462a03b1a620d59884a60b0907dd0c40891e3257ce5d8ad68422e2e59",
+		"scripts/baked_contact_coverage.gd": "cc8bbff977fe77efbeee87e24c8752d47a0cca7dc3786bca617a43cfafc03dcf",
+		"scripts/baked_crash_clip.gd": "5f7145d2045b7efe62afc624c5d60c551fadf99dd4e83f3990c7427f179257f0",
+		"scripts/car_attachment.gd": "e495ca186f97ff24166aafe0642a7433dbcbe2fad688cd7e010fd02bee4b49ac",
+		"scripts/collision_forecast.gd": "2197a3c5bcc4ae0dfa12ab08ac5cde9738a9fa6f85bfa074df5fbd27878cd4b3",
+		"scripts/compact_chassis.gd": "15e4403517b0a24b96c9caff3038c180bd2316f3ded466e9cef12c7c0149d0b3",
+		"scripts/conditioned_crash_authoring.gd": "695640f651b8f10f83c32430bba060a88b57e127b3757a99f57bccec61044782",
+		"scripts/crash_bake_recorder.gd": "32753b0cf9c07b7107a325023a2901447f571f24001195e2a5b76bee605e62d0",
+		"scripts/glass_membrane.gd": "010e4e910ea38a63c436f5e8fcab1b38ef13aaa5c240f0943b401ed1fa49e955",
+		"scripts/impact_zone_grid.gd": "263d65e77cf16dc60ef83e15058a30c8729a731b140fb9169840dbc8d0a0be8f",
+		"scripts/interior_geometry.gd": "1cead661328bc369bebebcd62d48142f67d6c85d6428e7c6f00ad0439f81b7c6",
+		"scripts/interior_seat.gd": "d97179d58f7545a7778ca344c5bedd9c30d11efe659be24c12eb99730be0fcda",
+		"scripts/panel_angular_mount.gd": "57a3fd777c9ac477915e29497ecd44988d670dff6524a1faba3c2de7dc8b96d8",
+		"scripts/panel_snapshot.gd": "6a3f142102bca77d63836ba1c13b088dd07018a2cf507f4104ebdcd33d777ab3",
+		"scripts/partial_crash_library.gd": "22f8180e4bf6a15a0d65af7873aefc7248657a82ce3f1a625393d7b9ecbcae91",
+		"scripts/partial_crash_recorder.gd": "30c07cd50235858086c1839ebc889df00f01ee03e3fa797f8b01b887f4ea08db",
+		"scripts/reduced_vehicle_panels.gd": "be924901aada964d17915e58573b53cc321579b75605ef82413cf7a5df89622d",
+		"scripts/road_panel_profile.gd": "01e981f3077f3e84c94e2507fa6e2b1cbd49e72c6df617f9185e80393a388fcf",
+		"scripts/structure_solver.gd": "bcdee53471ddd705dabc80ae4aee7aed673c2c9a725070388b7bc6a90cf6e708",
+		"scripts/vehicle_dynamics.gd": "06c277cb19f1f97a355b18e6ffe32f37c68e4acc5f158d61f75bf2ae5df716e6",
+		"scripts/vehicle_effects.gd": "edca2dd5f4f48305caa256703f500e91124edb3712aca09436aa50771ca72ec4",
+		"scripts/vehicle_glass.gd": "387ae46198f6d7ed754c155b05448d6203ee00a62eca115a70561d5aceaa678b",
+		"scripts/vehicle_glass.gdshader": "0156c0f149c61777fb9dcc066ef8466980c56ade17a266ad00ca4a23e8e835e3",
+		"scripts/vehicle_glass_visual.gd": "560a51907b0b2667b9a73d078a4f4bd0f5f1a081375b9867c8b7852d3e357967",
+		"scripts/vehicle_interior.gd": "d4785667011643a3207c1bf909bc434a41509c2dbdd9c116b6f427a3cdad81c3",
+		"scripts/vehicle_interior_visual.gd": "b6fa3319c61e498786b574609431e24cfb18c9d3de87372df418de1e2e616467",
+		"scripts/vehicle_panels.gd": "629003c09b985050d7e396febcbe600f6cd5c1f6703ded899076a38905ccb107",
+		"scripts/vehicle_simulation.gd": "47642098260d2a5c6afe9386686073b1d0412c3a95812e3d3ace64acae36afcb",
+		"scripts/wheel_physics.gd": "d00d169d1b2886b3f4800159fb768aae5275473c37e08d742d461b61abbed7d9",
+		"structure.json": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+		"vehicles/niva.json": "e76acadacdcc04fc881639be3c335f3b6f37a392efe7de9b1651fea7cac771fc",
+		"vehicles/niva_glass.json": "a77749c52288531e630b02b9cdf93bbae0a88b04e135c06e53a0d4b73b8e244f",
+		"vehicles/niva_interior.json": "0a50ff6ccb9d2f1f695f5596ba1bdffe26549586d0313e8d2618c3a47553e358"
+	},
+	"launch_mode": "wall_normal_slam",
+	"material_profile": "niva_multiaxis_v1",
+	"origin": [
+		-2.00009942054749,
+		1.16519212722778,
+		8.62198829650879
+	],
+	"panels_schema": 1,
+	"partial_authoring_schema": 1,
+	"physics_hz": 1920,
+	"preparation_speed_mps": 16.6065921783447,
+	"quality_multiplier": 4,
+	"record_cpu_ms": 101888.335,
+	"requested_overlap": 0.25,
+	"sample_hz": 120,
+	"scope": "Controlled finite one-edge barrier-box impact; no arbitrary wall, post or end-face extrapolation. Full shared physics/effects/panel snapshots are authored offline.",
+	"signature": {
+		"closing_speed_mps": 16.0187034606934,
+		"grid": [
+			5,
+			3,
+			3
+		],
+		"hit_nodes": [
+			36
+		],
+		"incident_energy_proxy_j": 155242.310639786,
+		"incident_impulse_proxy_ns": 19382.631187439,
+		"normal": [
+			-0.899313747882843,
+			0.0,
+			0.437304079532623
+		],
+		"velocity": [
+			16.6666660308838,
+			0.0,
+			0.0
+		],
+		"world_normal": [
+			-0.961122214794159,
+			0.0,
+			0.276123374700546
+		],
+		"zones": [
+			{
+				"id": 36,
+				"incident_energy_proxy_j": 155242.310639786,
+				"incident_impulse_proxy_ns": 19382.631187439,
+				"weight": 1.0
+			}
+		]
+	},
+	"speed_kmh": 60.0,
+	"structure_sha256": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+	"surface_input_sha256": {
+		"scripts/damage_layers.gdshader": "eb60c615f71f51d1fadcf8ad1c27fd7aea19cc213d85f38c1c2dedd2238da78f",
+		"scripts/damage_skin.gd": "96825721cea0632faa89884dff3a609bb5216a2d6d5fa163d246c32c5d60d00a",
+		"scripts/layered_damage_skin.gd": "776b9f1df408ba4bad630761f09cf408619e0f46a402d0fe2621407d77b979f6",
+		"scripts/vehicle_surface.gd": "1cb66c422e09076b0cd13af12612737c65cfc8db0bf64dba6603ce3346293b5b",
+		"vehicles/niva_surface.json": "9d372c60d88e2a2d301a78cf6c06744ec5070e0d225d6aff7f6fed3a394d3fac"
+	},
+	"surface_schema": 1,
+	"version": 3,
+	"wheel_solver_sha256": "d00d169d1b2886b3f4800159fb768aae5275473c37e08d742d461b61abbed7d9",
+	"zone_contact_history": {
+		"36": {
+			"contact_substeps": 132,
+			"nodal_momentum_loss_proxy_ns": 368.651667796075
+		},
+		"39": {
+			"contact_substeps": 442,
+			"nodal_momentum_loss_proxy_ns": 8.30159845668823
+		}
+	}
+}

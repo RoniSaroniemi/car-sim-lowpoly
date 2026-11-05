@@ -1,0 +1,202 @@
+{
+  "base_commit": "90aabde",
+  "source_glb": "assets/Niva_2121_LOD0.glb",
+  "sha256": "930f43ec759d404f642b7ec4da8adc5ea65ca99fa14da58c14366dee5a7815ae",
+  "same_as_earlier_operational_asset": "/Users/roni-saroniemi/Downloads/niva-godot-sandbox/assets/Niva_2121_LOD0.glb",
+  "gltf_nodes": 38,
+  "hinges": [
+    {
+      "children": [
+        2,
+        3
+      ],
+      "extras": {
+        "control_id": "bonnet",
+        "open_degrees": 72,
+        "axis_blender": [
+          0,
+          1,
+          0
+        ]
+      },
+      "name": "Hinge_Bonnet",
+      "translation": [
+        1.6150000095367432,
+        1.0700000524520874,
+        0
+      ]
+    },
+    {
+      "children": [
+        5,
+        6,
+        7
+      ],
+      "extras": {
+        "control_id": "door_left",
+        "open_degrees": 72,
+        "axis_blender": [
+          0,
+          0,
+          1
+        ]
+      },
+      "name": "Hinge_Door_Left",
+      "translation": [
+        0.5400000214576721,
+        1.0399999618530273,
+        0.9049999713897705
+      ]
+    },
+    {
+      "children": [
+        9,
+        10,
+        11
+      ],
+      "extras": {
+        "control_id": "door_right",
+        "open_degrees": -72,
+        "axis_blender": [
+          0,
+          0,
+          1
+        ]
+      },
+      "name": "Hinge_Door_Right",
+      "translation": [
+        0.5400000214576721,
+        1.0399999618530273,
+        -0.9049999713897705
+      ]
+    },
+    {
+      "children": [
+        13,
+        14,
+        15
+      ],
+      "extras": {
+        "control_id": "tailgate",
+        "open_degrees": 95,
+        "axis_blender": [
+          0,
+          1,
+          0
+        ]
+      },
+      "name": "Hinge_Tailgate",
+      "translation": [
+        -1.3600000143051147,
+        1.7799999713897705,
+        0
+      ]
+    }
+  ],
+  "animations": [
+    {
+      "name": "Panels_Open_Close",
+      "channels": 4
+    }
+  ],
+  "probe_input_sha256": {
+    "assets/Niva_2121_LOD0.glb": "930f43ec759d404f642b7ec4da8adc5ea65ca99fa14da58c14366dee5a7815ae",
+    "assets/vehicle_controls.json": "a72653ec047bf4a47631df2589f13bad7be710d4ad6bdbe3d63c6d5bf2401e06",
+    "structure.json": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+    "scripts/structure_solver.gd": "53b979c1060bd2f0d5a2e24b1ecb9fec2f68058b911f92a7c6688d4ae010f1e8",
+    "scripts/wheel_physics.gd": "e40251996a9acaf7632a31f0bbc623fb4f0353fc76dec5c295a337ad131daa62",
+    "scripts/car_attachment.gd": "e495ca186f97ff24166aafe0642a7433dbcbe2fad688cd7e010fd02bee4b49ac",
+    "probes/panels/panel_system.gd": "a7b09cfaf931d897a32f2939e62d26e98c3d72033b3550dafecfd1bb7c841ced",
+    "probes/panels/panel_graph.gd": "9423f027b6b8ce7532aa65c2ff9a49713e54f61c4bcb7a370fff69de8b9aaf93",
+    "probes/panels/panel_skin.gd": "246414a603bf555d8194f764032ad2a2b168fb1dd3e94de9d3b97ef748a91cef",
+    "probes/panels/fixtures.gd": "a9a533e81b79343687ed31e7ba6c6bef4b0c02a20ba01eaff641efa87bb29017"
+  },
+  "panel_clip": "probes/panels/data/open_severe.panelclip",
+  "panel_clip_sha256": "9176fb5977b71fb9ec784d1d301151a1212e0df552b31079d88a559c8ed4a7ec",
+  "scope": "Operational source provenance and isolated live/baked panel probe. SourceGLB unchanged; game parameters, not calibrated factory panel masses/strength.",
+  "extension": {
+    "base_probe_commit": "591bc1a",
+    "description": "Actual car-to-static-wall 60/120km/h authoring, explicit closing seats, condensed/frozen/reduced live panels and shared compact driving.",
+    "scripts_sha256": {
+      "probes/panels/benchmark.gd": "932a0fd974e276d088f967a735b31cd29ae3112a76df4a5fba9574863a81766d",
+      "probes/panels/capture_road_evidence.gd": "b212d86c3b9463b5d9325e8b6c9557049b591788db0714ef47ac8f69ff2956e0",
+      "probes/panels/drive_runtime.gd": "579dc07aad316cb45e62534640b474873c3875ca35a78cd8727e661685150799",
+      "probes/panels/drive_view.gd": "4e0d6b0d0c5b3ee9d2072b2e016c938fa3d4b4fccb79a42fee31d84ef4d985ee",
+      "probes/panels/driving_crash_case.gd": "ce78f8c1420201dd37c3fe96c1ae6842d4bd53e1217d145eaf0af2eeb5df0041",
+      "probes/panels/fixtures.gd": "a9a533e81b79343687ed31e7ba6c6bef4b0c02a20ba01eaff641efa87bb29017",
+      "probes/panels/headon_fixtures.gd": "4495bc73ba860c6cbbcfe5db5dd75d8e29530c5e06dfde3ce1ec56de9f56f778",
+      "probes/panels/inspect.gd": "5456cab7ea47509e88e6b34229358c8e61e01a36cdd1f689f67831e24bf4bd3c",
+      "probes/panels/panel_angular_mount.gd": "57a3fd777c9ac477915e29497ecd44988d670dff6524a1faba3c2de7dc8b96d8",
+      "probes/panels/panel_graph.gd": "9423f027b6b8ce7532aa65c2ff9a49713e54f61c4bcb7a370fff69de8b9aaf93",
+      "probes/panels/panel_skin.gd": "246414a603bf555d8194f764032ad2a2b168fb1dd3e94de9d3b97ef748a91cef",
+      "probes/panels/panel_system.gd": "a7b09cfaf931d897a32f2939e62d26e98c3d72033b3550dafecfd1bb7c841ced",
+      "probes/panels/prepare_drive.gd": "6f9fc797d788001fd4216d9a5a29c5ae4901f79f839ac42ede1efdc06d031e4a",
+      "probes/panels/probe.gd": "74ae7b8dfaa71e27b508f96b2bc7c15c6754447e73455c7aa81306b5d15bf7e0",
+      "probes/panels/reduced_panels.gd": "8382de04b890d37d810271561d1c9967ae9b71a25649db66dd8384a1add63640",
+      "probes/panels/release_budget.gd": "a75ec7e3240e3d57695e65d9c43c89baa591aeda306ce4657f52fea87988499b",
+      "probes/panels/reproduce_driving.gd": "3b8ec8c5f834402d8e950c2360cd15c2621bb267f16417a47a9abad08f8f9c5d",
+      "probes/panels/road_panel_profile.gd": "947705280fc46f6d76ae58af812b409118fa16f4961237f4dd3b8a5d7088394e",
+      "probes/panels/run_headon.gd": "5871344afbcafe93339abe10c8903a97e2497e9fa49a624e73eaf3467ef3a028",
+      "probes/panels/verify.gd": "ffd3439abe6674ded08a3d168ad59a5e1dd649f619ae63140b8b5fbca9da8501",
+      "probes/panels/verify_extended.gd": "62b2b1c171429dc7f7828590cdccd17921752e44c620ac5c4b9400de945c2024",
+      "probes/panels/verify_road_driving.gd": "4b06418689a46c6d43d96eeafc934a3a2ec75e61539daa83ae33542b5407bbd9"
+    },
+    "data_sha256": {
+      "probes/panels/data/drive_closed.panelclip": "b217a8a7143224b1988fceefa97b9ebe9be1a2f1381cf2be01fd926331018533",
+      "probes/panels/data/drive_right_free.panelclip": "1dfecf2260cb0d3ca2749d1b430d1e11761eb3e2e3b8bd6a99bb9f3ddf1783bc",
+      "probes/panels/data/drive_right_sag.panelclip": "a443e15b6d63d58548059e025b3fc1ebc570e56be3aeec09c7b5f97d3535cc69",
+      "probes/panels/data/headon_120.panelclip": "084bc4706198475d228176841a1c67387b89b8f98b086b744416f240522ccecf",
+      "probes/panels/data/headon_60.panelclip": "078f65101c8da9aa23393d869e3f0df8cfbad59678fc93ea9859d87465e7cb1b",
+      "probes/panels/data/hinge_0.panelstate": "0933806e6514f2e486c85289456a5bbd42d67ae8491e2cadaf4f2460b484bb91",
+      "probes/panels/data/hinge_1800.panelstate": "1a7cfd5eed301d62459aa65922cca824c94d0e7dc29dcc7af479eef266da1f90",
+      "probes/panels/data/hinge_20000.panelstate": "4326c51e04855cbcc79ece78c6dcf4dd9b19780f6ef81f5fb20f08cb5b00e5d6",
+      "probes/panels/data/open_severe.panelclip": "9176fb5977b71fb9ec784d1d301151a1212e0df552b31079d88a559c8ed4a7ec",
+      "probes/panels/data/right_free.panelstate": "cbeb30ba617dc0aeed8091e0566e3d8c3c505088c0acd33955b99a5124c6e0f5",
+      "probes/panels/data/right_sag.panelstate": "347ee16d3063a7fb29d296adedd529eb326b777e6dfeea0bf5a63f2d3274a0aa",
+      "probes/panels/data/road_120_p0.panelclip": "49e1aa3d7e4b9918010d07d74a7c896573e9894eaf3e1cbed0506a4790ab10b7",
+      "probes/panels/data/road_120_p30.panelclip": "147defe9bd9d1010e9b4182367870b3a950734f7f926532a2ae804ce1d9f1854",
+      "probes/panels/data/road_open_road_120_m20.panelclip": "ce2201864ee5b7c00f6c7128698b8938e844c3c94dd9b755ce1564ba21a9de8a",
+      "probes/panels/data/road_open_road_60_p0.panelclip": "6541a61900c8bf538665e8cad92252e0e01128eb39d6ca19aa1823f76d3fa5b2",
+      "probes/panels/data/road_side_12.panelclip": "afa874b4a067486c9a82688eda9de2f14af7f2bccc7625cb8462077c7ea8fd9a",
+      "probes/panels/data/road_side_24.panelclip": "c56f24061e9ab6a76868723738252e1bc61fc1770e378d9d7d2c0842a29c35b6",
+      "probes/panels/data/road_throttle_from_rest.panelclip": "a13e9897034bb7891eaa2610a2d4b20fa627a15b94292fc8b954190e633dd6b0"
+    },
+    "data_bytes": {
+      "drive_closed.panelclip": 4531706,
+      "drive_right_free.panelclip": 5305600,
+      "drive_right_sag.panelclip": 5522044,
+      "headon_120.panelclip": 4053859,
+      "headon_60.panelclip": 3632680,
+      "hinge_0.panelstate": 41104,
+      "hinge_1800.panelstate": 41104,
+      "hinge_20000.panelstate": 41476,
+      "open_severe.panelclip": 2531510,
+      "right_free.panelstate": 39212,
+      "right_sag.panelstate": 39984,
+      "road_120_p0.panelclip": 1003570,
+      "road_120_p30.panelclip": 1030598,
+      "road_open_road_120_m20.panelclip": 894260,
+      "road_open_road_60_p0.panelclip": 961671,
+      "road_side_12.panelclip": 669542,
+      "road_side_24.panelclip": 694454,
+      "road_throttle_from_rest.panelclip": 3520604
+    }
+  },
+  "road_fix": {
+    "base_probe_commit": "990cf0d",
+    "profile_id": "road_panels_v2",
+    "passed_checks": {
+      "original": 78,
+      "extended": 84,
+      "actual_driving": 109
+    },
+    "fixes": [
+      "shared driving/authoring/restored profile",
+      "local directional plastic mount failure",
+      "stiff yielding surviving hinge",
+      "matching five-proxy wake coverage",
+      "time-aligned compact/panel hinge targets",
+      "component-only impact timestamps"
+    ]
+  }
+}

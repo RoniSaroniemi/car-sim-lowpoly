@@ -1,0 +1,127 @@
+{
+  "physical_source_commit": "9ab5f46",
+  "authoring_helper_commit": "01cb65a",
+  "viewer_fix_commit": "e6200b4",
+  "checks": 35606,
+  "failures": 0,
+  "replay_full_body_steps": 0,
+  "replay_panel_cage_steps": 0,
+  "replay_glass_membrane_steps": 0,
+  "replay_airbag_cloth_steps": 0,
+  "process_timing": {
+    "top_60": {
+      "wall_s": 95.27,
+      "user_cpu_s": 78.77,
+      "system_cpu_s": 0.5
+    },
+    "upper_az045_60_and_underside_60_sequential": {
+      "wall_s": 259.43,
+      "user_cpu_s": 161.03,
+      "system_cpu_s": 0.97
+    }
+  },
+  "timing_scope": "Concurrent root campaign on same machine; per-clip metadata timers are wall scopes, not process CPU. Raw process time logs retained. No isolated benchmark claim.",
+  "records": [
+    {
+      "id": "top_60",
+      "path": "bakes/multiaxis/top_60.crashclip",
+      "sha256": "5aaf9a92e639b6f7fd5365b80482db63401b00fbc529c2b2a27363a0470f975b",
+      "bytes": 4369211,
+      "frames": 301,
+      "physics_hz": 1920,
+      "total_authoring_wall_ms": 94494.178,
+      "maximum_mass_error_kg": 3.814697265625e-06,
+      "kinetic_maximum_to_initial_ratio": 1.0,
+      "body_plastic_work_j": 59651.8350313809,
+      "first_contact": [
+        {
+          "gap_m": 6.5565109244603e-09,
+          "node": 0,
+          "panel": "tailgate",
+          "source": "panel",
+          "zone": 6
+        },
+        {
+          "gap_m": 1.18315219878318e-07,
+          "node": 1,
+          "panel": "tailgate",
+          "source": "panel",
+          "zone": 7
+        },
+        {
+          "gap_m": 2.30073928832175e-07,
+          "node": 2,
+          "panel": "tailgate",
+          "source": "panel",
+          "zone": 8
+        }
+      ],
+      "first_body_gap_m": 0.00499852001667023
+    },
+    {
+      "id": "upper_az045_60",
+      "path": "bakes/multiaxis/upper_az045_60.crashclip",
+      "sha256": "279d75c7b2003a92916c749662fd48d1e89303549fd549e51bc0bb7decf4c9e6",
+      "bytes": 4402169,
+      "frames": 301,
+      "physics_hz": 1920,
+      "total_authoring_wall_ms": 129495.293,
+      "maximum_mass_error_kg": 3.814697265625e-06,
+      "kinetic_maximum_to_initial_ratio": 1.0,
+      "body_plastic_work_j": 72359.4522863578,
+      "first_contact": [
+        {
+          "gap_m": 0.0,
+          "node": 26,
+          "panel": "",
+          "source": "body",
+          "zone": 39
+        }
+      ],
+      "first_body_gap_m": 0.0
+    },
+    {
+      "id": "underside_60",
+      "path": "bakes/multiaxis/underside_60.crashclip",
+      "sha256": "0970fbaf2ebe197fb9fd8efddcd148ace538ad1bc13d61a097786f5e42e1d740",
+      "bytes": 4261880,
+      "frames": 301,
+      "physics_hz": 1920,
+      "total_authoring_wall_ms": 128766.947,
+      "maximum_mass_error_kg": 3.814697265625e-06,
+      "kinetic_maximum_to_initial_ratio": 1.0,
+      "body_plastic_work_j": 47632.0481344553,
+      "first_contact": [
+        {
+          "gap_m": 2.86102294921875e-06,
+          "node": 34,
+          "panel": "",
+          "source": "wheel",
+          "zone": 9
+        },
+        {
+          "gap_m": 2.86102294921875e-06,
+          "node": 35,
+          "panel": "",
+          "source": "wheel",
+          "zone": 11
+        },
+        {
+          "gap_m": 0.0,
+          "node": 36,
+          "panel": "",
+          "source": "wheel",
+          "zone": 27
+        },
+        {
+          "gap_m": 4.17232513427734e-07,
+          "node": 37,
+          "panel": "",
+          "source": "wheel",
+          "zone": 29
+        }
+      ],
+      "first_body_gap_m": 0.54497542604804
+    }
+  ]
+}

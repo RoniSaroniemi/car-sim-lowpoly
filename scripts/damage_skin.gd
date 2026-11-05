@@ -1,123 +1,125 @@
-extends 'res://scripts/structural_skin.gd'
-## Shared live/baked cosmetic renderer. VehicleSurface owns all persistent state.
-const LAYERS=preload('res://scripts/damage_layers.gdshader')
-var surface_materials: Array=[]
-var rest_attribute_bytes:=0
-var surface: RefCounted
-var last_surface_revision: int=-1
+extends 'res://scripts/layered_damage_skin.gd'
+var panel_system: RefCounted
+var panel_rigs: Dictionary={}
+var source_triangles:=0
+var panel_triangles:=0
+var panel_weight_error:=0.0
+var mesh_rebuilds:=0
+
+func panel_id(name_: String) -> String:
+ for id in ['door_left','door_right','bonnet','tailgate']:
+  if name_.begins_with('Panel_'+id+'_'):return id
+ if name_=='Glass_Door_Left':return 'door_left'
+ if name_=='Glass_Door_Right':return 'door_right'
+ if name_=='Glass_Rear':return 'tailgate'
+ return ''
 
 func setup(graph: RefCounted,model_path: String='res://assets/Niva_2121_LOD0.glb') -> void:
- if graph.effects!=null:surface=graph.effects.surface
+ panel_system=graph.panels if graph.panels_runtime_enabled else null
  super.setup(graph,model_path)
 
 func _bind(node: MeshInstance3D) -> void:
- super._bind(node)
- if not records[-1].folding or str(node.name).ends_with('_1'):return
- var source: Mesh=node.mesh
- var mesh:=ArrayMesh.new()
+ if panel_system==null:super._bind(node);return
+ var id: String=panel_id(str(node.name))
+ if id=='':super._bind(node);return
+ _bind_panel(node,id)
+
+func uv_for(p: Dictionary,point_: Vector3) -> Vector2:
+ var u: float=clampf((.54-point_.x)/1.02,0,1) if p.side!=0 else (clampf((1.615-point_.x)/1.03,0,1) if p.id=='bonnet' else clampf((1.78-point_.y)/.8,0,1))
+ var v: float=clampf((point_.y-.565)/(lerpf(1.22,1.72,minf(1,u*2))-.565),0,1) if p.side!=0 else clampf((point_.z+.79)/1.58,0,1) if p.id=='bonnet' else clampf((point_.z+.66)/1.32,0,1)
+ return Vector2(u,v)
+
+func node_frame(points: PackedVector3Array,index: int) -> Basis:
+ index=4 if index==9 else index
+ var u: int=index/3;var v: int=index%3
+ var x: Vector3=(points[mini(2,u+1)*3+v]-points[maxi(0,u-1)*3+v]).normalized()
+ var y: Vector3=(points[u*3+mini(2,v+1)]-points[u*3+maxi(0,v-1)]).normalized()
+ y=(y-x*x.dot(y)).normalized()
+ if x.length()<.5 or y.length()<.5:return Basis.IDENTITY
+ var z: Vector3=x.cross(y).normalized()
+ return Basis(x,z.cross(x).normalized(),z)
+
+func _bind_panel(node: MeshInstance3D,id: String) -> void:
+ var p: Dictionary=panel_system.find(id)
+ if not panel_rigs.has(id):
+  var rig:=Skeleton3D.new();rig.name='Deformable_'+id;add_child(rig)
+  var frames: Array=[]
+  for i in 10:
+   rig.add_bone('Cage_'+str(i));rig.set_bone_rest(i,Transform3D(Basis.IDENTITY,p.rest[i]));frames.append(node_frame(p.rest,i))
+  panel_rigs[id]={'skeleton':rig,'skin':rig.create_skin_from_rest_transforms(),'frames':frames,'meshes':[]}
+ var rig: Dictionary=panel_rigs[id]
+ var bind: Transform3D=global_transform.affine_inverse()*node.global_transform
+ var source: Mesh=node.mesh;var mesh:=ArrayMesh.new()
+ var originals: Array=[];var created: Array=[]
  for surface in source.get_surface_count():
   var arrays: Array=source.surface_get_arrays(surface).duplicate(true)
-  var positions: PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
-  var normals: PackedVector3Array=arrays[Mesh.ARRAY_NORMAL]
-  var rest_data:=PackedFloat32Array();var normal_data:=PackedFloat32Array()
+  var positions: PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var normals: PackedVector3Array=arrays[Mesh.ARRAY_NORMAL]
+  var tangents: PackedFloat32Array=arrays[Mesh.ARRAY_TANGENT] if arrays[Mesh.ARRAY_TANGENT]!=null else PackedFloat32Array()
   for i in positions.size():
-   rest_data.append_array(PackedFloat32Array([positions[i].x,positions[i].y,positions[i].z,1]))
-   normal_data.append_array(PackedFloat32Array([normals[i].x,normals[i].y,normals[i].z,0]))
-  arrays[Mesh.ARRAY_CUSTOM0]=rest_data
-  arrays[Mesh.ARRAY_CUSTOM1]=normal_data
-  rest_attribute_bytes+=(rest_data.size()+normal_data.size())*4
-  var flags: int=Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS|(Mesh.ARRAY_CUSTOM_RGBA_FLOAT<<Mesh.ARRAY_FORMAT_CUSTOM0_SHIFT)|(Mesh.ARRAY_CUSTOM_RGBA_FLOAT<<Mesh.ARRAY_FORMAT_CUSTOM1_SHIFT)
+   positions[i]=bind*positions[i];normals[i]=(bind.basis*normals[i]).normalized()
+   if not tangents.is_empty():
+    var t: Vector3=(bind.basis*Vector3(tangents[i*4],tangents[i*4+1],tangents[i*4+2])).normalized()
+    tangents[i*4]=t.x;tangents[i*4+1]=t.y;tangents[i*4+2]=t.z
+  arrays[Mesh.ARRAY_VERTEX]=positions;arrays[Mesh.ARRAY_NORMAL]=normals
+  if not tangents.is_empty():arrays[Mesh.ARRAY_TANGENT]=tangents
+  var original_indices: PackedInt32Array=arrays[Mesh.ARRAY_INDEX]
+  source_triangles+=original_indices.size()/3 if not original_indices.is_empty() else positions.size()/3
+  if not str(node.name).begins_with('Glass_'):arrays=_refine(arrays)
+  positions=arrays[Mesh.ARRAY_VERTEX]
+  var bones:=PackedInt32Array();var weights:=PackedFloat32Array()
+  for point_ in positions:
+   var uv: Vector2=uv_for(p,point_)*2
+   var u: int=mini(1,floori(uv.x));var v: int=mini(1,floori(uv.y));var a: float=uv.x-u;var b: float=uv.y-v
+   bones.append_array(PackedInt32Array([u*3+v,u*3+v+1,(u+1)*3+v,(u+1)*3+v+1]))
+   var w:=PackedFloat32Array([(1-a)*(1-b),(1-a)*b,a*(1-b),a*b]);weights.append_array(w)
+   panel_weight_error=maxf(panel_weight_error,absf(w[0]+w[1]+w[2]+w[3]-1))
+  arrays[Mesh.ARRAY_BONES]=bones;arrays[Mesh.ARRAY_WEIGHTS]=weights
+  if not str(node.name).begins_with('Glass_'):
+   var colors: PackedColorArray=arrays[Mesh.ARRAY_COLOR] if arrays[Mesh.ARRAY_COLOR]!=null else PackedColorArray()
+   if colors.is_empty():colors.resize(positions.size());colors.fill(Color.WHITE)
+   var uv2:=PackedVector2Array()
+   for i in positions.size():
+    colors[i].a=smoothstep(.86,1.08,positions[i].y)*(.75 if positions[i].y>1.5 else 1.0)
+    uv2.append(Vector2(positions[i].x,positions[i].z))
+   arrays[Mesh.ARRAY_COLOR]=colors;arrays[Mesh.ARRAY_TEX_UV2]=uv2
+  var is_outer: bool=not str(node.name).begins_with('Glass_') and not str(node.name).ends_with('_1')
+  var flags:=0
+  if is_outer:
+   var rest_data:=PackedFloat32Array();var normal_data:=PackedFloat32Array()
+   var ns: PackedVector3Array=arrays[Mesh.ARRAY_NORMAL]
+   for i in positions.size():rest_data.append_array(PackedFloat32Array([positions[i].x,positions[i].y,positions[i].z,1]));normal_data.append_array(PackedFloat32Array([ns[i].x,ns[i].y,ns[i].z,0]))
+   arrays[Mesh.ARRAY_CUSTOM0]=rest_data;arrays[Mesh.ARRAY_CUSTOM1]=normal_data
+   flags=(Mesh.ARRAY_CUSTOM_RGBA_FLOAT<<Mesh.ARRAY_FORMAT_CUSTOM0_SHIFT)|(Mesh.ARRAY_CUSTOM_RGBA_FLOAT<<Mesh.ARRAY_FORMAT_CUSTOM1_SHIFT)
+   rest_attribute_bytes+=(rest_data.size()+normal_data.size())*4
   mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},flags)
   var material: Material=source.surface_get_material(surface)
+  originals.append(material)
+  if not str(node.name).begins_with('Glass_'):
+   material=_damage_material(material,arrays[Mesh.ARRAY_COLOR]!=null,is_outer)
+   if is_outer:surface_materials.append(material)
+  created.append(material)
   mesh.surface_set_material(surface,material)
-  surface_materials.append(material)
- node.mesh=mesh
-
-func set_mode(value: int) -> void:
- super.set_mode(value)
- for material in surface_materials:
-  material.shader=LAYERS if mode!=3 and surface!=null and surface.enabled else (ghost_shader if mode==3 else shader)
-  material.set_shader_parameter('damage_enabled',mode==2 and detail_enabled and surface!=null and surface.enabled)
-  material.set_shader_parameter('view_mode',1 if mode==1 else 2)
- last_surface_revision=-1
- _upload_surface()
+  var indices: PackedInt32Array=arrays[Mesh.ARRAY_INDEX]
+  panel_triangles+=indices.size()/3 if not indices.is_empty() else positions.size()/3
+ node.reparent(body,false);node.transform=Transform3D.IDENTITY;node.mesh=mesh;node.skin=rig.skin;node.skeleton=node.get_path_to(rig.skeleton);node.extra_cull_margin=24
+ rig.meshes.append(node)
+ records.append({'node':node,'original_materials':originals,'materials':created,'folding':not str(node.name).begins_with('Glass_'),'panel_id':id})
 
 func update_pose() -> void:
  super.update_pose()
- _upload_surface()
+ if panel_system==null:return
+ panel_system.synchronize_inactive()
+ for id in panel_rigs:
+  var p: Dictionary=panel_system.find(id);var rig: Dictionary=panel_rigs[id]
+  for i in 10:
+   rig.skeleton.set_bone_pose_position(i,p.points[i])
+   rig.skeleton.set_bone_pose_rotation(i,(node_frame(p.points,i)*rig.frames[i].inverse()).get_rotation_quaternion())
+  rig.skeleton.force_update_all_bone_transforms()
+  for mesh in rig.meshes:mesh.visible=mode!=0
 
-func _upload_surface() -> void:
- if surface==null or last_surface_revision==surface.revision:return
- var centers:=PackedVector3Array();var radii:=PackedVector3Array();var directions:=PackedVector3Array();var strengths:=PackedFloat32Array()
- centers.resize(8);radii.resize(8);directions.resize(8);strengths.resize(8);radii.fill(Vector3.ONE)
- for index in surface.marks.size():
-  var mark: Dictionary=surface.marks[index]
-  centers[index]=mark.center;radii[index]=mark.radii;directions[index]=mark.direction;strengths[index]=mark.strength
- var heights:=PackedFloat32Array();var widths:=PackedFloat32Array()
- for value in solver.config.station_top_y:heights.append(value)
- for value in solver.config.station_half_width:widths.append(value)
- for material in surface_materials:
-  for key in surface.parameters:
-   var value: Variant=surface.parameters[key]
-   if key.ends_with('_color'):value=Color(str(value)).srgb_to_linear()
-   material.set_shader_parameter(key,value)
-  material.set_shader_parameter('impact_center',Vector3.ZERO)
-  material.set_shader_parameter('mark_count',surface.marks.size())
-  material.set_shader_parameter('mark_centers',centers);material.set_shader_parameter('mark_radii',radii)
-  material.set_shader_parameter('mark_directions',directions);material.set_shader_parameter('mark_strengths',strengths)
-  material.set_shader_parameter('node_damage',surface.damage);material.set_shader_parameter('node_contact',surface.contact);material.set_shader_parameter('node_compression',surface.compression)
-  material.set_shader_parameter('section_height',heights);material.set_shader_parameter('section_width',widths)
- last_surface_revision=surface.revision
-
-func _refine(arrays: Array) -> Array:
- # Targeted longest-edge subdivision at load time, preserving UVs and topology.
- var vp: PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
- var np: PackedVector3Array=arrays[Mesh.ARRAY_NORMAL]
- var uv: PackedVector2Array=arrays[Mesh.ARRAY_TEX_UV] if arrays[Mesh.ARRAY_TEX_UV]!=null else PackedVector2Array()
- var cp: PackedColorArray=arrays[Mesh.ARRAY_COLOR] if arrays[Mesh.ARRAY_COLOR]!=null else PackedColorArray()
- var tp: PackedFloat32Array=arrays[Mesh.ARRAY_TANGENT] if arrays[Mesh.ARRAY_TANGENT]!=null else PackedFloat32Array()
- var idx: PackedInt32Array=arrays[Mesh.ARRAY_INDEX]
- if idx.is_empty():
-  for i in vp.size():idx.append(i)
- var out:=PackedInt32Array()
- var cache: Dictionary={}
- for triangle in idx.size()/3:
-  var stack: Array=[[idx[triangle*3],idx[triangle*3+1],idx[triangle*3+2],0]]
-  while not stack.is_empty():
-   var t: Array=stack.pop_back()
-   var a: int=t[0];var b: int=t[1];var c: int=t[2];var depth: int=t[3]
-   var centre: Vector3=(vp[a]+vp[b]+vp[c])/3
-   var eligible: bool=centre.y>0.82 and centre.x>-1.55
-   var lengths: Array=[vp[a].distance_squared_to(vp[b]),vp[b].distance_squared_to(vp[c]),vp[c].distance_squared_to(vp[a])]
-   var longest: int=0
-   if lengths[1]>lengths[longest]:longest=1
-   if lengths[2]>lengths[longest]:longest=2
-   if not eligible or lengths[longest]<0.005625 or depth>=7:
-    out.append_array(PackedInt32Array([a,b,c]))
-    continue
-   var edges: Array=[[a,b,c],[b,c,a],[c,a,b]]
-   var e: Array=edges[longest]
-   var u: int=e[0];var v: int=e[1];var w: int=e[2]
-   var key: String=str(mini(u,v))+'_'+str(maxi(u,v))
-   var midpoint: int
-   if cache.has(key):
-    midpoint=cache[key]
-   else:
-    midpoint=vp.size()
-    cache[key]=midpoint
-    vp.append((vp[u]+vp[v])*0.5)
-    np.append((np[u]+np[v]).normalized())
-    if not uv.is_empty():uv.append((uv[u]+uv[v])*0.5)
-    if not cp.is_empty():cp.append(cp[u].lerp(cp[v],0.5))
-    if not tp.is_empty():
-     var tan: Vector3=(Vector3(tp[u*4],tp[u*4+1],tp[u*4+2])+Vector3(tp[v*4],tp[v*4+1],tp[v*4+2])).normalized()
-     tp.append_array(PackedFloat32Array([tan.x,tan.y,tan.z,tp[u*4+3]]))
-   stack.append([u,midpoint,w,depth+1])
-   stack.append([midpoint,v,w,depth+1])
- arrays[Mesh.ARRAY_VERTEX]=vp
- arrays[Mesh.ARRAY_NORMAL]=np
- arrays[Mesh.ARRAY_INDEX]=out
- if not uv.is_empty():arrays[Mesh.ARRAY_TEX_UV]=uv
- if not cp.is_empty():arrays[Mesh.ARRAY_COLOR]=cp
- if not tp.is_empty():arrays[Mesh.ARRAY_TANGENT]=tp
- return arrays
+func panel_quality() -> Dictionary:
+ var error:=0.0
+ for id in panel_rigs:
+  var p: Dictionary=panel_system.find(id);var rig: Dictionary=panel_rigs[id]
+  for i in 10:error=maxf(error,(rig.skeleton.global_transform*rig.skeleton.get_bone_global_pose(i).origin).distance_to(p.points[i]))
+ return {'max_anchor_error_m':error,'max_weight_error':panel_weight_error,'panel_triangles':panel_triangles,'source_panel_triangles':source_triangles,'panel_bones':panel_rigs.size()*10,'mesh_rebuilds_during_simulation':mesh_rebuilds,'glass_uses_panel_skeleton':panel_rigs.door_left.meshes.any(func(mesh):return str(mesh.name)=='Glass_Door_Left')}

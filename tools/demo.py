@@ -36,7 +36,7 @@ def run(command):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena', 'capture-surfaces', 'damage-studio', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'drive-sequence', 'arena', 'capture-driving', 'capture', 'import', 'check'))
+    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena', 'verify-bake-assets', 'verify-roof-landings', 'capture-surfaces', 'damage-studio', 'bake', 'index-bakes', 'baked', 'baked-3d', 'capture-baked', 'drive', 'drive-sequence', 'arena', 'capture-driving', 'capture', 'import', 'check'))
     parser.add_argument('--godot', help='Godot executable, or set GODOT_BIN')
     parser.add_argument('--no-import', action='store_true', help='Skip import after the first successful run')
     args = parser.parse_args()
@@ -53,7 +53,7 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--editor', '--import', '--quit'])
     if args.command == 'import':
         return
-    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena'):
+    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena', 'verify-bake-assets', 'verify-roof-landings'):
         import json
         if args.command == 'verify':
             run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
@@ -141,6 +141,11 @@ def main():
             if not report['passed']:
                 raise SystemExit('Arena driving/contact checks failed')
             print('PASS: arena contact surfaces, jump landings, paired ramps, wheel retention and ring boundary.')
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://arena/verify_parity.gd'])
+        if args.command in ('verify', 'verify-roof-landings'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://tests/roof_landing/verify.gd'])
+        if args.command in ('verify', 'verify-bake-assets'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://tests/panels/verify_recorded_bank.gd', '--', '--expect-count=132'])
     elif args.command == 'damage-studio':
         run([binary, '--path', str(ROOT), '--resolution', '1600x1000', 'res://probes/damage_studio/studio.tscn'])
     elif args.command == 'capture-surfaces':
@@ -159,6 +164,8 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/bake_frontal_clip.gd', '--', '--index-only'])
     elif args.command == 'baked':
         run([binary, '--path', str(ROOT), 'res://baked_probe.tscn'])
+    elif args.command == 'baked-3d':
+        run([binary, '--path', str(ROOT), 'res://multiaxis_crash_viewer.tscn'])
     elif args.command == 'capture-baked':
         run([binary, '--path', str(ROOT), '--script', 'res://scripts/capture_baked.gd', '--', '--capture-baked'])
     elif args.command in ('drive', 'drive-sequence'):

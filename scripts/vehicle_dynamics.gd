@@ -77,7 +77,7 @@ func step(dt: float) -> void:
   w.spin_speed=move_toward(w.spin_speed,0,brake_torque*dt/w.inertia_spin)
  # External aerodynamic drag, distributed by mass without an extra chassis.
  var drag: Vector3=-velocity*velocity.length()*float(parameters.aero_drag_n_per_mps2)
- var acceleration: Vector3=drag/float(g.config.mass_kg)
+ var acceleration: Vector3=drag/maxf(.001,g.body_mass_kg if g.panels_runtime_enabled else float(g.config.mass_kg))
  for i in g.velocities.size():
   if g.wheels.by_node.has(i) and g.wheels.wheels[g.wheels.by_node[i]].detached:continue
   g.velocities[i]+=acceleration*dt
