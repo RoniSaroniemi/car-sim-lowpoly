@@ -67,5 +67,6 @@ func _run() -> void:
  var start: int=Time.get_ticks_usec()
  for frame in 1000:car._contact_event(1./120)
  check_('clear_road_cost',car.solver.step_count==0 and car.forecast.checks==0 and car.contact_sensor.actual_sweeps==0,{'us_per_query':(Time.get_ticks_usec()-start)/1000.0,'sensor':car.contact_sensor.statistics()})
+ DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path('res://verification/partial_coverage'))
  FileAccess.open('res://verification/partial_coverage/controls.json',FileAccess.WRITE).store_string(JSON.stringify(checks,'\t'))
  quit(0 if checks.all(func(row):return row.passed) else 1)

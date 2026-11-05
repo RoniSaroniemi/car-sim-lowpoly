@@ -146,6 +146,7 @@ func _choose_speed_bin(signature: Dictionary,coverage: Dictionary={}) -> Diction
  if (motion-normal*motion.dot(normal)).length()>maxf(4.0,float(signature.closing_speed_mps)*.65):return {'accepted':false}
  var nearest_speed:=0.0;var distance:=INF
  for clip in bake_library:
+  if clip.metadata.has('contact_coverage'):continue
   if not clip._input_compatibility.compatible:continue
   var difference: float=absf(float(clip.metadata.speed_kmh)-speed)
   if difference<distance:distance=difference;nearest_speed=float(clip.metadata.speed_kmh)
@@ -155,7 +156,7 @@ func _choose_speed_bin(signature: Dictionary,coverage: Dictionary={}) -> Diction
  normalized.incident_impulse_proxy_ns*=nearest_speed/speed
  var subset: Array=[];var indices: Array=[]
  for i in bake_library.size():
-  if float(bake_library[i].metadata.speed_kmh)==nearest_speed and bake_library[i]._input_compatibility.compatible:
+  if not bake_library[i].metadata.has('contact_coverage') and float(bake_library[i].metadata.speed_kmh)==nearest_speed and bake_library[i]._input_compatibility.compatible:
    subset.append(bake_library[i]);indices.append(i)
  var result: Dictionary=impact_grid.choose(normalized,subset)
  if result.accepted:
