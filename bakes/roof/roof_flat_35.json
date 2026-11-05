@@ -1,0 +1,210 @@
+{
+	"clip_bytes": 1137152,
+	"contact_rotation_xyzw": [
+		1.0,
+		0.0,
+		0.0,
+		0.0
+	],
+	"contact_velocity_normalized": true,
+	"duration_s": 2.5,
+	"family": "roof_floor",
+	"first_body_floor_gap_m": 0.0,
+	"fixture_case": "roof_flat",
+	"fixture_descriptor": {
+		"barrier_enabled": false,
+		"case": "roof_flat",
+		"clearance_m": 1.0,
+		"family": "roof_floor",
+		"flat_floor_y": 0.0,
+		"initial_velocity_mps": [
+			0.0,
+			-9.72222232818604,
+			0.0
+		],
+		"material_profile": "niva_multiaxis_v1",
+		"material_profile_version": 1,
+		"roof_start_x": -12.0,
+		"rotation_xyzw": [
+			1.0,
+			0.0,
+			0.0,
+			-0.0000000437113882867379
+		],
+		"scope": "Initial pose/loading descriptor. Actual contact speed must be measured or normalized separately when baking.",
+		"version": 1,
+		"wall_start_offset_x": -5.0
+	},
+	"frame_count": 301,
+	"full_solver_steps": 4988,
+	"grid": [
+		5,
+		3,
+		3
+	],
+	"heading_deg": 0.0,
+	"id": "roof_flat_35",
+	"input_sha256": {
+		"assets/Niva_2121_LOD0.glb": "930f43ec759d404f642b7ec4da8adc5ea65ca99fa14da58c14366dee5a7815ae",
+		"scripts/airbag_cloth.gd": "ae455bb462a03b1a620d59884a60b0907dd0c40891e3257ce5d8ad68422e2e59",
+		"scripts/baked_crash_clip.gd": "521bff00337f9a935f702e1667b0d9af12cb76a64734aaf07cbdf5a5bfa9a825",
+		"scripts/body_impact_fixture.gd": "a696bf1a571702a9ae20901a10c5348243f703cea49d497fbe090a113a70e7f7",
+		"scripts/car_attachment.gd": "e495ca186f97ff24166aafe0642a7433dbcbe2fad688cd7e010fd02bee4b49ac",
+		"scripts/collision_forecast.gd": "459be14469a1d5ec5b53329dbecb5161e98fa3f2aabbbbcf73846ea12d5a4523",
+		"scripts/compact_chassis.gd": "f052338c2af313abb904819c68d0f8a5bde8879c2239751c231ee323018fb377",
+		"scripts/glass_membrane.gd": "010e4e910ea38a63c436f5e8fcab1b38ef13aaa5c240f0943b401ed1fa49e955",
+		"scripts/impact_zone_grid.gd": "263d65e77cf16dc60ef83e15058a30c8729a731b140fb9169840dbc8d0a0be8f",
+		"scripts/interior_geometry.gd": "1cead661328bc369bebebcd62d48142f67d6c85d6428e7c6f00ad0439f81b7c6",
+		"scripts/interior_seat.gd": "d97179d58f7545a7778ca344c5bedd9c30d11efe659be24c12eb99730be0fcda",
+		"scripts/roof_crash_recorder.gd": "d885afc865b5fb3f84db517f59198805d9b818aec8df18886a8d078f97256cf1",
+		"scripts/structure_solver.gd": "53b979c1060bd2f0d5a2e24b1ecb9fec2f68058b911f92a7c6688d4ae010f1e8",
+		"scripts/vehicle_dynamics.gd": "8d2cdf2296e38d3d8aefd6358fbe6c5acd807bdb431e87d41e9dd51cd55c923a",
+		"scripts/vehicle_effects.gd": "bcfd8aa7b7a0fea3d826a6ffac809dfdf05fef48346e162de7d0af316f737162",
+		"scripts/vehicle_glass.gd": "02e76e32895c33fffcb587a82659389c1a3ac186cfb28b2bef69dc961c6586c3",
+		"scripts/vehicle_glass.gdshader": "0156c0f149c61777fb9dcc066ef8466980c56ade17a266ad00ca4a23e8e835e3",
+		"scripts/vehicle_glass_visual.gd": "c644ca29f468eba9c00fc0abc5b017df2d4c4de07737cc51f1da6c4badc5cb00",
+		"scripts/vehicle_interior.gd": "d4785667011643a3207c1bf909bc434a41509c2dbdd9c116b6f427a3cdad81c3",
+		"scripts/vehicle_interior_visual.gd": "b6fa3319c61e498786b574609431e24cfb18c9d3de87372df418de1e2e616467",
+		"scripts/vehicle_simulation.gd": "cf520969fe44f836d8c59874cb71ca32f4ff9ee461dde3a6b785a97287f63d04",
+		"scripts/wheel_physics.gd": "e40251996a9acaf7632a31f0bbc623fb4f0353fc76dec5c295a337ad131daa62",
+		"structure.json": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+		"structures/niva_multiaxis_live.json": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+		"vehicles/niva.json": "8f1b39489ac889e93ae76b6b46fe1bf2f384882bc6b2fccfe0285ea1b94c533e",
+		"vehicles/niva_glass.json": "a77749c52288531e630b02b9cdf93bbae0a88b04e135c06e53a0d4b73b8e244f",
+		"vehicles/niva_interior.json": "0a50ff6ccb9d2f1f695f5596ba1bdffe26549586d0313e8d2618c3a47553e358"
+	},
+	"launch_mode": "roof_body_floor_drop",
+	"material_profile": "niva_multiaxis_v1",
+	"material_profile_version": 1.0,
+	"origin": [
+		-12.3999996185303,
+		0.634999752044678,
+		-0.000000119209289550781
+	],
+	"physics_hz": 1920,
+	"preparation_velocity_mps": [
+		-0.0000000242350441936878,
+		-10.6703729629517,
+		-0.00000150034873058758
+	],
+	"quality_multiplier": 4,
+	"record_cpu_ms": 15503.856,
+	"sample_hz": 120,
+	"scope": "Full live roof/floor authoring with non-wheel body-sphere contact boundary, requested normal contact speed, full3D car frame, promoted materials, body/wheel/effects states. Impulse/energy/history fields are incident proxies, not calibrated contact reaction measurements.",
+	"signature": {
+		"closing_speed_mps": 9.72222232818604,
+		"contact_source": "non_wheel_body_floor_probes",
+		"grid": [
+			5,
+			3,
+			3
+		],
+		"hit_nodes": [
+			6,
+			7,
+			28,
+			29
+		],
+		"incident_energy_proxy_j": 57185.5722342009,
+		"incident_impulse_proxy_ns": 11763.8890171051,
+		"normal": [
+			0.0,
+			-1.0,
+			0.0
+		],
+		"velocity": [
+			-0.0000000242350441936878,
+			-9.72222232818604,
+			-0.00000150034873058758
+		],
+		"world_normal": [
+			0,
+			1,
+			0
+		],
+		"zones": [
+			{
+				"id": 6,
+				"incident_energy_proxy_j": 23920.7623000002,
+				"incident_impulse_proxy_ns": 4920.84247665283,
+				"weight": 0.418300654613262
+			},
+			{
+				"id": 8,
+				"incident_energy_proxy_j": 23920.7623000002,
+				"incident_impulse_proxy_ns": 4920.84247665283,
+				"weight": 0.418300654613262
+			},
+			{
+				"id": 24,
+				"incident_energy_proxy_j": 4672.02381710021,
+				"incident_impulse_proxy_ns": 961.10203189972,
+				"weight": 0.0816993453867377
+			},
+			{
+				"id": 26,
+				"incident_energy_proxy_j": 4672.02381710021,
+				"incident_impulse_proxy_ns": 961.10203189972,
+				"weight": 0.0816993453867377
+			}
+		]
+	},
+	"speed_kmh": 35.0,
+	"structure_sha256": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+	"version": 3,
+	"wheel_solver_sha256": "e40251996a9acaf7632a31f0bbc623fb4f0353fc76dec5c295a337ad131daa62",
+	"zone_contact_history": {
+		"15": {
+			"contact_substeps": 434,
+			"nodal_momentum_loss_proxy_ns": 318.893642770727
+		},
+		"17": {
+			"contact_substeps": 524,
+			"nodal_momentum_loss_proxy_ns": 341.533391237689
+		},
+		"24": {
+			"contact_substeps": 2721,
+			"nodal_momentum_loss_proxy_ns": 38.0471255275188
+		},
+		"26": {
+			"contact_substeps": 2327,
+			"nodal_momentum_loss_proxy_ns": 38.7976592726773
+		},
+		"30": {
+			"contact_substeps": 37,
+			"nodal_momentum_loss_proxy_ns": 34.5303719937801
+		},
+		"31": {
+			"contact_substeps": 8,
+			"nodal_momentum_loss_proxy_ns": 266.355605805293
+		},
+		"32": {
+			"contact_substeps": 22,
+			"nodal_momentum_loss_proxy_ns": 32.6635633707047
+		},
+		"33": {
+			"contact_substeps": 137,
+			"nodal_momentum_loss_proxy_ns": 30.4303320450708
+		},
+		"35": {
+			"contact_substeps": 84,
+			"nodal_momentum_loss_proxy_ns": 34.810643568635
+		},
+		"39": {
+			"contact_substeps": 1528,
+			"nodal_momentum_loss_proxy_ns": 89.6992968213308
+		},
+		"41": {
+			"contact_substeps": 1461,
+			"nodal_momentum_loss_proxy_ns": 88.9040148179047
+		},
+		"6": {
+			"contact_substeps": 82,
+			"nodal_momentum_loss_proxy_ns": 126.968108352544
+		},
+		"8": {
+			"contact_substeps": 82,
+			"nodal_momentum_loss_proxy_ns": 126.968425544626
+		}
+	}
+}

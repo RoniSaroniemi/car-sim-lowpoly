@@ -16,6 +16,9 @@ static func specifications(three_only: bool=false) -> Array:
    for angle in range(0,360,30):
     if speed==120 and angle==0:continue
     cases.append({'angle':wrapf(angle,-180,180),'speed':speed})
+  # Settled low-speed suspension rotates the 60° contact frame slightly.
+  # Record the observed 75° coverage gap while preserving the zone/angle gates.
+  cases.append({'angle':75.0,'speed':60.0})
  return cases
 static func case_path(angle: float,speed: float=120) -> String:return 'res://bakes/'+case_id(angle,speed)+'.crashclip'
 static func read_library() -> Array:
@@ -44,7 +47,7 @@ static func write_catalog() -> void:
    records.append({'id':meta.id,'path':'res://bakes/'+meta.id+'.crashclip','heading_deg':meta.heading_deg,'speed_kmh':meta.speed_kmh,'contact_speed_mps':meta.signature.closing_speed_mps,'frames':meta.frame_count,'duration_s':meta.duration_s,'bytes':meta.clip_bytes,'zones':meta.signature.zones})
  FileAccess.open('res://bakes/library.json',FileAccess.WRITE).store_string(JSON.stringify({'version':1,'records':records},'\t'))
 
-static func save(data: Dictionary,path: String='') -> void:
+static func save(data: Dictionary,path: String='',update_catalog: bool=true) -> void:
  if path=='':path='res://bakes/'+str(data.metadata.id)+'.crashclip'
  DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
  var file:=FileAccess.open_compressed(path,FileAccess.WRITE,FileAccess.COMPRESSION_ZSTD)
@@ -55,7 +58,7 @@ static func save(data: Dictionary,path: String='') -> void:
  metadata['frame_count']=data.frames.size()
  metadata['clip_bytes']=FileAccess.get_file_as_bytes(path).size()
  FileAccess.open(path.get_basename()+'.json',FileAccess.WRITE).store_string(JSON.stringify(metadata,'\t'))
- write_catalog()
+ if update_catalog:write_catalog()
 
 static func read(path: String=PATH) -> Dictionary:
  if not FileAccess.file_exists(path):return {}
@@ -94,4 +97,5 @@ static func apply(g: RefCounted,data: Dictionary,time: float,origin: Vector3,rot
   state.wheels[i].angular_velocity=rotation*a.wheels[i].angular_velocity.lerp(b.wheels[i].angular_velocity,t)
   state.wheels[i].spin=lerp_angle(a.wheels[i].spin,b.wheels[i].spin,t)
  state.time=lerpf(a.time,b.time,t)
- g.restore(state)
+ g.restore(state,false)
+ if g.effects!=null:g.effects.restore_interpolated(a.get('effects',{}),b.get('effects',{}),t)

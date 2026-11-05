@@ -36,7 +36,7 @@ def run(command):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'capture-driving', 'capture', 'import', 'check'))
+    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'drive-sequence', 'capture-driving', 'capture', 'import', 'check'))
     parser.add_argument('--godot', help='Godot executable, or set GODOT_BIN')
     parser.add_argument('--no-import', action='store_true', help='Skip import after the first successful run')
     args = parser.parse_args()
@@ -53,7 +53,7 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--editor', '--import', '--quit'])
     if args.command == 'import':
         return
-    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes'):
+    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof'):
         import json
         if args.command == 'verify':
             run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
@@ -114,6 +114,21 @@ def main():
             if not report['passed']:
                 raise SystemExit('Driving bake integration checks failed')
             print('PASS: real driving triggers, continuous live/baked handoff, zero-forecast rigid recovery, live tuning, reset and fallback paths.')
+        if args.command in ('verify', 'verify-effects'):
+            for script in ('verify_vehicle_glass', 'verify_vehicle_interior'):
+                run([binary, '--headless', '--path', str(ROOT), '--script', f'res://scripts/{script}.gd'])
+            print('PASS: live/baked retained glass, fragment motion, seat hinges and optional airbag.')
+        if args.command in ('verify', 'verify-sequence'):
+            for script in ('verify_baked_contact_sensor', 'verify_conditioned_transitions',
+                           'verify_conditioned_bank', 'verify_sandbox_sequence'):
+                run([binary, '--headless', '--path', str(ROOT), '--script', f'res://scripts/{script}.gd'])
+            print('PASS: sensitive contact, compatible damaged-state transitions and three sandbox impacts without live solves.')
+        if args.command in ('verify', 'verify-quality'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_quality_smoke.gd'])
+            if args.command == 'verify-quality':
+                run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_authoring_quality.gd'])
+        if args.command in ('verify', 'verify-roof'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_roof_bank.gd'])
     elif args.command == 'bake':
         run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/bake_frontal_clip.gd'])
     elif args.command == 'index-bakes':
@@ -122,8 +137,11 @@ def main():
         run([binary, '--path', str(ROOT), 'res://baked_probe.tscn'])
     elif args.command == 'capture-baked':
         run([binary, '--path', str(ROOT), '--script', 'res://scripts/capture_baked.gd', '--', '--capture-baked'])
-    elif args.command == 'drive':
-        run([binary, '--path', str(ROOT), 'res://driving.tscn'])
+    elif args.command in ('drive', 'drive-sequence'):
+        command = [binary, '--path', str(ROOT), 'res://driving.tscn']
+        if args.command == 'drive-sequence':
+            command += ['--', '--baked-sequence']
+        run(command)
     elif args.command == 'capture-driving':
         run([binary, '--path', str(ROOT), '--script', 'res://scripts/capture_driving.gd', '--', '--capture-driving'])
     elif args.command == 'capture':

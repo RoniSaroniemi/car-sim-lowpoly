@@ -1,0 +1,129 @@
+{
+	"family": "roof_floor",
+	"records": [
+		{
+			"contact_rotation_xyzw": [
+				0.976382672786713,
+				0.1285430341959,
+				-0.0226658042520285,
+				-0.172162383794785
+			],
+			"family": "roof_floor",
+			"id": "roof_corner_35",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/roof/roof_corner_35.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 9.72222232818604,
+				"contact_source": "non_wheel_body_floor_probes",
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"hit_nodes": [
+					6.0
+				],
+				"incident_energy_proxy_j": 57185.5722342009,
+				"incident_impulse_proxy_ns": 11763.8890171051,
+				"normal": [
+					0.258818775415421,
+					-0.90767365694046,
+					0.330365657806396
+				],
+				"velocity": [
+					2.99926781654358,
+					-9.72222232818604,
+					-0.00003834771268884
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 6.0,
+						"incident_energy_proxy_j": 57185.5722342009,
+						"incident_impulse_proxy_ns": 11763.8890171051,
+						"weight": 1.0
+					}
+				]
+			},
+			"speed_kmh": 35.0
+		},
+		{
+			"contact_rotation_xyzw": [
+				1.0,
+				0.0,
+				0.0,
+				0.0
+			],
+			"family": "roof_floor",
+			"id": "roof_flat_35",
+			"material_profile": "niva_multiaxis_v1",
+			"path": "res://bakes/roof/roof_flat_35.crashclip",
+			"physics_hz": 1920.0,
+			"signature": {
+				"closing_speed_mps": 9.72222232818604,
+				"contact_source": "non_wheel_body_floor_probes",
+				"grid": [
+					5.0,
+					3.0,
+					3.0
+				],
+				"hit_nodes": [
+					6.0,
+					7.0,
+					28.0,
+					29.0
+				],
+				"incident_energy_proxy_j": 57185.5722342009,
+				"incident_impulse_proxy_ns": 11763.8890171051,
+				"normal": [
+					0.0,
+					-1.0,
+					0.0
+				],
+				"velocity": [
+					-0.00000002423504419,
+					-9.72222232818604,
+					-0.00000150034873058
+				],
+				"world_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"zones": [
+					{
+						"id": 6.0,
+						"incident_energy_proxy_j": 23920.7623000002,
+						"incident_impulse_proxy_ns": 4920.84247665283,
+						"weight": 0.418300654613262
+					},
+					{
+						"id": 8.0,
+						"incident_energy_proxy_j": 23920.7623000002,
+						"incident_impulse_proxy_ns": 4920.84247665283,
+						"weight": 0.418300654613262
+					},
+					{
+						"id": 24.0,
+						"incident_energy_proxy_j": 4672.02381710021,
+						"incident_impulse_proxy_ns": 961.10203189972,
+						"weight": 0.0816993453867377
+					},
+					{
+						"id": 26.0,
+						"incident_energy_proxy_j": 4672.02381710021,
+						"incident_impulse_proxy_ns": 961.10203189972,
+						"weight": 0.0816993453867377
+					}
+				]
+			},
+			"speed_kmh": 35.0
+		}
+	],
+	"version": 1
+}

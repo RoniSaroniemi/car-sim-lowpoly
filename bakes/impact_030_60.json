@@ -1,9 +1,9 @@
 {
-	"clip_bytes": 754058,
+	"clip_bytes": 3006496,
 	"contact_velocity_normalized": true,
 	"duration_s": 2.5,
 	"frame_count": 301,
-	"full_solver_steps": 1410,
+	"full_solver_steps": 5643,
 	"grid": [
 		5,
 		3,
@@ -12,25 +12,41 @@
 	"heading_deg": 30.0,
 	"id": "impact_030_60",
 	"input_sha256": {
+		"assets/Niva_2121_LOD0.glb": "930f43ec759d404f642b7ec4da8adc5ea65ca99fa14da58c14366dee5a7815ae",
+		"scripts/airbag_cloth.gd": "ae455bb462a03b1a620d59884a60b0907dd0c40891e3257ce5d8ad68422e2e59",
+		"scripts/car_attachment.gd": "e495ca186f97ff24166aafe0642a7433dbcbe2fad688cd7e010fd02bee4b49ac",
 		"scripts/collision_forecast.gd": "459be14469a1d5ec5b53329dbecb5161e98fa3f2aabbbbcf73846ea12d5a4523",
 		"scripts/compact_chassis.gd": "f052338c2af313abb904819c68d0f8a5bde8879c2239751c231ee323018fb377",
-		"scripts/impact_zone_grid.gd": "5a0409da7a324e80a09882470c11cbdae4a252df1d2baaa80efdf7b3bdd27f4c",
-		"scripts/structure_solver.gd": "47294081e79bb8d78672cd8bc7b302ec3faea462e41066593f4c6bb0da345574",
+		"scripts/glass_membrane.gd": "010e4e910ea38a63c436f5e8fcab1b38ef13aaa5c240f0943b401ed1fa49e955",
+		"scripts/impact_zone_grid.gd": "263d65e77cf16dc60ef83e15058a30c8729a731b140fb9169840dbc8d0a0be8f",
+		"scripts/interior_geometry.gd": "1cead661328bc369bebebcd62d48142f67d6c85d6428e7c6f00ad0439f81b7c6",
+		"scripts/interior_seat.gd": "d97179d58f7545a7778ca344c5bedd9c30d11efe659be24c12eb99730be0fcda",
+		"scripts/structure_solver.gd": "53b979c1060bd2f0d5a2e24b1ecb9fec2f68058b911f92a7c6688d4ae010f1e8",
 		"scripts/vehicle_dynamics.gd": "8d2cdf2296e38d3d8aefd6358fbe6c5acd807bdb431e87d41e9dd51cd55c923a",
-		"scripts/vehicle_simulation.gd": "755f9cc7d23f4d7d16f3c766980b8f36228e2094b7cbe6ed93927808f478e3af",
-		"scripts/wheel_physics.gd": "04741f3228a0cbc27044f079f9a8eb464499549e0dc04672fd3e826410f2f663",
-		"structure.json": "aeeb02cc7380cd9173ce7d5cd79dc8c8c1dedc36e3db0d93386c0898bcf3d67e",
-		"vehicles/niva.json": "8f1b39489ac889e93ae76b6b46fe1bf2f384882bc6b2fccfe0285ea1b94c533e"
+		"scripts/vehicle_effects.gd": "bcfd8aa7b7a0fea3d826a6ffac809dfdf05fef48346e162de7d0af316f737162",
+		"scripts/vehicle_glass.gd": "02e76e32895c33fffcb587a82659389c1a3ac186cfb28b2bef69dc961c6586c3",
+		"scripts/vehicle_glass.gdshader": "0156c0f149c61777fb9dcc066ef8466980c56ade17a266ad00ca4a23e8e835e3",
+		"scripts/vehicle_glass_visual.gd": "c644ca29f468eba9c00fc0abc5b017df2d4c4de07737cc51f1da6c4badc5cb00",
+		"scripts/vehicle_interior.gd": "d4785667011643a3207c1bf909bc434a41509c2dbdd9c116b6f427a3cdad81c3",
+		"scripts/vehicle_interior_visual.gd": "b6fa3319c61e498786b574609431e24cfb18c9d3de87372df418de1e2e616467",
+		"scripts/vehicle_simulation.gd": "cf520969fe44f836d8c59874cb71ca32f4ff9ee461dde3a6b785a97287f63d04",
+		"scripts/wheel_physics.gd": "e40251996a9acaf7632a31f0bbc623fb4f0353fc76dec5c295a337ad131daa62",
+		"structure.json": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+		"vehicles/niva.json": "8f1b39489ac889e93ae76b6b46fe1bf2f384882bc6b2fccfe0285ea1b94c533e",
+		"vehicles/niva_glass.json": "a77749c52288531e630b02b9cdf93bbae0a88b04e135c06e53a0d4b73b8e244f",
+		"vehicles/niva_interior.json": "0a50ff6ccb9d2f1f695f5596ba1bdffe26549586d0313e8d2618c3a47553e358"
 	},
 	"launch_mode": "wall_normal_slam",
+	"material_profile": "niva_multiaxis_v1",
 	"origin": [
-		-2.34173560142517,
-		1.16542208194733,
-		-0.317231059074402
+		-2.34374952316284,
+		1.16257679462433,
+		-0.327074855566025
 	],
-	"physics_hz": 480,
-	"preparation_speed_mps": 15.4691963195801,
-	"record_cpu_ms": 4686.178,
+	"physics_hz": 1920,
+	"preparation_speed_mps": 15.3874979019165,
+	"quality_multiplier": 4,
+	"record_cpu_ms": 29722.121,
 	"sample_hz": 120,
 	"scope": "Frontal or oblique car heading into a fixed flat barrier; symmetry is disabled for oblique cases. Incident severity and nodal momentum-loss values are proxies, not calibrated contact-force measurements. Frames include root motion, damage and wheel states.",
 	"signature": {
@@ -47,9 +63,9 @@
 		"incident_energy_proxy_j": 168055.542733934,
 		"incident_impulse_proxy_ns": 20166.6658973694,
 		"normal": [
-			-0.871208369731903,
+			-0.87387079000473,
 			0.0,
-			-0.490913420915604
+			-0.486158221960068
 		],
 		"velocity": [
 			16.6666660308838,
@@ -77,41 +93,41 @@
 		]
 	},
 	"speed_kmh": 60.0,
-	"structure_sha256": "aeeb02cc7380cd9173ce7d5cd79dc8c8c1dedc36e3db0d93386c0898bcf3d67e",
-	"version": 2,
-	"wheel_solver_sha256": "04741f3228a0cbc27044f079f9a8eb464499549e0dc04672fd3e826410f2f663",
+	"structure_sha256": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+	"version": 3,
+	"wheel_solver_sha256": "e40251996a9acaf7632a31f0bbc623fb4f0353fc76dec5c295a337ad131daa62",
 	"zone_contact_history": {
 		"29": {
-			"contact_substeps": 44,
-			"nodal_momentum_loss_proxy_ns": 961.99645151943
+			"contact_substeps": 115,
+			"nodal_momentum_loss_proxy_ns": 736.39423743356
 		},
 		"31": {
-			"contact_substeps": 28,
-			"nodal_momentum_loss_proxy_ns": 396.680118627846
+			"contact_substeps": 96,
+			"nodal_momentum_loss_proxy_ns": 365.719079746559
 		},
 		"32": {
-			"contact_substeps": 27,
-			"nodal_momentum_loss_proxy_ns": 44.427222520113
+			"contact_substeps": 284,
+			"nodal_momentum_loss_proxy_ns": 76.1999503672123
 		},
 		"36": {
-			"contact_substeps": 36,
-			"nodal_momentum_loss_proxy_ns": 195.760343432426
+			"contact_substeps": 145,
+			"nodal_momentum_loss_proxy_ns": 239.201058298349
 		},
 		"38": {
-			"contact_substeps": 125,
-			"nodal_momentum_loss_proxy_ns": 868.705219646101
+			"contact_substeps": 569,
+			"nodal_momentum_loss_proxy_ns": 862.507098940361
 		},
 		"39": {
-			"contact_substeps": 42,
-			"nodal_momentum_loss_proxy_ns": 43.7911104261875
+			"contact_substeps": 159,
+			"nodal_momentum_loss_proxy_ns": 22.2744712010026
 		},
 		"40": {
-			"contact_substeps": 14,
-			"nodal_momentum_loss_proxy_ns": 604.911836758256
+			"contact_substeps": 34,
+			"nodal_momentum_loss_proxy_ns": 584.557988354936
 		},
 		"41": {
-			"contact_substeps": 85,
-			"nodal_momentum_loss_proxy_ns": 104.489528097212
+			"contact_substeps": 393,
+			"nodal_momentum_loss_proxy_ns": 105.642492287559
 		}
 	}
 }

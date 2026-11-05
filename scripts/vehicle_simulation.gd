@@ -5,6 +5,7 @@ const Structure=preload('res://scripts/structure_solver.gd')
 const Dynamics=preload('res://scripts/vehicle_dynamics.gd')
 const Compact=preload('res://scripts/compact_chassis.gd')
 const Forecast=preload('res://scripts/collision_forecast.gd')
+const Effects=preload('res://scripts/vehicle_effects.gd')
 var solver: RefCounted
 var dynamics: RefCounted
 var profile: Dictionary
@@ -51,6 +52,8 @@ func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=
  profile=JSON.parse_string(FileAccess.get_file_as_string(profile_path))
  solver=Structure.new()
  solver.setup(profile.structure)
+ solver.effects=Effects.new()
+ solver.effects.setup(solver,profile.get('effects',{}))
  driving=enable_driving
  dynamics=Dynamics.new()
  dynamics.setup(solver,profile.dynamics)
@@ -88,6 +91,13 @@ func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false)
  full_minimum_until=0;forecast_clear_time=0;contact_since_wake=false;wake_plastic_work=0;last_wake_reason=''
  forecast.checks=0
  last_prediction={}
+
+func set_simulation_quality(multiplier: int=1) -> void:
+ var factor: int=multiplier if multiplier in [1,2,4] else 1
+ solver.config['simulation_quality_multiplier']=factor
+ solver.config.fixed_step_s=1.0/(480.0*factor)
+ for link in solver.links:
+  link.damping_fraction=1-exp(-link.damping_ns_per_m*link.weight_sum*float(solver.config.fixed_step_s))
 
 func set_controls(throttle: float,brake: float,steering: float,handbrake: float=0) -> void:
  dynamics.set_controls(throttle,brake,steering,handbrake)
@@ -164,12 +174,14 @@ func advance(elapsed: float,time_scale: float=1.0) -> void:
    while remaining>fine*.5:
     if driving:dynamics.step(fine)
     solver.step(fine)
+    solver.effects.step_live(fine)
     full_steps+=1;full_seconds+=fine
     remaining-=fine
    full_cpu_us+=Time.get_ticks_usec()-began
   elif mode=='DRIVE':
    if driving:dynamics.step(h)
    compact.step(h)
+   solver.effects.step_live(h)
    drive_steps+=1;drive_seconds+=h
    if compact.wake_reason!='':_wake(compact.wake_reason)
    else:_try_sleep_drive(h)
@@ -178,11 +190,13 @@ func advance(elapsed: float,time_scale: float=1.0) -> void:
    if solver.wake_requested!='':_wake(solver.wake_requested)
    if driving:dynamics.step(h)
    solver.step(h)
+   solver.effects.step_live(h)
    full_steps+=1;full_seconds+=h
    _try_settle(h)
    full_cpu_us+=Time.get_ticks_usec()-began
   else:
    solver.simulated_time+=h
+   solver.effects.step_live(h)
    sleep_steps+=1;sleep_seconds+=h
    sleep_cpu_us+=Time.get_ticks_usec()-began
   accumulator=maxf(0,accumulator-h)

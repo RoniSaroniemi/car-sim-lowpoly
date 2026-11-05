@@ -1,7 +1,9 @@
 extends RefCounted
 const Vehicle=preload('res://scripts/vehicle_simulation.gd')
 const Zones=preload('res://scripts/impact_zone_grid.gd')
+const States=preload('res://scripts/conditioned_crash_transitions.gd')
 const Clip=preload('res://scripts/baked_crash_clip.gd')
+const Roof=preload('res://scripts/roof_crash_recorder.gd')
 var _owned_vehicle: RefCounted
 var _live_vehicle: WeakRef
 var vehicle: RefCounted:
@@ -32,6 +34,8 @@ var handoff_velocity_jump_mps:=0.0
 var wheel_spin_offsets:=PackedFloat64Array()
 var wheel_handoff_rotations: Array=[]
 var blend_seconds:=.10
+var persistent_free_wheels:=PackedInt32Array()
+var irreversible_initial: Dictionary={}
 
 func setup(clip_data: Dictionary) -> void:
  setup_library([clip_data],float(clip_data.metadata.get('heading_deg',0)),float(clip_data.metadata.speed_kmh))
@@ -68,6 +72,7 @@ func reset() -> void:
  for w in vehicle.solver.wheels.wheels:
   w.spin_speed=-speed*cos(deg_to_rad(approach_angle_deg))/w.radius
   w.spin=wrapf(w.spin-w.spin_speed*approach_distance/speed,-PI,PI)
+ persistent_free_wheels.clear();irreversible_initial={}
  state='APPROACH';time=0;incoming={};match_result={};full_steps=0;player_cpu_us=0;sample_count=0
  handoff_position_jump_m=0;pose_registration_error_m=0
  handoff_offsets.clear();handoff_velocity_offsets.clear();wheel_spin_offsets.clear();wheel_handoff_rotations.clear()
@@ -81,6 +86,8 @@ func attach_live(owner: RefCounted,clips: Array,signature: Dictionary,selection:
  time=0;state='REPLAY';full_steps=0;player_cpu_us=0;sample_count=0
  handoff_offsets.clear();handoff_velocity_offsets.clear();wheel_spin_offsets.clear();wheel_handoff_rotations.clear()
  handoff_position_jump_m=0;handoff_velocity_jump_mps=0;pose_registration_error_m=0
+ persistent_free_wheels=States.detached_wheel_indices(vehicle.solver)
+ irreversible_initial=vehicle.solver.capture()
  _begin_replay()
 
 func _begin_replay() -> void:
@@ -88,10 +95,16 @@ func _begin_replay() -> void:
  var before: PackedVector3Array=g.points.duplicate()
  var velocity_before: PackedVector3Array=g.velocities.duplicate()
  var wheel_before: Array=g.wheels.capture()
+ if g.effects!=null:g.effects.begin_playback(data.frames[0].get('effects',{}))
  # Register selected clip in the incoming car heading and contact anchor.
- var body_x: Vector3=grid.body_basis(g).x
- var actual_heading: float=rad_to_deg(atan2(-body_x.z,body_x.x))
- replay_rotation=Basis(Vector3.UP,deg_to_rad(actual_heading-float(data.metadata.heading_deg)))
+ if data.metadata.has('contact_rotation_xyzw'):
+  var q: Array=data.metadata.contact_rotation_xyzw
+  var recorded:=Basis(Quaternion(q[0],q[1],q[2],q[3]))
+  replay_rotation=Roof.full_chassis_basis(g)*recorded.transposed()
+ else:
+  var body_x: Vector3=grid.body_basis(g).x
+  var actual_heading: float=rad_to_deg(atan2(-body_x.z,body_x.x))
+  replay_rotation=Basis(Vector3.UP,deg_to_rad(actual_heading-float(data.metadata.heading_deg)))
  origin=g.station_center(2)
  Clip.apply(g,data,0,origin,replay_rotation)
  handoff_offsets.resize(g.points.size())
@@ -104,6 +117,13 @@ func _begin_replay() -> void:
   var w= g.wheels.wheels[i]
   wheel_spin_offsets.append(angle_difference(w.spin,wheel_before[i].spin))
   wheel_handoff_rotations.append(wheel_before[i].rotation)
+ if not persistent_free_wheels.is_empty():
+  var restored_wheels: Array=g.wheels.capture()
+  for index in persistent_free_wheels:
+   var node: int=g.wheels.wheels[index].node
+   g.points[node]=before[node];g.velocities[node]=velocity_before[node]
+   restored_wheels[index]=wheel_before[index]
+  g.wheels.restore(restored_wheels)
  apply_pose(0)
  for i in before.size():
   handoff_position_jump_m=maxf(handoff_position_jump_m,before[i].distance_to(g.points[i]))
@@ -111,6 +131,9 @@ func _begin_replay() -> void:
 
 func apply_pose(at_time: float) -> void:
  var g: RefCounted=vehicle.solver
+ var preserved: Dictionary={}
+ if not persistent_free_wheels.is_empty():
+  preserved={'wheels':g.wheels.capture(),'points':g.points.duplicate(),'velocities':g.velocities.duplicate()}
  Clip.apply(g,data,at_time,origin,replay_rotation)
  var s: float=clampf(at_time/blend_seconds,0,1)
  var weight: float=1-3*s*s+2*s*s*s
@@ -127,6 +150,29 @@ func apply_pose(at_time: float) -> void:
   var initial: Quaternion=(replay_rotation.get_rotation_quaternion()*data.frames[0].wheels[i].rotation).normalized()
   var correction: Quaternion=wheel_handoff_rotations[i]*initial.inverse()
   w.rotation=(Quaternion.IDENTITY.slerp(correction,weight)*w.rotation).normalized()
+
+ if not irreversible_initial.is_empty():States.irreversible_floor(g,irreversible_initial)
+ if not preserved.is_empty():
+  var wheel_state: Array=g.wheels.capture()
+  for index in persistent_free_wheels:
+   var node: int=g.wheels.wheels[index].node
+   g.points[node]=preserved.points[node];g.velocities[node]=preserved.velocities[node]
+   wheel_state[index]=preserved.wheels[index]
+  g.wheels.restore(wheel_state)
+
+func _advance_existing_free_wheels(dt: float) -> void:
+ if dt<1e-8:return
+ var g: RefCounted=vehicle.solver
+ for index in persistent_free_wheels:
+  var wheel=g.wheels.wheels[index];var node: int=wheel.node
+  g.wheels.predict_one(index,dt)
+  g.old_points[node]=g.points[node]
+  g.velocities[node].y-=float(g.config.gravity_mps2)*dt
+  g.points[node]+=g.velocities[node]*dt
+  g.contact_floor[node]=0;g.contact_wall[node]=0
+  for iteration in 3:g.wheels.contacts_one(index,dt,false)
+  g.velocities[node]=(g.points[node]-g.old_points[node])/dt
+  g.wheels.finish_one(index,dt)
 
 func advance(dt: float) -> void:
  if state in ['COMPLETE','REJECTED']:return
@@ -149,6 +195,8 @@ func advance(dt: float) -> void:
  elif state=='REPLAY':
   time=minf(float(data.metadata.duration_s),time+dt)
   apply_pose(time)
+  _advance_existing_free_wheels(dt)
   sample_count+=1
   if time>=float(data.metadata.duration_s)-1e-8:state='COMPLETE'
+ if g.effects!=null:g.effects.step_debris(dt)
  player_cpu_us+=Time.get_ticks_usec()-began

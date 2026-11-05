@@ -52,10 +52,12 @@ static func _record_next(vehicle: RefCounted,spec: Dictionary,index: int,chain_i
  var frames: Array=[Clip.local_frame(graph,origin)]
  var before_steps: int=graph.step_count
  var began: int=Time.get_ticks_usec()
- for step in 1200:
-  vehicle.step(1.0/480)
-  if (step+1)%4==0:frames.append(Clip.local_frame(graph,origin))
- var metadata: Dictionary={'version':3,'id':chain_id+'_step_%d'%index,'heading_deg':spec.angle,'speed_kmh':spec.speed,'duration_s':2.5,'sample_hz':120,'physics_hz':480,'origin':[origin.x,origin.y,origin.z],'signature':signature,'full_solver_steps':graph.step_count-before_steps,'record_cpu_ms':float(Time.get_ticks_usec()-began)/1000,'structure_sha256':FileAccess.get_sha256('res://structure.json'),'wheel_solver_sha256':FileAccess.get_sha256('res://scripts/wheel_physics.gd'),'material_profile':graph.config.get('material_profile','unknown'),'scope':'Transition continues prior recorded damaged state. Fixture repositions/relaunches attached car; existing released wheel nodes remain world-owned. Effects attachment-local state is preserved.'}
+ var hz: int=roundi(1.0/float(graph.config.fixed_step_s))
+ var stride: int=hz/120
+ for step in roundi(2.5*hz):
+  vehicle.step(1.0/hz)
+  if (step+1)%stride==0:frames.append(Clip.local_frame(graph,origin))
+ var metadata: Dictionary={'version':3,'id':chain_id+'_step_%d'%index,'heading_deg':spec.angle,'speed_kmh':spec.speed,'duration_s':2.5,'sample_hz':120,'physics_hz':hz,'quality_multiplier':int(graph.config.get('simulation_quality_multiplier',1)),'origin':[origin.x,origin.y,origin.z],'signature':signature,'full_solver_steps':graph.step_count-before_steps,'record_cpu_ms':float(Time.get_ticks_usec()-began)/1000,'structure_sha256':FileAccess.get_sha256('res://structure.json'),'wheel_solver_sha256':FileAccess.get_sha256('res://scripts/wheel_physics.gd'),'material_profile':graph.config.get('material_profile','unknown'),'scope':'Transition continues prior recorded damaged state. Fixture repositions/relaunches attached car; existing released wheel nodes remain world-owned. Effects attachment-local state is preserved.'}
  var clip: Dictionary={'metadata':metadata,'frames':frames}
  States.stamp(clip,initial,graph,chain_id,index)
  # Regression evidence, not another runtime state source.
@@ -83,6 +85,7 @@ static func build(first_clip: Dictionary,chain_id: String=CHAIN_ID) -> Array:
  var validation: Dictionary=validate_prefix(first_clip)
  if not validation.accepted:push_error(str(validation.reason));return []
  var vehicle=Vehicle.new();vehicle.setup('res://vehicles/niva.json',false)
+ vehicle.set_simulation_quality(int(first_clip.metadata.get('quality_multiplier',1)))
  var graph: RefCounted=vehicle.solver
  graph.config.enforce_symmetry=false;graph.set_impact_mode(0)
  if States.effects_owner(graph)==null:push_error('Conditioned authoring requires active effects controllers');return []

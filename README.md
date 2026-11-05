@@ -35,6 +35,10 @@ with [baked driving](docs/BAKED_DRIVING.md) enabled by default. That mode uses z
 deformation forecast calls or full structural solves, including after a bake.
 Turn baking off to use [live adaptive simulation](docs/ADAPTIVE_SIMULATION.md).
 The live tyre-grip and engine-power sliders keep their values through repairs.
+Click **Three baked impacts** or run `python3 tools/demo.py drive-sequence` to
+play 60 frontal → 60 at +20° → 120 at −20° on the same damaged car. Glass, seats
+and the optional demo airbag are recorded too; playback performs no live cloth
+or structural solves. Other damage histories need matching conditioned clips.
 
 Both scenes use one [shared vehicle runtime](docs/SHARED_VEHICLE_RUNTIME.md).
 Tune `vehicles/niva.json` or improve the shared dynamics/wheel code once, then
@@ -47,7 +51,7 @@ python3 tools/demo.py baked
 ```
 
 Choose an impact angle and 60/120 km/h. The library covers the full circle every
-30°, plus the two ±20° frontal cases: 26 recordings. Space triggers contact-time
+30°, plus the two ±20° frontal cases and a 75°/60 km/h coverage case: 27 recordings. Space triggers contact-time
 selection of the closest compatible bake; L records a fresh case; Z shows the
 invisible 5 × 3 × 3 classifier grid. Buttons play the frontal trio or the whole bank.
 Replay applies the saved deformation and wheel states with zero structural solver steps.
@@ -114,6 +118,6 @@ The second command runs six structural cases, seven wheel cases, native skin bin
 
 The custom graph owns the car's motion and 1,210 kg mass. Godot renders it. Jolt is selected in project settings, but **Jolt does not solve this deformable car**. Contacts are analytic floor/finite-box tests plus selected wheel-to-structure contacts. This is a driving/crash learning example with approximate game parameters, not a calibrated crash-engineering model.
 
-Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, body-panel separation, glass debris, sheet tearing and a broader course remain future work. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
+Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, body-panel separation, general panel tearing and a broader course remain future work. Mounted glass fracture/debris, front-seat flex and the optional demonstration airbag now run live and replay from baked state. Glass fragments use bounded floor/barrier collisions and add no car mass. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
 
 Code and documentation: [MIT](LICENSE). See [asset provenance](docs/PROVENANCE.md) for reference imagery and vehicle marks.

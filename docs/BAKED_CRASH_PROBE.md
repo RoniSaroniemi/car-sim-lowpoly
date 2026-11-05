@@ -10,12 +10,13 @@ python3 tools/demo.py verify-baked --no-import
 python3 tools/demo.py baked --no-import
 ```
 
-The saved library contains **26 recordings**:
+The saved library contains **27 recordings**:
 
 | Cases | Speeds | Recordings |
 |---|---|---:|
 | Full circle, every 30° | 60 and 120 km/h | 24 |
 | Additional +20° and −20° frontal approaches | 120 km/h | 2 |
+| Supplementary 75° coverage | 60 km/h | 1 |
 
 0° faces the wall front-first; +/−90° presents either side; 180° presents the rear. Positive headings rotate the nose toward driver-left. Every case is a controlled **wall-normal slam**: the car is rotated to the specified heading, then launched along world +X into the same stationary finite barrier. This isolates impact direction without requiring a car to drive sideways or backwards under power. The wheel bearing speed is initialized from the component of launch velocity along the car. These are horizontal impact directions; roof drops and vertical angles are not included.
 
@@ -30,7 +31,7 @@ Choose an angle and 60/120 km/h, then click **Trigger impact / select nearest ba
 - **L / Record current impact** runs the live solver and saves/replaces that angle/speed case.
 - **Z** reveals the normally invisible 5 × 3 × 3 impact grid; struck cells are orange.
 - The slider scrubs the selected replay after contact. Drag or scroll to orbit/zoom.
-- Slow motion changes presentation speed; live recording still solves at 480 Hz.
+- Slow motion changes presentation speed; new live recordings solve at 1,920 Hz by default and save samples at 120 Hz.
 - Structure overlay and 1–4 inspection modes work in either path.
 
 For automatic launch:
@@ -67,7 +68,7 @@ The player calls **zero structural or suspension solver steps** throughout appro
 
 `verify_baked_roundtrip.gd` checks a fresh local live recording through disk serialization and replay. It does not require live floating-point physics on another platform to be bit-identical to the published recordings. `verify_crash_library.gd` checks all saved cases for correct contact-time selection, source fingerprints, every authored pose/damage/wheel sample, discrete damage state, continuous handoff, final registered deformation and zero actual solver steps. It also tests unrecorded frontal angles and all 15° halfway directions at both speeds, and rejects incompatible severity and empty contacts.
 
-The [saved local results](BAKED_CRASH_RESULTS.md) include all 26 selections and the 264-check result.
+The [saved local results](BAKED_CRASH_RESULTS.md) include the previous 26-case snapshot; current verification regenerates a 27-case report.
 
 ![Impact zones during a 20 degree frontal replay](images/baked_front20_zones.png)
 

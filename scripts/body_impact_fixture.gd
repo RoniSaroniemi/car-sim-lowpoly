@@ -42,6 +42,7 @@ static func start(vehicle: RefCounted,case_name: String='roof_corner',clearance:
   wheel.rotation=frame.get_rotation_quaternion();wheel.previous_rotation=wheel.rotation
   wheel.angular_velocity=Vector3.ZERO;wheel.spin_speed=0
  g.initial_energy=g.kinetic_energy();g.maximum_energy=g.initial_energy
+ if g.effects!=null:g.effects.synchronize()
  vehicle.compact.capture_shape()
 static func restore(vehicle: RefCounted) -> void:
  restore_materials(vehicle.solver)

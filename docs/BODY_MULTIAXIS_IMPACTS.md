@@ -103,3 +103,7 @@ godot --path . --script res://scripts/capture_body_impacts.gd -- --capture-body 
 ```
 
 Fresh numerical output goes to `verification/body_impacts_validation.json`; a saved local result is [body_multiaxis_validation.json](body_multiaxis_validation.json). GPU screenshots are generated under `verification/` and retained above for review. Material parameters, impact loading and coarse skin should still be steered visually as the new roof/side bakes are generated.
+
+## Saved roof recordings
+
+The main checkout now includes `bakes/roof/roof_flat_35.crashclip` and `roof_corner_35.crashclip`, authored at 1,920 Hz with glass/interior state and sampled at 120 Hz. `python3 tools/demo.py verify-roof --no-import` checks current provenance and full roll/pitch/yaw replay registration with zero live solves. Regenerate them with `scripts/bake_roof_clips.gd` after changing authoring inputs. They remain a separate roof/floor family; the current driving selector triggers wall bakes. Use the **Live flat roof / Live angled roof / Live side hit** sandbox fixtures for live testing.

@@ -2,7 +2,7 @@
 
 The runtime helper supports a bounded **60 km/h frontal → 60 km/h +20° → 120 km/h −20°** family. It selects a clip by incoming irreversible state and impact, rather than stacking absolute pristine-car clips. General deformation-delta composition remains rejected by the earlier measured errors.
 
-This change adds helper/authoring/test modules. Root owns the central driving/player/effects integration and final material/effects bank regeneration. No new final bank is generated against incomplete controller code.
+The production sandbox now loads the regenerated three-stage bank, selects successors at actual contact, preserves already released wheels and accumulated body/glass/interior damage, then returns to lightweight driving. Run `python3 tools/demo.py drive-sequence` or click **Three baked impacts**.
 
 ## Owned API
 
@@ -32,9 +32,9 @@ The descriptor compares:
 
 The descriptor includes a diagnostic `state_key`; compatibility measures numeric residuals and irreversible flags rather than requiring every raw float to hash identically. These tolerances are explicit first-integration limits to test, not calibrated bounds for equivalent crashes.
 
-## Required central wiring
+## Implemented central wiring
 
-1. Load the conditioned catalog once from `bakes/conditioned/`. Keep it separate from the standard root 26-clip bank.
+1. Load the conditioned catalog once from `bakes/conditioned/`. Keep it separate from the standard root 27-clip bank.
 2. Before choosing another pristine clip for a damaged car, call `choose(graph, signature, conditioned_library)`. Replace the unconditional one-bake/clean-only rejection with this supported-transition path. If no conditioned state matches, keep rigid response; do not heal the car with a pristine fallback.
 3. The contact sensor and wall-coverage checks must skip previously detached nodes. A wheel rolling away from the car must not define the next car-impact footprint or reject it for being outside the wall span.
 4. Pass the chosen transition through the same live-graph player. Its initial effects already contain previous damage. `begin_playback` should initialize release history without re-emitting old events.
@@ -46,7 +46,7 @@ The descriptor includes a diagnostic `state_key`; compatibility measures numeric
 
 `conditioned_crash_authoring.gd` uses the shared `VehicleSimulation` and `Clip.local_frame`. The first stage is an exact copy of the rebuilt standard 60 km/h frontal clip, so normal bank playback reaches the precise state from which stage 2 is authored. It is not independently re-recorded from a different suspension pose.
 
-For the two follow-ups, the existing live graph keeps its damaged geometry, plastic lengths, broken supports and effects. The fixture reorients/relaunches attached car nodes only; released wheels retain their world state. It calls `effects.resume_live()` and `effects.synchronize()` after the imposed pose/velocity boundary, then records 1200 shared 480 Hz steps into 301 states at 120 Hz. This is offline authoring, not runtime solver work.
+For the two follow-ups, the existing live graph keeps its damaged geometry, plastic lengths, broken supports and effects. The fixture reorients/relaunches attached car nodes only; released wheels retain their world state. It calls `effects.resume_live()` and `effects.synchronize()` after the imposed pose/velocity boundary, then records 4,800 shared 1,920 Hz steps into 301 states at 120 Hz (or follows the prefix’s explicitly selected authoring quality). This is offline authoring, not runtime solver work.
 
 The reusable staging call is:
 
@@ -77,3 +77,5 @@ godot --headless --path . --script res://scripts/verify_conditioned_transitions.
 ```
 
 The focused helper suite checks rigid-pose invariance, shape/plastic/material/failure/effects rejection, clock-insensitive effects identity, state+impact selection, explicit unsupported fallback, detached-wheel exclusion and fixture preservation, irreversible merging and catalog disk round-trip. It does not falsely label old version2/probe records as a final production bank. Root's final integration suite must additionally play all three generated stages with real glass/interior state and check monotonic body/effects damage, no reattachment/teleport, exact sample replay and zero full solver during every playback.
+
+Main integration is verified by `python3 tools/demo.py verify-sequence --no-import`: 27 sensor, 28 transition helper, 42 actual-bank and 19 driving-sequence checks. The successor remains compatible immediately after playback and after one second of ordinary coarse settling. Arbitrary crash histories still require additional conditioned recordings.

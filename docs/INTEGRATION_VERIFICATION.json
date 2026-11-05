@@ -1,0 +1,269 @@
+{
+  "date": "2026-11-05",
+  "godot": "4.7.2",
+  "host": "Apple M3/macOS",
+  "full_verify_command": "python3 tools/demo.py verify --no-import",
+  "full_verify_exit_code": 0,
+  "additional_commands": [
+    "python3 tools/demo.py verify-quality --no-import",
+    "python3 tools/demo.py verify-roof --no-import"
+  ],
+  "suites": {
+    "structural_validation": {
+      "passed": true,
+      "checks": 0,
+      "cases": 6
+    },
+    "wheel_validation": {
+      "passed": true,
+      "checks": 17,
+      "cases": 7
+    },
+    "wheel_mount_validation": {
+      "passed": true,
+      "checks": 11,
+      "cases": 0
+    },
+    "driving_validation": {
+      "passed": true,
+      "checks": 18,
+      "cases": 0
+    },
+    "adaptive_validation": {
+      "passed": true,
+      "checks": 51,
+      "cases": 8
+    },
+    "ramp_validation": {
+      "passed": true,
+      "checks": 10,
+      "cases": 2
+    },
+    "wheel_retention_validation": {
+      "passed": true,
+      "checks": 22,
+      "cases": 8
+    },
+    "baked_roundtrip_validation": {
+      "passed": true,
+      "checks": 21,
+      "cases": 0
+    },
+    "crash_library_validation": {
+      "passed": true,
+      "checks": 273,
+      "cases": 27
+    },
+    "driving_bakes_validation": {
+      "passed": true,
+      "checks": 81,
+      "cases": 6
+    },
+    "vehicle_glass_validation": {
+      "passed": true,
+      "checks": 49,
+      "cases": 0
+    },
+    "vehicle_interior_validation": {
+      "passed": true,
+      "checks": 29,
+      "cases": 4
+    },
+    "baked_contact_sensor_validation": {
+      "passed": true,
+      "checks": 27,
+      "cases": 4
+    },
+    "conditioned_bank_validation": {
+      "passed": true,
+      "checks": 42,
+      "cases": 3
+    },
+    "sandbox_sequence_validation": {
+      "passed": true,
+      "checks": 19,
+      "cases": 0
+    },
+    "quality_smoke": {
+      "passed": true,
+      "checks": 12,
+      "cases": 3
+    },
+    "roof_bank_validation": {
+      "passed": true,
+      "checks": 10,
+      "cases": 0
+    },
+    "authoring_quality_validation": {
+      "passed": true,
+      "checks": 69,
+      "cases": 9
+    }
+  },
+  "performance": {
+    "passed": true,
+    "runs": [
+      {
+        "baked": false,
+        "baked_count": 0,
+        "forecast_checks": 308,
+        "full_solver_steps": 825,
+        "mean_ms_per_120hz_step": 13.7657916666667,
+        "p99_ms": 25.948,
+        "rigid_contacts": 0,
+        "simulated_seconds": 4,
+        "speed_kmh": 60.0,
+        "total_physics_ms": 6607.58
+      },
+      {
+        "baked": true,
+        "baked_count": 1,
+        "forecast_checks": 0,
+        "full_solver_steps": 0,
+        "mean_ms_per_120hz_step": 0.833883333333333,
+        "p99_ms": 1.607,
+        "rigid_contacts": 0,
+        "simulated_seconds": 4,
+        "speed_kmh": 60.0,
+        "total_physics_ms": 400.264
+      },
+      {
+        "baked": false,
+        "baked_count": 0,
+        "forecast_checks": 91,
+        "full_solver_steps": 1864,
+        "mean_ms_per_120hz_step": 20.4321604166667,
+        "p99_ms": 28.696,
+        "rigid_contacts": 0,
+        "simulated_seconds": 4,
+        "speed_kmh": 120.0,
+        "total_physics_ms": 9807.437
+      },
+      {
+        "baked": true,
+        "baked_count": 1,
+        "forecast_checks": 0,
+        "full_solver_steps": 0,
+        "mean_ms_per_120hz_step": 0.8096875,
+        "p99_ms": 2.42,
+        "rigid_contacts": 0,
+        "simulated_seconds": 4,
+        "speed_kmh": 120.0,
+        "total_physics_ms": 388.65
+      }
+    ],
+    "scope": "Local timed physics/selection/playback calls. Excludes rendering, input, scene setup and bank loading; not an FPS benchmark."
+  },
+  "sequence_events": [
+    {
+      "clip": {
+        "accepted": true,
+        "actual_impact_kmh": 59.430150604248,
+        "angle_error_deg": 0.0,
+        "classification_band_m": 0.025,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 3.72531872017134e-09,
+        "id": "impact_000_60",
+        "impulse_ratio": 0.990502510070801,
+        "index": 3,
+        "normal_alignment": 1.0,
+        "reason": "Recorded case matched",
+        "recorded_speed_kmh": 60.0,
+        "score": 0.999999996185303,
+        "start_time_s": 0.612587299922053,
+        "zone_overlap": 1.0
+      },
+      "clock_s": 0.616666666666667,
+      "count": 1,
+      "work_j": 0.0
+    },
+    {
+      "clip": {
+        "accepted": true,
+        "actual_impact_kmh": 59.9999977111816,
+        "angle_error_deg": 0.0,
+        "classification_band_m": 0.025,
+        "conditioned_chain": "front_60_60_120",
+        "conditioned_step": 1,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "id": "front_60_60_120_step_1",
+        "impulse_ratio": 0.999999961853027,
+        "index": 1,
+        "library_kind": "conditioned",
+        "normal_alignment": 1.0,
+        "reason": "Recorded case matched",
+        "recorded_speed_kmh": 60.0,
+        "score": 0.999999996185303,
+        "start_time_s": 3.11672663370996,
+        "state": {
+          "accepted": true,
+          "attached_wheel_max_m": 6.81815663483576e-06,
+          "damage_error": 0.0,
+          "length_error": 0.0,
+          "reason": "conditioned_state_matched",
+          "shape_max_m": 8.5249230323825e-06
+        },
+        "zone_overlap": 1.0
+      },
+      "clock_s": 3.12499999999999,
+      "count": 2,
+      "work_j": 70117.0252037785
+    },
+    {
+      "clip": {
+        "accepted": true,
+        "actual_impact_kmh": 119.999995422363,
+        "angle_error_deg": 0.0,
+        "classification_band_m": 0.025,
+        "conditioned_chain": "front_60_60_120",
+        "conditioned_step": 2,
+        "handoff_position_jump_m": 0.0,
+        "handoff_velocity_jump_mps": 0.0,
+        "id": "front_60_60_120_step_2",
+        "impulse_ratio": 0.999999961853027,
+        "index": 2,
+        "library_kind": "conditioned",
+        "normal_alignment": 1.0,
+        "reason": "Recorded case matched",
+        "recorded_speed_kmh": 120.0,
+        "score": 0.999999996185303,
+        "start_time_s": 5.62502998352172,
+        "state": {
+          "accepted": true,
+          "attached_wheel_max_m": 4.82107270727283e-06,
+          "damage_error": 0.0,
+          "length_error": 0.0,
+          "reason": "conditioned_state_matched",
+          "shape_max_m": 7.0131141001184e-06
+        },
+        "zone_overlap": 1.0
+      },
+      "clock_s": 5.6333333333334,
+      "count": 3,
+      "work_j": 138871.707645367
+    }
+  ],
+  "sequence_checks": {
+    "clock_monotonic": true,
+    "current_three_transition_bank": true,
+    "damaged_car_returns_to_lightweight": true,
+    "finite_poses": true,
+    "handoffs_continuous": true,
+    "old_free_wheel_continues_ballistic_motion": true,
+    "old_free_wheel_excluded_from_contact_bounds": true,
+    "old_free_wheel_handoff_stays_world_owned": true,
+    "plastic_work_never_decreases": true,
+    "post_sequence_driving_without_solver": true,
+    "same_graph_and_mass": true,
+    "sequence_starts": true,
+    "staging_retains_damage": true,
+    "successor_available_after_one_second": true,
+    "successor_available_immediately": true,
+    "three_contact_triggered_playbacks_complete": true,
+    "three_correct_clips": true,
+    "zero_full_structural_or_legacy_forecast": true,
+    "zero_live_glass_seat_airbag_solves": true
+  },
+  "scope": "Current main shared-runtime integration. Three bounded conditioned impacts, real effects snapshots, zero structural/cloth solves during playback. Fixture stages attached car between hits; unsupported damage histories keep rigid response. Roof bank is saved/registered separately; current sandbox baked selector is wall-only. Not crash-engineering calibration or a whole-game FPS measurement."
+}

@@ -121,18 +121,21 @@ func reset(speed: float) -> void:
   w.contacts.clear()
 
 func predict(dt: float) -> void:
- for w in wheels:
-  w.previous_rotation=w.rotation
-  w.joint_impulse=Vector3.ZERO
-  w.lateral_lambda=0
-  w.lateral_peak=0
-  w.joint_peak=0
-  _rotate(w,w.angular_velocity*dt)
-  w.spin=wrapf(w.spin+w.spin_speed*dt,-PI,PI)
-  w.tire_compression=0
-  w.contacts.clear()
-  w.contact_lambdas.fill(0)
-  w.body_lambdas.fill(0)
+ for index in wheels.size():predict_one(index,dt)
+
+func predict_one(index: int,dt: float) -> void:
+ var w: Wheel=wheels[index]
+ w.previous_rotation=w.rotation
+ w.joint_impulse=Vector3.ZERO
+ w.lateral_lambda=0
+ w.lateral_peak=0
+ w.joint_peak=0
+ _rotate(w,w.angular_velocity*dt)
+ w.spin=wrapf(w.spin+w.spin_speed*dt,-PI,PI)
+ w.tire_compression=0
+ w.contacts.clear()
+ w.contact_lambdas.fill(0)
+ w.body_lambdas.fill(0)
 
 func _rotate(w: Wheel,delta: Vector3) -> void:
  var angle: float=delta.length()
@@ -284,21 +287,23 @@ func detach(w: Wheel,reason: String) -> void:
   l.damage=1.0
 
 func contacts(dt: float) -> void:
+ for index in wheels.size():contacts_one(index,dt)
+
+func contacts_one(index: int,dt: float,include_body: bool=true) -> void:
  var g: RefCounted=graph.get_ref()
- for index in wheels.size():
-  var w: Wheel=wheels[index]
-  var surface: Vector4=g.floor_sample(g.point(w.node))
-  var floor_normal:=Vector3(surface.x,surface.y,surface.z)
-  var floor_offset: Vector3=support(w,-floor_normal)
-  var floor_distance: float=(g.point(w.node).y-surface.w)*surface.y+floor_normal.dot(floor_offset)
-  _world_contact(index,floor_normal,floor_distance,floor_offset,0,dt)
-  if g.barrier_enabled and g.point(w.node).x>=g.barrier_min.x-w.radius:
-   var hit: Dictionary=g.barrier_distance(g.point(w.node))
-   var offset: Vector3=support(w,-hit.normal)
-   _world_contact(index,hit.normal,float(hit.distance)+hit.normal.dot(offset),offset,1,dt)
-  if body_contact_enabled:
-   for c in w.capsules.size():
-    _body_contact(index,c,dt)
+ var w: Wheel=wheels[index]
+ var surface: Vector4=g.floor_sample(g.point(w.node))
+ var floor_normal:=Vector3(surface.x,surface.y,surface.z)
+ var floor_offset: Vector3=support(w,-floor_normal)
+ var floor_distance: float=(g.point(w.node).y-surface.w)*surface.y+floor_normal.dot(floor_offset)
+ _world_contact(index,floor_normal,floor_distance,floor_offset,0,dt)
+ if g.barrier_enabled and g.point(w.node).x>=g.barrier_min.x-w.radius:
+  var hit: Dictionary=g.barrier_distance(g.point(w.node))
+  var offset: Vector3=support(w,-hit.normal)
+  _world_contact(index,hit.normal,float(hit.distance)+hit.normal.dot(offset),offset,1,dt)
+ if body_contact_enabled and include_body:
+  for c in w.capsules.size():
+   _body_contact(index,c,dt)
 
 func _world_contact(index: int,n: Vector3,c: float,r: Vector3,slot: int,dt: float) -> void:
  var w: Wheel=wheels[index]
@@ -369,52 +374,54 @@ func _body_contact(index: int,capsule: int,dt: float) -> void:
   g.node_contact[b]=maxf(g.node_contact[b],.3)
 
 func finish_step(dt: float) -> void:
+ for index in wheels.size():finish_one(index,dt)
+
+func finish_one(index: int,dt: float) -> void:
  var g: RefCounted=graph.get_ref()
- for index in wheels.size():
-  var w: Wheel=wheels[index]
-  var delta: Quaternion=(w.rotation*w.previous_rotation.inverse()).normalized()
-  if delta.w<0:delta=Quaternion(-delta.x,-delta.y,-delta.z,-delta.w)
-  # atan2 preserves the sign and precision of very small rotations.
-  # Quaternion.get_axis()/get_angle() loses this near identity in float32.
-  var imaginary:=Vector3(delta.x,delta.y,delta.z)
-  var sine: float=imaginary.length()
-  w.angular_velocity=imaginary*(2.0*atan2(sine,delta.w)/(dt*sine)) if sine>1e-10 else Vector3.ZERO
-  var axle: Vector3=Basis(w.rotation).z
-  w.angular_velocity-=axle*w.angular_velocity.dot(axle)
-  for contact in w.contacts:
-   var n: Vector3=contact.normal
-   var r: Vector3=contact.offset
-   var omega: Vector3=w.angular_velocity+axle*w.spin_speed
-   var velocity: Vector3=g.velocities[w.node]+omega.cross(r)
-   var vn: float=velocity.dot(n)
-   var weight: float=g.inverse_masses[w.node]+rotational_weight(index,r,n)
-   var normal_impulse: float=maxf(0,-vn/weight)
-   _velocity_impulse(w,r,n*normal_impulse)
-   velocity=g.velocities[w.node]+(w.angular_velocity+axle*w.spin_speed).cross(r)
-   var tangent: Vector3=velocity-n*velocity.dot(n)
-   var length: float=tangent.length()
-   if length>1e-8:
-    var direction: Vector3=tangent/length
-    var torque: Vector3=r.cross(direction)
-    var friction_weight: float=g.inverse_masses[w.node]+torque.dot(inverse_inertia(w,torque,true))
-    var normal_budget: float=w.contact_lambdas[contact.slot]/dt+normal_impulse
-    var friction: float=minf(length/friction_weight,friction_coefficient*normal_budget)
-    _velocity_impulse(w,r,-direction*friction)
-   if int(contact.slot)==1:g.last_impulse+=normal_impulse+w.contact_lambdas[1]/dt
-  # Low bearing/rolling loss; no isotropic fake sliding friction on the hub.
-  w.spin_speed*=exp(-.012*dt)
-  var active:=0
-  for l in w.links:
-   if not l.broken:active+=1
-  var angular_overload: bool=w.joint_peak>w.joint_break
-  w.joint_overload=maxf(0,w.joint_overload+(dt if angular_overload else -2*dt))
-  w.lateral_overload=maxf(0,w.lateral_overload+(dt if w.lateral_peak>w.lateral_break else -2*dt))
-  var angle: float=acos(clampf(w.alignment.dot(Vector3.BACK),-1,1))
-  if active==0:detach(w,'suspension')
-  elif angle>=w.detach_alignment:detach(w,'permanent_alignment')
-  elif absf(w.lateral_rest-w.initial_lateral_rest)>=w.detach_offset:detach(w,'permanent_lateral_offset')
-  elif w.joint_overload>=w.mount_break_delay:detach(w,'angular_overload')
-  elif w.lateral_overload>=w.mount_break_delay:detach(w,'lateral_overload')
+ var w: Wheel=wheels[index]
+ var delta: Quaternion=(w.rotation*w.previous_rotation.inverse()).normalized()
+ if delta.w<0:delta=Quaternion(-delta.x,-delta.y,-delta.z,-delta.w)
+ # atan2 preserves the sign and precision of very small rotations.
+ # Quaternion.get_axis()/get_angle() loses this near identity in float32.
+ var imaginary:=Vector3(delta.x,delta.y,delta.z)
+ var sine: float=imaginary.length()
+ w.angular_velocity=imaginary*(2.0*atan2(sine,delta.w)/(dt*sine)) if sine>1e-10 else Vector3.ZERO
+ var axle: Vector3=Basis(w.rotation).z
+ w.angular_velocity-=axle*w.angular_velocity.dot(axle)
+ for contact in w.contacts:
+  var n: Vector3=contact.normal
+  var r: Vector3=contact.offset
+  var omega: Vector3=w.angular_velocity+axle*w.spin_speed
+  var velocity: Vector3=g.velocities[w.node]+omega.cross(r)
+  var vn: float=velocity.dot(n)
+  var weight: float=g.inverse_masses[w.node]+rotational_weight(index,r,n)
+  var normal_impulse: float=maxf(0,-vn/weight)
+  _velocity_impulse(w,r,n*normal_impulse)
+  velocity=g.velocities[w.node]+(w.angular_velocity+axle*w.spin_speed).cross(r)
+  var tangent: Vector3=velocity-n*velocity.dot(n)
+  var length: float=tangent.length()
+  if length>1e-8:
+   var direction: Vector3=tangent/length
+   var torque: Vector3=r.cross(direction)
+   var friction_weight: float=g.inverse_masses[w.node]+torque.dot(inverse_inertia(w,torque,true))
+   var normal_budget: float=w.contact_lambdas[contact.slot]/dt+normal_impulse
+   var friction: float=minf(length/friction_weight,friction_coefficient*normal_budget)
+   _velocity_impulse(w,r,-direction*friction)
+  if int(contact.slot)==1:g.last_impulse+=normal_impulse+w.contact_lambdas[1]/dt
+ # Low bearing/rolling loss; no isotropic fake sliding friction on the hub.
+ w.spin_speed*=exp(-.012*dt)
+ var active:=0
+ for l in w.links:
+  if not l.broken:active+=1
+ var angular_overload: bool=w.joint_peak>w.joint_break
+ w.joint_overload=maxf(0,w.joint_overload+(dt if angular_overload else -2*dt))
+ w.lateral_overload=maxf(0,w.lateral_overload+(dt if w.lateral_peak>w.lateral_break else -2*dt))
+ var angle: float=acos(clampf(w.alignment.dot(Vector3.BACK),-1,1))
+ if active==0:detach(w,'suspension')
+ elif angle>=w.detach_alignment:detach(w,'permanent_alignment')
+ elif absf(w.lateral_rest-w.initial_lateral_rest)>=w.detach_offset:detach(w,'permanent_lateral_offset')
+ elif w.joint_overload>=w.mount_break_delay:detach(w,'angular_overload')
+ elif w.lateral_overload>=w.mount_break_delay:detach(w,'lateral_overload')
 
 func _velocity_impulse(w: Wheel,r: Vector3,impulse: Vector3) -> void:
  var g: RefCounted=graph.get_ref()

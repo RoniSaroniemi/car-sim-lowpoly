@@ -29,6 +29,7 @@ class Edge:
  var peak_force:=0.0
  var broken:=false
 
+var effects: RefCounted
 var compact: RefCounted
 var compact_active:=false
 var wake_requested: String=''
@@ -166,6 +167,7 @@ func reset(speed_kmh: float,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -
  impact_time=-1
  simulated_time=0
  wheels.reset(speed_kmh/3.6)
+ if effects!=null:effects.reset()
  initial_energy=kinetic_energy()
  maximum_energy=initial_energy
  step_count=0
@@ -389,9 +391,11 @@ func capture() -> Dictionary:
   lengths.append(l.length)
   damage.append(l.damage)
   broken.append(1 if l.broken else 0)
- return {'wheels':wheels.capture(),'broken':broken,'velocities':velocities.duplicate(),'points':points.duplicate(),'damage':node_damage.duplicate(),'contact':node_contact.duplicate(),'lengths':lengths,'link_damage':damage,'time':simulated_time,'plastic_work':plastic_work}
+ var state: Dictionary={'wheels':wheels.capture(),'broken':broken,'velocities':velocities.duplicate(),'points':points.duplicate(),'damage':node_damage.duplicate(),'contact':node_contact.duplicate(),'lengths':lengths,'link_damage':damage,'time':simulated_time,'plastic_work':plastic_work}
+ if effects!=null:state['effects']=effects.capture()
+ return state
 
-func restore(frame: Dictionary) -> void:
+func restore(frame: Dictionary,restore_effects: bool=true) -> void:
  points=frame.points.duplicate()
  velocities=frame.velocities.duplicate()
  wheels.restore(frame.wheels)
@@ -403,6 +407,8 @@ func restore(frame: Dictionary) -> void:
   links[i].broken=bool(frame.broken[i])
  simulated_time=frame.time
  plastic_work=frame.plastic_work
+ if restore_effects and effects!=null:
+  effects.restore_interpolated(frame.get('effects',{}),frame.get('effects',{}),0)
 
 func _symmetry() -> void:
  # Symmetric full-width frontal test boundary condition. Disabled for the

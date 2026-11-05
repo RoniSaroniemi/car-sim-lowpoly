@@ -17,6 +17,7 @@ var cpu_us:=0
 var duration:=2.5
 var angle_deg:=0.0
 var speed_kmh:=120.0
+var quality_multiplier:=4
 var preparation_speed_mps:=0.0
 var result: Dictionary={}
 
@@ -25,6 +26,7 @@ func start(heading_degrees: float=0,launch_speed_kmh: float=120) -> void:
  speed_kmh=launch_speed_kmh
  vehicle=Vehicle.new()
  vehicle.setup('res://vehicles/niva.json',false)
+ vehicle.set_simulation_quality(quality_multiplier)
  vehicle.solver.set_impact_mode(0)
  vehicle.solver.config.enforce_symmetry=absf(angle_deg)<.001
  var heading:=Basis(Vector3.UP,deg_to_rad(angle_deg))
@@ -48,7 +50,7 @@ func step() -> void:
   var velocity: Vector3=vehicle.velocity()
   var toi: float=grid.time_to_contact(g,velocity,dt)
   if is_finite(toi):
-   # Register an exact contact pose, then keep every subsequent solve at 480Hz.
+   # Register an exact contact pose, then keep every subsequent solve at the selected physical timestep.
    for i in g.points.size():g.points[i]+=velocity*toi
    # Prepare suspension through the approach, then initialize the recorded
    # impact at exactly the requested velocity. The approach is not baked.
@@ -58,6 +60,7 @@ func step() -> void:
    for i in g.velocities.size():g.velocities[i]+=delta
    for w in g.wheels.wheels:w.spin_speed=-impact_velocity.dot(grid.body_basis(g).x)/w.radius
    velocity=impact_velocity
+   if g.effects!=null:g.effects.synchronize()
    g.initial_energy=g.kinetic_energy();g.maximum_energy=g.initial_energy
    signature=grid.signature(g,velocity)
    assert(not signature.is_empty())
@@ -88,8 +91,10 @@ func step() -> void:
  cpu_us+=Time.get_ticks_usec()-began
  if elapsed+1e-9>=duration:
   completed=true
-  result={'metadata':{'version':2,'id':Clip.case_id(angle_deg,speed_kmh),'heading_deg':angle_deg,'launch_mode':'wall_normal_slam','contact_velocity_normalized':true,'preparation_speed_mps':preparation_speed_mps,'speed_kmh':speed_kmh,'duration_s':duration,'sample_hz':120,'physics_hz':480,'grid':[5,3,3],'signature':signature,'zone_contact_history':history,'origin':[origin.x,origin.y,origin.z],'full_solver_steps':full_steps,'record_cpu_ms':cpu_us/1000.0,'structure_sha256':FileAccess.get_sha256('res://structure.json'),'wheel_solver_sha256':FileAccess.get_sha256('res://scripts/wheel_physics.gd'),'scope':'Frontal or oblique car heading into a fixed flat barrier; symmetry is disabled for oblique cases. Incident severity and nodal momentum-loss values are proxies, not calibrated contact-force measurements. Frames include root motion, damage and wheel states.'},'frames':frames}
+  result={'metadata':{'version':3,'id':Clip.case_id(angle_deg,speed_kmh),'heading_deg':angle_deg,'launch_mode':'wall_normal_slam','contact_velocity_normalized':true,'preparation_speed_mps':preparation_speed_mps,'speed_kmh':speed_kmh,'duration_s':duration,'sample_hz':120,'physics_hz':roundi(1.0/float(g.config.fixed_step_s)),'quality_multiplier':quality_multiplier,'material_profile':g.config.get('material_profile','legacy'),'grid':[5,3,3],'signature':signature,'zone_contact_history':history,'origin':[origin.x,origin.y,origin.z],'full_solver_steps':full_steps,'record_cpu_ms':cpu_us/1000.0,'structure_sha256':FileAccess.get_sha256('res://structure.json'),'wheel_solver_sha256':FileAccess.get_sha256('res://scripts/wheel_physics.gd'),'scope':'Frontal or oblique car heading into a fixed flat barrier; symmetry is disabled for oblique cases. Incident severity and nodal momentum-loss values are proxies, not calibrated contact-force measurements. Frames include root motion, damage and wheel states.'},'frames':frames}
   var inputs: Dictionary={}
-  for path in ['structure.json','vehicles/niva.json','scripts/structure_solver.gd','scripts/wheel_physics.gd','scripts/vehicle_dynamics.gd','scripts/vehicle_simulation.gd','scripts/compact_chassis.gd','scripts/collision_forecast.gd','scripts/impact_zone_grid.gd']:
+  for path in ['structure.json','vehicles/niva.json','scripts/structure_solver.gd','scripts/wheel_physics.gd','scripts/vehicle_dynamics.gd','scripts/vehicle_simulation.gd','scripts/compact_chassis.gd','scripts/collision_forecast.gd','scripts/impact_zone_grid.gd','scripts/vehicle_effects.gd','scripts/vehicle_glass.gd','scripts/vehicle_interior.gd']:
    inputs[path]=FileAccess.get_sha256('res://'+path)
+  inputs.merge(g.effects.glass.input_fingerprints(),true)
+  inputs.merge(g.effects.interior.input_fingerprints(),true)
   result.metadata['input_sha256']=inputs

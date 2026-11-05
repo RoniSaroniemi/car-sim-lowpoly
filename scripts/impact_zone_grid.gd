@@ -22,6 +22,7 @@ func time_to_contact(g: RefCounted,velocity: Vector3,horizon: float) -> float:
  var earliest:=INF
  if not g.barrier_enabled:return earliest
  for i in g.points.size():
+  if g.wheels.by_node.has(i) and g.wheels.wheels[g.wheels.by_node[i]].detached:continue
   var radius: float=g.radii[i]
   var a: Vector3=g.barrier_min-Vector3.ONE*radius
   var b: Vector3=g.barrier_max+Vector3.ONE*radius
@@ -50,6 +51,7 @@ func signature(g: RefCounted,velocity: Vector3) -> Dictionary:
  var total_weight:=0.0
  var normal:=Vector3.ZERO
  for i in g.points.size():
+  if g.wheels.by_node.has(i) and g.wheels.wheels[g.wheels.by_node[i]].detached:continue
   var hit: Dictionary=g.barrier_distance(g.points[i])
   if float(hit.distance)-g.radii[i]>.025:continue
   if velocity.dot(hit.normal)>=-.1:continue

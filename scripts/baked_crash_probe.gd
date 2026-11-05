@@ -121,7 +121,7 @@ func _record() -> void:
  yaw=1.45-deg_to_rad(launch_angle)
  playlist.clear()
  recorder=Recorder.new();recorder.start(launch_angle,launch_speed)
- solver=recorder.vehicle.solver;view.solver=solver
+ _bind_graph(recorder.vehicle.solver)
  mode='LIVE RECORDING';accumulator=0;hold_time=0
  replay_slider.editable=false
 func _manual_replay() -> void:
@@ -140,9 +140,17 @@ func _playlist_start() -> void:
 func _replay() -> void:
  yaw=1.45-deg_to_rad(launch_angle)
  player.setup_library(library,launch_angle,launch_speed)
- solver=player.vehicle.solver;view.solver=solver
+ _bind_graph(player.vehicle.solver)
  mode='BAKED APPROACH';accumulator=0;hold_time=0
  replay_slider.editable=true
+func _bind_graph(graph: RefCounted) -> void:
+ solver=graph
+ if view.solver==graph:return
+ var prior_mode: int=view.mode;var prior_frame: bool=view.show_frame
+ remove_child(view);view.queue_free()
+ view=Node3D.new();view.set_script(SkinView);add_child(view)
+ view.setup(graph,player.vehicle.profile.model)
+ view.show_frame=prior_frame;view.set_mode(prior_mode)
 func _scrub(value: float) -> void:
  if guard:return
  if player.match_result.is_empty() or not player.match_result.get('accepted',false):return

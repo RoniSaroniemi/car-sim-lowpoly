@@ -54,6 +54,7 @@ func setup(graph: RefCounted,model_path: String='res://assets/Niva_2121_LOD0.glb
  update_pose()
  set_mode(0)
  build_ms=(Time.get_ticks_usec()-began)/1000.0
+ if solver.effects!=null:solver.effects.bind_visual(self,body)
  print('STRUCTURE_SKIN_READY triangles=',mesh_triangles,' build_ms=',build_ms)
 
 func _station_frame(s: int,original: bool=false) -> Basis:
