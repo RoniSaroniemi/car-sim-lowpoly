@@ -2,6 +2,10 @@
 
 A small, reproducible Godot driving and crash example: **38 physical nodes → 39 render bones → a textured car with 39,673 render triangles**. Structural links yield permanently; the skeleton carries the large deformation; a shader adds smaller folds, normal detail and surface wear.
 
+The driving car also has four articulated panels with 40 additional render bones,
+local deformation cages and breakable mounts. Closed healthy panels use the cheap
+condensed mode; the combined car and panels still own **1,210 kg once**.
+
 ![Textured 120 km/h offset crash with wheel interaction](docs/images/wheel_textured.png)
 
 This isolated example includes the latest wheel revision: finite-width oriented wheels, independent hub tilt and rim spin, yielding/breakable suspension, limited tire compression and selective wheel-to-body load transfer. It includes the model, textures, editable Blender file, procedural model source and structural, wheel and driving verification suites.
@@ -156,7 +160,7 @@ The second command runs six structural cases, seven wheel cases, native skin bin
 
 The custom graph owns the car's motion and 1,210 kg mass. Godot renders it. Jolt is selected in project settings, but **Jolt does not solve this deformable car**. Contacts are analytic floor/finite-box tests plus selected wheel-to-structure contacts. This is a driving/crash learning example with approximate game parameters, not a calibrated crash-engineering model.
 
-Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, body-panel separation, general panel tearing and a broader course remain future work. Mounted glass fracture/debris, front-seat flex and the optional demonstration airbag now run live and replay from baked state. Glass fragments use bounded floor/barrier collisions and add no car mass. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
+Each wheel retains one translational mass node and adds rotational inertia, six suspension hardpoints and a yielding angular knuckle constraint. Detached wheels remain in the same solver and retain their velocity/spin. Tire response is approximate: it is not a pressure/sidewall simulation. General-world collisions, general body self-contact, whole-body splitting and general panel tearing remain future work. Doors, bonnet and tailgate can open, deform and lose mounts through the shared panel runtime. Mounted glass fracture/debris, front-seat flex and the optional demonstration airbag now run live and replay from baked state. Glass fragments use bounded floor/barrier collisions and add no car mass. Extreme folds can intersect. The complete example runs offline after dependencies are installed.
 
 Code and documentation: [MIT](LICENSE). See [asset provenance](docs/PROVENANCE.md) for reference imagery and vehicle marks.
 
