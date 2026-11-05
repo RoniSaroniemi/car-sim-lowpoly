@@ -1,0 +1,30 @@
+{
+  "base_commit": "603c3fd",
+  "command": "python3 tools/demo.py verify --no-import",
+  "exit_code": 0,
+  "passed": true,
+  "summary": [
+    "PASS: 6 structural cases, skin binding, strength sensitivity, replay and reset.",
+    "PASS: 7 wheel cases, standing support, load transfer, suspension failure, detachment and replay.",
+    "PASS: rigid lateral mounts, permanent bending, full release and visible load fixture.",
+    "PASS: shared runtime, throttle, brakes, steering direction, reverse, tuning and persistent damage.",
+    "Overall verification: PASS",
+    "PASS: adaptive driving, forecast wake-up, continuous handoff, collision and timing comparison.",
+    "PASS: matching ramp/contact surfaces, natural takeoff and landing on both jumps.",
+    "PASS: rear wheel retention in crashes, extreme front release, and suspension absorbing both ramp landings.",
+    "CRASH_LIBRARY_VERIFIED true checks=273",
+    "PASS: complete impact library, contact-time nearest selection, registered replay and zero full solver steps.",
+    "DRIVING_BAKES_VERIFIED true",
+    "PASS: real driving triggers, continuous live/baked handoff, zero-forecast rigid recovery, live tuning, reset and fallback paths.",
+    "VEHICLE_INTERIOR_VERIFIED true checks=29 runs=[{\"airbag_enabled\":true,\"cloth_steps\":0,\"deployed\":false,\"deployment_event_id\":0,\"finite\":true,\"mass_kg\":1210.0,\"max_neck_error_m\":0.0,\"nodes\":38,\"peak_seat_deflection_deg\":3.55555454930237,\"permanent_seat_deflection_deg\":0.0,\"profile_id\":\"niva-interior-demo-v1:af641b40a04b\",\"speed_kmh\":20.0},{\"airbag_enabled\":true,\"cloth_steps\":617,\"deployed\":true,\"deployment_event_id\":1,\"finite\":true,\"mass_kg\":1210.0,\"max_neck_error_m\":0.0,\"nodes\":38,\"peak_seat_deflection_deg\":13.2950084147962,\"permanent_seat_deflection_deg\":5.92840819168559,\"profile_id\":\"niva-interior-demo-v1:af641b40a04b\",\"speed_kmh\":60.0},{\"airbag_enabled\":true,\"cloth_steps\":668,\"deployed\":true,\"deployment_event_id\":1,\"finite\":true,\"mass_kg\":1210.0,\"max_neck_error_m\":0.0,\"nodes\":38,\"peak_seat_deflection_deg\":28.126880140021,\"permanent_seat_deflection_deg\":20.7526599119707,\"profile_id\":\"niva-interior-demo-v1:af641b40a04b\",\"speed_kmh\":120.0},{\"airbag_enabled\":false,\"cloth_steps\":0,\"deployed\":false,\"deployment_event_id\":0,\"finite\":true,\"mass_kg\":1210.0,\"max_neck_error_m\":0.0,\"nodes\":38,\"peak_seat_deflection_deg\":28.126880140021,\"permanent_seat_deflection_deg\":20.7526599119707,\"profile_id\":\"niva-interior-demo-v1:1dcb0fe8fbd7\",\"speed_kmh\":120.0}]",
+    "PASS: live/baked retained glass, fragment motion, seat hinges and optional airbag.",
+    "BAKED_CONTACT_SENSOR_VERIFIED true checks=27",
+    "CONDITIONED_TRANSITIONS_VERIFIED true checks=28",
+    "CONDITIONED_BANK_VERIFIED true checks=42 body_error=0.0 effect_pose_error=0.0",
+    "SANDBOX_SEQUENCE_VERIFIED true checks=19 impacts=3 notice=",
+    "PASS: sensitive contact, compatible damaged-state transitions and three sandbox impacts without live solves.",
+    "VEHICLE_SURFACE_VERIFIED true checks=24",
+    "PASS: live/baked surface lifecycle, deterministic seeking, persistence, repair and native skin.",
+    "ROOF_BANK_VERIFIED true checks=10"
+  ]
+}
