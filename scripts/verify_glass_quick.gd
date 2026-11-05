@@ -1,0 +1,16 @@
+extends SceneTree
+const Graph=preload('res://scripts/structure_solver.gd')
+const Glass=preload('res://scripts/vehicle_glass.gd')
+func _initialize() -> void:call_deferred('_run')
+func _run() -> void:
+ var graph:=Graph.new();graph.setup();graph.reset(0,Vector3(-12,0,0))
+ var glass:=Glass.new();glass.setup(graph)
+ print('PRODUCTION_GLASS_READY panes=',glass.panes.size())
+ glass.hit_window('windscreen',1.65,true)
+ for i in 240:glass.step_live(1.0/120);glass.step_debris(1.0/120)
+ var state: Dictionary=glass.capture()
+ print('GLASS_HIT result=',state.panes.windscreen.stage,' broken=',Array(state.panes.windscreen.broken).count(1),' nodes=',state.panes.windscreen.nodes.size(),' stats=',JSON.stringify(glass.statistics()))
+ var playback:=Glass.new();playback.setup(graph);playback.begin_playback(state)
+ for i in 120:playback.restore_interpolated(state,state,0);playback.step_debris(1.0/120)
+ print('GLASS_REPLAY stats=',JSON.stringify(playback.statistics()))
+ quit()
