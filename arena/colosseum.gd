@@ -85,7 +85,7 @@ func _hud() -> void:
  var pair_row:=HBoxContainer.new();column.add_child(pair_row)
  for spec in [['Steep 42°',-2.3],['Medium 24°',2.3],['Straddle',0.]]:_button(pair_row,spec[0],_pair_start.bind(spec[1]))
  var body_row:=HBoxContainer.new();column.add_child(body_row)
- for spec in [['Flat roof','roof_flat'],['Angled roof','roof_corner'],['Side hit','side_wall']]:_button(body_row,spec[0],_start_body_test.bind(spec[1]))
+ for spec in [['Live flat roof','roof_flat'],['Live angled roof','roof_corner'],['Live side hit','side_wall']]:_button(body_row,spec[0],_start_body_test.bind(spec[1]))
  var landing_row:=HBoxContainer.new();column.add_child(landing_row)
  for spec in [['Roof landing',0.,4.],['Roll left',-15.,4.],['Roll right',15.,4.],['Hard roof',0.,7.]]:_button(landing_row,spec[0],_start_roof_landing.bind(spec[1],spec[2]))
  var view_row:=HBoxContainer.new();column.add_child(view_row)
@@ -131,7 +131,7 @@ func _physics_process(dt: float) -> void:
  var steering: float=(1.0 if Input.is_physical_key_pressed(KEY_A) else 0.0)-(1.0 if Input.is_physical_key_pressed(KEY_D) else 0.0)
  if capture_air:throttle=.1;brake=0;steering=0
  car.set_controls(-throttle if reverse else throttle,brake,steering,1.0 if Input.is_physical_key_pressed(KEY_SPACE) else 0.0)
- if car.sequence_active or mount_demo.active:car.set_controls(0,0,0,0)
+ if car.sequence_active or mount_demo.active or roof_landing_preview:car.set_controls(0,0,0,0)
  car.advance(dt,.35 if roof_landing_preview else (.25 if body_fixture_active else (.5 if car.sequence_active or mount_demo.active else 1.0)))
  if car.compact.center.length()>140 or car.compact.center.y< -10:_reset()
 func _process(_dt: float) -> void:

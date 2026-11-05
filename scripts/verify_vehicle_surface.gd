@@ -72,8 +72,22 @@ func _run() -> void:
   var fx: RefCounted=driver.solver.effects.surface
   for node in 38:persists=persists and fx.damage[node]+.00001>=old_nodes[node]
   old_nodes=fx.damage.duplicate()
+  if driver.last_bake.get('completed',false) and snapshots.size()<driver.baked_count:snapshots.append(fx.capture())
   if driver.baked_count==3 and driver.last_bake.get('completed',false):break
- checks['conditioned_sequence_keeps_surface_damage']=persists and driver.baked_count==3 and driver.solver.effects.surface.marks.size()>=3
+ # Multiple hits can grow the same bounded footprint. Check preservation and
+ # progression of the actual damage instead of requiring one mark per hit.
+ var footprint_retained: bool=snapshots.size()==3
+ var footprint_progresses:=true
+ for i in range(1,snapshots.size()):
+  var changed:=false
+  for old in snapshots[i-1].marks:
+   var matches: Array=snapshots[i].marks.filter(func(mark):return mark.id==old.id)
+   if matches.is_empty():footprint_retained=false;continue
+   var current: Dictionary=matches[0]
+   footprint_retained=footprint_retained and current.center==old.center and current.radii.x>=old.radii.x and current.radii.y>=old.radii.y and current.radii.z>=old.radii.z and current.strength>=old.strength
+   changed=changed or current.radii.distance_to(old.radii)>.00001 or current.strength>old.strength+.00001
+  footprint_progresses=footprint_progresses and (changed or snapshots[i].marks.size()>snapshots[i-1].marks.size())
+ checks['conditioned_sequence_keeps_surface_damage']=persists and driver.baked_count==3 and footprint_retained and footprint_progresses and not driver.solver.effects.surface.marks.is_empty()
  var retained: Dictionary=driver.solver.effects.surface.capture()
  for step in 120:driver.advance(1./120.)
  checks['resumed_driving_keeps_surface_exact']=var_to_bytes(retained)==var_to_bytes(driver.solver.effects.surface.capture())

@@ -24,13 +24,10 @@ func _run_case(spec: Dictionary,yaw: float,step_s: float,arena: bool=false) -> v
  var graph_id: int=car.solver.get_instance_id();var saw_air:=false;var ground_error:=0.0
  var initial_height: float=car.solver.points[10].distance_to(car.solver.points[8])
  var minimum_height:=initial_height
- var recorded_contact:=false
  for tick in ceili(3.4/step_s):
   if car.mode!='BAKED' and car.baked_count==0:
-   var event: Dictionary=car._contact_event(1.0/120)
    var gap: float=Geometry.minimum_gap(car.solver)
    if gap>.04:saw_air=true;checks[spec.id+'_no_early_'+str(yaw)+str(step_s)]=car.baked_count==0
-   if not event.is_empty():recorded_contact=true
   car.advance(step_s)
   if car.mode=='BAKED' and car.crash_player.time>.12:
    # Plane-preserving registration, even between roll bins and after yaw.
