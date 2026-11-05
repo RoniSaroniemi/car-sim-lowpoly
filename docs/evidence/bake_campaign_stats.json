@@ -1,0 +1,1248 @@
+{
+  "generated_utc": "2026-11-05T17:51:29.162049+00:00",
+  "families": [
+    {
+      "family": "horizontal",
+      "expected": 37,
+      "count": 37,
+      "bytes": 184189758,
+      "frames": 11137,
+      "stored_animation_seconds": 92.5,
+      "driver_wall_s": 862.827602832811,
+      "family_elapsed_s": 862.827602832811,
+      "completed_job_cpu_s": 2803.7600000000007,
+      "external_pilot_process_wall_s": 0,
+      "workers": 4,
+      "timing_complete": true,
+      "assets": [
+        {
+          "id": "front_left_20_120",
+          "bytes": 5611338,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "front_right_20_120",
+          "bytes": 5608789,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "frontal_120",
+          "bytes": 5216583,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_000_60",
+          "bytes": 4978930,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_020_60",
+          "bytes": 5371329,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_030_120",
+          "bytes": 5655402,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_030_60",
+          "bytes": 5362673,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_045_120",
+          "bytes": 5783935,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_045_60",
+          "bytes": 5203302,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_060_120",
+          "bytes": 5764338,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_060_60",
+          "bytes": 5289205,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_075_60",
+          "bytes": 4380633,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_090_120",
+          "bytes": 4554000,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_090_60",
+          "bytes": 4411231,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_120_120",
+          "bytes": 4794753,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_120_60",
+          "bytes": 4425225,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_135_120",
+          "bytes": 4683023,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_135_60",
+          "bytes": 4489363,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_150_120",
+          "bytes": 4676205,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_150_60",
+          "bytes": 4349512,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_180_120",
+          "bytes": 4593459,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_180_60",
+          "bytes": 4079635,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_210_120",
+          "bytes": 4683015,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_210_60",
+          "bytes": 4361041,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_225_120",
+          "bytes": 4685931,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_225_60",
+          "bytes": 4479642,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_240_120",
+          "bytes": 4800781,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_240_60",
+          "bytes": 4424926,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_270_120",
+          "bytes": 4573484,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_270_60",
+          "bytes": 4419314,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_300_120",
+          "bytes": 5766117,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_300_60",
+          "bytes": 5296846,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_315_120",
+          "bytes": 5799242,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_315_60",
+          "bytes": 5209432,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_330_120",
+          "bytes": 5661010,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_330_60",
+          "bytes": 5354505,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "impact_340_60",
+          "bytes": 5391609,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        }
+      ]
+    },
+    {
+      "family": "partial",
+      "expected": 48,
+      "count": 48,
+      "bytes": 257438267,
+      "frames": 14448,
+      "stored_animation_seconds": 120.0,
+      "driver_wall_s": 1213.2515794159845,
+      "family_elapsed_s": 1481.683084,
+      "completed_job_cpu_s": 4089.669999999999,
+      "external_pilot_process_wall_s": 0,
+      "workers": 4,
+      "timing_complete": true,
+      "assets": [
+        {
+          "id": "partial_000_120_left_25",
+          "bytes": 5465347,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_120_left_50",
+          "bytes": 5705917,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_120_left_75",
+          "bytes": 5729006,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_120_right_25",
+          "bytes": 5469664,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_120_right_50",
+          "bytes": 5710746,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_120_right_75",
+          "bytes": 5727731,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_60_left_25",
+          "bytes": 5145892,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_60_left_50",
+          "bytes": 5270495,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_60_left_75",
+          "bytes": 5267210,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_60_right_25",
+          "bytes": 5111880,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_60_right_50",
+          "bytes": 5267460,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_000_60_right_75",
+          "bytes": 5270704,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_010_120_left_25",
+          "bytes": 5418211,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_010_120_right_75",
+          "bytes": 5522570,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_010_60_left_25",
+          "bytes": 4294194,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_010_60_right_75",
+          "bytes": 5226073,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_020_120_right_50",
+          "bytes": 5636195,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_020_60_right_50",
+          "bytes": 5305880,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_120_left_25",
+          "bytes": 5615695,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_120_left_50",
+          "bytes": 5559650,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_120_left_75",
+          "bytes": 5675198,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_120_right_25",
+          "bytes": 5434887,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_120_right_50",
+          "bytes": 5678269,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_120_right_75",
+          "bytes": 5624173,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_60_left_25",
+          "bytes": 5235426,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_60_left_50",
+          "bytes": 5231445,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_60_left_75",
+          "bytes": 5201142,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_60_right_25",
+          "bytes": 5139276,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_60_right_50",
+          "bytes": 5126058,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_030_60_right_75",
+          "bytes": 5240319,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_120_left_25",
+          "bytes": 5430400,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_120_left_50",
+          "bytes": 5680927,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_120_left_75",
+          "bytes": 5626221,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_120_right_25",
+          "bytes": 5557749,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_120_right_50",
+          "bytes": 5545184,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_120_right_75",
+          "bytes": 5674938,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_60_left_25",
+          "bytes": 5149860,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_60_left_50",
+          "bytes": 5135171,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_60_left_75",
+          "bytes": 5242412,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_60_right_25",
+          "bytes": 5241628,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_60_right_50",
+          "bytes": 5218903,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_330_60_right_75",
+          "bytes": 5211755,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_340_120_left_50",
+          "bytes": 5637907,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_340_60_left_50",
+          "bytes": 5294200,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_350_120_left_75",
+          "bytes": 5515393,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_350_120_right_25",
+          "bytes": 5432117,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_350_60_left_75",
+          "bytes": 5244757,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "partial_350_60_right_25",
+          "bytes": 4292032,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        }
+      ]
+    },
+    {
+      "family": "multiaxis",
+      "expected": 36,
+      "count": 36,
+      "bytes": 161375476,
+      "frames": 10836,
+      "stored_animation_seconds": 90.0,
+      "driver_wall_s": 823.0225842089858,
+      "family_elapsed_s": 823.05766,
+      "completed_job_cpu_s": 2856.89,
+      "external_pilot_process_wall_s": 354.7,
+      "workers": 4,
+      "timing_complete": true,
+      "assets": [
+        {
+          "id": "lower_az000_120",
+          "bytes": 4523258,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az000_60",
+          "bytes": 4095957,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az045_120",
+          "bytes": 4568903,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az045_60",
+          "bytes": 4283096,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az090_120",
+          "bytes": 4581764,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az090_60",
+          "bytes": 4375100,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az135_120",
+          "bytes": 4576201,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az135_60",
+          "bytes": 4436462,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az180_120",
+          "bytes": 4541521,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az180_60",
+          "bytes": 4326665,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az225_120",
+          "bytes": 4581296,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az225_60",
+          "bytes": 4444315,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az270_120",
+          "bytes": 4584733,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az270_60",
+          "bytes": 4371546,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az315_120",
+          "bytes": 4566842,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "lower_az315_60",
+          "bytes": 4285276,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "top_120",
+          "bytes": 4398000,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "top_60",
+          "bytes": 4369211,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "underside_120",
+          "bytes": 4479853,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "underside_60",
+          "bytes": 4261880,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az000_120",
+          "bytes": 4443738,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az000_60",
+          "bytes": 4211130,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az045_120",
+          "bytes": 4659289,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az045_60",
+          "bytes": 4402169,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az090_120",
+          "bytes": 4780771,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az090_60",
+          "bytes": 4621612,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az135_120",
+          "bytes": 4639689,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az135_60",
+          "bytes": 4474204,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az180_120",
+          "bytes": 4546715,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az180_60",
+          "bytes": 4358189,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az225_120",
+          "bytes": 4625353,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az225_60",
+          "bytes": 4473804,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az270_120",
+          "bytes": 4774042,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az270_60",
+          "bytes": 4655179,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az315_120",
+          "bytes": 4659102,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "upper_az315_60",
+          "bytes": 4398611,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        }
+      ]
+    },
+    {
+      "family": "roof",
+      "expected": 2,
+      "count": 2,
+      "bytes": 7694884,
+      "frames": 602,
+      "stored_animation_seconds": 5.0,
+      "driver_wall_s": 258.1184617499821,
+      "family_elapsed_s": 258.120943,
+      "completed_job_cpu_s": 160.76999999999998,
+      "external_pilot_process_wall_s": 0,
+      "workers": 1,
+      "timing_complete": true,
+      "assets": [
+        {
+          "id": "roof_corner_35",
+          "bytes": 4270007,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "roof_flat_35",
+          "bytes": 3424877,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        }
+      ]
+    },
+    {
+      "family": "conditioned",
+      "expected": 3,
+      "count": 3,
+      "bytes": 16163326,
+      "frames": 903,
+      "stored_animation_seconds": 7.5,
+      "driver_wall_s": 137.70943504106253,
+      "family_elapsed_s": 137.70943504106253,
+      "completed_job_cpu_s": 129.82,
+      "external_pilot_process_wall_s": 0,
+      "workers": 1,
+      "timing_complete": true,
+      "assets": [
+        {
+          "id": "front_60_60_120_step_0",
+          "bytes": 4984293,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "front_60_60_120_step_1",
+          "bytes": 5491469,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        },
+        {
+          "id": "front_60_60_120_step_2",
+          "bytes": 5687564,
+          "frames": 301,
+          "physics_hz": 1920,
+          "sample_hz": 120,
+          "duration_s": 2.5,
+          "panels_schema": 1
+        }
+      ]
+    }
+  ],
+  "clips": 126,
+  "bytes": 626861711,
+  "frames": 37926,
+  "completed_job_cpu_s": 10040.91,
+  "audit": {
+    "passed": true,
+    "complete": true,
+    "audited": 126,
+    "failed": 0,
+    "pending": 0,
+    "expected_count": 126,
+    "samples_per_clip": 301,
+    "registration_samples": [
+      0,
+      150,
+      300
+    ]
+  },
+  "raw_audit_path": "verification/bake_campaign/asset_audit.json",
+  "timing_scope": "Completed baking processes only; verification/rendering excluded. Family elapsed times overlap and must not be added. Driver timings exclude earlier reused pilots; CPU includes their independently measured process time. Multiaxis upper/underside pilot CPU was measured as one sequential process. Interrupted partial attempts are excluded from completed-job CPU.",
+  "multiaxis_physical_quality": {
+    "replay_passed": true,
+    "finite_states_passed": true,
+    "mass_passed": true,
+    "energy_quality_passed": false
+  },
+  "physical_readiness_passed": false,
+  "observed_baking_span_s": 1994.7584567070007,
+  "observed_baking_span_scope": "Approximate first bake-process start to last completion; overlaps authoring and verification. Derived from retained raw log timestamps and measured process durations."
+}

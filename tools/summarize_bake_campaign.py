@@ -4,6 +4,7 @@ import argparse
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {'horizontal': 37, 'partial': 48, 'multiaxis': 36, 'roof': 2, 'conditioned': 3}
@@ -61,12 +62,37 @@ def main():
               'bytes': sum(r['bytes'] for r in records),
               'frames': sum(r['frames'] for r in records),
               'completed_job_cpu_s': sum(r['completed_job_cpu_s'] or 0 for r in records),
-              'audit': audit,
+              'audit': {key: audit.get(key) for key in ('passed', 'complete', 'audited', 'failed', 'pending', 'expected_count', 'samples_per_clip', 'registration_samples')},
+              'raw_audit_path': 'verification/bake_campaign/asset_audit.json',
               'timing_scope': 'Completed baking processes only; verification/rendering excluded. '
                   'Family elapsed times overlap and must not be added. Driver timings exclude '
                   'earlier reused pilots; CPU includes their independently measured process time. '
                   'Multiaxis upper/underside pilot CPU was measured as one sequential process. '
                   'Interrupted partial attempts are excluded from completed-job CPU.'}
+    quality_path = ROOT / 'verification/multiaxis/final_acceptance.json'
+    quality = json.loads(quality_path.read_text()) if quality_path.exists() else {}
+    report['multiaxis_physical_quality'] = {
+        key: quality.get(key) for key in ('replay_passed', 'finite_states_passed', 'mass_passed', 'energy_quality_passed')}
+    report['physical_readiness_passed'] = bool(audit.get('passed') and audit.get('complete')
+                                              and quality.get('energy_quality_passed'))
+    logs = [ROOT / 'verification/bake_campaign/pilot_frontal_60.log']
+    for row in records:
+        timing_path = ROOT / 'verification/bake_campaign' / (row['family'] + '.json')
+        if not timing_path.exists():
+            continue
+        for job in json.loads(timing_path.read_text()).get('jobs', []):
+            logs.append(ROOT / job.get('log', 'verification/bake_campaign/' + job['id'] + '.log'))
+    intervals = []
+    for log in logs:
+        if not log.exists():
+            continue
+        real = re.findall(r'^real\s+([\d.]+)$', log.read_text(), re.M)
+        if real:
+            end = log.stat().st_mtime
+            intervals.append((end - float(real[-1]), end))
+    if intervals:
+        report['observed_baking_span_s'] = max(end for _, end in intervals) - min(start for start, _ in intervals)
+        report['observed_baking_span_scope'] = 'Approximate first bake-process start to last completion; overlaps authoring and verification. Derived from retained raw log timestamps and measured process durations.'
     destination = ROOT / 'verification/bake_campaign/summary.json'
     destination.write_text(json.dumps(report, indent=2) + '\n')
     print('family       clips      MiB   elapsed_s     CPU_s')
