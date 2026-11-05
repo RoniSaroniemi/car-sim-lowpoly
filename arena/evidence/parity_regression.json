@@ -1,0 +1,67 @@
+{
+  "scope": "Contact-hook integration; provenance mismatches are reported, not waived. Full-suite run stops at roundtrip provenance; remaining runtime suites run individually.",
+  "runs": {
+    "full_shared": {
+      "exit_code": 1,
+      "summary": [
+        "PASS: 6 structural cases, skin binding, strength sensitivity, replay and reset.",
+        "PASS: 7 wheel cases, standing support, load transfer, suspension failure, detachment and replay.",
+        "PASS: rigid lateral mounts, permanent bending, full release and visible load fixture.",
+        "PASS: shared runtime, throttle, brakes, steering direction, reverse, tuning and persistent damage.",
+        "PASS: adaptive driving, forecast wake-up, continuous handoff, collision and timing comparison.",
+        "PASS: matching ramp/contact surfaces, natural takeoff and landing on both jumps.",
+        "PASS: rear wheel retention in crashes, extreme front release, and suspension absorbing both ramp landings."
+      ]
+    },
+    "driving_bakes": {
+      "exit_code": 0,
+      "summary": [
+        "DRIVING_BAKES_VERIFIED true",
+        "PASS: real driving triggers, continuous live/baked handoff, zero-forecast rigid recovery, live tuning, reset and fallback paths."
+      ]
+    },
+    "effects": {
+      "exit_code": 0,
+      "summary": [
+        "PASS: live/baked retained glass, fragment motion, seat hinges and optional airbag."
+      ]
+    },
+    "sequence": {
+      "exit_code": 0,
+      "summary": [
+        "BAKED_CONTACT_SENSOR_VERIFIED true checks=27",
+        "CONDITIONED_TRANSITIONS_VERIFIED true checks=28",
+        "CONDITIONED_BANK_VERIFIED true checks=42 body_error=0.0 effect_pose_error=0.0",
+        "SANDBOX_SEQUENCE_VERIFIED true checks=19 impacts=3 notice=",
+        "PASS: sensitive contact, compatible damaged-state transitions and three sandbox impacts without live solves."
+      ]
+    },
+    "surfaces": {
+      "exit_code": 1,
+      "summary": [
+        "FAILED legacy_provenance_compatible",
+        "VEHICLE_SURFACE_VERIFIED false checks=24"
+      ]
+    },
+    "roof": {
+      "exit_code": 1,
+      "summary": [
+        "FAILED roof_flat_35_compatible_v3_1920hz",
+        "FAILED roof_corner_35_compatible_v3_1920hz",
+        "ROOF_BANK_VERIFIED false checks=10"
+      ]
+    },
+    "quality": {
+      "exit_code": 0,
+      "summary": [
+        "QUALITY_SMOKE true [{\"cpu_ms\":607.267,\"factor\":1,\"full_steps\":120,\"physics_hz\":480.0},{\"cpu_ms\":1005.806,\"factor\":2,\"full_steps\":240,\"physics_hz\":960.0},{\"cpu_ms\":1750.983,\"factor\":4,\"full_steps\":480,\"physics_hz\":1920.0}]"
+      ]
+    }
+  },
+  "provenance_failures": [
+    "Full baked roundtrip: recorded_inputs_playback_compatible, wheel_solver_matches",
+    "Damage surface: legacy_provenance_compatible",
+    "Roof bank: roof_flat/roof_corner physical inputs"
+  ],
+  "null_provider_exact_equivalence": "static_contact_compatibility.json"
+}

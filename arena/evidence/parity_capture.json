@@ -1,0 +1,54 @@
+[
+	{
+		"camera_position": "(30.83319, 4.307018, -0.189872)",
+		"file": "arena_crash_controls.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 0.974999999999999,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 34,
+				"position": [
+					38.3464317321777,
+					0.36750203371048,
+					-0.0512693151831627
+				],
+				"vertical_tire_gap_m": -0.0217993855476379
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 35,
+				"position": [
+					38.7300720214844,
+					0.451395511627197,
+					1.48353946208954
+				],
+				"vertical_tire_gap_m": 0.0621062815189362
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 36,
+				"position": [
+					38.4821319580078,
+					0.43130749464035,
+					-1.34282004833221
+				],
+				"vertical_tire_gap_m": 0.0436895787715912
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 37,
+				"position": [
+					38.9145088195801,
+					0.374592423439026,
+					0.129688248038292
+				],
+				"vertical_tire_gap_m": -0.012424498796463
+			}
+		]
+	}
+]

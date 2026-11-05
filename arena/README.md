@@ -1,6 +1,6 @@
 # Colosseum driving arena
 
-A procedural sand arena using the existing Niva driving runtime and damage skin, built from commit `603c3fd`. This is an isolated environment scene: car dynamics, power, grip, steering and shared physics files are unchanged.
+A procedural sand arena using the existing Niva driving runtime and damage skin, built from commit `603c3fd`, then integrated with the shared sandbox controls on `2ad1656`. The shared vehicle owns car dynamics; an optional analytic static-contact provider adds the arena boundary to live and lightweight contacts.
 
 ## Run
 
@@ -14,7 +14,7 @@ python3 tools/demo.py arena
 
 Use **Open colosseum arena** in the test yard and **Open test yard** in the arena to switch scenes. Switching starts a fresh car.
 
-The window is titled **Niva / Colosseum sand arena**. W accelerates, S brakes, A/D steer, Space is the handbrake, Q toggles reverse and R repairs/resets. C cycles chase, orbit and overview cameras; drag to orbit. Escape exits. The obstacle buttons stage a repaired car on each approach; 1–5 select the same approaches. The three paired-ramp buttons select either lane or the shared seam. F3 exposes optional performance counters.
+The window is titled **Niva / Colosseum sand arena**. W accelerates, S brakes, A/D steer, Space is the handbrake, Q toggles reverse and R repairs/resets. C cycles chase, orbit and overview cameras; drag to orbit. Escape exits. B switches baked/live collision handling. H/Y stage 60/120 km/h wall approaches; U/I stage the ±20° cases. The engine-power and tyre-friction sliders change shared driving parameters and persist through repair/staging. The 480/960/1,920 Hz selector changes live precision. Roof/side fixtures, the wheel-mount test, textured/structure views and the three-impact conditioned sequence are available in the same scrolling controls. The obstacle buttons stage a repaired car on each approach; 1–5 select the same approaches. The three paired-ramp buttons select either lane or the shared seam. F3 exposes optional performance counters.
 
 There are smooth sand, concrete and timber jumps, a curved halfpipe fixture, and adjacent **42° / 24°** ramps. The pair has a common rounded toe, 3.8 m crest height and a continuous 1.24 m blended median, so wheels can straddle different profiles without an artificial collision curb. The stated angles are the straight portions; toe and crest transitions are rounded. Use moderate throttle on the approach. The straddling case deliberately produces strong roll; it does not alter the car to keep it upright.
 
@@ -22,12 +22,12 @@ There are smooth sand, concrete and timber jumps, a curved halfpipe fixture, and
 
 - `terrain.gd` owns obstacle descriptors, height/normal queries and the matching visible ramp meshes. The paired ramp samples the same triangles that are rendered. Its nominal mesh spacing is 0.2 m longitudinally and 0.05 m across the join; original ramps use approximately 0.35 m spacing.
 - `stadium.gd` builds cached meshes, eight seat-culling sectors, repeated piers/arches, material instances and lighting. Twelve seat tiers surround the 152 m diameter drivable area. There are 4,677 repeated instances and 45 unique meshes, rather than one node per chair.
-- `vehicle.gd` extends the shared driving vehicle only to add the finite-height circular retaining-wall contact. Its inexpensive radial broadphase skips body-wall tests away from the edge. There is no per-seat physics work.
+- `vehicle.gd` extends the shared driving vehicle and registers `world_contacts.gd`, which describes the finite annular retaining wall and the straight benchmark wall. The shared `Structure.static_contact` query chooses the nearest enabled box/provider hit, preserving signed point distance, normal and source. Wheel contacts still use oriented tire support. The optional live forecast uses the same provider and skips work away from the predicted edge. There is no per-seat physics work.
 - `colosseum.gd` owns staging, camera and concise controls. It uses the current shared damage skin and vehicle profile. Future changes to shared car dynamics carry through without a second implementation.
 
 The terrain is a single-valued heightfield: ramp undersides and overhangs are not drivable. The small timber ribs/supports are visual details over the common contact surface. Seats and upper arches are decorative behind the retaining wall. Sand is a rigid contact surface with procedural material detail, without granular soil or rut simulation. The retaining wall has a finite height; a sufficiently high airborne car can clear it, and an out-of-bounds reset recovers the car.
 
-**The curved ring uses rigid contact response, without selecting a crash animation.** The existing bank records planar full-width wall impacts, so this scene explicitly declines to apply those incompatible bakes to a curved wall, pillar or narrow corner. It also does not wake the heavy deformation solver merely because scenery is nearby. New arena-specific damage contacts/bakes are a separate integration task. This scene contains neither the separate panel-articulation probe nor deferred body separation work.
+**The visible straight crash wall at x=40–41, z=−8…8 uses the existing compatible baked selector.** Its geometry and analytic collision derive from the same bounds. It supports the 60/120 km/h, ±20° and conditioned 60→60→120 sequence fixtures. In baked mode the curved ring uses rigid fallback and never selects a planar wall recording. In live mode its analytic contacts and forecast can wake actual structural deformation. Decorative seats/pillars remain outside the drivable retaining wall. Scenery does not wake heavy physics merely by existing nearby. The arena exposes `panel_controls: VBoxContainer`, named `PanelControls`, for the production shared panel widget; it uses the public shared damage skin so production panel integration carries through. Deferred structural body separation is not included.
 
 ## Materials and lighting
 
@@ -46,13 +46,20 @@ One shadowed directional sun supplies direct light. The procedural sky provides 
 /Applications/Godot.app/Contents/MacOS/Godot --path . res://arena/colosseum.tscn -- --capture-arena
 # Native viewport budget (opens a temporary window):
 /Applications/Godot.app/Contents/MacOS/Godot --path . --script res://arena/benchmark.gd
+# Additional functional controls / live-baked arena parity:
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . --script res://arena/verify_parity.gd
+# Native crash + functional HUD evidence:
+/Applications/Godot.app/Contents/MacOS/Godot --path . res://arena/colosseum.tscn -- --capture-arena-crash
+# Compare null-provider default physics with the unmodified prior commit:
+python3 arena/prepare_contact_baseline.py
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . --script res://arena/verify_contact_compatibility.gd
 # Existing complete shared suites:
 python3 tools/demo.py verify --no-import
 ```
 
 `evidence/validation.json` retains the delivery snapshot of **35 passing checks**. A fresh `python3 tools/demo.py verify-arena --no-import` run writes `verification/arena_validation.json` without overwriting that snapshot. All four original obstacle approaches produced actual takeoff and subsequent landing, finite car states and retained wheels. Both individual paired lanes and the straddled approach remained finite with zero heavy solves. The straddling stress case reached approximately 95° roll; individual lanes remained near 1.2° or less in the recorded runs. No wheel detached in those three cases. The ring stopped the car from all four cardinal approaches without applying an incompatible bake. Maximum visible/contact vertex height error was 0.000000187 m; maximum normal discrepancy was 0.000115 from mesh normal packing.
 
-The existing shared regression command also passed: structural/wheel cases, mounts, driving, adaptive handoff, terrain, wheel load handling, crash library, baked driving, glass, interior, contact sensitivity, conditioned sequential transitions, damage materials and roof cases. `evidence/shared_regression.json` retains the pass summary.
+The existing shared regression command also passed: structural/wheel cases, mounts, driving, adaptive handoff, terrain, wheel load handling, crash library, baked driving, glass, interior, contact sensitivity, conditioned sequential transitions, damage materials and roof cases. `evidence/shared_regression.json` retains that pre-contact-hook pass summary. The parity integration adds a physical-source query interface; current verification and exact-provenance results are documented separately below.
 
 The saved PNGs are actual native Godot renders, visually inspected for alignment, material scale, car illumination and shadows: overview, chase, car lighting, timber/stone/sand details, airborne sand jump, paired ramps and the car straddling their join. `evidence/captures.json` records wheel positions, sampled floor heights and solver counts at each capture. `sand_jump.png` is captured only when all four tire support points clear the floor; it is not a posed static car.
 
@@ -76,3 +83,17 @@ Apple M3, Godot 4.7.2 Compatibility, 1440×900; values are retained in `evidence
 | Heavy solver / forecast steps on normal obstacle drives | 0 / 0 |
 
 The close physics timings show comparable load, not proof that the arena is faster. Mesh/transform payload estimates exclude engine and GPU allocation overhead. Viewport counters include rendering/shadow behavior. Native CPU render submission averaged about 9.9–10.3 ms including possible waiting; GPU timestamps were unavailable, so these measurements do not establish a GPU frame time or FPS guarantee. Shader cost, shadows and resolution still affect the actual rendering budget.
+
+
+## Functional parity integration evidence
+
+`evidence/parity_validation.json` records 32 passing checks. All four wall starts selected one completed bake with zero full solves and zero heavy forecasts. The conditioned sequence completed three impacts without a full solve. The live 60 km/h wall case accumulated approximately 60 kJ plastic work; the live circular-wall impact accumulated approximately 52 kJ while retaining the car inside the arena. The baked circular-wall case retained the car with no deformation solve and no wrong planar bake.
+
+Actual HUD slider signals were exercised, followed by centre reset, timber staging, paired-ramp staging and wall staging. Power, friction, live mode and 1,920 Hz quality persisted. At 55 versus 660 kW, the same two-second acceleration finished at 3.11 versus 12.87 m/s. Friction 0.2 versus 1.2 left 12.83 versus 0.34 m/s after the same two-second brake interval. These are test-fixture outcomes, not calibrated vehicle claims. Roof and mount buttons activate their existing shared fixtures. Panel mechanics are owned by the parallel production integration; this environment does not duplicate them.
+
+`arena_crash_controls.png` is an inspected native render showing actual `front_left_20_120` playback, the matching wall and functional controls. Its capture state is retained in `parity_capture.json`. Original approved environment images remain as the visual baseline. Runtime validation files are written under ignored `verification/`.
+
+The standard 35 environment checks still pass with the provider. On a clear route, the updated arena measured 1.019 ms mean / 1.060 ms p95 per 120 Hz step, compared with 1.036 / 1.063 ms for the practice terrain in the same process; both had zero full solves. Treat these close timings as comparable CPU cost. The added wall contributes 12 counted mesh triangles plus small markers and one label; earlier native viewport budget values describe the approved environment before the parity HUD/wall addition.
+
+
+The optional-contact interface was compared against unmodified `2ad1656` modules: positions, velocities, permanent link lengths and plastic work matched exactly at every sampled integration step for null-provider live 60/120 frontal cases and compact driving. `evidence/static_contact_compatibility.json` records this diagnostic. It does **not** waive historical source fingerprints. The full shared suite passed structural, wheels, mounts, driving, adaptive, ramps and retention, then stopped at baked input-provenance checks because the shared query hook changes physical source hashes. Independent driving-bakes, glass/interior, conditioned sequences and quality smoke tests pass; roof-bank and damage-surface provenance checks report the same expected hash mismatch. Existing recorded files have not been relabelled or regenerated. The main integration owner coordinates the final reviewed compatibility policy or regeneration together with production panel integration; the entire full suite must be rerun after that reconciliation.
