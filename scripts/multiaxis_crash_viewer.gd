@@ -3,7 +3,7 @@ extends Node3D
 const Vehicle=preload('res://scripts/vehicle_simulation.gd')
 const Clip=preload('res://scripts/baked_crash_clip.gd')
 const Player=preload('res://scripts/baked_crash_player.gd')
-const Skin=preload('res://scripts/damage_skin.gd')
+const SkinView=preload('res://scripts/damage_skin.gd')
 var vehicle: RefCounted
 var player: RefCounted
 var data: Dictionary={}
@@ -39,7 +39,7 @@ func _ready() -> void:
  assert(not library.is_empty(),'Bake or provide --clip=res://bakes/multiaxis/top_60.crashclip first')
  vehicle=Vehicle.new();vehicle.setup('res://vehicles/niva.json',false)
  _world()
- view=Node3D.new();view.set_script(Skin);add_child(view);view.setup(vehicle.solver,vehicle.profile.model);view.show_frame=false;view.set_mode(2)
+ view=Node3D.new();view.set_script(SkinView);add_child(view);view.setup(vehicle.solver,vehicle.profile.model);view.show_frame=false;view.set_mode(2)
  camera=Camera3D.new();camera.current=true;camera.fov=45;add_child(camera)
  var fill:=DirectionalLight3D.new();fill.light_energy=.6;camera.add_child(fill)
  _ui();_select(0)
