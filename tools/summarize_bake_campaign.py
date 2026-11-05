@@ -34,7 +34,8 @@ def main():
                            'panels_schema': meta.get('panels_schema', 0)})
         path = ROOT / 'verification' / 'bake_campaign' / (family + '.json')
         timing = json.loads(path.read_text()) if path.exists() else {}
-        cpu = timing.get('total_cpu_s')
+        cpu = timing.get('total_cpu_s', sum(job.get('user_s', 0) + job.get('sys_s', 0)
+                                          for job in timing.get('jobs', [])))
         pilot_process_wall = 0
         if family == 'multiaxis':
             receipt = ROOT / 'verification/multiaxis/pilot_receipt.json'
