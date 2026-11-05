@@ -1,0 +1,470 @@
+[
+	{
+		"camera_position": "(113.0, 110.0, 128.0)",
+		"file": "overview.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 0.0,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 34,
+				"position": [
+					-13.1000003814697,
+					0.389999985694885,
+					-0.795000016689301
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 35,
+				"position": [
+					-13.1000003814697,
+					0.389999985694885,
+					0.795000016689301
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 36,
+				"position": [
+					-10.8999996185303,
+					0.389999985694885,
+					-0.795000016689301
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 37,
+				"position": [
+					-10.8999996185303,
+					0.389999985694885,
+					0.795000016689301
+				],
+				"vertical_tire_gap_m": 0.0
+			}
+		]
+	},
+	{
+		"camera_position": "(-8.077581, 4.18, 6.731768)",
+		"file": "car_lighting.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 0.0,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 34,
+				"position": [
+					-13.1000003814697,
+					0.389999985694885,
+					-0.795000016689301
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 35,
+				"position": [
+					-13.1000003814697,
+					0.389999985694885,
+					0.795000016689301
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 36,
+				"position": [
+					-10.8999996185303,
+					0.389999985694885,
+					-0.795000016689301
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 37,
+				"position": [
+					-10.8999996185303,
+					0.389999985694885,
+					0.795000016689301
+				],
+				"vertical_tire_gap_m": 0.0
+			}
+		]
+	},
+	{
+		"camera_position": "(18.0, 5.0, -30.0)",
+		"file": "timber_detail.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 0.0,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 34,
+				"position": [
+					-7.09999990463257,
+					0.389999985694885,
+					-18.7950000762939
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 35,
+				"position": [
+					-7.09999990463257,
+					0.389999985694885,
+					-17.2049999237061
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 36,
+				"position": [
+					-4.90000009536743,
+					0.389999985694885,
+					-18.7950000762939
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 37,
+				"position": [
+					-4.90000009536743,
+					0.389999985694885,
+					-17.2049999237061
+				],
+				"vertical_tire_gap_m": 0.0
+			}
+		]
+	},
+	{
+		"camera_position": "(-13.9, 4.18, -18.0)",
+		"file": "chase.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 0.0,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 34,
+				"position": [
+					-7.09999990463257,
+					0.389999985694885,
+					-18.7950000762939
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 35,
+				"position": [
+					-7.09999990463257,
+					0.389999985694885,
+					-17.2049999237061
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 36,
+				"position": [
+					-4.90000009536743,
+					0.389999985694885,
+					-18.7950000762939
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 37,
+				"position": [
+					-4.90000009536743,
+					0.389999985694885,
+					-17.2049999237061
+				],
+				"vertical_tire_gap_m": 0.0
+			}
+		]
+	},
+	{
+		"camera_position": "(-16.81342, 6.05077, -18.26591)",
+		"file": "sand_jump.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 2.13333333333333,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 1.82989251613617,
+				"node": 34,
+				"position": [
+					-21.9565773010254,
+					2.38980674743652,
+					-25.7931575775146
+				],
+				"vertical_tire_gap_m": 0.169914245605469
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.82991433143616,
+				"node": 35,
+				"position": [
+					-21.9567451477051,
+					2.38990592956543,
+					-24.2031574249268
+				],
+				"vertical_tire_gap_m": 0.169991612434387
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.45784687995911,
+				"node": 36,
+				"position": [
+					-19.7936191558838,
+					2.01807689666748,
+					-25.7929458618164
+				],
+				"vertical_tire_gap_m": 0.170230031013489
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.45787286758423,
+				"node": 37,
+				"position": [
+					-19.7937450408936,
+					2.01816987991333,
+					-24.2029399871826
+				],
+				"vertical_tire_gap_m": 0.170297026634216
+			}
+		]
+	},
+	{
+		"camera_position": "(70.0, 4.0, -3.0)",
+		"file": "stone_detail.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 2.13333333333333,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 1.82989251613617,
+				"node": 34,
+				"position": [
+					-21.9565773010254,
+					2.38980674743652,
+					-25.7931575775146
+				],
+				"vertical_tire_gap_m": 0.169914245605469
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.82991433143616,
+				"node": 35,
+				"position": [
+					-21.9567451477051,
+					2.38990592956543,
+					-24.2031574249268
+				],
+				"vertical_tire_gap_m": 0.169991612434387
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.45784687995911,
+				"node": 36,
+				"position": [
+					-19.7936191558838,
+					2.01807689666748,
+					-25.7929458618164
+				],
+				"vertical_tire_gap_m": 0.170230031013489
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.45787286758423,
+				"node": 37,
+				"position": [
+					-19.7937450408936,
+					2.01816987991333,
+					-24.2029399871826
+				],
+				"vertical_tire_gap_m": 0.170297026634216
+			}
+		]
+	},
+	{
+		"camera_position": "(-10.0, 1.1, 1.5)",
+		"file": "sand_detail.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 2.13333333333333,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 1.82989251613617,
+				"node": 34,
+				"position": [
+					-21.9565773010254,
+					2.38980674743652,
+					-25.7931575775146
+				],
+				"vertical_tire_gap_m": 0.169914245605469
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.82991433143616,
+				"node": 35,
+				"position": [
+					-21.9567451477051,
+					2.38990592956543,
+					-24.2031574249268
+				],
+				"vertical_tire_gap_m": 0.169991612434387
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.45784687995911,
+				"node": 36,
+				"position": [
+					-19.7936191558838,
+					2.01807689666748,
+					-25.7929458618164
+				],
+				"vertical_tire_gap_m": 0.170230031013489
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.45787286758423,
+				"node": 37,
+				"position": [
+					-19.7937450408936,
+					2.01816987991333,
+					-24.2029399871826
+				],
+				"vertical_tire_gap_m": 0.170297026634216
+			}
+		]
+	},
+	{
+		"camera_position": "(2.0, 17.0, -67.0)",
+		"file": "paired_ramps.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 0.0,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 34,
+				"position": [
+					-25.1000003814697,
+					0.389999985694885,
+					-50.7949981689453
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 35,
+				"position": [
+					-25.1000003814697,
+					0.389999985694885,
+					-49.2050018310547
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 36,
+				"position": [
+					-22.8999996185303,
+					0.389999985694885,
+					-50.7949981689453
+				],
+				"vertical_tire_gap_m": 0.0
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.0,
+				"node": 37,
+				"position": [
+					-22.8999996185303,
+					0.389999985694885,
+					-49.2050018310547
+				],
+				"vertical_tire_gap_m": 0.0
+			}
+		]
+	},
+	{
+		"camera_position": "(-1.681472, 5.31883, -43.9471)",
+		"file": "paired_straddle.png",
+		"full_solver_steps": 0,
+		"simulation_time_s": 1.23333333333333,
+		"wheels": [
+			{
+				"detached": false,
+				"floor_height_m": 0.702228784561157,
+				"node": 34,
+				"position": [
+					-8.19259929656982,
+					1.73021626472473,
+					-50.3912811279297
+				],
+				"vertical_tire_gap_m": 0.667534947395325
+			},
+			{
+				"detached": false,
+				"floor_height_m": 0.672203719615936,
+				"node": 35,
+				"position": [
+					-7.49020576477051,
+					1.04818594455719,
+					-49.1384658813477
+				],
+				"vertical_tire_gap_m": 0.0155314803123474
+			},
+			{
+				"detached": false,
+				"floor_height_m": 2.41327285766602,
+				"node": 36,
+				"position": [
+					-6.31978893280029,
+					2.84024667739868,
+					-50.8365936279297
+				],
+				"vertical_tire_gap_m": 0.0665307939052582
+			},
+			{
+				"detached": false,
+				"floor_height_m": 1.61872684955597,
+				"node": 37,
+				"position": [
+					-5.61460542678833,
+					2.16341519355774,
+					-49.5827865600586
+				],
+				"vertical_tire_gap_m": 0.184445679187775
+			}
+		]
+	}
+]

@@ -1,0 +1,58 @@
+{
+	"arena_instances": 4677,
+	"arena_triangle_instances": 206050,
+	"device": "Apple M3",
+	"generation_cpu_ms": 722.765,
+	"instance_transform_bytes": 224496,
+	"renderer": "gl_compatibility",
+	"runs": [
+		{
+			"draw_calls": 114,
+			"full_solver_steps": 0,
+			"gpu_timings_available": false,
+			"objects": 120,
+			"physics_mean_us_per_120hz": 1094.0,
+			"primitives": 263674,
+			"render_cpu_mean_ms": 9.90979340450823,
+			"render_gpu_mean_ms": 0.0,
+			"view": "overview",
+			"viewport": [
+				1440,
+				900
+			]
+		},
+		{
+			"draw_calls": 263,
+			"full_solver_steps": 0,
+			"gpu_timings_available": false,
+			"objects": 269,
+			"physics_mean_us_per_120hz": 1083.57851239669,
+			"primitives": 174674,
+			"render_cpu_mean_ms": 9.91000826496723,
+			"render_gpu_mean_ms": 0.0,
+			"view": "driver",
+			"viewport": [
+				1440,
+				900
+			]
+		},
+		{
+			"draw_calls": 117,
+			"full_solver_steps": 0,
+			"gpu_timings_available": false,
+			"objects": 123,
+			"physics_mean_us_per_120hz": 1078.85123966942,
+			"primitives": 57624,
+			"render_cpu_mean_ms": 10.2681569934876,
+			"render_gpu_mean_ms": 0.0,
+			"view": "car_only_same_sky",
+			"viewport": [
+				1440,
+				900
+			]
+		}
+	],
+	"scope": "One native scene,1440x900,120samples after40warmupframes perview. CPU submission is not complete frame time. ZeroGPUtimestamp means unavailable. Car-only control hides arena geometry, retaining identical light/environment/car. Serialized geometry and transform payload exclude engine/GPU allocation overhead.",
+	"serialized_mesh_array_bytes": 5448908,
+	"unique_meshes": 45
+}
