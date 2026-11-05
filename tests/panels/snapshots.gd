@@ -14,6 +14,7 @@ func _initialize() -> void:
  var clip: Dictionary={'metadata':{'id':'panel_roundtrip','sample_hz':120,'duration_s':1.0/120,'heading_deg':0,'speed_kmh':60},'frames':[local,local.duplicate(true)]}
  Clip.save(clip,'user://panel_roundtrip.crashclip',false);clip=Clip.read('user://panel_roundtrip.crashclip')
  assert(clip.metadata.panels_schema==1)
+ var frame_bytes: PackedByteArray=var_to_bytes(clip.frames)
  var calls: int=v.solver.step_count;var cages: int=v.solver.panels.active_steps
  Clip.apply(v.solver,clip,1.0/240,origin,rotation)
  var p: Dictionary=v.panel_state('door_right');var source: Dictionary=local.panels.panels[1]
@@ -25,6 +26,12 @@ func _initialize() -> void:
  assert(p.reduced_data.offsets==source.reduced_data.offsets)
  assert(absf(v.solver.owned_mass_kg()-1210)<.01)
  assert(v.solver.step_count==calls and v.solver.panels.active_steps==cages)
+ assert(var_to_bytes(clip.frames)==frame_bytes)
+ var other:=Vehicle.new();other.setup();other.solver.restore(a)
+ var second:=Vehicle.new();second.setup();second.solver.restore(a)
+ var before_other: PackedVector3Array=other.panel_state('door_right').points.duplicate()
+ second.panel_state('door_right').points[0]+=Vector3(1,0,0)
+ assert(other.panel_state('door_right').points==before_other)
  # Seeking is exact and doesn't heal manufactured prior damage.
  p.anchors[0].broken=true;p.angular_mount.plastic_rad=.12
  var prior: Dictionary=v.solver.panels.capture()

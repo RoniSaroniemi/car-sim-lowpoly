@@ -4,8 +4,9 @@ var inside_inspection:=false
 func _ready() -> void:
  super._ready()
  DisplayServer.window_set_title('Niva MAIN panel integration — preview')
- vehicle.set_panel_open('door_left',70);vehicle.set_panel_open('door_right',55)
- vehicle.set_panel_open('bonnet',45);vehicle.set_panel_open('tailgate',70)
+ if '--closed-panels' not in OS.get_cmdline_user_args():
+  vehicle.set_panel_open('door_left',70);vehicle.set_panel_open('door_right',55)
+  vehicle.set_panel_open('bonnet',45);vehicle.set_panel_open('tailgate',70)
  camera_mode=1
  if '--capture-panel-crash' in OS.get_cmdline_user_args():
   recorded_inspection=true

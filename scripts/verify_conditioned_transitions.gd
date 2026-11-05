@@ -33,6 +33,7 @@ func _run() -> void:
  var moved: Dictionary=state.duplicate(true)
  var rotation:=Basis(Vector3.UP,.7)*Basis(Vector3.RIGHT,.1)
  for i in moved.points.size():moved.points[i]=rotation*moved.points[i]+Vector3(37,1,-9)
+ if moved.has('panels'):moved.panels=Clip.PanelState.transformed(moved.panels,rotation,Vector3(37,1,-9))
  checks['rigid_pose_invariance']=States.compatible(g,clip,moved).accepted
  var changed: Dictionary=state.duplicate(true);changed.points[24]+=Vector3(.15,0,0)
  checks['wrong_body_shape_rejected']=States.compatible(g,clip,changed).reason=='body_shape'

@@ -12,7 +12,7 @@ if not binary:
     binary = str(candidate) if candidate.exists() else None
 if not binary:
     raise SystemExit('Set GODOT_BIN to the Godot4.7 executable')
-for name in ('smoke', 'snapshots', 'glass', 'contrasts', 'driving', 'author_roundtrip'):
+for name in ('smoke', 'snapshots', 'glass', 'contrasts', 'driving', 'continuation_audit', 'author_roundtrip'):
     subprocess.run([binary, '--headless', '--path', str(ROOT), '--script',
                     f'res://tests/panels/{name}.gd'], check=True, timeout=240)
 print('PASS: shared panel controls, mass, glass, driving, reduced mounts and replay ownership.')

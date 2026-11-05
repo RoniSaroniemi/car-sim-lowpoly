@@ -400,6 +400,7 @@ func restore_panel(snapshot: Dictionary) -> void:
   if key=='id':continue
   if key in ['anchors','edges','closing_supports']:
    for k in snapshot[key].size():p[key][k].merge(snapshot[key][k],true)
+  elif snapshot[key] is PackedVector3Array:p[key]=snapshot[key].duplicate()
   else:p[key]=snapshot[key].duplicate(true) if snapshot[key] is Dictionary or snapshot[key] is Array else snapshot[key]
  p.old=p.points.duplicate()
  if not p.has('reduced'):p['reduced']=false
