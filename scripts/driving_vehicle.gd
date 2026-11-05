@@ -108,6 +108,7 @@ func stage_next_supported() -> bool:
  var clock_before: float=solver.simulated_time
  ConditionedAuthor.prepare(solver,{'speed':next.speed,'angle':next.angle})
  solver.simulated_time=clock_before
+ prepare_lightweight_panels()
  compact.capture_shape();solver.compact_active=true;mode='DRIVE'
  contact_sensor.reset();driver_accumulator=0
  return true
@@ -244,6 +245,14 @@ func _begin_bake(event: Dictionary) -> void:
  var travel: float=event.toi
  solver.compact_active=false
  for i in solver.points.size():solver.points[i]+=solver.velocities[i]*travel
+ if solver.panels_runtime_enabled:
+  for p in solver.panels.panels:
+   for i in 10:p.points[i]+=p.velocity[i]*travel
+   if p.has('reduced_data'):
+    p.reduced_data.center+=p.reduced_data.linear*travel
+    var omega: Vector3=p.reduced_data.omega;var angle: float=omega.length()*travel
+    if angle>1e-9:p.reduced_data.rotation=(Quaternion(omega.normalized(),angle)*p.reduced_data.rotation).normalized()
+  solver.panels.pose_revision+=1
  for wheel in solver.wheels.wheels:
   wheel.spin=wrapf(wheel.spin+wheel.spin_speed*travel,-PI,PI)
   var angle: float=wheel.angular_velocity.length()*travel

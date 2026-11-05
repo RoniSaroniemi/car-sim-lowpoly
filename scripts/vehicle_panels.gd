@@ -1,5 +1,5 @@
 extends RefCounted
-## Probe-owned panels. Intact shut mass is condensed; active cage mass is extracted once.
+## Graph-owned panels. Intact shut mass is condensed; active cage mass is extracted once.
 const RoadProfile=preload('res://scripts/road_panel_profile.gd')
 const CONTACT_PROXIES=[0,2,6,8,9]
 var playback:=false
@@ -110,6 +110,7 @@ func activate(p: Dictionary) -> void:
  synchronize_inactive()
  var before: Dictionary=momentum();var g: RefCounted=graph.get_ref()
  p.active=true
+ p['reduced']=false;p['reduced_mode']='full_impact'
  for node in p.reservation:g.masses[node]-=float(p.reservation[node]);g.inverse_masses[node]=1/g.masses[node]
  g.body_mass_kg-=p.mass
  for link in g.links:
@@ -310,8 +311,13 @@ func finish_step() -> void:
   for i in 10:
    p.velocity[i]=(p.points[i]-p.old[i])/dt
    p.velocity[i]*=exp(-.5*dt)
-   if p.points[i].y<=.04501:
-    p.velocity[i].y=maxf(0,p.velocity[i].y);p.velocity[i].x*=.99;p.velocity[i].z*=.99
+   var floor_: Vector4=graph.get_ref().floor_sample(p.points[i])
+   var normal:=Vector3(floor_.x,floor_.y,floor_.z).normalized()
+   if (p.points[i].y-floor_.w)*normal.y<=.04501:
+    var vn: float=p.velocity[i].dot(normal)
+    p.velocity[i]-=normal*minf(0,vn)
+    var tangent: Vector3=p.velocity[i]-normal*p.velocity[i].dot(normal)
+    p.velocity[i]-=tangent*(1-exp(-4.824*dt))
   # Dissipative axial damping, preserving panel COM momentum.
   var inv: float=10/p.mass
   for edge in p.edges:
@@ -365,10 +371,20 @@ func capture() -> Dictionary:
  var states: Array=[]
  for p in panels:
   states.append({'id':p.id,'points':p.points.duplicate(),'velocity':p.velocity.duplicate(),'active':p.active,'detached':p.detached,'latched':p.latched,'target':p.target,'angle':p.angle,'plastic_work':p.plastic_work,'anchors':p.anchors.duplicate(true),'edges':p.edges.duplicate(true),'release_time':p.release_time,'contacts':p.contacts,'maximum_force':p.maximum_force})
+  # Rest topology/bindings are per-car configuration, not 301 copies per clip.
+  states[-1].anchors=p.anchors.map(func(a):return _dynamic_record(a,['node','rest','binding','lambda']))
+  states[-1].edges=p.edges.map(func(e):return {'length':e.length,'damage':e.damage})
  for i in panels.size():
-  for key in ['reduced','frozen_local','reduced_mode','reduced_data','closing_engaged','closing_supports','hinge_strength_n','latch_strength_n','failure_delay_s','lower_strength_fraction','profile_id','local_failure','impact_evidence','angular_mount','weak_mount_reference']:
+  for key in ['angular_speed','maximum_deflection','reduced','frozen_local','reduced_mode','reduced_data','closing_engaged','closing_supports','hinge_strength_n','latch_strength_n','failure_delay_s','lower_strength_fraction','profile_id','local_failure','impact_evidence','angular_mount','weak_mount_reference']:
    if panels[i].has(key):states[i][key]=panels[i][key].duplicate(true) if panels[i][key] is Dictionary or panels[i][key] is Array else panels[i][key].duplicate() if panels[i][key] is PackedVector3Array else panels[i][key]
- return {'version':2,'panels':states,'events':events.duplicate(true),'time':clock,'mass':total_mass()}
+  if states[i].has('closing_supports'):states[i].closing_supports=panels[i].closing_supports.map(func(s):return _dynamic_record(s,['node','rest','binding','lambda']))
+ return {'version':3,'panels':states,'events':events.duplicate(true),'time':clock,'mass':total_mass()}
+
+func _dynamic_record(source: Dictionary,excluded: Array) -> Dictionary:
+ var result: Dictionary={}
+ for key in source:
+  if key not in excluded:result[key]=source[key]
+ return result
 
 func restore(state: Dictionary) -> void:
  pose_revision+=1
@@ -376,11 +392,18 @@ func restore(state: Dictionary) -> void:
  for i in panels.size():
   for key in ['reduced','reduced_mode','reduced_data','frozen_local','closing_engaged','closing_supports','lower_strength_fraction','profile_id','local_failure','impact_evidence','angular_mount','weak_mount_reference']:
    if not state.panels[i].has(key):panels[i].erase(key)
-  for key in state.panels[i]:
-   if key!='id':panels[i][key]=state.panels[i][key].duplicate(true) if state.panels[i][key] is Dictionary or state.panels[i][key] is Array else state.panels[i][key]
-  panels[i].old=panels[i].points.duplicate()
-  if not panels[i].has('reduced'):panels[i]['reduced']=false
-  if not panels[i].has('reduced_mode'):panels[i]['reduced_mode']='full_impact' if panels[i].active else 'asleep_closed'
+  restore_panel(state.panels[i])
+
+func restore_panel(snapshot: Dictionary) -> void:
+ var p: Dictionary=find(snapshot.id)
+ for key in snapshot:
+  if key=='id':continue
+  if key in ['anchors','edges','closing_supports']:
+   for k in snapshot[key].size():p[key][k].merge(snapshot[key][k],true)
+  else:p[key]=snapshot[key].duplicate(true) if snapshot[key] is Dictionary or snapshot[key] is Array else snapshot[key]
+ p.old=p.points.duplicate()
+ if not p.has('reduced'):p['reduced']=false
+ if not p.has('reduced_mode'):p['reduced_mode']='full_impact' if p.active else 'asleep_closed'
 
 func statistics() -> Dictionary:
  return {'active_steps':active_steps,'idle_steps':idle_steps,'contacts':contact_count,'mass_kg':total_mass(),'panel_nodes':panels.size()*10,'max_release_us':max_release_us,'release_continuity':release_continuity,'activation_continuity':activation_continuity,'events':events}
@@ -536,7 +559,12 @@ func kinetic_energy() -> float:
    for motion in p.velocity:energy+=.5*p.mass/10*motion.length_squared()
  return energy
 func has_independent_motion() -> bool:
- return panels.any(func(p):return p.active and not p.get('reduced_data',{}).get('sleep',false))
+ for p in panels:
+  if not p.active:continue
+  if p.get('reduced_data',{}).get('sleep',false):continue
+  for v in p.velocity:
+   if v.length()>.04:return true
+ return false
 static func panel_for_glass(id: String) -> String:
  return id if id in ['door_left','door_right'] else 'tailgate' if id=='rear' else ''
 func point_binding(id: String,point_: Vector3) -> Dictionary:
@@ -596,6 +624,6 @@ func frame_at(id: String,rest_origin: Vector3) -> Transform3D:
  return Transform3D(Basis(x,y,x.cross(y).normalized()),origin)
 func input_fingerprints() -> Dictionary:
  var result: Dictionary={}
- for path in ['scripts/vehicle_panels.gd','scripts/road_panel_profile.gd','scripts/panel_angular_mount.gd','scripts/reduced_vehicle_panels.gd']:
+ for path in ['scripts/panel_snapshot.gd','scripts/conditioned_crash_authoring.gd','scripts/baked_crash_clip.gd','scripts/vehicle_panels.gd','scripts/road_panel_profile.gd','scripts/panel_angular_mount.gd','scripts/reduced_vehicle_panels.gd']:
   result[path]=FileAccess.get_sha256('res://'+path)
  return result

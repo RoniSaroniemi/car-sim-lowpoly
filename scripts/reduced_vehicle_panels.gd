@@ -134,11 +134,11 @@ func _publish(p: Dictionary) -> void:
  for i in 10:p.points[i]=_point(p,i);p.velocity[i]=_velocity(p,i)
  p.old=p.points.duplicate()
 
-func step(h: float) -> void:
+func step(h: float,only_ids: Array=[],flush_body: bool=true) -> void:
  var began: int=Time.get_ticks_usec();system.clock+=h
  var frames: Array=Attachment.rotations(graph)
  for p in system.panels:
-  if not p.active or not p.reduced:continue
+  if not p.active or not p.reduced or (not only_ids.is_empty() and p.id not in only_ids):continue
   reduced_steps+=1
   var d: Dictionary=p.reduced_data;d.age+=h
   if d.sleep:continue
@@ -181,14 +181,17 @@ func step(h: float) -> void:
   var grounded:=false
   for i in [0,2,6,8,9]:
    var point_: Vector3=_point(p,i)
-   if point_.y<.04:
+   var sample: Vector4=graph.floor_sample(point_)
+   var floor_normal:=Vector3(sample.x,sample.y,sample.z).normalized()
+   var depth: float=.04-(point_.y-sample.w)*floor_normal.y
+   if depth>0:
     grounded=true
-    d.center.y+=.04-point_.y
+    d.center+=floor_normal*depth
     var r: Vector3=point_-d.center
-    var weight: float=1/p.mass+r.cross(Vector3.UP).dot(_inverse(p,r.cross(Vector3.UP)))
-    var vn: float=_velocity(p,i).y
-    if vn<0:_impulse(p,i,Vector3.UP*(-vn/weight))
-    var tangent: Vector3=_velocity(p,i);tangent.y=0
+    var weight: float=1/p.mass+r.cross(floor_normal).dot(_inverse(p,r.cross(floor_normal)))
+    var vn: float=_velocity(p,i).dot(floor_normal)
+    if vn<0:_impulse(p,i,floor_normal*(-vn/weight))
+    var tangent: Vector3=_velocity(p,i);tangent-=floor_normal*tangent.dot(floor_normal)
     if tangent.length()>.0001:_impulse(p,i,-tangent.normalized()*minf(tangent.length()*p.mass/5,.7*p.mass*9.81*h/5))
     contacts+=1
    _wall_contact(p,i,old_center,old_rotation,h)
@@ -216,7 +219,7 @@ func step(h: float) -> void:
    d.quiet=d.quiet+h if grounded and energy<.3 else 0.0
    if d.quiet>.5:
     d.sleep=true;p.reduced_mode='detached_sleep';d.linear=Vector3.ZERO;d.omega=Vector3.ZERO;damping_energy_j+=energy;_publish(p)
- if compact!=null:compact.flush()
+ if compact!=null and flush_body:compact.flush()
  system.pose_revision+=1
  system.synchronize_inactive()
  step_costs.append(Time.get_ticks_usec()-began)
@@ -266,7 +269,7 @@ func _wall_contact(p: Dictionary,i: int,old_center: Vector3,old_rotation: Quater
  var hit: Dictionary=system.static_contact(point_,.04)
  if not is_finite(float(hit.distance)):return
  var normal: Vector3=hit.normal;var depth: float=.04-float(hit.distance)
- if depth<=0:
+ if depth<=0 and hit.get('source','barrier')=='barrier':
   var start: Vector3=old_center+Basis(old_rotation)*p.reduced_data.offsets[i]
   var boundary: float=graph.barrier_min.x-.04
   if start.x<boundary and point_.x>=boundary:

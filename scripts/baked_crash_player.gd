@@ -37,6 +37,8 @@ var blend_seconds:=.10
 var persistent_free_wheels:=PackedInt32Array()
 var irreversible_initial: Dictionary={}
 var surface_initial: Dictionary={}
+var persistent_free_panels: Array=[]
+var panel_handoff: Dictionary={}
 
 func setup(clip_data: Dictionary) -> void:
  setup_library([clip_data],float(clip_data.metadata.get('heading_deg',0)),float(clip_data.metadata.speed_kmh))
@@ -71,10 +73,15 @@ func reset() -> void:
  var speed: float=approach_speed_kmh/3.6
  incoming_velocity=direction*speed
  for i in vehicle.solver.velocities.size():vehicle.solver.velocities[i]=incoming_velocity
+ if vehicle.solver.panels_runtime_enabled:
+  for p in vehicle.solver.panels.panels:
+   p.velocity.fill(incoming_velocity)
+   if p.has('reduced_data'):p.reduced_data.linear=incoming_velocity;p.reduced_data.omega=Vector3.ZERO
  for w in vehicle.solver.wheels.wheels:
   w.spin_speed=-speed*cos(deg_to_rad(approach_angle_deg))/w.radius
   w.spin=wrapf(w.spin-w.spin_speed*approach_distance/speed,-PI,PI)
  persistent_free_wheels.clear();irreversible_initial={}
+ persistent_free_panels.clear();panel_handoff.clear()
  state='APPROACH';time=0;incoming={};match_result={};full_steps=0;player_cpu_us=0;sample_count=0
  handoff_position_jump_m=0;pose_registration_error_m=0
  handoff_offsets.clear();handoff_velocity_offsets.clear();wheel_spin_offsets.clear();wheel_handoff_rotations.clear()
@@ -90,6 +97,10 @@ func attach_live(owner: RefCounted,clips: Array,signature: Dictionary,selection:
  handoff_position_jump_m=0;handoff_velocity_jump_mps=0;pose_registration_error_m=0
  persistent_free_wheels=States.detached_wheel_indices(vehicle.solver)
  irreversible_initial=vehicle.solver.capture()
+ persistent_free_panels=[]
+ if vehicle.solver.panels_runtime_enabled:
+  for p in vehicle.solver.panels.panels:
+   if p.detached:persistent_free_panels.append(p.id)
  _begin_replay()
 
 func _begin_replay() -> void:
@@ -98,6 +109,7 @@ func _begin_replay() -> void:
  var before: PackedVector3Array=g.points.duplicate()
  var velocity_before: PackedVector3Array=g.velocities.duplicate()
  var wheel_before: Array=g.wheels.capture()
+ var panels_before: Dictionary=g.panels.capture() if g.panels_runtime_enabled else {}
  if g.effects!=null:g.effects.begin_playback(data.frames[0].get('effects',{}))
  # Register selected clip in the incoming car heading and contact anchor.
  if data.metadata.has('contact_rotation_xyzw'):
@@ -110,6 +122,15 @@ func _begin_replay() -> void:
   replay_rotation=Basis(Vector3.UP,deg_to_rad(actual_heading-float(data.metadata.heading_deg)))
  origin=g.station_center(2)
  Clip.apply(g,data,0,origin,replay_rotation)
+ panel_handoff={}
+ if g.panels_runtime_enabled and not panels_before.is_empty():
+  for old in panels_before.panels:
+   var p: Dictionary=g.panels.find(old.id)
+   var offsets:=PackedVector3Array();var velocities:=PackedVector3Array()
+   for k in 10:offsets.append(old.points[k]-p.points[k]);velocities.append(old.velocity[k]-p.velocity[k])
+   panel_handoff[p.id]={'position':offsets,'velocity':velocities}
+   if p.id in persistent_free_panels:_restore_free_panel(old)
+  g.reconcile_panel_masses()
  handoff_offsets.resize(g.points.size())
  handoff_velocity_offsets.resize(g.points.size())
  for i in g.points.size():
@@ -135,6 +156,10 @@ func _begin_replay() -> void:
 func apply_pose(at_time: float) -> void:
  var g: RefCounted=vehicle.solver
  var preserved: Dictionary={}
+ var free_panels: Array=[]
+ if g.panels_runtime_enabled:
+  for p in g.panels.capture().panels:
+   if p.id in persistent_free_panels:free_panels.append(p)
  if not persistent_free_wheels.is_empty():
   preserved={'wheels':g.wheels.capture(),'points':g.points.duplicate(),'velocities':g.velocities.duplicate()}
  Clip.apply(g,data,at_time,origin,replay_rotation)
@@ -153,6 +178,18 @@ func apply_pose(at_time: float) -> void:
   var initial: Quaternion=(replay_rotation.get_rotation_quaternion()*data.frames[0].wheels[i].rotation).normalized()
   var correction: Quaternion=wheel_handoff_rotations[i]*initial.inverse()
   w.rotation=(Quaternion.IDENTITY.slerp(correction,weight)*w.rotation).normalized()
+ if g.panels_runtime_enabled:
+  for id in panel_handoff:
+   if id in persistent_free_panels:continue
+   var p: Dictionary=g.panels.find(id);var offsets: Dictionary=panel_handoff[id]
+   var dc:=Vector3.ZERO;var dv_:=Vector3.ZERO
+   for k in 10:
+    var dx: Vector3=offsets.position[k]*weight+offsets.velocity[k]*blend_seconds*velocity_weight
+    var v: Vector3=offsets.position[k]*dp+offsets.velocity[k]*dv
+    p.points[k]+=dx;p.velocity[k]+=v;dc+=dx/10;dv_+=v/10
+   if p.has('reduced_data'):p.reduced_data.center+=dc;p.reduced_data.linear+=dv_
+  for p in free_panels:_restore_free_panel(p)
+  g.reconcile_panel_masses();g.panels.pose_revision+=1
 
  if not irreversible_initial.is_empty():States.irreversible_floor(g,irreversible_initial)
  if g.effects!=null and not surface_initial.is_empty():g.effects.surface.retain(surface_initial)
@@ -187,6 +224,9 @@ func advance(dt: float) -> void:
   var travel: float=toi if is_finite(toi) else dt
   origin+=incoming_velocity*travel
   for i in g.points.size():g.points[i]+=incoming_velocity*travel
+  if g.panels_runtime_enabled:
+   var panel_state: Dictionary=Clip.PanelState.transformed(g.panels.capture(),Basis.IDENTITY,incoming_velocity*travel)
+   g.panels.restore(panel_state)
   for w in g.wheels.wheels:w.spin=wrapf(w.spin+w.spin_speed*travel,-PI,PI)
   if is_finite(toi):
    incoming=grid.signature(g,incoming_velocity)
@@ -200,7 +240,13 @@ func advance(dt: float) -> void:
   time=minf(float(data.metadata.duration_s),time+dt)
   apply_pose(time)
   _advance_existing_free_wheels(dt)
+  if not persistent_free_panels.is_empty() and vehicle.reduced_panels!=null:vehicle.reduced_panels.step(dt,persistent_free_panels,false)
   sample_count+=1
   if time>=float(data.metadata.duration_s)-1e-8:state='COMPLETE'
  if g.effects!=null:g.effects.step_debris(dt)
  player_cpu_us+=Time.get_ticks_usec()-began
+
+func _restore_free_panel(snapshot: Dictionary) -> void:
+ var p: Dictionary=vehicle.solver.panels.find(snapshot.id)
+ vehicle.solver.panels.restore_panel(snapshot)
+ if not p.get('reduced',false):vehicle.reduced_panels.freeze(p)

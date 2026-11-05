@@ -32,6 +32,18 @@ static func prepare(graph: RefCounted,spec: Dictionary,wall_x: float=INF) -> Dic
  for index in graph.points.size():
   if not _is_detached(graph,index):
    graph.points[index]+=shift;graph.velocities[index]=Vector3(float(spec.speed)/3.6,0,0)
+ if graph.panels_runtime_enabled:
+  var original: Dictionary=graph.panels.capture()
+  var staged: Dictionary=Clip.PanelState.transformed(original,rotation,shift-rotation*center)
+  for index in staged.panels.size():
+   var p: Dictionary=staged.panels[index]
+   if p.detached:staged.panels[index]=original.panels[index];continue
+   for k in p.velocity.size():p.velocity[k]=Vector3(float(spec.speed)/3.6,0,0)
+   if p.has('reduced_data'):
+    p.reduced_data.linear=Vector3(float(spec.speed)/3.6,0,0);p.reduced_data.omega=Vector3.ZERO
+   # Authoring wakes attached cages only; old free panels retain world pose.
+   if p.active:p.reduced=false;p.reduced_mode='full_impact'
+  graph.panels.playback=false;graph.panels.restore(staged);graph.reconcile_panel_masses();graph.panels.synchronize_inactive()
  graph.old_points=graph.points.duplicate();graph.contact_wall.fill(0);graph.contact_floor.fill(0)
  graph.simulated_time=0;graph.impact_started=false;graph.impact_time=-1;graph.compact_active=false
  for link in graph.links:link.lambda=0;link.peak_force=0

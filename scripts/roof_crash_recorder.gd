@@ -154,6 +154,7 @@ func _complete() -> void:
  var inputs: Dictionary={}
  for path in ['structure.json','structures/niva_multiaxis_live.json','vehicles/niva.json','scripts/roof_crash_recorder.gd','scripts/body_impact_fixture.gd','scripts/baked_crash_clip.gd','scripts/structure_solver.gd','scripts/wheel_physics.gd','scripts/vehicle_dynamics.gd','scripts/vehicle_simulation.gd','scripts/compact_chassis.gd','scripts/collision_forecast.gd','scripts/impact_zone_grid.gd','scripts/vehicle_effects.gd','scripts/vehicle_glass.gd','scripts/vehicle_interior.gd']:
   inputs[path]=FileAccess.get_sha256('res://'+path)
+ if g.panels_runtime_enabled:inputs.merge(g.panels.input_fingerprints(),true)
  if g.effects!=null:
   inputs.merge(g.effects.glass.input_fingerprints(),true)
   inputs.merge(g.effects.interior.input_fingerprints(),true)

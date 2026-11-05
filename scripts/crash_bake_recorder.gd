@@ -60,6 +60,7 @@ func step() -> void:
    for i in g.velocities.size():g.velocities[i]+=delta
    for w in g.wheels.wheels:w.spin_speed=-impact_velocity.dot(grid.body_basis(g).x)/w.radius
    velocity=impact_velocity
+   if g.panels_runtime_enabled:g.panels.synchronize_inactive()
    if g.effects!=null:g.effects.synchronize()
    g.initial_energy=g.kinetic_energy();g.maximum_energy=g.initial_energy
    signature=grid.signature(g,velocity)
@@ -95,6 +96,7 @@ func step() -> void:
   var inputs: Dictionary={}
   for path in ['structure.json','vehicles/niva.json','scripts/structure_solver.gd','scripts/wheel_physics.gd','scripts/vehicle_dynamics.gd','scripts/vehicle_simulation.gd','scripts/compact_chassis.gd','scripts/collision_forecast.gd','scripts/impact_zone_grid.gd','scripts/vehicle_effects.gd','scripts/vehicle_glass.gd','scripts/vehicle_interior.gd']:
    inputs[path]=FileAccess.get_sha256('res://'+path)
+  if g.panels_runtime_enabled:inputs.merge(g.panels.input_fingerprints(),true)
   inputs.merge(g.effects.glass.input_fingerprints(),true)
   inputs.merge(g.effects.interior.input_fingerprints(),true)
   result.metadata['input_sha256']=inputs

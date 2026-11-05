@@ -23,6 +23,8 @@ func reset() -> void:
  if interior!=null:interior.reset()
 
 func synchronize() -> void:
+ var owner: RefCounted=graph.get_ref()
+ if owner!=null and owner.panels_runtime_enabled:owner.panels.synchronize_inactive()
  if glass!=null:glass.synchronize()
  if interior!=null:interior.synchronize()
 
