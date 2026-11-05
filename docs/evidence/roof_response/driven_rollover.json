@@ -1,0 +1,221 @@
+{
+	"passed": true,
+	"runs": [
+		{
+			"airborne": true,
+			"bakes": 1,
+			"full_steps": 0,
+			"last_bake": {
+				"accepted": true,
+				"activation_threshold_mps": 0.01,
+				"actual_impact_kmh": 0.0,
+				"angle_error_deg": 56.7541282333531,
+				"closing_speed_mps": 0.0,
+				"contact_family": "roof_landing_floor",
+				"contact_gap_m": 0.00247534736990929,
+				"floor_y": 2.65274167060852,
+				"forward_speed_kmh": 7.30548076629639,
+				"ground_normal": [
+					0.400503665208817,
+					0.916295170783997,
+					0.0
+				],
+				"ground_point": [
+					6.06998443603516,
+					2.81941056251526,
+					-49.3685264587402
+				],
+				"handoff_position_jump_m": 0.0,
+				"handoff_velocity_jump_mps": 0.000000491512480493839,
+				"id": "roof_landing_f60_d4_rm15",
+				"impulse_ratio": 0.964390385168319,
+				"index": 0,
+				"library_kind": "roof_landing",
+				"recorded_speed_kmh": 14.9317125320435,
+				"roof_damage_gain": 4.0,
+				"score": 0.354009946607439,
+				"start_time_s": 3.07499999999999,
+				"zone_overlap": 0.0
+			},
+			"last_rejection": "",
+			"maximum_roll_deg": 130.771698854611,
+			"seam_offset_m": -0.5,
+			"speed_kmh": 35.0
+		},
+		{
+			"airborne": true,
+			"bakes": 1,
+			"full_steps": 0,
+			"last_bake": {
+				"accepted": true,
+				"activation_threshold_mps": 0.01,
+				"actual_impact_kmh": 0.0,
+				"angle_error_deg": 71.0744466784467,
+				"closing_speed_mps": 0.0,
+				"contact_family": "roof_landing_floor",
+				"contact_gap_m": -0.0186365032196045,
+				"floor_y": 3.64226007461548,
+				"forward_speed_kmh": 25.6353830337524,
+				"ground_normal": [
+					-0.265080571174622,
+					0.964226305484772,
+					0.0
+				],
+				"ground_point": [
+					-0.714777588844299,
+					3.62507247924805,
+					-46.698558807373
+				],
+				"handoff_position_jump_m": 0.0188469961285591,
+				"handoff_velocity_jump_mps": 0.000000476837158203125,
+				"id": "roof_landing_f60_d4_rm15",
+				"impulse_ratio": 0.964390385168319,
+				"index": 0,
+				"library_kind": "roof_landing",
+				"recorded_speed_kmh": 14.9317125320435,
+				"roof_damage_gain": 4.0,
+				"score": 0.304566847130615,
+				"start_time_s": 2.15833333333333,
+				"zone_overlap": 0.176795583888891
+			},
+			"last_rejection": "ground_contact_not_roof_side",
+			"maximum_roll_deg": 88.6613813133947,
+			"seam_offset_m": 0.5,
+			"speed_kmh": 35.0
+		},
+		{
+			"airborne": true,
+			"bakes": 0,
+			"full_steps": 0,
+			"last_bake": {},
+			"last_rejection": "",
+			"maximum_roll_deg": 68.0748975431415,
+			"seam_offset_m": -0.5,
+			"speed_kmh": 50.0
+		},
+		{
+			"airborne": true,
+			"bakes": 1,
+			"full_steps": 0,
+			"last_bake": {
+				"accepted": true,
+				"activation_threshold_mps": 0.01,
+				"actual_impact_kmh": 30.6003810882568,
+				"angle_error_deg": 61.2989754227261,
+				"closing_speed_mps": 8.50010585784912,
+				"contact_family": "roof_landing_floor",
+				"contact_gap_m": 0.00000228488352149725,
+				"floor_y": 0.0328600630164146,
+				"forward_speed_kmh": 47.1267883300781,
+				"ground_normal": [
+					0.0130183175206184,
+					0.999915301799774,
+					0.0
+				],
+				"ground_point": [
+					13.9323301315308,
+					0.000881022424437106,
+					-47.0184555053711
+				],
+				"handoff_position_jump_m": 0.000000238418579101562,
+				"handoff_velocity_jump_mps": 0.000000476837158203125,
+				"id": "roof_landing_f60_d7_rm15",
+				"impulse_ratio": 0.979336098411374,
+				"index": 3,
+				"library_kind": "roof_landing",
+				"recorded_speed_kmh": 25.7317176818848,
+				"roof_damage_gain": 4.0,
+				"score": 0.325308831447154,
+				"start_time_s": 2.83478749593098,
+				"zone_overlap": 0.0
+			},
+			"last_rejection": "",
+			"maximum_roll_deg": 126.795755187902,
+			"seam_offset_m": 0.5,
+			"speed_kmh": 50.0
+		},
+		{
+			"airborne": true,
+			"bakes": 1,
+			"full_steps": 0,
+			"last_bake": {
+				"accepted": true,
+				"activation_threshold_mps": 0.01,
+				"actual_impact_kmh": 3.09215106010437,
+				"angle_error_deg": 69.9658189823301,
+				"closing_speed_mps": 0.858930850028992,
+				"contact_family": "roof_landing_floor",
+				"contact_gap_m": -0.0401373505592346,
+				"floor_y": 0.0,
+				"forward_speed_kmh": 25.0163326263428,
+				"ground_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"ground_point": [
+					24.2804374694824,
+					0.0,
+					-46.343090057373
+				],
+				"handoff_position_jump_m": 0.0,
+				"handoff_velocity_jump_mps": 0.000000476837158203125,
+				"id": "roof_landing_f60_d4_rm15",
+				"impulse_ratio": 0.964390385168319,
+				"index": 0,
+				"library_kind": "roof_landing",
+				"recorded_speed_kmh": 14.9317125320435,
+				"roof_damage_gain": 4.0,
+				"score": 0.274237965376194,
+				"start_time_s": 3.41923014322916,
+				"zone_overlap": 0.0
+			},
+			"last_rejection": "roof_wheels_first",
+			"maximum_roll_deg": 95.5671299563562,
+			"seam_offset_m": -0.5,
+			"speed_kmh": 70.0
+		},
+		{
+			"airborne": true,
+			"bakes": 1,
+			"full_steps": 0,
+			"last_bake": {
+				"accepted": true,
+				"activation_threshold_mps": 0.01,
+				"actual_impact_kmh": 39.4308620452881,
+				"angle_error_deg": 71.8628817933087,
+				"closing_speed_mps": 10.9530172348022,
+				"contact_family": "roof_landing_floor",
+				"contact_gap_m": -0.00000384822487831116,
+				"floor_y": 0.0,
+				"forward_speed_kmh": 26.2742809295654,
+				"ground_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"ground_point": [
+					22.4470386505127,
+					0.0,
+					-45.6343574523926
+				],
+				"handoff_position_jump_m": 0.0,
+				"handoff_velocity_jump_mps": 0.000000238418579101562,
+				"id": "roof_landing_f60_d7_rm15",
+				"impulse_ratio": 0.979336098411374,
+				"index": 3,
+				"library_kind": "roof_landing",
+				"recorded_speed_kmh": 25.7317176818848,
+				"roof_damage_gain": 4.0,
+				"score": 0.268765336507818,
+				"start_time_s": 2.9263437906901,
+				"zone_overlap": 0.0
+			},
+			"last_rejection": "",
+			"maximum_roll_deg": 95.6813092154256,
+			"seam_offset_m": 0.5,
+			"speed_kmh": 70.0
+		}
+	],
+	"scope": "Actual driven seam of the42/24degree ramps, not teleported roof poses; some trajectories do not roll far enough to hit the roof."
+}

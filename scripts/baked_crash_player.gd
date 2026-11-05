@@ -4,6 +4,8 @@ const Zones=preload('res://scripts/impact_zone_grid.gd')
 const States=preload('res://scripts/conditioned_crash_transitions.gd')
 const Clip=preload('res://scripts/baked_crash_clip.gd')
 const Roof=preload('res://scripts/roof_crash_recorder.gd')
+const RoofResponse=preload('res://scripts/roof_landing_response.gd')
+var roof_horizontal_delta:=Vector3.ZERO
 var _owned_vehicle: RefCounted
 var _live_vehicle: WeakRef
 var vehicle: RefCounted:
@@ -92,6 +94,10 @@ func attach_live(owner: RefCounted,clips: Array,signature: Dictionary,selection:
  _owned_vehicle=null;_live_vehicle=weakref(owner)
  library=clips;incoming=signature;match_result=selection
  data=library[int(selection.index)]
+ roof_horizontal_delta=Vector3.ZERO
+ if data.metadata.get('family','')=='roof_landing_floor':
+  data=RoofResponse.prepare(owner.solver,data)
+  blend_seconds=.30
  time=0;state='REPLAY';full_steps=0;player_cpu_us=0;sample_count=0
  handoff_offsets.clear();handoff_velocity_offsets.clear();wheel_spin_offsets.clear();wheel_handoff_rotations.clear()
  handoff_position_jump_m=0;handoff_velocity_jump_mps=0;pose_registration_error_m=0
@@ -126,14 +132,26 @@ func _begin_replay() -> void:
   replay_rotation=Basis(Vector3.UP,deg_to_rad(actual_heading-float(data.metadata.heading_deg)))
  origin=g.station_center(2)
  if data.metadata.get('family','')=='roof_landing_floor':
-  # Keep the recorded floor horizontal. Small roll-bin differences blend from
-  # the incoming pose rather than tilting the entire recorded ground plane.
+  # Register the recorded floor to the actual contact plane, independent of
+  # car roll/pitch. The pose difference blends from the incoming car state.
   var actual_x: Vector3=Roof.full_chassis_basis(g).x
   var q: Array=data.metadata.contact_rotation_xyzw
   var recorded_x: Vector3=Basis(Quaternion(q[0],q[1],q[2],q[3])).x
-  replay_rotation=Basis(Vector3.UP,atan2(-actual_x.z,actual_x.x)-atan2(-recorded_x.z,recorded_x.x))
-  origin.y=g.floor_sample(origin).w+float(data.metadata.origin[1])
- Clip.apply(g,data,0,origin,replay_rotation,retained)
+  var n: Array=match_result.get('ground_normal',[0,1,0]);var ground_normal:=Vector3(n[0],n[1],n[2]).normalized()
+  var forward: Vector3=actual_x-ground_normal*actual_x.dot(ground_normal)
+  if forward.length()<.15:forward=ground_normal.cross(Vector3.BACK)
+  forward=forward.normalized()
+  var target:=Basis(forward,ground_normal,forward.cross(ground_normal).normalized())
+  var reference:=Basis(Vector3.UP,atan2(-recorded_x.z,recorded_x.x))
+  replay_rotation=target*reference.transposed()
+  var point: Array=match_result.get('ground_point',[origin.x,g.floor_sample(origin).w,origin.z])
+  var contact_point:=Vector3(point[0],point[1],point[2])
+  origin+=ground_normal*(float(data.metadata.origin[1])-(origin-contact_point).dot(ground_normal))
+  var actual_velocity: Vector3=(velocity_before[8]+velocity_before[9]+velocity_before[10]+velocity_before[11])*.25
+  var recorded_velocity: Vector3=(data.frames[0].velocities[8]+data.frames[0].velocities[9]+data.frames[0].velocities[10]+data.frames[0].velocities[11])*.25
+  roof_horizontal_delta=replay_rotation.transposed()*actual_velocity-recorded_velocity;roof_horizontal_delta.y=0
+ var initial_data: Dictionary=RoofResponse.view(data,0,roof_horizontal_delta) if data.metadata.get('family','')=='roof_landing_floor' else data
+ Clip.apply(g,initial_data,0,origin,replay_rotation,retained)
  panel_handoff={}
  if g.panels_runtime_enabled and not panels_before.is_empty():
   for old in panels_before.panels:
@@ -174,7 +192,8 @@ func apply_pose(at_time: float) -> void:
    if p.id in persistent_free_panels:free_panels.append(p)
  if not persistent_free_wheels.is_empty():
   preserved={'wheels':g.wheels.capture(),'points':g.points.duplicate(),'velocities':g.velocities.duplicate()}
- Clip.apply(g,data,at_time,origin,replay_rotation,_retained_components(g))
+ var sampled: Dictionary=RoofResponse.view(data,at_time,roof_horizontal_delta) if data.metadata.get('family','')=='roof_landing_floor' else data
+ Clip.apply(g,sampled,at_time,origin,replay_rotation,_retained_components(g))
  var s: float=clampf(at_time/blend_seconds,0,1)
  var weight: float=1-3*s*s+2*s*s*s
  var velocity_weight: float=s*s*s-2*s*s+s
@@ -212,6 +231,27 @@ func apply_pose(at_time: float) -> void:
    g.points[node]=preserved.points[node];g.velocities[node]=preserved.velocities[node]
    wheel_state[index]=preserved.wheels[index]
   g.wheels.restore(wheel_state)
+ if data.metadata.get('family','')=='roof_landing_floor':
+  var gap:=INF;var lift_normal:=Vector3.UP
+  for i in g.points.size():
+   if g.wheels.by_node.has(i):continue
+   var floor_: Vector4=g.floor_sample(g.points[i]);var normal:=Vector3(floor_.x,floor_.y,floor_.z).normalized()
+   var distance: float=(g.points[i].y-floor_.w)*normal.y-g.radii[i]
+   if distance<gap:gap=distance;lift_normal=normal
+  for p in g.panels.panels:
+   if p.detached:continue
+   for point in p.points:
+    var floor_: Vector4=g.floor_sample(point);var normal:=Vector3(floor_.x,floor_.y,floor_.z).normalized()
+    var distance: float=(point.y-floor_.w)*normal.y-.04
+    if distance<gap:gap=distance;lift_normal=normal
+  if gap<-.002:
+   var lift:=lift_normal*(-gap)
+   for i in g.points.size():g.points[i]+=lift
+   for p in g.panels.panels:
+    if p.detached:continue
+    for i in p.points.size():p.points[i]+=lift
+    if p.has('reduced_data'):p.reduced_data.center+=lift
+   g.panels.pose_revision+=1
 
 func _advance_existing_free_wheels(dt: float) -> void:
  if dt<1e-8:return

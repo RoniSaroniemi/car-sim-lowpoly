@@ -1,0 +1,28 @@
+{
+	"passed": true,
+	"runs": [
+		{
+			"final_energy_j": 332.824591037557,
+			"initial_cabin_height_m": 1.18800008296967,
+			"mass_kg": 1210.0000038147,
+			"maximum_energy_j": 1467.60309667584,
+			"minimum_cabin_height_m": 1.06174802780151,
+			"passed": true,
+			"plastic_work_j": 1112.1523012596,
+			"roll_from_upside_down_deg": 0.0,
+			"roof_crush_m": 0.126252055168152
+		},
+		{
+			"final_energy_j": 303.138138059714,
+			"initial_cabin_height_m": 1.18800008296967,
+			"mass_kg": 1210.0000038147,
+			"maximum_energy_j": 3225.68607992789,
+			"minimum_cabin_height_m": 1.09326887130737,
+			"passed": true,
+			"plastic_work_j": 1907.88558708222,
+			"roll_from_upside_down_deg": -60.0,
+			"roof_crush_m": 0.0947312116622925
+		}
+	],
+	"scope": "1920Hz real weak-roof graph, initially resting, zero launch velocity; no playback amplification"
+}

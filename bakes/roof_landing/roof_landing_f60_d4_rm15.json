@@ -1,6 +1,6 @@
 {
-	"authoring_step_wall_ms": 35818.407,
-	"clip_bytes": 3878085,
+	"authoring_step_wall_ms": 41270.379,
+	"clip_bytes": 4227430,
 	"contact_rotation_xyzw": [
 		0.991444885730743,
 		-0.0000000184670732039649,
@@ -15,20 +15,20 @@
 	"final_outcome": {
 		"body_metrics": {
 			"broken_suspension_links": 0,
-			"cabin_shortening_m": 0.0,
-			"front_shortening_m": 0.0000855922698974609,
+			"cabin_shortening_m": 0.0678578615188599,
+			"front_shortening_m": 0.0,
 			"impact_mode": 0,
 			"impact_time_s": 0.0,
 			"initial_energy_kj": 185.723498545649,
-			"kinetic_kj": 119.72238366021,
+			"kinetic_kj": 80.4739755813594,
 			"links": 187,
 			"mass_kg": 1210.0,
-			"max_step_us": 7368,
+			"max_step_us": 19848,
 			"maximum_kinetic_kj": 185.723498545649,
-			"mean_step_us": 6861.80583333333,
+			"mean_step_us": 7903.70104166667,
 			"nodes": 38,
-			"plastic_work_kj": 4.50399215901309,
-			"roof_drop_m": 0.0306679725646972,
+			"plastic_work_kj": 4.2291888453849,
+			"roof_drop_m": 0.139456105232239,
 			"wheels": [
 				{
 					"angular_finite": true,
@@ -37,27 +37,10 @@
 					"detached": false,
 					"hub_tilt_deg": 0.0,
 					"knuckle_broken": false,
-					"lateral_error_m": 0.0,
+					"lateral_error_m": -0.000000111758708953857,
 					"name": "rear_wheel_-1",
 					"node": 34,
-					"peak_lateral_force_n": 433.359046555904,
-					"peak_tire_compression_m": 0.0,
-					"permanent_alignment_deg": 0.0,
-					"permanent_lateral_offset_m": 0.0,
-					"spin_rad_s": -41.4720313482189,
-					"wheel_body_constraint_impulse_ns": 0.0
-				},
-				{
-					"angular_finite": true,
-					"body_contact_events": 0,
-					"detach_reason": "",
-					"detached": false,
-					"hub_tilt_deg": 0.0279764551182933,
-					"knuckle_broken": false,
-					"lateral_error_m": -0.0000000894069671630859,
-					"name": "rear_wheel_1",
-					"node": 35,
-					"peak_lateral_force_n": 93.5077504968378,
+					"peak_lateral_force_n": 1588.84881085921,
 					"peak_tire_compression_m": 0.0,
 					"permanent_alignment_deg": 0.0,
 					"permanent_lateral_offset_m": 0.0,
@@ -71,10 +54,27 @@
 					"detached": false,
 					"hub_tilt_deg": 0.0,
 					"knuckle_broken": false,
-					"lateral_error_m": 0.00000000745058059692383,
+					"lateral_error_m": -0.0000000298023223876953,
+					"name": "rear_wheel_1",
+					"node": 35,
+					"peak_lateral_force_n": 76.0437698804343,
+					"peak_tire_compression_m": 0.00419145822525024,
+					"permanent_alignment_deg": 0.0,
+					"permanent_lateral_offset_m": 0.0,
+					"spin_rad_s": -9.31777680991605,
+					"wheel_body_constraint_impulse_ns": 0.0
+				},
+				{
+					"angular_finite": true,
+					"body_contact_events": 0,
+					"detach_reason": "",
+					"detached": false,
+					"hub_tilt_deg": 0.0,
+					"knuckle_broken": false,
+					"lateral_error_m": 0.0000000521540641784668,
 					"name": "front_wheel_-1",
 					"node": 36,
-					"peak_lateral_force_n": 1248.30249935312,
+					"peak_lateral_force_n": 274.69683071293,
 					"peak_tire_compression_m": 0.0,
 					"permanent_alignment_deg": 0.0,
 					"permanent_lateral_offset_m": 0.0,
@@ -86,12 +86,12 @@
 					"body_contact_events": 0,
 					"detach_reason": "",
 					"detached": false,
-					"hub_tilt_deg": 0.0279764551182933,
+					"hub_tilt_deg": 0.0197823410294464,
 					"knuckle_broken": false,
-					"lateral_error_m": -0.0000000223517417907715,
+					"lateral_error_m": 0.000000216066837310791,
 					"name": "front_wheel_1",
 					"node": 37,
-					"peak_lateral_force_n": 1359.01744687167,
+					"peak_lateral_force_n": 1456.78567638467,
 					"peak_tire_compression_m": 0.0,
 					"permanent_alignment_deg": 0.0,
 					"permanent_lateral_offset_m": 0.0,
@@ -99,46 +99,46 @@
 					"wheel_body_constraint_impulse_ns": 0.0
 				}
 			],
-			"yielded_links": 23
+			"yielded_links": 70
 		},
-		"body_plastic_work_j": 4503.99215901309,
+		"body_plastic_work_j": 4229.1888453849,
 		"mass_kg": 1210.0000038147,
 		"panels": [
 			{
 				"active": true,
 				"broken_anchors": 0,
-				"contacts": 24837,
+				"contacts": 83151,
 				"detached": false,
 				"id": "door_left",
 				"latched": true,
-				"plastic_work_j": 269.679212160254
+				"plastic_work_j": 765.367796197713
 			},
 			{
 				"active": true,
 				"broken_anchors": 0,
-				"contacts": 13503,
+				"contacts": 71382,
 				"detached": false,
 				"id": "door_right",
 				"latched": true,
-				"plastic_work_j": 19.0481255594571
+				"plastic_work_j": 460.91535965373
 			},
 			{
 				"active": true,
 				"broken_anchors": 0,
-				"contacts": 11067,
+				"contacts": 108643,
 				"detached": false,
 				"id": "bonnet",
 				"latched": true,
-				"plastic_work_j": 8.38077243305888
+				"plastic_work_j": 182.141938385947
 			},
 			{
 				"active": true,
 				"broken_anchors": 0,
-				"contacts": 643,
+				"contacts": 79450,
 				"detached": false,
 				"id": "tailgate",
 				"latched": true,
-				"plastic_work_j": 19.2850394190343
+				"plastic_work_j": 763.331712142545
 			}
 		],
 		"panes": {
@@ -157,25 +157,25 @@
 				"stage": 4
 			},
 			"quarter_left": {
-				"crack": 0.0,
-				"events": 0,
-				"missing_cells": 0,
+				"crack": 1.0,
+				"events": 1,
+				"missing_cells": 458,
 				"released_cells": 0,
-				"stage": 0
+				"stage": 4
 			},
 			"quarter_right": {
-				"crack": 0.0,
-				"events": 0,
-				"missing_cells": 0,
+				"crack": 1.0,
+				"events": 1,
+				"missing_cells": 458,
 				"released_cells": 0,
-				"stage": 0
+				"stage": 4
 			},
 			"rear": {
-				"crack": 0.0,
-				"events": 0,
-				"missing_cells": 0,
+				"crack": 1.0,
+				"events": 1,
+				"missing_cells": 467,
 				"released_cells": 0,
-				"stage": 0
+				"stage": 4
 			},
 			"windscreen": {
 				"crack": 1.0,
@@ -407,7 +407,8 @@
 		"scripts/roof_crash_recorder.gd": "dd4acbb23e83edeed9915ed6ce37501507ddfe6a7af1839ecf6ca2be2611038e",
 		"scripts/roof_landing_cases.gd": "444845cde6f3e806a6982e555534db4ed4674448ddd8c62147408f1011e4f672",
 		"scripts/roof_landing_geometry.gd": "f7ec490f197bf567016f22982a827a3913446816bb41b8dcc15dd4c856d56bfd",
-		"scripts/roof_landing_recorder.gd": "cc7af4391a043c63efc92241d89e48bb160d00214b521d27ab73a39df659330b",
+		"scripts/roof_landing_recorder.gd": "8588d331991897db0f7e0c402d00e1eb1f99ece1ff76fa82afe01a952eeeee4a",
+		"scripts/soft_roof_profile.gd": "10b55e6cdf013a457d1b4269a1db918e5c87873f3a83a86461a6f7d3b063b02a",
 		"scripts/structure_solver.gd": "bcdee53471ddd705dabc80ae4aee7aed673c2c9a725070388b7bc6a90cf6e708",
 		"scripts/vehicle_dynamics.gd": "06c277cb19f1f97a355b18e6ffe32f37c68e4acc5f158d61f75bf2ae5df716e6",
 		"scripts/vehicle_effects.gd": "edca2dd5f4f48305caa256703f500e91124edb3712aca09436aa50771ca72ec4",
@@ -443,7 +444,7 @@
 	],
 	"panels_schema": 1,
 	"physics_hz": 1920,
-	"physics_recipe": "roof_landing_floor_wake_v1",
+	"physics_recipe": "roof_landing_soft_roof_v2",
 	"preparation_s": 0.0,
 	"preparation_velocity_mps": [
 		16.6666660308838,
@@ -453,7 +454,7 @@
 	"quality_multiplier": 4,
 	"sample_hz": 120,
 	"scope": "Actual full physics, closed latched panels, earliest body/tire/panel contact. Incident energy and momentum are proxies, not calibrated reaction measurements. Scoped timings are monotonic wall time, process CPU is measured by batch supervisor.",
-	"setup_wall_ms": 65.051,
+	"setup_wall_ms": 68.929,
 	"signature": {
 		"closing_speed_mps": 4.14769792556763,
 		"contact_source": "roof_landing_floor",
@@ -496,7 +497,7 @@
 			}
 		]
 	},
-	"simulation_call_wall_ms": 35701.014,
+	"simulation_call_wall_ms": 41131.465,
 	"speed_kmh": 14.4,
 	"structure_sha256": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
 	"surface_input_sha256": {
@@ -507,7 +508,7 @@
 		"vehicles/niva_surface.json": "9d372c60d88e2a2d301a78cf6c06744ec5070e0d225d6aff7f6fed3a394d3fac"
 	},
 	"surface_schema": 1,
-	"total_wall_ms": 35893.617,
+	"total_wall_ms": 41351.304,
 	"version": 3,
 	"wheel_solver_sha256": "d00d169d1b2886b3f4800159fb768aae5275473c37e08d742d461b61abbed7d9"
 }

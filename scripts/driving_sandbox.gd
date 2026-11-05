@@ -9,6 +9,7 @@ var mount_demo: RefCounted
 var capture_mounts:=false
 var mount_capture_stage:=0
 var roof_landing_preview:=false
+var airborne_heading:=preload('res://scripts/airborne_camera_heading.gd').new()
 const SkinView=preload('res://scripts/damage_skin.gd')
 @export_file('*.json') var vehicle_profile: String='res://vehicles/niva.json'
 var vehicle: RefCounted
@@ -219,7 +220,7 @@ func _hud() -> void:
  for item in [['Live flat roof','roof_flat'],['Live angled roof','roof_corner'],['Live side hit','side_wall']]:
   var button:=Button.new();button.text=item[0];button.pressed.connect(_start_body_test.bind(item[1]));body_buttons.add_child(button)
  var landing_buttons:=HBoxContainer.new();column.add_child(landing_buttons)
- for item in [['Roof landing',0.,4.],['Roll left',-15.,4.],['Roll right',15.,4.],['Hard roof',0.,7.]]:
+ for item in [['Light roof',0.,1.2],['Roll left',-40.,4.],['Roll right',40.,4.],['Hard roof',0.,7.]]:
   var button:=Button.new();button.text=item[0];button.pressed.connect(_start_roof_landing.bind(item[1],item[2]));landing_buttons.add_child(button)
  experimental_body=CheckButton.new();experimental_body.text='Promoted roof / side materials for live test';experimental_body.button_pressed=true;column.add_child(experimental_body)
  var quality_row:=HBoxContainer.new();column.add_child(quality_row)
@@ -290,6 +291,7 @@ func _start_mount_test() -> void:
  mount_demo.start(vehicle.solver)
 
 func _reset() -> void:
+ airborne_heading.reset()
  roof_landing_preview=false
  BodyFixture.restore(vehicle)
  if body_fixture_active:
@@ -333,7 +335,7 @@ func _process(_dt: float) -> void:
  var g: RefCounted=vehicle.solver
  var center: Vector3=g.station_center(2)+Vector3(0,-.15,0)
  var f: Vector3=vehicle.forward()
- var heading: float=atan2(f.z,f.x)+orbit
+ var heading: float=airborne_heading.sample(vehicle)+orbit
  if capture_mode and elapsed>6:camera_mode=2
  var angle: float=heading+([PI,0.60,PI/2][camera_mode])
  var offset:=Vector3(cos(angle)*7,3.2,sin(angle)*7)
@@ -352,6 +354,7 @@ func _process(_dt: float) -> void:
  readout.text+='\nPhysics: '+mode_name[vehicle.mode]
  readout.text+='\nBaked crashes: '+('ON' if vehicle.baked_enabled else 'OFF')
  if roof_landing_preview:readout.text+='\nRoof landing · slow motion · R repairs'
+ if vehicle.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nWeak roof · ramps and ground contacts'
  if vehicle.baked_count==0 and vehicle.roof_landing_sensor.last_rejection!='':readout.text+='\n'+vehicle.roof_landing_sensor.last_rejection.replace('_',' ')
  if vehicle.sequence_notice!='':readout.text+='\n'+vehicle.sequence_notice
  if vehicle.baked_count>0:readout.text+='\nBaked impacts: %d'%vehicle.baked_count

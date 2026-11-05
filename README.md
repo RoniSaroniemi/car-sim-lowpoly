@@ -41,8 +41,8 @@ Turn baking off to use [live adaptive simulation](docs/ADAPTIVE_SIMULATION.md).
 The live tyre-grip and engine-power sliders keep their values through repairs.
 **Roof landing**, **Roll left/right**, and **Hard roof** stage forward-moving
 roof-first landings. The shared detector selects one of six dedicated
-low-vertical-speed floor recordings at contact, including moderate roll;
-playback uses zero structural or cloth solves. The same detection works on
+low-vertical-speed floor recordings at roof contact, including ramp slopes and side-roof roll;
+The deliberately weak roof can buckle under resting support; playback uses zero structural or cloth solves. The same detection works on
 unstaged compatible landings. See [roof-landing coverage and tests](docs/ROOF_LANDING_SLICE.md).
 Click **Three baked impacts** or run `python3 tools/demo.py drive-sequence` to
 play 60 frontal → 60 at +20° → 120 at −20° on the same damaged car. Glass, seats

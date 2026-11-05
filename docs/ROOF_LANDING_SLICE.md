@@ -1,23 +1,20 @@
 # Moving roof-first landings
 
-The shared driving car now detects a roof-first landing on flat ground and
-selects a dedicated recording at actual contact. It works in the test yard and
-colosseum, including natural landings that have no staged-test flag. A floor
-event is independent of the designated wall and uses the car's full pitch,
-yaw and roll. The original wall classifier remains separate.
+The shared driving car detects roof-first support and impacts on ground and
+ramps. This is the deliberately fragile game profile requested for the sandbox;
+it is not a calibrated roof-safety model. A real roof may support several times
+vehicle weight; see the [IIHS roof-strength method](https://www.iihs.org/ratings/about-our-tests/roof-strength).
 
 ## Try it
 
 Run `python3 tools/demo.py arena` or `python3 tools/demo.py drive`. Leave
-**Use baked crashes** enabled. Click **Roof landing**, **Roll left**,
-**Roll right**, or **Hard roof**. These buttons put the ordinary shared car
-above the floor with forward momentum; they do not play an animation directly.
-The normal driving contact detector must trigger playback. The staged test runs
-at 35% time so the contact is visible. **R** repairs and returns to normal speed.
-
-You can also roll off the paired ramps and land on the flat arena floor.
-Repair before each trial: this first slice accepts a pristine, closed car,
-and does not add conditioned roof-after-wall damage histories.
+**Use baked crashes** enabled. **Light roof** stages a gentle landing;
+**Roll left/right** stage 40° roof-side landings; **Hard roof** stages the stronger
+case. These buttons place the shared car and let the ordinary contact detector
+start playback. The staged view runs at 35% speed; **R** repairs and returns to
+normal driving. Rolling off a ramp uses the same detector, with no test flag.
+Repair before a new trial: arbitrary roof-after-wall damage histories remain
+outside this library and are explicitly rejected rather than healing damage.
 
 ## Recorded conditions
 
@@ -27,41 +24,52 @@ offsets **−15°, 0°, +15°** around upside down. The tilted cases have a real
 physics, 301 samples at 120 Hz and 2.5 seconds after contact. Body, wheels,
 panels, glass, seats and the optional demonstration airbag are recorded.
 
-The new recorder and live driving use `panel_floor_wake.gd` to wake panel cages
-before floor penetration. The helper is explicitly fingerprinted as part of
-this recording recipe. The earlier wall recording recipes and their physical
-source files are unchanged; old experimental 3D slam recordings are separate
-reference data and are not used by this selector.
+The new recorder uses `soft_roof_profile.gd` and `panel_floor_wake.gd`.
+Roof/pillar/diagonal members have reduced stiffness/yield, including the remaining
+roof-connected bend and front ties. Floor activation precedes cage penetration.
+Live driving applies this optional roof recipe when live solving begins. The
+six roof-landing recordings were regenerated with exact recipe fingerprints;
+the historical wall recipes remain unchanged.
+
+`roof_landing_response.gd` derives a cached, deliberately stronger playback
+track from those recordings. It amplifies cabin roof compression, adds a minimum
+progressive buckle after support starts, caps the remaining cabin clearance,
+and propagates roof displacement through panel bindings. The raw recordings are
+immutable. Its metadata labels the result as **art-directed playback**; source
+energy metrics describe the original physics, not the amplified geometry.
+Prepared tracks are cached at setup, never baked or solved when a hit happens.
 
 ## Contact and selection
 
-`roof_landing_sensor.gd` first rejects ordinary upright driving with a cheap
-orientation check. Near the ground it tests body spheres, oriented tires and
-panel cage points against `floor_sample`. A fractional gravity-aware time of
-contact prevents a 120 Hz step from skipping the event.
+`roof_landing_sensor.gd` cheaply rejects upright driving, then queries actual
+body, tire and panel probes near the floor. `ground_impact_geometry.gd` sweeps
+those probes with gravity **and angular velocity**, finding fractional contact
+against the shared terrain's height and normal. The full chassis basis maps
+the actual contact normal into the car-local 5×3×3 regions. Floor impacts are
+independent of the designated planar wall and work on sloped ramp surfaces.
 
-The contact signature uses point velocities, including roll velocity, and maps
-ground normals through the full chassis basis into the existing 5×3×3
-car-local impact grid. Selection compares actual contact closing speed,
-contact regions, roof orientation, forward speed and roll rate. Forward and
-sideways speeds are measured in the ground plane; vertical motion is not
-misclassified as sideways motion when the car is rolled.
-
-This family allows approximately 39–81 km/h forward speed, modest lateral
-motion, roll within about 25° of upside down and pitch within 8°. It selects
-nearby 4/7 m/s contact-speed cases rather than scaling their deformation. Gentle
-contacts, incompatible high-speed/sideways motion, slopes and previous damage
-fall back to the existing rigid contacts. The UI reports the unsupported roof
-condition. Ground must be locally flat across the car; this is not a general
-terrain, wall, pole or multiple-impact roof library.
+A roof-facing contact, including approximately 120° roll, can initiate a crush
+under nearly static support. Wheel-first landings do not trigger roof damage.
+There is no requirement to travel along world X or to meet the old wall speed
+threshold. Motion up to 75 m/s and angular speed up to 16 rad/s is accepted;
+nearest recorded roof orientation and severity are approximations outside the
+six authoring cases. Higher speeds and unsupported damaged histories keep rigid
+contacts. This is not a general pole or ceiling collision implementation.
 
 ## Playback and verification
 
-Roof playback preserves the world ground plane. Yaw places the clip in the
-incoming heading, floor height places it vertically, and the existing short
-handoff blend absorbs small roll-bin differences. It preserves incoming
-position and velocity at entry instead of rotating the recorded floor with
-the car. Completion returns the same damaged graph to lightweight rigid driving.
+Playback maps the recorded floor to the **actual contact plane**. It uses the
+incoming tangent heading and floor height, blends the pose continuously and
+projects small numerical penetration out along actual terrain normals. A
+separate tangent-velocity adjustment preserves incoming forward/sideways motion,
+including zero forward speed, instead of accelerating a stationary car to the
+recording's 60 km/h. Completion returns the damaged graph to rigid driving.
+
+The chase camera holds its heading reference while airborne, so pitching through
+vertical no longer makes the camera swing to the opposite side. This changes
+only the view. Free-flight tests found no physical automatic uprighting: at
+0/45/120/180° initial roll, zero or 1 rad/s spin retained its orientation/spin
+within the checked tolerances and the center of mass followed ballistic motion.
 
 ```sh
 python3 tools/demo.py verify-roof-landings --no-import
@@ -71,13 +79,39 @@ python3 tools/bake_campaign.py --family roof_landing --workers 2 --resume
 `tests/roof_landing/verify.gd` covers all six recordings at two headings,
 unrecorded intermediate roll/speed cases, real scene buttons, airborne
 non-triggering, upright wheel landings, moving away, gentle impacts, existing
-damage, sloped rejection, elevated ground, mass and post-playback behavior.
+damage, sloped ground contacts, elevated ground, mass and post-playback behavior.
 It requires zero body, panel cage, glass membrane and airbag cloth solves.
 
-The first high-quality batch took **109.2 seconds elapsed**, **216.4 CPU
-seconds** across two workers and produced **23.9 MB** compressed. Each clip's
-maximum kinetic energy stayed at its initial energy in these runs. Observed
-final roof shortening was approximately **2.4–3.1 cm** for the 4 m/s cases and
-**8.6–10.0 cm** for the 7 m/s cases; these are game-model outcomes, not calibrated
-vehicle safety predictions. Raw timings and test reports are written under
-`verification/roof_landing` and `verification/bake_campaign/roof_landing.json`.
+The earlier six-clip batch timing was 109.2 s elapsed / 216.4 CPU s. The new
+soft-roof batch is measured independently in
+`verification/bake_campaign/roof_landing.json`; do not compare the old timing
+as if it described the new source. In the latest 20 m/s forward and static
+support tests, amplified cabin-height loss ranges approximately **0.34–0.80 m**.
+The native PNGs show the actual severe roof response. All runtime replay tests
+require zero structural, cage, membrane and cloth solves.
+
+Additional checks:
+
+```sh
+Godot --headless --path . --script tests/roof_landing/response.gd
+Godot --headless --path . --script tests/roof_landing/terrain.gd
+Godot --headless --path . --script tests/roof_landing/static_live.gd
+Godot --headless --path . --script tests/airborne/verify.gd
+```
+
+`static_live.gd` separately tests the real softened solver starting at rest,
+without playback amplification. That measured roughly 9–13 cm of initial
+buckling over one second; the dramatically larger sandbox response deliberately
+uses the art-directed baked track. The terrain suite includes rest at upside
+down/120° roll, 20 m/s tangential motion, two plane slopes and the actual
+42° arena ramp. Source recordings, amplified playback and live-only outcomes
+are reported separately rather than presented as the same simulation.
+
+Natural-driving regression: `tests/roof_landing/drive_rollover.gd` drives the
+actual paired-ramp seam at 35/50/70 km/h with two lateral offsets. Paths reaching
+roof contact trigger one recorded roof event with zero full solves. Lower-roll
+paths remain ordinary rigid contacts. The evidence contains the measured roll,
+contact normal, selected clip and continuous-handoff errors for every path.
+The original car-local grid is used as a similarity score for this deliberately
+permissive roof family, not as a strict direction gate; no world-X alignment is
+required. Position/velocity corrections are bounded and floor-plane registered.

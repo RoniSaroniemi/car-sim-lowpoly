@@ -11,6 +11,9 @@ const ContactSensor=preload('res://scripts/baked_contact_sensor.gd')
 const RoofLandingCases=preload('res://scripts/roof_landing_cases.gd')
 const RoofLandingSensor=preload('res://scripts/roof_landing_sensor.gd')
 const PanelFloorWake=preload('res://scripts/panel_floor_wake.gd')
+const SoftRoof=preload('res://scripts/soft_roof_profile.gd')
+const GroundImpact=preload('res://scripts/ground_impact_geometry.gd')
+const RoofResponse=preload('res://scripts/roof_landing_response.gd')
 static var cached_library: Array=[]
 static var cached_conditioned: Array=[]
 static var cached_roof_landings: Array=[]
@@ -50,14 +53,17 @@ func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=
  for clip in bake_library+conditioned_library+roof_landing_library:
   if not clip.has('_input_compatibility'):clip['_input_compatibility']=CrashClip.input_compatibility(clip)
   CrashClip.prepare_surfaces(solver,clip)
+ for clip in roof_landing_library:CrashClip.prepare_surfaces(solver,RoofResponse.prepare(solver,clip))
  if not before_step.is_connected(_live_panel_floor_wake):before_step.connect(_live_panel_floor_wake)
 
 func _live_panel_floor_wake(h: float) -> void:
- if not baked_enabled and mode=='FULL':PanelFloorWake.step(solver,h)
+ if not baked_enabled and mode=='FULL':
+  SoftRoof.apply(solver);PanelFloorWake.step(solver,h)
 
 func stage_roof_landing(roll_deg: float=0,down_mps: float=4) -> void:
  var spec: Dictionary={'roll_deg':roll_deg,'forward_kmh':60.0,'down_mps':down_mps,'roll_rate':signf(roll_deg)*.35}
- RoofLandingCases.place(self,spec,.30)
+ var clearance: float=minf(.30,down_mps*down_mps/(4*float(solver.config.gravity_mps2)))
+ RoofLandingCases.place(self,spec,clearance)
  baked_enabled=true;mode='DRIVE';solver.compact_active=true
 
 func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -> void:
@@ -281,12 +287,11 @@ func _begin_bake(event: Dictionary) -> void:
  var travel: float=event.toi
  if solver.panels_runtime_enabled:solver.panels.synchronize_inactive()
  solver.compact_active=false
+ if event.get('floor_contact',false):GroundImpact.advance(self,travel)
  for i in solver.points.size():
+  if event.get('floor_contact',false):continue
   solver.points[i]+=solver.velocities[i]*travel
-  if event.get('floor_contact',false):
-   solver.points[i]+=Vector3.DOWN*float(solver.config.gravity_mps2)*travel*travel
-   solver.velocities[i]+=Vector3.DOWN*float(solver.config.gravity_mps2)*travel
- if solver.panels_runtime_enabled:
+ if solver.panels_runtime_enabled and not event.get('floor_contact',false):
   for p in solver.panels.panels:
    for i in 10:p.points[i]+=p.velocity[i]*travel
    if p.has('reduced_data'):
@@ -298,7 +303,7 @@ func _begin_bake(event: Dictionary) -> void:
  for wheel in solver.wheels.wheels:
   wheel.spin=wrapf(wheel.spin+wheel.spin_speed*travel,-PI,PI)
   var angle: float=wheel.angular_velocity.length()*travel
-  if angle>1e-9:wheel.rotation=(Quaternion(wheel.angular_velocity.normalized(),angle)*wheel.rotation).normalized()
+  if angle>1e-9 and not event.get('floor_contact',false):wheel.rotation=(Quaternion(wheel.angular_velocity.normalized(),angle)*wheel.rotation).normalized()
  solver.simulated_time+=travel
  drive_seconds+=travel
  bake_start_clock=solver.simulated_time;bake_clock=bake_start_clock

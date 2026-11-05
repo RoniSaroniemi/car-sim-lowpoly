@@ -1,0 +1,99 @@
+{
+	"checks": {
+		"camera_keeps_heading_1.0": true,
+		"camera_keeps_heading_2.0": true,
+		"camera_keeps_heading_3.0": true,
+		"roll0_spin0_angular_velocity_preserved": true,
+		"roll0_spin0_ballistic_mass_center": true,
+		"roll0_spin0_no_crash_or_full_solver": true,
+		"roll0_spin0_no_uprighting": true,
+		"roll0_spin1_angular_velocity_preserved": true,
+		"roll0_spin1_ballistic_mass_center": true,
+		"roll0_spin1_no_crash_or_full_solver": true,
+		"roll0_spin1_no_uprighting": true,
+		"roll120_spin0_angular_velocity_preserved": true,
+		"roll120_spin0_ballistic_mass_center": true,
+		"roll120_spin0_no_crash_or_full_solver": true,
+		"roll120_spin0_no_uprighting": true,
+		"roll120_spin1_angular_velocity_preserved": true,
+		"roll120_spin1_ballistic_mass_center": true,
+		"roll120_spin1_no_crash_or_full_solver": true,
+		"roll120_spin1_no_uprighting": true,
+		"roll180_spin0_angular_velocity_preserved": true,
+		"roll180_spin0_ballistic_mass_center": true,
+		"roll180_spin0_no_crash_or_full_solver": true,
+		"roll180_spin0_no_uprighting": true,
+		"roll180_spin1_angular_velocity_preserved": true,
+		"roll180_spin1_ballistic_mass_center": true,
+		"roll180_spin1_no_crash_or_full_solver": true,
+		"roll180_spin1_no_uprighting": true,
+		"roll45_spin0_angular_velocity_preserved": true,
+		"roll45_spin0_ballistic_mass_center": true,
+		"roll45_spin0_no_crash_or_full_solver": true,
+		"roll45_spin0_no_uprighting": true,
+		"roll45_spin1_angular_velocity_preserved": true,
+		"roll45_spin1_ballistic_mass_center": true,
+		"roll45_spin1_no_crash_or_full_solver": true,
+		"roll45_spin1_no_uprighting": true
+	},
+	"passed": true,
+	"runs": [
+		{
+			"case": "roll0_spin0",
+			"final_omega": "(-0.000158, -0.000069, 0.000103)",
+			"initial_com_velocity_y": 3.0,
+			"orientation_error_deg": 0.0,
+			"vertical_com_error_m": -0.0404441070556629
+		},
+		{
+			"case": "roll0_spin1",
+			"final_omega": "(0.999793, 0.000191, 0.000256)",
+			"initial_com_velocity_y": 3.0,
+			"orientation_error_deg": 0.0,
+			"vertical_com_error_m": -0.0337264251708973
+		},
+		{
+			"case": "roll45_spin0",
+			"final_omega": "(0.000003, -0.000045, 0.000005)",
+			"initial_com_velocity_y": 3.0,
+			"orientation_error_deg": 0.0,
+			"vertical_com_error_m": -0.0404421997070301
+		},
+		{
+			"case": "roll45_spin1",
+			"final_omega": "(0.999221, 0.000355, 0.000487)",
+			"initial_com_velocity_y": 3.32492306418031,
+			"orientation_error_deg": 0.0,
+			"vertical_com_error_m": -0.0388290852984738
+		},
+		{
+			"case": "roll120_spin0",
+			"final_omega": "(-0.000001, -0.000007, 0.000003)",
+			"initial_com_velocity_y": 3.0,
+			"orientation_error_deg": 0.0,
+			"vertical_com_error_m": -0.040240020751952
+		},
+		{
+			"case": "roll120_spin1",
+			"final_omega": "(1.000167, -0.000333, 0.000035)",
+			"initial_com_velocity_y": 3.39794781930663,
+			"orientation_error_deg": 0.0395646811852521,
+			"vertical_com_error_m": -0.0466988111279178
+		},
+		{
+			"case": "roll180_spin0",
+			"final_omega": "(0.000002, -0.00004, -0.000002)",
+			"initial_com_velocity_y": 3.0,
+			"orientation_error_deg": 0.0,
+			"vertical_com_error_m": -0.0401637268066395
+		},
+		{
+			"case": "roll180_spin1",
+			"final_omega": "(0.99956, -0.000158, 0.000411)",
+			"initial_com_velocity_y": 2.9999999842959,
+			"orientation_error_deg": 0.0,
+			"vertical_com_error_m": -0.0468947444277319
+		}
+	],
+	"scope": "Uncontacted shared driving body and mounted wheels, zero and sustained roll, ballistic gravity; camera heading independent of airborne pose"
+}

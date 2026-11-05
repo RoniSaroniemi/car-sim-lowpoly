@@ -20,6 +20,7 @@ var panel_controls: VBoxContainer
 var mount_demo:=MountDemo.new()
 var body_fixture_active:=false
 var roof_landing_preview:=false
+var airborne_heading:=preload('res://scripts/airborne_camera_heading.gd').new()
 var body_previous_baked:=true
 var capture_crash:=false
 var crash_saved:=false
@@ -87,7 +88,7 @@ func _hud() -> void:
  var body_row:=HBoxContainer.new();column.add_child(body_row)
  for spec in [['Live flat roof','roof_flat'],['Live angled roof','roof_corner'],['Live side hit','side_wall']]:_button(body_row,spec[0],_start_body_test.bind(spec[1]))
  var landing_row:=HBoxContainer.new();column.add_child(landing_row)
- for spec in [['Roof landing',0.,4.],['Roll left',-15.,4.],['Roll right',15.,4.],['Hard roof',0.,7.]]:_button(landing_row,spec[0],_start_roof_landing.bind(spec[1],spec[2]))
+ for spec in [['Light roof',0.,1.2],['Roll left',-40.,4.],['Roll right',40.,4.],['Hard roof',0.,7.]]:_button(landing_row,spec[0],_start_roof_landing.bind(spec[1],spec[2]))
  var view_row:=HBoxContainer.new();column.add_child(view_row)
  _button(view_row,'Wheel mount test',_start_mount_test);_button(view_row,'Structure',func():skin.set_mode(0));_button(view_row,'Textured',func():skin.set_mode(2))
  panel_controls=VBoxContainer.new();panel_controls.name='PanelControls';column.add_child(panel_controls)
@@ -97,6 +98,7 @@ func _baked_toggled(value: bool) -> void:
  if body_fixture_active and value:BodyFixture.restore(car);body_fixture_active=false
  car.baked_enabled=value
 func _reset() -> void:
+ airborne_heading.reset()
  roof_landing_preview=false
  BodyFixture.restore(car);mount_demo.stop()
  if body_fixture_active:body_fixture_active=false;bake_toggle.button_pressed=body_previous_baked
@@ -138,7 +140,7 @@ func _process(_dt: float) -> void:
  skin.update_pose()
  var center: Vector3=car.solver.station_center(2)
  var f: Vector3=car.forward()
- var heading:=atan2(f.z,f.x)+orbit
+ var heading:=airborne_heading.sample(car)+orbit
  if camera_mode!=2:
   var target: Vector3=center+Vector3.UP*.4
   var yaw: float=heading+(PI if camera_mode==0 else 1.0)
@@ -163,6 +165,7 @@ func _process(_dt: float) -> void:
  if not car.last_bake.is_empty():readout.text+='\n'+str(car.last_bake.id)
  if car.sequence_notice!='':readout.text+='\n'+car.sequence_notice
  if roof_landing_preview:readout.text+='\nRoof landing · slow motion · R repairs'
+ if car.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nWeak roof · ramps and ground contacts'
  if car.baked_count==0 and car.roof_landing_sensor.last_rejection!='':readout.text+='\n'+car.roof_landing_sensor.last_rejection.replace('_',' ')
  if debug_visible:readout.text+='\n%d full solves · %.2f ms / 120 Hz\n%d instances · %d triangles'%[car.full_steps,car.statistics().cpu_ms_per_sim_second/120,stadium.instances,stadium.mesh_triangles]
  if capture:_capture_step()

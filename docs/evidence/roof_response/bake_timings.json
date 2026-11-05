@@ -1,0 +1,107 @@
+{
+  "started_utc": "2026-11-05T20:02:00.161647+00:00",
+  "family": "roof_landing",
+  "workers": 2,
+  "quality_multiplier": 4,
+  "jobs": [
+    {
+      "id": "roof_landing_f60_d4_r000",
+      "metadata": "bakes/roof_landing/roof_landing_f60_d4_r000.json",
+      "returncode": 0,
+      "process_wall_s": 41.19670833298005,
+      "real_s": 41.18,
+      "user_s": 40.55,
+      "sys_s": 0.15,
+      "status": "passed",
+      "frames": 301,
+      "bytes": 4157839,
+      "record_elapsed_ms": null,
+      "log": "verification/bake_campaign/roof_landing_f60_d4_r000.log"
+    },
+    {
+      "id": "roof_landing_f60_d4_rm15",
+      "metadata": "bakes/roof_landing/roof_landing_f60_d4_rm15.json",
+      "returncode": 0,
+      "process_wall_s": 41.787372458027676,
+      "real_s": 41.76,
+      "user_s": 41.13,
+      "sys_s": 0.15,
+      "status": "passed",
+      "frames": 301,
+      "bytes": 4227430,
+      "record_elapsed_ms": null,
+      "log": "verification/bake_campaign/roof_landing_f60_d4_rm15.log"
+    },
+    {
+      "id": "roof_landing_f60_d4_rp15",
+      "metadata": "bakes/roof_landing/roof_landing_f60_d4_rp15.json",
+      "returncode": 0,
+      "process_wall_s": 45.028960707830265,
+      "real_s": 45.02,
+      "user_s": 43.96,
+      "sys_s": 0.23,
+      "status": "passed",
+      "frames": 301,
+      "bytes": 4220207,
+      "record_elapsed_ms": null,
+      "log": "verification/bake_campaign/roof_landing_f60_d4_rp15.log"
+    },
+    {
+      "id": "roof_landing_f60_d7_rm15",
+      "metadata": "bakes/roof_landing/roof_landing_f60_d7_rm15.json",
+      "returncode": 0,
+      "process_wall_s": 45.15927966590971,
+      "real_s": 45.11,
+      "user_s": 43.96,
+      "sys_s": 0.22,
+      "status": "passed",
+      "frames": 301,
+      "bytes": 4317918,
+      "record_elapsed_ms": null,
+      "log": "verification/bake_campaign/roof_landing_f60_d7_rm15.log"
+    },
+    {
+      "id": "roof_landing_f60_d7_r000",
+      "metadata": "bakes/roof_landing/roof_landing_f60_d7_r000.json",
+      "returncode": 0,
+      "process_wall_s": 43.962490250123665,
+      "real_s": 43.92,
+      "user_s": 43.3,
+      "sys_s": 0.15,
+      "status": "passed",
+      "frames": 301,
+      "bytes": 4300551,
+      "record_elapsed_ms": null,
+      "log": "verification/bake_campaign/roof_landing_f60_d7_r000.log"
+    },
+    {
+      "id": "roof_landing_f60_d7_rp15",
+      "metadata": "bakes/roof_landing/roof_landing_f60_d7_rp15.json",
+      "returncode": 0,
+      "process_wall_s": 44.10903004114516,
+      "real_s": 44.1,
+      "user_s": 43.66,
+      "sys_s": 0.11,
+      "status": "passed",
+      "frames": 301,
+      "bytes": 4312458,
+      "record_elapsed_ms": null,
+      "log": "verification/bake_campaign/roof_landing_f60_d7_rp15.log"
+    }
+  ],
+  "complete": true,
+  "first_started_utc": "2026-11-05T19:49:11.001667+00:00",
+  "previous_attempts": [
+    {
+      "started_utc": "2026-11-05T19:49:11.001667+00:00",
+      "workers": 2,
+      "wall_elapsed_s": 128.01772654103115,
+      "complete": true
+    }
+  ],
+  "wall_elapsed_s": 131.08029012498446,
+  "campaign_elapsed_s": 900.240577,
+  "success": true,
+  "total_cpu_s": 257.57,
+  "total_bytes": 25536403
+}

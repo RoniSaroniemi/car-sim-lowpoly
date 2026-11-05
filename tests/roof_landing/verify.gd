@@ -56,16 +56,16 @@ func _negative_cases() -> void:
  for tick in 15:car.advance(1.0/120)
  checks.moving_away_does_not_trigger=car.baked_count==0
  car=Driving.new();car.setup();car.solver.barrier_enabled=false
- var gentle: Dictionary=base.duplicate();gentle.down_mps=1.;Cases.place(car,gentle,.01)
+ var gentle: Dictionary=base.duplicate();gentle.down_mps=.2;Cases.place(car,gentle,.001)
  for tick in 40:car.advance(1.0/120)
- checks.gentle_contact_no_severe_clip=car.baked_count==0 and car.full_steps==0
+ checks.gentle_roof_contact_now_buckles=car.baked_count==1 and car.full_steps==0
  car=Driving.new();car.setup();car.solver.barrier_enabled=false;Cases.place(car,base,.3)
  car.solver.links[0].damage=.5
  for tick in 40:car.advance(1.0/120)
  checks.existing_damage_not_healed=car.baked_count==0 and car.solver.links[0].damage>=.5
  car=Driving.new();car.setup();car.solver.barrier_enabled=false;car.solver.terrain=Slope.new();Cases.place(car,base,.3)
  for tick in 40:car.advance(1.0/120)
- checks.slope_does_not_use_flat_recording=car.baked_count==0 and car.full_steps==0
+ checks.slope_registers_recording_to_contact_plane=car.baked_count==1 and car.full_steps==0 and car.last_bake.get('ground_normal',[]).size()==3
  # Elevated flat ground must change only the replay origin's height.
  car=Driving.new();car.setup();car.solver.terrain=RaisedFloor.new();car.solver.barrier_enabled=false;Cases.place(car,base,.3)
  for tick in 60:car.advance(1.0/120)
@@ -81,7 +81,7 @@ func _bank_checks() -> void:
 func _ui_checks() -> void:
  for path in ['res://arena/colosseum.tscn','res://driving.tscn']:
   var scene: Node=load(path).instantiate();root.add_child(scene);scene.set_physics_process(false);scene.set_process(false)
-  scene._start_roof_landing(15,7)
+  scene._start_roof_landing(40,4)
   var car: RefCounted=scene.car if path.contains('arena') else scene.vehicle
   for tick in 360:car.advance(1.0/120)
   checks[path+'_actual_shared_car_button']=car.baked_count==1 and car.full_steps==0 and car.last_bake.get('completed',false)
