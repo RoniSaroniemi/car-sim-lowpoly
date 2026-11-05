@@ -1,0 +1,64 @@
+{
+	"checks": {
+		"all_26_checks_executed": true,
+		"case_0_has_real_v3_source": true,
+		"case_0_history_monotonic": true,
+		"case_0_sampling_has_no_dynamics_or_mutation": true,
+		"case_0_source_inputs_match": true,
+		"case_1_has_real_v3_source": true,
+		"case_1_history_monotonic": true,
+		"case_1_sampling_has_no_dynamics_or_mutation": true,
+		"case_1_source_inputs_match": true,
+		"case_2_has_real_v3_source": true,
+		"case_2_history_monotonic": true,
+		"case_2_sampling_has_no_dynamics_or_mutation": true,
+		"case_2_source_inputs_match": true,
+		"field_is_read_only": true,
+		"field_no_extra_mass": true,
+		"front_away_from_hit_unmarked": true,
+		"left_upper_contact_locality": true,
+		"lower_panel_unmarked": true,
+		"material_update_never_solves": true,
+		"native_binding_still_valid": true,
+		"native_rest_attributes_exact": true,
+		"native_uvs_preserved": true,
+		"opposite_side_unmarked": true,
+		"outer_surface_material_scope": true,
+		"peak_compression_survives_partial_unloading": true,
+		"plain_diagnostic_disables_surface_layers": true
+	},
+	"observations": {
+		"baseline_pose_mean_us": 32.12,
+		"cases": [
+			{
+				"frames": 301,
+				"history_build_ms": 22.473,
+				"history_bytes": 45752,
+				"path": "res://probes/damage_surfaces/data/light_20.crashclip",
+				"source_frame_hash": "a42a53c6898a13bbdb2df4bfeaeb21539a2e36648234bf1a10144935ee1e0dc9"
+			},
+			{
+				"frames": 301,
+				"history_build_ms": 24.684,
+				"history_bytes": 45752,
+				"path": "res://bakes/impact_090_120.crashclip",
+				"source_frame_hash": "b551d0a0a692f41dcbf2cf38ccf5e491a4d2828ed6fe4a28cf29d11204006dc6"
+			},
+			{
+				"frames": 301,
+				"history_build_ms": 20.583,
+				"history_bytes": 45752,
+				"path": "res://bakes/conditioned/front_60_60_120_step_2.crashclip",
+				"source_frame_hash": "7c3e310ec1c6de367b48f1a71691a3176dc28b7d8f54c3b0185a7329e0ec485e"
+			}
+		],
+		"extra_draw_calls": 0,
+		"field_update_mean_us": 57.105,
+		"native_pose_plus_field_upload_mean_us": 96.7,
+		"note": "Headless CPU calls only. Native raster/GPU evidence and timings are measured separately; no FPS claim.",
+		"render_bones": 39,
+		"render_triangles": 39673,
+		"rest_attribute_bytes": 391616
+	},
+	"passed": true
+}

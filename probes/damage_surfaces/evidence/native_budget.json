@@ -1,0 +1,97 @@
+{
+	"device": "Apple M3",
+	"method": "gl_compatibility",
+	"runs": [
+		{
+			"appearance": "original",
+			"case": 0,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 92.28,
+			"render_cpu_mean_ms": 0.568900826302442,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(477, 688)"
+		},
+		{
+			"appearance": "current",
+			"case": 0,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 88.61,
+			"render_cpu_mean_ms": 0.488000001296524,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(477, 688)"
+		},
+		{
+			"appearance": "layered",
+			"case": 0,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 89.89,
+			"render_cpu_mean_ms": 0.464504133324978,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(478, 688)"
+		},
+		{
+			"appearance": "original",
+			"case": 1,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 91.49,
+			"render_cpu_mean_ms": 0.598421486941251,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(477, 688)"
+		},
+		{
+			"appearance": "current",
+			"case": 1,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 90.57,
+			"render_cpu_mean_ms": 0.491140496139684,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(477, 688)"
+		},
+		{
+			"appearance": "layered",
+			"case": 1,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 89.87,
+			"render_cpu_mean_ms": 0.471041322247056,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(478, 688)"
+		},
+		{
+			"appearance": "original",
+			"case": 2,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 140.46,
+			"render_cpu_mean_ms": 0.571801652346761,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(477, 688)"
+		},
+		{
+			"appearance": "current",
+			"case": 2,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 101.71,
+			"render_cpu_mean_ms": 0.483115701143407,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(477, 688)"
+		},
+		{
+			"appearance": "layered",
+			"case": 2,
+			"gpu_timings_available": false,
+			"physics_steps": 0,
+			"pose_upload_mean_us": 91.05,
+			"render_cpu_mean_ms": 0.465239669665817,
+			"render_gpu_mean_ms": 0.0,
+			"viewport_size": "(478, 688)"
+		}
+	],
+	"scope": "Native1920x1080 three-column comparison, each subviewport measured by Godot. Columns render concurrently; excludes a complete gameplay scene. Zero GPU timing means unavailable, not free shading."
+}
