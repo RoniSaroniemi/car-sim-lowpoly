@@ -54,7 +54,7 @@ The promoted profile keeps lower crossmembers, sills, front rails, engine, mount
 
 These are intentionally visible game parameters, not factory calibration. Promotion changes the structure fingerprint: **previous bakes must be regenerated/revalidated** before they can represent this profile. This patch does not silently rewrite the bank.
 
-Non-timing promotion regressions passed six structural cases, seven wheel cases,18 ordinary-driving checks and the ramp flight/landing checks. Rear retention and all ramp support/alignment checks remained true. One historical retention outcome changed: a120 km/h offset crash now bends the front mounting by about36° and breaks one support without fully detaching that wheel; the compliant cabin absorbs more energy. The old assertion demanding front release at that exact speed needs a material-aware test update, while explicit front-mount overload tests should retain the release-capability requirement. Suspension thresholds were not weakened to force the old outcome.
+Non-timing promotion regressions passed six structural cases, seven wheel cases,18 ordinary-driving checks and the ramp flight/landing checks. Rear retention and all ramp support/alignment checks remained true. One historical retention outcome changed: a120 km/h offset crash now bends the front mounting by about36° and breaks one support without fully detaching that wheel; the compliant cabin absorbs more energy. The retention test now requires support damage and a permanent front bend at that speed, with rear/ramp retention unchanged. Full front-release capability remains a mandatory part of the separate11-check explicit front-mount overload suite. Suspension thresholds were not weakened to force the old outcome.
 
 ## Reusable sandbox fixture API
 
