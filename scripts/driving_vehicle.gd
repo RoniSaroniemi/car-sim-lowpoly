@@ -184,7 +184,7 @@ func _wake(reason: String) -> void:
 func _rigid_body_contacts(dt: float) -> void:
  # The frozen/deformed body is one rigid aggregate. Only these cheap contact
  # projections run; the 187 structural constraints are never evaluated here.
- var nearby_wall: bool=solver.barrier_enabled and float(solver.barrier_distance(compact.center).distance)<3.5
+ var nearby_wall: bool=float(solver.static_contact(compact.center,3.5).distance)<3.5
  for iteration in 3:
   for index in compact.indices:
    var p: Vector3=compact.point(index)
@@ -194,7 +194,7 @@ func _rigid_body_contacts(dt: float) -> void:
     _rigid_contact(index,Vector3(floor_.x,floor_.y,floor_.z).normalized(),depth,dt)
     solver.contact_floor[index]=1
    if nearby_wall:
-    var hit: Dictionary=solver.barrier_distance(compact.point(index))
+    var hit: Dictionary=solver.static_contact(compact.point(index),solver.radii[index])
     depth=solver.radii[index]-float(hit.distance)
     if depth>0:
      _rigid_contact(index,hit.normal,depth,dt)

@@ -40,6 +40,7 @@ var compact_active:=false
 var wake_requested: String=''
 var wake_hold_seconds:=0.0
 var wheels: RefCounted
+var static_contact_provider: RefCounted
 var terrain: RefCounted
 var floor_normals:=PackedVector3Array()
 var barrier_enabled:=true
@@ -302,6 +303,17 @@ func barrier_distance(p: Vector3) -> Dictionary:
   if distances[i]<distances[face]:face=i
  return {'distance':-distances[face],'normal':normals[face]}
 
+## Static signed point distance, before applying sphere/tire support radius.
+## Providers are optional; crash-bank selection deliberately queries barrier_distance.
+func static_contact(p: Vector3,radius: float=0.0) -> Dictionary:
+ var hit: Dictionary={'distance':INF,'normal':Vector3.ZERO,'source':'none'}
+ if barrier_enabled and p.x>=barrier_min.x-radius:
+  hit=barrier_distance(p);hit['source']='barrier'
+ if static_contact_provider!=null and static_contact_provider.nearby(p,radius):
+  var candidate: Dictionary=static_contact_provider.sample(p)
+  if float(candidate.get('distance',INF))<float(hit.distance):hit=candidate
+ return hit
+
 func mark_impact(i: int) -> void:
  if not impact_started:
   impact_started=true
@@ -313,13 +325,12 @@ func _contacts() -> void:
  for i in points.size():
   if config.nodes[i].group=='wheel':continue
   var p: Vector3=points[i]
-  if barrier_enabled and p.x>=barrier_min.x-radii[i]:
-   var hit: Dictionary=barrier_distance(p)
-   if float(hit.distance)<radii[i]:
-    mark_impact(i)
-    contact_wall[i]=1
-    wall_normals[i]=hit.normal
-    p+=hit.normal*(radii[i]-float(hit.distance))
+  var hit: Dictionary=static_contact(p,radii[i])
+  if float(hit.distance)<radii[i]:
+   mark_impact(i)
+   contact_wall[i]=1
+   wall_normals[i]=hit.normal
+   p+=hit.normal*(radii[i]-float(hit.distance))
   var surface: Vector4=floor_sample(p)
   var floor_normal:=Vector3(surface.x,surface.y,surface.z)
   var distance: float=(p.y-surface.w)*surface.y
