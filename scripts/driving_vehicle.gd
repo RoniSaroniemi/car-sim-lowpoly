@@ -243,6 +243,7 @@ func _advance_lightweight(h: float) -> void:
 
 func _begin_bake(event: Dictionary) -> void:
  var travel: float=event.toi
+ if solver.panels_runtime_enabled:solver.panels.synchronize_inactive()
  solver.compact_active=false
  for i in solver.points.size():solver.points[i]+=solver.velocities[i]*travel
  if solver.panels_runtime_enabled:

@@ -407,6 +407,7 @@ func metrics() -> Dictionary:
  return {'wheels':wheels.metrics(),'broken_suspension_links':links.filter(func(l):return l.broken).size(),'impact_mode':impact_mode,'front_shortening_m':maxf(0,rest_front.length()-(station_center(6)-station_center(3)).length()),'cabin_shortening_m':cabin_intrusion,'roof_drop_m':roof_drop,'yielded_links':yielded,'plastic_work_kj':plastic_work/1000.0,'kinetic_kj':kinetic_energy()/1000.0,'initial_energy_kj':initial_energy/1000.0,'maximum_kinetic_kj':maximum_energy/1000.0,'nodes':points.size(),'links':links.size(),'mass_kg':config.mass_kg,'mean_step_us':float(total_step_us)/maxi(1,step_count),'max_step_us':max_step_us,'impact_time_s':impact_time}
 
 func capture() -> Dictionary:
+ if panels!=null and panels_runtime_enabled:panels.synchronize_inactive()
  var lengths:=PackedFloat32Array()
  var damage:=PackedFloat32Array()
  var broken:=PackedByteArray()
