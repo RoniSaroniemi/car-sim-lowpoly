@@ -1,0 +1,25 @@
+{
+	"baked_restore": {
+		"mean_ms": 0.112879166666667,
+		"membrane_solves": 0,
+		"p99_ms": 0.178,
+		"steps": 240
+	},
+	"capped_debris": {
+		"mean_ms": 0.390688888888889,
+		"p99_ms": 0.554,
+		"steps": 180
+	},
+	"debris_initial_count": 192,
+	"dormant_six_panes": {
+		"mean_ms": 0.419929166666667,
+		"p99_ms": 1.256,
+		"steps": 240
+	},
+	"live_laminate": {
+		"mean_ms": 13.1680541666667,
+		"p99_ms": 24.561,
+		"steps": 240
+	},
+	"scope": "CPU module only, Apple M3, Godot 4.7.2 headless debug; excludes renderer, full car solver, load/setup and file IO."
+}

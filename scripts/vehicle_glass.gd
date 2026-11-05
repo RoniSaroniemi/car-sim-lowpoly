@@ -21,6 +21,7 @@ var collision_count:=0
 var peak_debris:=0
 var profile_id: String=''
 var live_accumulator:=0.0
+var peak_laminate_pulse:=0.0
 
 func setup(owner: RefCounted,options: Dictionary={}) -> void:
  graph=weakref(owner);settings=options.duplicate(true)
@@ -30,7 +31,7 @@ func setup(owner: RefCounted,options: Dictionary={}) -> void:
   var u:=_v3(raw.u_axis);var v:=_v3(raw.v_axis);var n:=_v3(raw.normal)
   var bounds: Array=raw.uv_bounds
   var origin: Vector3=_v3(raw.origin)+u*(float(bounds[0])+float(bounds[1]))*.5+v*(float(bounds[2])+float(bounds[3]))*.5
-  var pane: Dictionary={'raw':raw,'rest_frame':Transform3D(Basis(u,v,n),origin),'node_rest':PackedVector3Array(),'node_bind':[],'last_corners':PackedVector3Array(),'last_velocity':Vector3.ZERO}
+  var pane: Dictionary={'raw':raw,'rest_frame':Transform3D(Basis(u,v,n),origin),'node_rest':PackedVector3Array(),'node_bind':[],'last_corners':PackedVector3Array(),'last_velocity':Vector3.ZERO,'center_bind':Attachment.binding(owner,origin)}
   for y in Membrane.NY+1:
    for x in Membrane.NX+1:
     var p: Vector3=_rest_at(pane,Vector2(float(x)/Membrane.NX,float(y)/Membrane.NY))
@@ -57,21 +58,48 @@ func _corner_world(pane: Dictionary,frames: Array) -> PackedVector3Array:
  for i in [0,Membrane.NX,Membrane.NY*(Membrane.NX+1),pane.node_rest.size()-1]:result.append(Attachment.mapped(g,pane.node_rest[i],pane.node_bind[i],frames))
  return result
 func _body_velocity(pane: Dictionary) -> Vector3:
- var g: RefCounted=graph.get_ref();var bind: Dictionary=Attachment.binding(g,pane.rest_frame.origin)
+ var g: RefCounted=graph.get_ref();var bind: Dictionary=pane.center_bind
  var result:=Vector3.ZERO
  for i in bind.ids.size():result+=g.velocities[bind.ids[i]]*bind.weights[i]
  return result
 
+func _point_velocity(pane: Dictionary,uv: Vector2) -> Vector3:
+ var g: RefCounted=graph.get_ref();var bind: Dictionary=Attachment.binding(g,_rest_at(pane,uv));var motion:=Vector3.ZERO
+ for j in bind.ids.size():motion+=g.velocities[bind.ids[j]]*bind.weights[j]
+ return motion
+func _previous_velocity(pane: Dictionary,uv: Vector2) -> Vector3:
+ var motions: PackedVector3Array=pane.get('last_mounts',PackedVector3Array())
+ if motions.size()!=pane.node_rest.size() and motions.size()!=4:return _point_velocity(pane,uv)
+ var a: Vector3=motions[0].lerp(motions[1 if motions.size()==4 else Membrane.NX],uv.x)
+ var b: Vector3=motions[2 if motions.size()==4 else Membrane.NY*(Membrane.NX+1)].lerp(motions[-1],uv.x)
+ return a.lerp(b,uv.y)
+func _local_uv(pane: Dictionary,position_: Vector3) -> Vector2:
+ return Vector2(position_.x/pane.raw.width_m+.5,position_.y/pane.raw.height_m+.5)
+
 func reset() -> void:
  debris.clear();emitted.clear();clock=0;live_accumulator=0;playback_clock=-INF
- membrane_solve_steps=0;total_live_cpu_us=0;total_debris_cpu_us=0;collision_count=0;peak_debris=0
+ membrane_solve_steps=0;peak_laminate_pulse=0;total_live_cpu_us=0;total_debris_cpu_us=0;collision_count=0;peak_debris=0
  for id in panes:
   var pane: Dictionary=panes[id]
   pane.stage=0;pane.crack=0.0;pane.seed=1009+panes.keys().find(id)*127;pane.generation=0
-  pane.hit_uv=Vector2(.5,.5);pane.mask=PackedByteArray();pane.mask.resize(GRID_X*GRID_Y*2);pane.mask.fill(1)
+  pane.hit_uv=Vector2(.5,.5);pane.last_piercing=false;pane.next_patch_serial=0;pane.mask=PackedByteArray();pane.mask.resize(GRID_X*GRID_Y*2);pane.mask.fill(1)
   pane.nodes_local=PackedVector3Array();pane.vel_local=PackedVector3Array();pane.broken=PackedByteArray();pane.released=PackedByteArray()
   pane.events=[];pane.membrane=null;pane.release_cursor=0;pane.last_tear_count=-1;pane.last_released_count=-1;pane.mask_revision=0
  synchronize()
+func _mount_velocities(pane: Dictionary) -> PackedVector3Array:
+ var result:=PackedVector3Array();var g: RefCounted=graph.get_ref()
+ for bind in pane.node_bind:
+  var motion:=Vector3.ZERO
+  for j in bind.ids.size():motion+=g.velocities[bind.ids[j]]*bind.weights[j]
+  result.append(motion)
+ return result
+func _corner_velocities(pane: Dictionary) -> PackedVector3Array:
+ var g: RefCounted=graph.get_ref();var result:=PackedVector3Array()
+ for index in [0,Membrane.NX,Membrane.NY*(Membrane.NX+1),pane.node_rest.size()-1]:
+  var bind: Dictionary=pane.node_bind[index];var motion:=Vector3.ZERO
+  for j in bind.ids.size():motion+=g.velocities[bind.ids[j]]*bind.weights[j]
+  result.append(motion)
+ return result
 func synchronize() -> void:
  live_accumulator=0
  var g: RefCounted=graph.get_ref()
@@ -79,6 +107,17 @@ func synchronize() -> void:
  var frames: Array=Attachment.rotations(g)
  for pane in panes.values():
   var all: PackedVector3Array=_node_world(pane,frames)
+  var transform: Transform3D=_frame(pane,frames)
+  var mounts: PackedVector3Array=_mount_velocities(pane)
+  if pane.membrane!=null and pane.has('last_attachment'):
+   var old: Transform3D=pane.last_attachment;var inverse: Transform3D=old.affine_inverse()
+   var old_mounts: PackedVector3Array=pane.get('last_mounts',mounts)
+   for i in pane.membrane.points.size():
+    pane.membrane.points[i]=transform*(inverse*pane.membrane.points[i])
+    var relative: Vector3=old.basis.inverse()*(pane.membrane.velocity[i]-old_mounts[i])
+    pane.membrane.velocity[i]=transform.basis*relative+mounts[i]
+   pane.membrane.attachment=transform;pane.membrane.boundary_targets=all;pane.membrane.mount_velocity=mounts
+  pane.last_attachment=transform;pane.last_mounts=mounts
   pane.last_corners=PackedVector3Array([all[0],all[Membrane.NX],all[Membrane.NY*(Membrane.NX+1)],all[-1]])
   pane.last_velocity=_body_velocity(pane)
 
@@ -93,6 +132,15 @@ func _frame_strain(pane: Dictionary,points: PackedVector3Array) -> float:
   strain=maxf(strain,absf(distance/maxf(.001,rest_length)-1))
  return strain
 
+func _opening_tension(pane: Dictionary,points: PackedVector3Array) -> float:
+ var indices: Array=[0,Membrane.NX,Membrane.NY*(Membrane.NX+1),pane.node_rest.size()-1]
+ var result:=0.0
+ for pair in [[0,1],[2,3],[0,2],[1,3],[0,3],[1,2]]:
+  var a: int=indices[pair[0]];var b: int=indices[pair[1]]
+  var distance: float=points[pair[0]].distance_to(points[pair[1]]) if points.size()==4 else points[a].distance_to(points[b])
+  result=maxf(result,distance/maxf(.001,pane.node_rest[a].distance_to(pane.node_rest[b]))-1)
+ return result
+
 func hit_window(id: String,severity: float=1.0,piercing: bool=false,uv: Vector2=Vector2(.5,.5)) -> bool:
  if not panes.has(id):return false
  var g: RefCounted=graph.get_ref();var frames: Array=Attachment.rotations(g)
@@ -101,20 +149,25 @@ func hit_window(id: String,severity: float=1.0,piercing: bool=false,uv: Vector2=
  return true
 func _hit(pane: Dictionary,severity: float,piercing: bool,uv: Vector2,frames: Array,tool: bool) -> void:
  pane.crack=maxf(pane.crack,clampf(severity/.6,0,1));pane.hit_uv=uv
+ if tool:pane.last_piercing=piercing
  if severity<.15:return
  pane.generation=maxi(1,int(pane.generation));pane.stage=maxi(1,int(pane.stage))
  if pane.raw.material=='laminated':
   if pane.membrane==null:_start_membrane(pane,frames,severity if tool else 0,piercing,uv)
   elif tool:pane.membrane.load_again(severity,piercing,uv)
  else:
-  if severity<.4:return
+  if severity<.85:
+   pane.crack=minf(pane.crack,.15)
+   return
   var partial: bool=bool(pane.raw.settings.get('film_retention',false)) and severity<1.05
   _temper_mask(pane,uv,partial)
   pane.stage=3 if partial else 4
   var event_id: String='%s:%d:tempered'%[pane.raw.id,pane.generation]
   if not pane.events.any(func(event):return event.id==event_id):
    var frame: Transform3D=_frame(pane,frames)
-   var event: Dictionary={'id':event_id,'time':clock,'kind':'tempered','seed':pane.seed,'uv':uv,'velocity_local':frame.basis.inverse()*pane.last_velocity}
+   var relatives:=PackedVector3Array()
+   for corner in [Vector2.ZERO,Vector2.RIGHT,Vector2.DOWN,Vector2.ONE]:relatives.append(frame.basis.inverse()*(_previous_velocity(pane,corner)-_point_velocity(pane,corner)))
+   var event: Dictionary={'id':event_id,'time':clock,'kind':'tempered','seed':pane.seed,'uv':uv,'relative_corners':relatives}
    pane.events.append(event);_emit(pane,event,frames)
 
 func _start_membrane(pane: Dictionary,frames: Array,severity: float,piercing: bool,uv: Vector2) -> void:
@@ -122,15 +175,24 @@ func _start_membrane(pane: Dictionary,frames: Array,severity: float,piercing: bo
  var targets: PackedVector3Array=_node_world(pane,frames)
  var membrane:=Membrane.new()
  membrane.setup_pane(pane.raw.width_m,pane.raw.height_m,transform,targets,pane.last_velocity,severity,piercing,uv,pane.seed)
+ # Perimeter/interlayer adhesion is permanent. Also pin a narrow contour band
+ # around the actual non-rectangular pane, not only the rectangular cage edge.
+ for i in membrane.anchored.size():
+  var uv_node:=Vector2(float(i%(Membrane.NX+1))/Membrane.NX,float(i/(Membrane.NX+1))/Membrane.NY)
+  if not _inside_outline(pane,uv_node) or _edge_distance(pane,uv_node)<.10:membrane.anchored[i]=1
+ var mounts: PackedVector3Array=_mount_velocities(pane);membrane.mount_velocity=mounts
+ var inherited_delta: Vector3=pane.last_velocity-_body_velocity(pane)
+ for i in membrane.velocity.size():membrane.velocity[i]=mounts[i]+inherited_delta
  if pane.nodes_local.size()==membrane.points.size():
   for i in membrane.points.size():
    membrane.points[i]=transform*pane.nodes_local[i]
-   if pane.vel_local.size()==membrane.points.size():membrane.velocity[i]=transform.basis*pane.vel_local[i]
+   if pane.vel_local.size()==membrane.points.size():membrane.velocity[i]=transform.basis*pane.vel_local[i]+mounts[i]
   if pane.broken.size()==membrane.bonds.size():
    for i in membrane.bonds.size():membrane.bonds[i].broken=bool(pane.broken[i])
   if pane.released.size()==membrane.released.size():membrane.released=pane.released.duplicate()
- pane.membrane=membrane
+ pane.membrane=membrane;pane.release_cursor=0;pane.last_attachment=transform;pane.last_mounts=mounts
  pane.last_tear_count=-1;pane.last_released_count=-1
+ _cache_membrane(pane,frames)
 
 func step_live(dt: float) -> void:
  clock+=dt;live_accumulator+=dt;playback_clock=-INF
@@ -141,23 +203,31 @@ func step_live(dt: float) -> void:
  if g==null:return
  var frames: Array=Attachment.rotations(g)
  for pane in panes.values():
+  if pane.raw.material=='laminated' and pane.membrane==null and not pane.nodes_local.is_empty():_start_membrane(pane,frames,0,pane.last_piercing,pane.hit_uv)
   var targets: PackedVector3Array=_node_world(pane,frames) if pane.membrane!=null else _corner_world(pane,frames)
   var strain: float=_frame_strain(pane,targets)
-  var threshold: float=pane.raw.settings.get('crack_frame_strain',.015)
-  if strain>threshold and pane.stage==0:_hit(pane,clampf(strain/threshold*.6,.6,1.8),false,Vector2(.5,.5),frames,false)
+  if pane.raw.material=='laminated' and pane.stage==0:
+   var normal: Vector3=_frame(pane,frames).basis.z
+   var pulse: float=absf((_body_velocity(pane)-pane.last_velocity).dot(normal))
+   peak_laminate_pulse=maxf(peak_laminate_pulse,pulse)
+   if pulse>float(pane.raw.settings.get('laminated_inertial_delta_v_mps',.8)) and pane.last_velocity.length()>float(pane.raw.settings.get('minimum_inertial_speed_mps',15)):_hit(pane,.6,false,Vector2(.5,.5),frames,false)
+  var threshold: float=pane.raw.settings.get('break_frame_strain',.065) if pane.raw.material=='tempered' else pane.raw.settings.get('crack_frame_strain',.02)
+  if strain>threshold and (pane.stage==0 or (pane.raw.material=='tempered' and pane.stage<3)):_hit(pane,(1.0 if pane.raw.material=='tempered' else clampf(strain/threshold*.6,.6,1.8)),false,Vector2(.5,.5),frames,false)
   if pane.membrane!=null:
    if targets.size()!=pane.node_rest.size():targets=_node_world(pane,frames)
    var membrane: RefCounted=pane.membrane
-   membrane.attachment=_frame(pane,frames);membrane.boundary_targets=targets
+   membrane.attachment=_frame(pane,frames);membrane.boundary_targets=targets;membrane.mount_velocity=_mount_velocities(pane)
+   membrane.allow_diffuse_tears=_opening_tension(pane,targets)>.7
    var previous_steps: int=membrane.solve_steps
    membrane.advance(dt);membrane_solve_steps+=membrane.solve_steps-previous_steps
    _cache_membrane(pane,frames)
   pane.last_velocity=_body_velocity(pane)
+  if pane.membrane==null:pane.last_mounts=_corner_velocities(pane)
  total_live_cpu_us+=Time.get_ticks_usec()-began
 func _cache_membrane(pane: Dictionary,frames: Array) -> void:
  var m: RefCounted=pane.membrane;var attachment: Transform3D=_frame(pane,frames)
- var inverse: Transform3D=attachment.affine_inverse();pane.nodes_local=PackedVector3Array();pane.vel_local=PackedVector3Array()
- for i in m.points.size():pane.nodes_local.append(inverse*m.points[i]);pane.vel_local.append(attachment.basis.inverse()*m.velocity[i])
+ var inverse: Transform3D=attachment.affine_inverse();var mounts: PackedVector3Array=_mount_velocities(pane);pane.last_attachment=attachment;pane.last_mounts=mounts;pane.nodes_local=PackedVector3Array();pane.vel_local=PackedVector3Array()
+ for i in m.points.size():pane.nodes_local.append(inverse*m.points[i]);pane.vel_local.append(attachment.basis.inverse()*(m.velocity[i]-mounts[i]))
  pane.broken=PackedByteArray()
  for bond in m.bonds:pane.broken.append(1 if bond.broken else 0)
  pane.released=m.released.duplicate()
@@ -172,26 +242,37 @@ func _cache_membrane(pane: Dictionary,frames: Array) -> void:
  pane.stage=maxi(int(pane.stage),3 if torn>0 else 2)
  while pane.release_cursor<m.release_events.size():
   var source: Dictionary=m.release_events[pane.release_cursor]
-  var event: Dictionary={'id':'%s:%d:patch:%d'%[pane.raw.id,pane.generation,pane.release_cursor],'time':clock,'kind':'laminate_patch','seed':pane.seed+pane.release_cursor,'position_local':inverse*source.position,'velocity_local':attachment.basis.inverse()*source.velocity,'size':source.size}
-  pane.events.append(event);_emit(pane,event,frames);pane.release_cursor+=1;pane.stage=4
+  var event: Dictionary={'id':'%s:%d:patch:%d'%[pane.raw.id,pane.generation,pane.next_patch_serial],'time':clock,'kind':'laminate_patch','seed':pane.seed+pane.release_cursor,'position_local':inverse*source.position,'velocity_relative':attachment.basis.inverse()*(source.velocity-_point_velocity(pane,_local_uv(pane,inverse*source.position))),'size':source.size}
+  pane.events.append(event);_emit(pane,event,frames);pane.release_cursor+=1;pane.next_patch_serial+=1;pane.stage=4
 
 func _cell_uv(index: int) -> Vector2:
  var cell: int=index/2;var x: int=cell%GRID_X;var y: int=cell/GRID_X
  var offset: float=1.0/3 if index%2==0 else 2.0/3
  return Vector2((x+offset)/GRID_X,(y+offset)/GRID_Y)
-func _retained_rim(pane: Dictionary,uv: Vector2) -> bool:
+func _inside_outline(pane: Dictionary,uv: Vector2) -> bool:
+ var outline: Array=pane.raw.outline_uv
+ var side:=0.0
+ for i in outline.size():
+  var a:=Vector2(outline[i][0],outline[i][1]);var b:=Vector2(outline[(i+1)%outline.size()][0],outline[(i+1)%outline.size()][1])
+  var cross: float=(b-a).cross(uv-a)
+  if absf(cross)<1e-7:continue
+  if side==0:side=signf(cross)
+  elif signf(cross)!=side:return false
+ return true
+func _edge_distance(pane: Dictionary,uv: Vector2) -> float:
  var outline: Array=pane.raw.outline_uv
  var distance:=INF
  for i in outline.size():
   var a:=Vector2(outline[i][0],outline[i][1]);var b:=Vector2(outline[(i+1)%outline.size()][0],outline[(i+1)%outline.size()][1])
   var d: Vector2=b-a;var t: float=clampf((uv-a).dot(d)/maxf(.00001,d.length_squared()),0,1)
   distance=minf(distance,uv.distance_to(a+d*t))
- return distance<.025
+ return distance
+func _retained_rim(pane: Dictionary,uv: Vector2) -> bool:return _edge_distance(pane,uv)<.025
 func _temper_mask(pane: Dictionary,uv: Vector2,partial: bool) -> void:
  var mask: PackedByteArray=pane.mask.duplicate()
  for i in mask.size():
   var p: Vector2=_cell_uv(i)
-  if not _retained_rim(pane,p) and (not partial or p.distance_to(uv)<.28):mask[i]=0
+  if _inside_outline(pane,p) and not _retained_rim(pane,p) and (not partial or p.distance_to(uv)<.28):mask[i]=0
  pane.mask=mask;pane.mask_revision+=1
 
 func _emit(pane: Dictionary,event: Dictionary,frames: Array) -> void:
@@ -200,47 +281,84 @@ func _emit(pane: Dictionary,event: Dictionary,frames: Array) -> void:
  var transform: Transform3D=_frame(pane,frames)
  var rng:=RandomNumberGenerator.new();rng.seed=int(event.seed)
  if event.kind=='laminate_patch':
-  _particle(transform*event.position_local,transform.basis*event.velocity_local,event.size,3.0,rng)
+  var motion: Vector3=_point_velocity(pane,_local_uv(pane,event.position_local))+transform.basis*event.get('velocity_relative',Vector3.ZERO)
+  _particle(transform*event.position_local,motion,event.size,3.0,rng)
  else:
   var cells: Array=[]
   for i in pane.mask.size():
-   if pane.mask[i]==0:cells.append(i)
+   if pane.mask[i]==0 and _inside_outline(pane,_cell_uv(i)):cells.append(i)
   var count: int=mini(96,mini(DEBRIS_CAP-debris.size(),cells.size()))
   for j in count:
    var uv: Vector2=_cell_uv(cells[floori(float(j)*cells.size()/count)])
    var local: Vector3=Vector3((uv.x-.5)*pane.raw.width_m,(uv.y-.5)*pane.raw.height_m,.004)
-   var velocity_local: Vector3=event.velocity_local+Vector3(rng.randf_range(-1,1),rng.randf_range(.2,1.8),rng.randf_range(.5,2.5))
-   _particle(transform*local,transform.basis*velocity_local,rng.randf_range(.008,.018),rng.randf_range(2.1,3.2),rng)
+   var corners: PackedVector3Array=event.get('relative_corners',PackedVector3Array())
+   var relative:=Vector3.ZERO
+   if corners.size()==4:relative=corners[0].lerp(corners[1],uv.x).lerp(corners[2].lerp(corners[3],uv.x),uv.y)
+   var impulse:=Vector3(rng.randf_range(-.7,.7),rng.randf_range(-.4,.8),rng.randf_range(-.8,.8))
+   var motion: Vector3=_point_velocity(pane,uv)+transform.basis*(relative+impulse)
+   _particle(transform*local,motion,rng.randf_range(.008,.018),rng.randf_range(2.1,3.2),rng)
 func _particle(position_: Vector3,velocity_: Vector3,size: float,life: float,rng: RandomNumberGenerator) -> void:
  if debris.size()>=DEBRIS_CAP:return
  debris.append({'position':position_,'velocity':velocity_,'rotation':Vector3(rng.randf()*TAU,rng.randf()*TAU,rng.randf()*TAU),'spin':Vector3(rng.randf_range(-4,4),rng.randf_range(-4,4),rng.randf_range(-4,4)),'size':size,'life':life})
  peak_debris=maxi(peak_debris,debris.size())
+static func swept_box(start: Vector3,finish: Vector3,radius: float,minimum: Vector3,maximum: Vector3) -> Dictionary:
+ var low: Vector3=minimum-Vector3.ONE*radius;var high: Vector3=maximum+Vector3.ONE*radius
+ var direction: Vector3=finish-start
+ if start.x>=low.x and start.x<=high.x and start.y>=low.y and start.y<=high.y and start.z>=low.z and start.z<=high.z:
+  # A cosmetic shard authored inside a solid may exit; projecting it to the
+  # nearest face and reflecting creates a fictitious backwards blast.
+  return {'hit':false}
+ var entry:=0.0;var exit:=1.0;var normal:=Vector3.ZERO
+ for axis in 3:
+  if absf(direction[axis])<1e-9:
+   if start[axis]<low[axis] or start[axis]>high[axis]:return {'hit':false}
+  else:
+   var near: float=(low[axis]-start[axis])/direction[axis]
+   var far: float=(high[axis]-start[axis])/direction[axis]
+   var sign_: float=-1.0
+   if near>far:var swap: float=near;near=far;far=swap;sign_=1.0
+   if near>entry:entry=near;normal=Vector3.ZERO;normal[axis]=sign_
+   exit=minf(exit,far)
+   if entry>exit:return {'hit':false}
+ if exit<0 or entry>1:return {'hit':false}
+ return {'hit':true,'fraction':maxf(0,entry),'normal':normal,'point':start+direction*maxf(0,entry)+normal*.0001}
+
 func step_debris(dt: float) -> void:
  var began: int=Time.get_ticks_usec();var g: RefCounted=graph.get_ref()
  if g==null:return
  for piece in debris:
-  piece.life-=dt;piece.velocity.y-=9.81*dt;piece.position+=piece.velocity*dt;piece.rotation+=piece.spin*dt
+  piece.life-=dt;piece.velocity.y-=9.81*dt;piece.rotation+=piece.spin*dt
+  var old: Vector3=piece.position
+  var finish: Vector3=old+piece.velocity*dt
+  if g.barrier_enabled:
+   var hit: Dictionary=swept_box(old,finish,piece.size,g.barrier_min,g.barrier_max)
+   if hit.hit:
+    var inward: float=piece.velocity.dot(hit.normal)
+    if inward<0:piece.velocity-=hit.normal*inward*1.2;collision_count+=1
+    finish=hit.point+piece.velocity*dt*(1-float(hit.fraction))
+  piece.position=finish
   var floor_: Vector4=g.floor_sample(piece.position)
   if piece.position.y-piece.size<floor_.w:
    piece.position.y=floor_.w+piece.size
    if piece.velocity.y<0:piece.velocity.y*=-.2;piece.velocity.x*=.75;piece.velocity.z*=.75;collision_count+=1
-  if g.barrier_enabled:
-   var hit: Dictionary=g.barrier_distance(piece.position)
-   if hit.distance<piece.size:
-    piece.position+=hit.normal*(piece.size-hit.distance)
-    var inward: float=piece.velocity.dot(hit.normal)
-    if inward<0:piece.velocity-=hit.normal*inward*1.2;collision_count+=1
  debris=debris.filter(func(piece):return piece.life>0)
  total_debris_cpu_us+=Time.get_ticks_usec()-began
+
+func resume_live() -> void:
+ var frames: Array=Attachment.rotations(graph.get_ref())
+ for pane in panes.values():
+  if pane.raw.material=='laminated' and pane.membrane==null and not pane.nodes_local.is_empty():_start_membrane(pane,frames,0,pane.last_piercing,pane.hit_uv)
 
 func capture() -> Dictionary:
  var states: Dictionary={}
  for id in panes:
   var p: Dictionary=panes[id]
-  states[id]={'material':p.raw.material,'stage':p.stage,'crack':p.crack,'seed':p.seed,'generation':p.generation,'hit_uv':p.hit_uv,'mask':p.mask.duplicate(),'nodes':p.nodes_local.duplicate(),'velocities':p.vel_local.duplicate(),'broken':p.broken.duplicate(),'released':p.released.duplicate(),'events':p.events.duplicate(true)}
- return {'version':1,'profile_id':profile_id,'time_s':clock,'panes':states}
+  states[id]={'material':p.raw.material,'stage':p.stage,'crack':p.crack,'seed':p.seed,'generation':p.generation,'next_patch_serial':p.next_patch_serial,'piercing':p.last_piercing,'hit_uv':p.hit_uv,'mask':p.mask.duplicate(),'nodes':p.nodes_local.duplicate(),'velocities':p.vel_local.duplicate(),'broken':p.broken.duplicate(),'released':p.released.duplicate(),'events':p.events.duplicate(true)}
+ return {'version':2,'profile_id':profile_id,'time_s':clock,'panes':states}
 func begin_playback(initial_state: Dictionary) -> void:
+ var in_flight: Array=debris.duplicate(true)
  reset()
+ debris=in_flight;peak_debris=maxi(peak_debris,debris.size())
  _restore(initial_state,initial_state,0,false)
  for pane in panes.values():
   for event in pane.events:emitted[event.id]=true
@@ -248,6 +366,9 @@ func begin_playback(initial_state: Dictionary) -> void:
 func restore_interpolated(a: Dictionary,b: Dictionary,alpha: float) -> void:
  var time: float=lerpf(float(a.get('time_s',0)),float(b.get('time_s',0)),alpha)
  var backwards: bool=time<playback_clock-1e-8
+ for id in panes:
+  var source: Dictionary=a.get('panes',{}).get(id,{})
+  if int(source.get('stage',0))<int(panes[id].stage) or source.get('events',[]).size()<panes[id].events.size():backwards=true
  if backwards:
   debris.clear();emitted.clear()
   _restore(a,b,alpha,false)
@@ -263,7 +384,9 @@ func _restore(a: Dictionary,b: Dictionary,alpha: float,emit_new: bool) -> void:
   if not a.get('panes',{}).has(id):continue
   var source: Dictionary=a.panes[id];var target: Dictionary=b.get('panes',{}).get(id,source)
   pane.membrane=null
-  for key in ['stage','crack','seed','generation','hit_uv']:pane[key]=source.get(key,pane[key])
+  for key in ['stage','crack','seed','generation','next_patch_serial','hit_uv']:pane[key]=source.get(key,pane[key])
+  pane.last_piercing=source.get('piercing',false)
+  if not source.has('next_patch_serial'):pane.next_patch_serial=source.get('events',[]).filter(func(event):return event.kind=='laminate_patch').size()
   var changed: bool=pane.mask!=source.get('mask',pane.mask)
   for key in ['mask','broken','released']:pane[key]=source.get(key,pane[key]).duplicate()
   pane.nodes_local=source.get('nodes',PackedVector3Array()).duplicate();pane.vel_local=source.get('velocities',PackedVector3Array()).duplicate()
@@ -277,7 +400,7 @@ func create_visual(skin_view: Node3D,model_root: Node3D) -> Node3D:
  var node:=Node3D.new();node.set_script(Visual);node.setup(self,skin_view,model_root)
  return node
 func statistics() -> Dictionary:
- return {'membrane_solve_steps':membrane_solve_steps,'live_cpu_ms':total_live_cpu_us/1000.0,'debris_cpu_ms':total_debris_cpu_us/1000.0,'debris_count':debris.size(),'peak_debris':peak_debris,'particle_cap':DEBRIS_CAP,'collision_count':collision_count,'emitted_events':emitted.size()}
+ return {'membrane_solve_steps':membrane_solve_steps,'live_cpu_ms':total_live_cpu_us/1000.0,'debris_cpu_ms':total_debris_cpu_us/1000.0,'debris_count':debris.size(),'peak_debris':peak_debris,'particle_cap':DEBRIS_CAP,'collision_count':collision_count,'emitted_events':emitted.size(),'peak_laminate_delta_v_mps':peak_laminate_pulse}
 
 func input_fingerprints() -> Dictionary:
  var result: Dictionary={}

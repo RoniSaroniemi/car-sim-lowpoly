@@ -30,6 +30,13 @@ func setup(controller: RefCounted,skin_view: Node3D,model_root: Node3D) -> void:
   var texture:=ImageTexture.create_from_image(image)
   material.set_shader_parameter('cell_mask',texture);material.set_shader_parameter('membrane_offsets',zero_offsets)
   material.set_shader_parameter('aspect',float(raw.width_m)/float(raw.height_m))
+  var edge_image:=Image.create(64,32,false,Image.FORMAT_R8)
+  for y in 32:
+   for x in 64:
+    var distance: float=controller._edge_distance(pane,Vector2((x+.5)/64.0,(y+.5)/32.0))
+    var weight: float=smoothstep(.04,.14,distance)
+    edge_image.set_pixel(x,y,Color(weight,weight,weight))
+  material.set_shader_parameter('frame_weight',ImageTexture.create_from_image(edge_image))
   node.material_override=material
   records[id]={'node':node,'material':material,'texture':texture,'image':image,'revision':-1}
  var particles:=MultiMeshInstance3D.new();particles.name='GlassFragments'
@@ -62,13 +69,9 @@ func update_visual() -> void:
    var offsets:=PackedVector3Array()
    for i in pane.nodes_local.size():
     var base: Vector3=Attachment.mapped(graph,pane.node_rest[i],pane.node_bind[i],frames)
-    var rotation:=Basis(Vector3.ZERO,Vector3.ZERO,Vector3.ZERO)
-    var bind: Dictionary=pane.node_bind[i]
-    for j in bind.ids.size():
-     var frame: Basis=frames[int(bind.ids[j])/4]
-     rotation.x+=frame.x*bind.weights[j];rotation.y+=frame.y*bind.weights[j];rotation.z+=frame.z*bind.weights[j]
-    if absf(rotation.determinant())<.001:rotation=transform.basis
-    offsets.append(rotation.inverse()*(transform*pane.nodes_local[i]-base))
+    # GLES3 skinning precedes the user vertex shader: VERTEX is already in
+    # graph/model space. Applying an inverse bone rotation here detached panes.
+    offsets.append(transform*pane.nodes_local[i]-base)
    material.set_shader_parameter('membrane_offsets',offsets)
  var particles: MultiMeshInstance3D=get_node('GlassFragments')
  particles.visible=skin.mode!=0

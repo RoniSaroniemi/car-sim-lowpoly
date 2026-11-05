@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "id": "niva_glass_v1",
+  "id": "niva_glass_v2",
   "model": "res://assets/Niva_2121_LOD0.glb",
   "model_sha256": "930f43ec759d404f642b7ec4da8adc5ea65ca99fa14da58c14366dee5a7815ae",
   "geometry_source": "Six actual Glass_* GLB meshes, with full ancestor transforms applied.",
   "generator": "tools/extract_glass_geometry.py",
-  "generator_sha256": "76e009634fbe803300bfb6a3276f3eb764a8f3f160dc3f05374f277bd525a5a4",
+  "generator_sha256": "a84f9ea2080406dc67af740e778319738bd070f483969df34dedb9f460e4dbeb",
   "material_scope": "Configurable demonstration defaults, not an archival glazing certification.",
   "coordinate_system": "Car rest space: +X forward, +Y up, +Z asset left.",
   "uv_scope": "Pane-local planar projection; original rest vertices/triangles preserve non-planar residuals.",
@@ -837,8 +837,10 @@
       "source_node_index": 25,
       "source_mesh_index": 19,
       "settings": {
-        "crack_frame_strain": 0.015,
-        "break_frame_strain": 0.04,
+        "crack_frame_strain": 0.02,
+        "laminated_inertial_delta_v_mps": 0.8,
+        "minimum_inertial_speed_mps": 15.0,
+        "break_frame_strain": 0.065,
         "film_retention": false,
         "grid_x": 12,
         "grid_y": 8
@@ -1514,8 +1516,10 @@
       "source_node_index": 13,
       "source_mesh_index": 8,
       "settings": {
-        "crack_frame_strain": 0.015,
-        "break_frame_strain": 0.04,
+        "crack_frame_strain": 0.02,
+        "laminated_inertial_delta_v_mps": 0.8,
+        "minimum_inertial_speed_mps": 15.0,
+        "break_frame_strain": 0.065,
         "film_retention": false,
         "grid_x": 12,
         "grid_y": 8
@@ -2871,8 +2875,10 @@
       "source_node_index": 5,
       "source_mesh_index": 2,
       "settings": {
-        "crack_frame_strain": 0.015,
-        "break_frame_strain": 0.04,
+        "crack_frame_strain": 0.02,
+        "laminated_inertial_delta_v_mps": 0.8,
+        "minimum_inertial_speed_mps": 15.0,
+        "break_frame_strain": 0.065,
         "film_retention": false,
         "grid_x": 12,
         "grid_y": 8
@@ -4232,8 +4238,10 @@
       "source_node_index": 9,
       "source_mesh_index": 5,
       "settings": {
-        "crack_frame_strain": 0.015,
-        "break_frame_strain": 0.04,
+        "crack_frame_strain": 0.02,
+        "laminated_inertial_delta_v_mps": 0.8,
+        "minimum_inertial_speed_mps": 15.0,
+        "break_frame_strain": 0.065,
         "film_retention": false,
         "grid_x": 12,
         "grid_y": 8
@@ -5651,8 +5659,10 @@
       "source_node_index": 23,
       "source_mesh_index": 17,
       "settings": {
-        "crack_frame_strain": 0.015,
-        "break_frame_strain": 0.04,
+        "crack_frame_strain": 0.02,
+        "laminated_inertial_delta_v_mps": 0.8,
+        "minimum_inertial_speed_mps": 15.0,
+        "break_frame_strain": 0.065,
         "film_retention": false,
         "grid_x": 12,
         "grid_y": 8
@@ -7078,8 +7088,10 @@
       "source_node_index": 24,
       "source_mesh_index": 18,
       "settings": {
-        "crack_frame_strain": 0.015,
-        "break_frame_strain": 0.04,
+        "crack_frame_strain": 0.02,
+        "laminated_inertial_delta_v_mps": 0.8,
+        "minimum_inertial_speed_mps": 15.0,
+        "break_frame_strain": 0.065,
         "film_retention": false,
         "grid_x": 12,
         "grid_y": 8

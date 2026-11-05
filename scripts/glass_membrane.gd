@@ -37,6 +37,8 @@ var tool_clock:=0.0
 var active_until:=2.0
 var cracked:=true
 var record_history:=false
+var mount_velocity:=PackedVector3Array()
+var allow_diffuse_tears:=false
 
 func setup_pane(width: float,height: float,transform: Transform3D,targets: PackedVector3Array,initial_velocity: Vector3,impact_energy: float,sharp: bool,uv: Vector2=Vector2(.5,.5),seed_id: int=271) -> void:
  pane_width=width;pane_height=height;attachment=transform;boundary_targets=targets.duplicate();hit_uv=uv
@@ -45,7 +47,7 @@ func setup_pane(width: float,height: float,transform: Transform3D,targets: Packe
  if targets.size()==points.size():points=targets.duplicate()
  else:
   for i in points.size():points[i]=attachment*points[i]
- velocity.fill(initial_velocity)
+ velocity.fill(initial_velocity);mount_velocity.resize(points.size());mount_velocity.fill(initial_velocity)
  history.clear();_sample()
  bounds_initialized=true
 
@@ -78,19 +80,19 @@ func setup(impact_energy: float,sharp: bool,seed_id: int=271) -> void:
 func _bond(a: int,b: int,kind: String,rng: RandomNumberGenerator) -> int:
  var center: Vector3=(rest[a]+rest[b])*.5
  var core: float=exp(-Vector2(center.x,center.y).length_squared()/.12)
- var threshold: float=(.22 if puncture else .45)*rng.randf_range(.9,1.1)
- bonds.append({'a':a,'b':b,'rest':rest[a].distance_to(rest[b]),'kind':kind,'broken':false,'tear_strain':threshold,'peak_strain':0.0,'strength_scale':threshold/(.22 if puncture else .45)})
+ var threshold: float=(.22 if puncture else 1.0)*rng.randf_range(.9,1.1)
+ bonds.append({'a':a,'b':b,'rest':rest[a].distance_to(rest[b]),'kind':kind,'broken':false,'tear_strain':threshold,'peak_strain':0.0,'strength_scale':threshold/(.22 if puncture else 1.0)})
  adjacency[a].append(bonds.size()-1);adjacency[b].append(bonds.size()-1)
  bond_lookup['%d_%d'%[mini(a,b),maxi(a,b)]]=bonds.size()-1
  return bonds.size()-1
 func load_again(impact_energy: float,sharp: bool,uv: Vector2) -> void:
  energy=impact_energy;puncture=sharp;hit_uv=uv;tool_clock=0;active_until=clock+2
  for bond in bonds:
-  bond.tear_strain=(.22 if puncture else .45)*float(bond.get('strength_scale',1.0))
+  bond.tear_strain=(.22 if puncture else 1.0)*float(bond.get('strength_scale',1.0))
 
 func advance(dt: float) -> void:
  accumulator+=dt
- while accumulator+1e-10>=STEP and clock<active_until-1e-8:
+ while accumulator+1e-10>=STEP:
   _step(STEP);accumulator-=STEP
 func _step(dt: float) -> void:
  var began: int=Time.get_ticks_usec();clock+=dt;tool_clock+=dt;loaded_nodes.fill(0)
@@ -101,7 +103,8 @@ func _step(dt: float) -> void:
  for i in points.size():
   if anchored[i] or released[i]:continue
   velocity[i].y-=9.81*dt
-  velocity[i]*=exp(-2.5*dt)
+  var mount: Vector3=mount_velocity[i] if mount_velocity.size()==points.size() else Vector3.ZERO
+  velocity[i]=mount+(velocity[i]-mount)*exp(-2.5*dt)
   points[i]+=velocity[i]*dt
  for iteration in SWEEPS:
   for bond in bonds:
@@ -112,7 +115,7 @@ func _step(dt: float) -> void:
    var strain: float=absf(distance/float(bond.rest)-1)
    bond.peak_strain=maxf(bond.peak_strain,strain);max_strain=maxf(max_strain,strain)
    var tear_limit: float=float(bond.tear_strain)*(.08 if puncture and (loaded_nodes[bond.a] or loaded_nodes[bond.b]) else 1.0)
-   if clock>.025 and (strain if puncture and (loaded_nodes[bond.a] or loaded_nodes[bond.b]) else maxf(0,distance/float(bond.rest)-1))>tear_limit:bond.broken=true;continue
+   if clock>.025 and (puncture or allow_diffuse_tears) and (strain if puncture and (loaded_nodes[bond.a] or loaded_nodes[bond.b]) else maxf(0,distance/float(bond.rest)-1))>tear_limit:bond.broken=true;continue
    var a_weight: float=0 if anchored[bond.a] else 1
    var b_weight: float=0 if anchored[bond.b] else 1
    var weight: float=a_weight+b_weight

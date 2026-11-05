@@ -1,6 +1,7 @@
 shader_type spatial;
 render_mode blend_mix, cull_disabled, depth_prepass_alpha;
 uniform sampler2D cell_mask : filter_nearest, repeat_disable;
+uniform sampler2D frame_weight : filter_linear, repeat_disable;
 uniform vec4 tint : source_color = vec4(0.34,0.46,0.49,0.12);
 uniform float crack = 0.0;
 uniform float seed = 0.0;
@@ -15,7 +16,7 @@ void vertex() {
   ivec2 a=ivec2(min(floor(q),vec2(11.0,7.0)));
   vec2 t=q-vec2(a);
   int i=a.y*13+a.x;
-  VERTEX+=mix(mix(membrane_offsets[i],membrane_offsets[i+1],t.x),mix(membrane_offsets[i+13],membrane_offsets[i+14],t.x),t.y);
+  VERTEX+=mix(mix(membrane_offsets[i],membrane_offsets[i+1],t.x),mix(membrane_offsets[i+13],membrane_offsets[i+14],t.x),t.y)*textureLod(frame_weight,UV,0.0).r;
  }
 }
 void fragment() {

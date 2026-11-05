@@ -214,8 +214,10 @@ def extract(document, binary):
             'source_node_index': node_index,
             'source_mesh_index': node['mesh'],
             'settings': {
-                'crack_frame_strain': 0.015,
-                'break_frame_strain': 0.04,
+                'crack_frame_strain': 0.02,
+                'laminated_inertial_delta_v_mps': 0.8,
+                'minimum_inertial_speed_mps': 15.0,
+                'break_frame_strain': 0.065,
                 'film_retention': False,
                 'grid_x': 12,
                 'grid_y': 8,
@@ -234,7 +236,7 @@ def build_profile(source):
     document, binary, raw = load_glb(source)
     return {
         'version': 1,
-        'id': 'niva_glass_v1',
+        'id': 'niva_glass_v2',
         'model': 'res://' + source.relative_to(ROOT).as_posix(),
         'model_sha256': hashlib.sha256(raw).hexdigest(),
         'geometry_source': 'Six actual Glass_* GLB meshes, with full ancestor transforms applied.',
