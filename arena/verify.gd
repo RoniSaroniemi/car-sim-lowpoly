@@ -95,8 +95,8 @@ func _run() -> void:
   costs.sort()
   moving.append({'terrain':'arena' if surface_==terrain else 'practice','mean_us':sum/costs.size(),'p95_us':costs[floori(costs.size()*.95)],'p99_us':costs[floori(costs.size()*.99)],'speed_kmh':runtime.velocity().length()*3.6,'full_solver_steps':runtime.full_steps})
  var passed: bool=checks.values().all(func(v):return v)
- DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path('res://arena/evidence'))
- FileAccess.open('res://arena/evidence/validation.json',FileAccess.WRITE).store_string(JSON.stringify({'passed':passed,'checks':checks,'runs':runs,'moving_physics_cost':moving,'floor_query_cost':samples,'max_mesh_height_error_m':maximum_mesh_error,'max_normal_error':normal_error,'boundary_final_radius_m':radius,'scope':'Shared compact driving, same analytic/render descriptors. Ringwall is bounded rigid response; decorative upperstadium remains outside drivearea.'},'\t'))
+ DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path('res://verification'))
+ FileAccess.open('res://verification/arena_validation.json',FileAccess.WRITE).store_string(JSON.stringify({'passed':passed,'checks':checks,'runs':runs,'moving_physics_cost':moving,'floor_query_cost':samples,'max_mesh_height_error_m':maximum_mesh_error,'max_normal_error':normal_error,'boundary_final_radius_m':radius,'scope':'Shared compact driving, same analytic/render descriptors. Ringwall is bounded rigid response; decorative upperstadium remains outside drivearea.'},'\t'))
  for key in checks:
   if not checks[key]:print('FAILED ',key)
  print('ARENA_VERIFIED ',passed,' checks=',checks.size(),' sampling=',JSON.stringify(samples))

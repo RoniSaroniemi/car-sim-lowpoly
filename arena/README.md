@@ -4,11 +4,15 @@ A procedural sand arena using the existing Niva driving runtime and damage skin,
 
 ## Run
 
-From the repository root on this Mac:
+From the main repository root:
 
 ```sh
+python3 tools/demo.py arena
+# Or directly on this Mac:
 /Applications/Godot.app/Contents/MacOS/Godot --path . res://arena/colosseum.tscn
 ```
+
+Use **Open colosseum arena** in the test yard and **Open test yard** in the arena to switch scenes. Switching starts a fresh car.
 
 The window is titled **Niva / Colosseum sand arena**. W accelerates, S brakes, A/D steer, Space is the handbrake, Q toggles reverse and R repairs/resets. C cycles chase, orbit and overview cameras; drag to orbit. Escape exits. The obstacle buttons stage a repaired car on each approach; 1–5 select the same approaches. The three paired-ramp buttons select either lane or the shared seam. F3 exposes optional performance counters.
 
@@ -46,7 +50,7 @@ One shadowed directional sun supplies direct light. The procedural sky provides 
 python3 tools/demo.py verify --no-import
 ```
 
-`evidence/validation.json` records **35 passing checks**. All four original obstacle approaches produced actual takeoff and subsequent landing, finite car states and retained wheels. Both individual paired lanes and the straddled approach remained finite with zero heavy solves. The straddling stress case reached approximately 95° roll; individual lanes remained near 1.2° or less in the recorded runs. No wheel detached in those three cases. The ring stopped the car from all four cardinal approaches without applying an incompatible bake. Maximum visible/contact vertex height error was 0.000000187 m; maximum normal discrepancy was 0.000115 from mesh normal packing.
+`evidence/validation.json` retains the delivery snapshot of **35 passing checks**. A fresh `python3 tools/demo.py verify-arena --no-import` run writes `verification/arena_validation.json` without overwriting that snapshot. All four original obstacle approaches produced actual takeoff and subsequent landing, finite car states and retained wheels. Both individual paired lanes and the straddled approach remained finite with zero heavy solves. The straddling stress case reached approximately 95° roll; individual lanes remained near 1.2° or less in the recorded runs. No wheel detached in those three cases. The ring stopped the car from all four cardinal approaches without applying an incompatible bake. Maximum visible/contact vertex height error was 0.000000187 m; maximum normal discrepancy was 0.000115 from mesh normal packing.
 
 The existing shared regression command also passed: structural/wheel cases, mounts, driving, adaptive handoff, terrain, wheel load handling, crash library, baked driving, glass, interior, contact sensitivity, conditioned sequential transitions, damage materials and roof cases. `evidence/shared_regression.json` retains the pass summary.
 

@@ -44,6 +44,20 @@ Both scenes use one [shared vehicle runtime](docs/SHARED_VEHICLE_RUNTIME.md).
 Tune `vehicles/niva.json` or improve the shared dynamics/wheel code once, then
 run both scenes and the combined checks. There is no duplicated driving chassis.
 
+## Colosseum sandbox
+
+```sh
+python3 tools/demo.py arena
+```
+
+The alternative arena has tiered seating, repeating arches, a sand floor, sand/concrete/timber jumps, a halfpipe, and adjacent **42° / 24° ramps** with a straddling start. W/S/A/D, Space, Q and R keep their usual controls. Use **Open colosseum arena** in the test yard or **Open test yard** in the arena to switch locations; switching starts a fresh car. Both scenes use the shared vehicle runtime and current damage materials.
+
+The arena uses sky ambient fill, material cavity shading and a shadowed sun. Its curved retaining wall uses cheap rigid contacts; it does not apply incompatible planar-wall crash recordings. See [arena controls, lighting, evidence and limits](arena/README.md).
+
+```sh
+python3 tools/demo.py verify-arena --no-import
+```
+
 ## Try a baked crash
 
 ```sh

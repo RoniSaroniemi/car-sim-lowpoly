@@ -44,6 +44,7 @@ func _hud() -> void:
  for spec in [['Steep lane',-2.3],['Medium lane',2.3],['Straddle seam',0.0]]:
   var button:=Button.new();button.text=spec[0];button.pressed.connect(_pair_start.bind(spec[1]));pair_buttons.add_child(button)
  var reset:=Button.new();reset.text='Return to centre';reset.pressed.connect(_reset);column.add_child(reset)
+ var yard:=Button.new();yard.text='Open test yard';yard.pressed.connect(func():get_tree().change_scene_to_file('res://driving.tscn'));column.add_child(yard)
 func _reset() -> void:
  reverse=false;orbit=0;car.reset(0,Vector3(-12,0,0));car.solver.barrier_enabled=false
 func _stage_feature(index: int) -> void:
