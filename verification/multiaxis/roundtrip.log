@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MULTIAXIS_REPLAY_PASS top_60 zero_full_steps=0 zero_panel_steps=0 zero_membrane_steps=0 zero_cloth_steps=0 mass=1210.0000038147 authored_wall_ms=94494.178
+MULTIAXIS_REPLAY_PASS upper_az045_60 zero_full_steps=0 zero_panel_steps=0 zero_membrane_steps=0 zero_cloth_steps=0 mass=1210.0000038147 authored_wall_ms=129495.293
+MULTIAXIS_REPLAY_PASS underside_60 zero_full_steps=0 zero_panel_steps=0 zero_membrane_steps=0 zero_cloth_steps=0 mass=1210.0000038147 authored_wall_ms=128766.947
+MULTIAXIS_AUTHORING_RESULT checks=35606 failures=0 clips=3

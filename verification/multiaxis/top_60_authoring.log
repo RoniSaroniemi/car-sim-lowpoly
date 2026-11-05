@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MULTIAXIS_CLIP_BAKED top_60 frames=301 physics_hz=1920 first_gap_m=0.00000000655651 contact=[{"gap_m":0.0000000065565109244603,"node":0,"panel":"tailgate","source":"panel","zone":6},{"gap_m":0.000000118315219878318,"node":1,"panel":"tailgate","source":"panel","zone":7},{"gap_m":0.000000230073928832175,"node":2,"panel":"tailgate","source":"panel","zone":8}] authoring_wall_ms=94337.364 simulation_wall_ms=93984.4 total_wall_ms=94494.178
+real 95.27
+user 78.77
+sys 0.50
+           168869888  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               23256  page reclaims
+                   0  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 145  voluntary context switches
+               68986  involuntary context switches
+        685170668472  instructions retired
+        179472522911  cycles elapsed
+           130679648  peak memory footprint
