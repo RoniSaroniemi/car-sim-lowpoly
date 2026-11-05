@@ -6,6 +6,8 @@ This isolated probe reuses the actual operational Niva asset. Both front doors, 
 ![Door bent and hanging from its remaining hinge](../probes/panels/evidence/closed_latch_hang.png)
 ![Released door and car remain independent](../probes/panels/evidence/detached_aftermath.png)
 
+The follow-up adds actual 60/120 km/h frontal car launches, explicit frame seating connections and lightweight damaged-panel driving. See [driving and head-on extension](PANEL_DRIVING_AND_HEADON.md) for the current test scene, mode transitions and additional checks. The original controlled-striker fixtures and their 78 checks remain available below.
+
 ## Run
 
 From this worktree:
@@ -70,7 +72,7 @@ The sample panel masses are chosen game values: 25 kg per front door, 18 kg bonn
 - After release, mass is already in the cage; breaking constraints neither creates a rigid body nor changes mass/velocities.
 - The mass ledger sums current body-node masses plus active panel masses; it stays 1,210 kg. A second opposite-door hit does not reset a previously released door.
 
-A conservative quiet recondensation hook requires a completely undamaged, latched panel with a very close pose/velocity fit to the chassis. The ordinary open/close regression does **not** meet that fit threshold by its final sample, so those recently opened panels remain awake. Initial closed driving is cheap; robust damage-preserving sleep after an arbitrary open/close cycle remains work before production integration. R explicitly repairs and restores the initial condensed state.
+A conservative quiet recondensation hook requires a completely undamaged, latched panel with a very close pose/velocity fit to the chassis. The ordinary open/close regression does **not** meet that fit threshold by its final sample, so those recently opened panels remain awake. Initial closed driving is cheap; this original full-cage fixture does not provide the newer reduced-mode close/sleep handoff. The driving extension now verifies all four panels returning to condensed sleep while retaining their current shape and momentum; production integration is still separate. R explicitly repairs and restores the initial condensed state.
 
 ### Failure and contacts
 

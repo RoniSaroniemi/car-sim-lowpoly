@@ -106,12 +106,54 @@
     "scripts/structure_solver.gd": "53b979c1060bd2f0d5a2e24b1ecb9fec2f68058b911f92a7c6688d4ae010f1e8",
     "scripts/wheel_physics.gd": "e40251996a9acaf7632a31f0bbc623fb4f0353fc76dec5c295a337ad131daa62",
     "scripts/car_attachment.gd": "e495ca186f97ff24166aafe0642a7433dbcbe2fad688cd7e010fd02bee4b49ac",
-    "probes/panels/panel_system.gd": "f775f527b59922eeca98df77c83f6efbbece132ff7851079c5ea5c36ada20d83",
-    "probes/panels/panel_graph.gd": "e57000362df501506ba0b17885e686b0c92f61e9d8363fe03cf2b7470c19e621",
-    "probes/panels/panel_skin.gd": "ee984460fbc27cf3b22201d2c64b1f5b89d1c4c7d656f781297e9924c5a0d3db",
+    "probes/panels/panel_system.gd": "2d4038a4673df96e1a3999721888e36691dab45db165dde02e5edfdf3ddb1d77",
+    "probes/panels/panel_graph.gd": "0788987b137050b05727bd7fd951e0c1a1e9514d48b7325fb39d016f4e36c3d8",
+    "probes/panels/panel_skin.gd": "246414a603bf555d8194f764032ad2a2b168fb1dd3e94de9d3b97ef748a91cef",
     "probes/panels/fixtures.gd": "a9a533e81b79343687ed31e7ba6c6bef4b0c02a20ba01eaff641efa87bb29017"
   },
   "panel_clip": "probes/panels/data/open_severe.panelclip",
-  "panel_clip_sha256": "26e4055dafc264a4e16e39c931b7efe102873b2e7e463e3babfff10376613bd1",
-  "scope": "Operational source provenance and isolated live/baked panel probe. SourceGLB unchanged; game parameters, not calibrated factory panel masses/strength."
+  "panel_clip_sha256": "629ffe3b4c66e2a3083dcb3a85aa4f02f56c371766535e57009abaeeeed5342a",
+  "scope": "Operational source provenance and isolated live/baked panel probe. SourceGLB unchanged; game parameters, not calibrated factory panel masses/strength.",
+  "extension": {
+    "base_probe_commit": "591bc1a",
+    "description": "Actual car-to-static-wall 60/120km/h authoring, explicit closing seats, condensed/frozen/reduced live panels and shared compact driving.",
+    "scripts_sha256": {
+      "probes/panels/benchmark.gd": "932a0fd974e276d088f967a735b31cd29ae3112a76df4a5fba9574863a81766d",
+      "probes/panels/drive_runtime.gd": "913bdfb2ba942bf5c27f2f843185755cd39e7ea078c825e5b534909ba3fc781d",
+      "probes/panels/drive_view.gd": "16ae8e1fdbc119b487275332ecc52dab6c15dc2e69f52fd228c082e3ae66feec",
+      "probes/panels/fixtures.gd": "a9a533e81b79343687ed31e7ba6c6bef4b0c02a20ba01eaff641efa87bb29017",
+      "probes/panels/headon_fixtures.gd": "2708db3dfb4d24121579bd788599e0e75b745cee85129d3012cf2519818bcf40",
+      "probes/panels/inspect.gd": "5456cab7ea47509e88e6b34229358c8e61e01a36cdd1f689f67831e24bf4bd3c",
+      "probes/panels/panel_graph.gd": "0788987b137050b05727bd7fd951e0c1a1e9514d48b7325fb39d016f4e36c3d8",
+      "probes/panels/panel_skin.gd": "246414a603bf555d8194f764032ad2a2b168fb1dd3e94de9d3b97ef748a91cef",
+      "probes/panels/panel_system.gd": "2d4038a4673df96e1a3999721888e36691dab45db165dde02e5edfdf3ddb1d77",
+      "probes/panels/prepare_drive.gd": "fffb7a217b47b9c773d1fcb5d6d371b924392eb0b0225de773af4faf552bd7b8",
+      "probes/panels/probe.gd": "74ae7b8dfaa71e27b508f96b2bc7c15c6754447e73455c7aa81306b5d15bf7e0",
+      "probes/panels/reduced_panels.gd": "2d7b5d7e626d280c3f39e3b32e105157d48db4bb06236dd38cd6cc80ccbea195",
+      "probes/panels/release_budget.gd": "a75ec7e3240e3d57695e65d9c43c89baa591aeda306ce4657f52fea87988499b",
+      "probes/panels/run_headon.gd": "5871344afbcafe93339abe10c8903a97e2497e9fa49a624e73eaf3467ef3a028",
+      "probes/panels/verify.gd": "ffd3439abe6674ded08a3d168ad59a5e1dd649f619ae63140b8b5fbca9da8501",
+      "probes/panels/verify_extended.gd": "24c4282cbbf831f2997f6d17b11d2ae705d5b0a9536265bd4d9950b509850c8d"
+    },
+    "data_sha256": {
+      "probes/panels/data/drive_closed.panelclip": "566dd214b9ca3f997efafeb4406aae75f440a1275a38b400a337e2eeea08aef3",
+      "probes/panels/data/drive_right_free.panelclip": "68922ea3b48e53b58686ae1e6cd41871268fc22d51364bc7d0f6e0f38ca34b3b",
+      "probes/panels/data/drive_right_sag.panelclip": "207f6305771b4bca3b842f47af9154902fc853dc828001632b39e164e8d7f916",
+      "probes/panels/data/headon_120.panelclip": "811ef6671584714f64d737fee5029551ecb1e6a69239ac1e43310fc44d8059d2",
+      "probes/panels/data/headon_60.panelclip": "6d9ecee114f138f95b80edf4009e9e52c4f759c7b4a11eec58d1d5b11cdd6ee8",
+      "probes/panels/data/open_severe.panelclip": "629ffe3b4c66e2a3083dcb3a85aa4f02f56c371766535e57009abaeeeed5342a",
+      "probes/panels/data/right_free.panelstate": "07d75828de062181122d5ee7b2b74b657e801a78af7ec820a9811b4248f97f11",
+      "probes/panels/data/right_sag.panelstate": "7e4a0267b08340c1b10965ddbbeb45d76944d138957196a39cdfcd496a9e0a5f"
+    },
+    "data_bytes": {
+      "drive_closed.panelclip": 3821254,
+      "drive_right_free.panelclip": 4504129,
+      "drive_right_sag.panelclip": 4519980,
+      "headon_120.panelclip": 3488747,
+      "headon_60.panelclip": 3108639,
+      "open_severe.panelclip": 2468500,
+      "right_free.panelstate": 34844,
+      "right_sag.panelstate": 35028
+    }
+  }
 }

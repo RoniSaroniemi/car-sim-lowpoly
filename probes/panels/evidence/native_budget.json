@@ -4,26 +4,26 @@
 	"runs": [
 		{
 			"active_panel_cages": 0,
-			"cpu_render_ms": 0.203147541059822,
+			"cpu_render_ms": 0.194475410292383,
 			"draw_calls": 25,
 			"full_solver_steps": 0,
 			"gpu_render_ms": 0.0,
 			"gpu_timers_available": false,
 			"mode": "baseline",
-			"pose_upload_us": 32.6,
+			"pose_upload_us": 31.51,
 			"rendered_objects": 31,
 			"triangles": 39673,
 			"viewport_size": "(718, 900)"
 		},
 		{
 			"active_panel_cages": 0,
-			"cpu_render_ms": 0.15662295175869,
+			"cpu_render_ms": 0.162393442675716,
 			"draw_calls": 25,
 			"full_solver_steps": 0,
 			"gpu_render_ms": 0.0,
 			"gpu_timers_available": false,
 			"mode": "articulated",
-			"pose_upload_us": 246.81,
+			"pose_upload_us": 254.95,
 			"rendered_objects": 31,
 			"triangles": 39673,
 			"viewport_size": "(718, 900)"

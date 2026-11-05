@@ -80,7 +80,7 @@
 		"weak_contact_retains_mounts_latch": true
 	},
 	"controls_and_budget": {
-		"clip_bytes": 2393684,
+		"clip_bytes": 2468500,
 		"closed": {
 			"events": [],
 			"mass": 1210.0000038147,
@@ -466,7 +466,10 @@
 							"original": 0.773631811141968
 						}
 					],
+					"failure_delay_s": 0.012,
+					"hinge_strength_n": 3800.0,
 					"id": "door_left",
+					"latch_strength_n": 1300.0,
 					"latched": true,
 					"maximum_force": 2322.29325771332,
 					"plastic_work": 0,
@@ -856,7 +859,10 @@
 							"original": 0.773631811141968
 						}
 					],
+					"failure_delay_s": 0.012,
+					"hinge_strength_n": 3800.0,
 					"id": "door_right",
+					"latch_strength_n": 1300.0,
 					"latched": true,
 					"maximum_force": 2317.1998500824,
 					"plastic_work": 0,
@@ -1246,7 +1252,10 @@
 							"original": 0.945902347564697
 						}
 					],
+					"failure_delay_s": 0.012,
+					"hinge_strength_n": 3800.0,
 					"id": "bonnet",
+					"latch_strength_n": 1300.0,
 					"latched": true,
 					"maximum_force": 2358.1084728241,
 					"plastic_work": 0,
@@ -1636,7 +1645,10 @@
 							"original": 0.802869856357574
 						}
 					],
+					"failure_delay_s": 0.012,
+					"hinge_strength_n": 3800.0,
 					"id": "tailgate",
+					"latch_strength_n": 1300.0,
 					"latched": true,
 					"maximum_force": 1402.93736457825,
 					"plastic_work": 0,
@@ -1647,9 +1659,9 @@
 				}
 			],
 			"time": 5.99999999999982,
-			"version": 1
+			"version": 2
 		},
-		"idle_panel_overhead_us": 1.647,
+		"idle_panel_overhead_us": 1.658,
 		"open": {
 			"events": [],
 			"mass": 1210.0000038147,
@@ -2035,7 +2047,10 @@
 							"original": 0.773631811141968
 						}
 					],
+					"failure_delay_s": 0.012,
+					"hinge_strength_n": 3800.0,
 					"id": "door_left",
+					"latch_strength_n": 1300.0,
 					"latched": false,
 					"maximum_force": 728.70334982872,
 					"plastic_work": 0,
@@ -2425,7 +2440,10 @@
 							"original": 0.773631811141968
 						}
 					],
+					"failure_delay_s": 0.012,
+					"hinge_strength_n": 3800.0,
 					"id": "door_right",
+					"latch_strength_n": 1300.0,
 					"latched": false,
 					"maximum_force": 735.193276405334,
 					"plastic_work": 0,
@@ -2815,7 +2833,10 @@
 							"original": 0.945902347564697
 						}
 					],
+					"failure_delay_s": 0.012,
+					"hinge_strength_n": 3800.0,
 					"id": "bonnet",
+					"latch_strength_n": 1300.0,
 					"latched": false,
 					"maximum_force": 725.648581981659,
 					"plastic_work": 0,
@@ -3205,7 +3226,10 @@
 							"original": 0.802869856357574
 						}
 					],
+					"failure_delay_s": 0.012,
+					"hinge_strength_n": 3800.0,
 					"id": "tailgate",
+					"latch_strength_n": 1300.0,
 					"latched": false,
 					"maximum_force": 622.592103481293,
 					"plastic_work": 0,
@@ -3216,7 +3240,7 @@
 				}
 			],
 			"time": 2.50000000000002,
-			"version": 1
+			"version": 2
 		},
 		"skin": {
 			"glass_uses_panel_skeleton": true,
@@ -3249,10 +3273,10 @@
 			"latched": true,
 			"mass_kg": 1210.0000038147,
 			"max_plastic_edge_change_m": 0.0,
-			"max_step_us": 8167,
+			"max_step_us": 16523,
 			"maximum_energy_j": 57.1738444333123,
 			"maximum_mount_force_n": 0,
-			"mean_step_us": 2987.5625,
+			"mean_step_us": 3545.01666666667,
 			"panel_plastic_work_j": 0,
 			"panel_stats": {
 				"activation_continuity": [],
@@ -3286,10 +3310,10 @@
 			"latched": false,
 			"mass_kg": 1210.0000038147,
 			"max_plastic_edge_change_m": 0.152999997138977,
-			"max_step_us": 12971,
+			"max_step_us": 54146,
 			"maximum_energy_j": 895.063804909956,
 			"maximum_mount_force_n": 3292.84608364105,
-			"mean_step_us": 3880.81916666667,
+			"mean_step_us": 4740.2375,
 			"panel_plastic_work_j": 1512.2916067797,
 			"panel_stats": {
 				"activation_continuity": [
@@ -3344,10 +3368,10 @@
 			"latched": false,
 			"mass_kg": 1210.0000038147,
 			"max_plastic_edge_change_m": 0.172399884828558,
-			"max_step_us": 4366,
+			"max_step_us": 20160,
 			"maximum_energy_j": 1176.75613055262,
 			"maximum_mount_force_n": 3315.198969841,
-			"mean_step_us": 3854.43083333333,
+			"mean_step_us": 4428.64916666667,
 			"panel_plastic_work_j": 1681.87890576053,
 			"panel_stats": {
 				"activation_continuity": [
@@ -3395,10 +3419,10 @@
 			"latched": false,
 			"mass_kg": 1210.0000038147,
 			"max_plastic_edge_change_m": 0.033085248103323,
-			"max_step_us": 4246,
+			"max_step_us": 5783,
 			"maximum_energy_j": 569.276532420186,
 			"maximum_mount_force_n": 1909.63132381439,
-			"mean_step_us": 3859.44666666667,
+			"mean_step_us": 3863.07583333333,
 			"panel_plastic_work_j": 65.5350233570541,
 			"panel_stats": {
 				"activation_continuity": [
@@ -3438,10 +3462,10 @@
 			"latched": false,
 			"mass_kg": 1210.0000038147,
 			"max_plastic_edge_change_m": 0.262963025457995,
-			"max_step_us": 4410,
+			"max_step_us": 42226,
 			"maximum_energy_j": 3308.1107243092,
 			"maximum_mount_force_n": 5295.92084884644,
-			"mean_step_us": 3683.0975,
+			"mean_step_us": 3748.2825,
 			"panel_plastic_work_j": 2408.09714776975,
 			"panel_stats": {
 				"activation_continuity": [
@@ -3530,10 +3554,10 @@
 			"latched": false,
 			"mass_kg": 1210.0000038147,
 			"max_plastic_edge_change_m": 0.0,
-			"max_step_us": 18331,
+			"max_step_us": 5451,
 			"maximum_energy_j": 1.22927213198815,
 			"maximum_mount_force_n": 744.779062271118,
-			"mean_step_us": 3958.74166666667,
+			"mean_step_us": 3913.69416666667,
 			"panel_plastic_work_j": 0,
 			"panel_stats": {
 				"activation_continuity": [
@@ -3573,10 +3597,10 @@
 			"latched": true,
 			"mass_kg": 1210.0000038147,
 			"max_plastic_edge_change_m": 0.0,
-			"max_step_us": 11407,
+			"max_step_us": 46122,
 			"maximum_energy_j": 57.1738444333123,
 			"maximum_mount_force_n": 281.244233250618,
-			"mean_step_us": 3780.83083333333,
+			"mean_step_us": 3655.355,
 			"panel_plastic_work_j": 0,
 			"panel_stats": {
 				"activation_continuity": [

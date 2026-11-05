@@ -94,5 +94,5 @@ func panel_quality() -> Dictionary:
  var error:=0.0
  for id in panel_rigs:
   var p: Dictionary=panel_system.find(id);var rig: Dictionary=panel_rigs[id]
-  for i in 10:error=maxf(error,rig.skeleton.get_bone_global_pose(i).origin.distance_to(p.points[i]))
+  for i in 10:error=maxf(error,(rig.skeleton.global_transform*rig.skeleton.get_bone_global_pose(i).origin).distance_to(p.points[i]))
  return {'max_anchor_error_m':error,'max_weight_error':panel_weight_error,'panel_triangles':panel_triangles,'source_panel_triangles':source_triangles,'panel_bones':panel_rigs.size()*10,'mesh_rebuilds_during_simulation':mesh_rebuilds,'glass_uses_panel_skeleton':panel_rigs.door_left.meshes.any(func(mesh):return str(mesh.name)=='Glass_Door_Left')}

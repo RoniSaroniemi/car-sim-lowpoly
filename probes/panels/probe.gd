@@ -1,5 +1,6 @@
 extends Node3D
 const Fixture=preload('res://probes/panels/fixtures.gd')
+const HeadOn=preload('res://probes/panels/headon_fixtures.gd')
 const PanelSkin=preload('res://probes/panels/panel_skin.gd')
 var fixture: RefCounted
 var view: Node3D
@@ -31,10 +32,12 @@ func _ready() -> void:
  camera=Camera3D.new();camera.current=true;camera.fov=47;add_child(camera)
  var fill:=DirectionalLight3D.new();fill.light_energy=.35;camera.add_child(fill)
  _start('controls')
- capture_mode='--capture-panels' in OS.get_cmdline_user_args()
+ capture_mode='--capture-panels' in OS.get_cmdline_user_args() or '--capture-headon' in OS.get_cmdline_user_args()
  if capture_mode:
   captures=[['controls','intact_closed',.18],['open_controls','intact_open',2.3],['closed_medium','closed_deformed',.45],['closed_medium','closed_latch_hang',1.8],['open_medium','open_strike_hang',.65],['open_severe','open_separation',.14],['open_severe','detached_aftermath',1.5],['open_inside','inside_open',2.3]]
+  if '--capture-headon' in OS.get_cmdline_user_args():captures=[['headon_60','headon_60_before',.10],['headon_60','headon_60_crushed',.65],['headon_120','headon_120_before',.05],['headon_120','headon_120_crushed',.65],['headon_120','headon_120_settled',2.5,'clip']]
   _capture_start()
+ if '--play-headon-60' in OS.get_cmdline_user_args():_play_headon('headon_60')
  print('ARTICULATED_PANEL_PROBE_READY 4 operational source panels / 10 cage nodes per active panel')
 
 func _material(color: String) -> StandardMaterial3D:
@@ -50,15 +53,20 @@ func _world() -> void:
 
 func _hud() -> void:
  var layer:=CanvasLayer.new();add_child(layer)
- var panel:=PanelContainer.new();panel.position=Vector2(18,18);panel.size=Vector2(405,760);layer.add_child(panel)
+ var panel:=PanelContainer.new();panel.position=Vector2(18,18);panel.size=Vector2(420,850);layer.add_child(panel)
  hud_panel=panel
  var style:=StyleBoxFlat.new();style.bg_color=Color(.035,.065,.08,.9);style.content_margin_left=13;style.content_margin_right=13;style.content_margin_top=12;style.content_margin_bottom=12;panel.add_theme_stylebox_override('panel',style)
- var column:=VBoxContainer.new();column.add_theme_constant_override('separation',6);panel.add_child(column)
+ var scroll:=ScrollContainer.new();scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;panel.add_child(scroll)
+ var column:=VBoxContainer.new();column.size_flags_horizontal=Control.SIZE_EXPAND_FILL;column.add_theme_constant_override('separation',6);scroll.add_child(column)
  var title:=Label.new();title.text='NIVA / BREAKABLE PANELS';title.add_theme_font_size_override('font_size',22);column.add_child(title)
  readout=Label.new();readout.add_theme_font_size_override('font_size',14);column.add_child(readout)
  var grid:=GridContainer.new();grid.columns=2;column.add_child(grid)
- for item in [['Controls / repair','controls'],['Closed / moderate','closed_medium'],['Closed / severe','closed_severe'],['Open / moderate','open_medium'],['Open / severe','open_severe'],['Open / missed','missed_open'],['Closed / weak','weak_closed']]:
+ for item in [['Controls / repair','controls'],['Closed / moderate','closed_medium'],['Closed / severe','closed_severe'],['Open / moderate','open_medium'],['Open / severe','open_severe'],['Open / missed','missed_open'],['Closed / weak','weak_closed'],['Head-on 60 km/h','headon_60'],['Head-on 120 km/h','headon_120']]:
   var button:=Button.new();button.text=item[0];button.pressed.connect(_start.bind(item[1]));grid.add_child(button)
+ var replay_row:=HBoxContainer.new();column.add_child(replay_row)
+ for speed in [60,120]:
+  var b:=Button.new();b.text='Replay %d km/h' %speed;b.pressed.connect(_play_headon.bind('headon_'+str(speed)));replay_row.add_child(b)
+ var drive:=Button.new();drive.text='Open lightweight driving / damaged right door';drive.pressed.connect(_launch_drive);column.add_child(drive)
  for item in [['door_left','Left door'],['door_right','Right door'],['bonnet','Bonnet'],['tailgate','Rear hatch']]:
   var label:=Label.new();label.text=item[1]+' opening';column.add_child(label)
   var slider:=HSlider.new();slider.min_value=0;slider.max_value=82 if item[0]!='tailgate' else 95;slider.step=1;column.add_child(slider)
@@ -72,8 +80,9 @@ func _hud() -> void:
  var help:=Label.new();help.text='R repair · Space replay · P pause · C inside\nDrag orbit · wheel zoom · Esc close\nMoving striker is an external impact fixture.\nThresholds are game parameters, not crash calibration.';help.add_theme_font_size_override('font_size',12);column.add_child(help)
 
 func _start(name_: String) -> void:
+ print('PANEL_START ',name_)
  current_case=name_;paused=false;replaying=false;accumulator=0;replay_time=0
- fixture=Fixture.new();fixture.start(name_)
+ fixture=HeadOn.new() if name_.begins_with('headon_') else Fixture.new();fixture.start(name_)
  if view!=null:remove_child(view);view.queue_free()
  view=Node3D.new();view.set_script(PanelSkin);view.panel_system=fixture.graph.panels;add_child(view);view.setup(fixture.graph);view.show_frame=false;view.set_mode(2)
  for id in sliders:sliders[id].set_value_no_signal(rad_to_deg(fixture.graph.panels.find(id).target))
@@ -128,14 +137,28 @@ func _process(_dt: float) -> void:
  if obstacle_mesh.visible:obstacle_mesh.position=g.panels.obstacle.center;obstacle_mesh.mesh.size=g.panels.obstacle.size
  var mode_: String='REPLAY / zero solves' if replaying else 'LIVE'
  readout.text='%s · %s · %.2f s\nLeft door %.0f° · %s\nHinges failed %d / 2 · latch %s\nPermanent panel work %.0f J\nPanel contacts %d · peak mount %.0f N\nTotal owned mass %.0f kg\nActive panels %d / 4 · panel mesh rebuilds 0' %[mode_,current_case.replace('_',' '),g.simulated_time,rad_to_deg(p.angle),'DETACHED' if p.detached else 'hanging / open' if not p.latched else 'latched',int(p.anchors[0].broken)+int(p.anchors[1].broken),'BROKEN' if p.anchors[2].broken else 'released' if not p.latched else 'engaged',p.plastic_work,p.contacts,p.maximum_force,g.panels.total_mass(),g.panels.panels.filter(func(panel_):return panel_.active).size()]
+ if current_case.begins_with('headon_'):
+  var lines: PackedStringArray=readout.text.split('\n')
+  var held: Dictionary=g.panels.closing_topology(p)
+  lines[1]='Left door: frame-held, deformed' if held.frame_seats>0 or held.latch else 'Left door: released closing connections'
+  readout.text='\n'.join(lines)
+  var states: Array=[]
+  for panel_ in g.panels.panels:
+   var topology: Dictionary=g.panels.closing_topology(panel_)
+   states.append('%s H%d L%s S%d' %[panel_.id,topology.hinges,'✓' if topology.latch else '×',topology.frame_seats])
+  readout.text+='\n'+ ' · '.join(states.slice(0,2))+'\n'+' · '.join(states.slice(2))
+  readout.text+='\n960 Hz authoring / 120 Hz replay'
  if capture_mode:_capture_tick()
 
 func _capture_start() -> void:
  var spec: Array=captures[capture_index]
  inner_view=spec[0]=='open_inside'
  hud_panel.visible=not inner_view
- yaw=2.2 if spec[0]=='open_severe' else .7
- _start('controls' if spec[0] in ['open_controls','open_inside'] else spec[0])
+ yaw=2.2 if spec[0]=='open_severe' or spec[0].begins_with('headon_') else .7
+ if spec.size()>3 and spec[3]=='clip':
+  _play_headon(spec[0]);replay_time=float(spec[2]);fixture.time=float(spec[2]);paused=true
+  fixture.graph.restore(fixture.frames[mini(fixture.frames.size()-1,floori(replay_time*120))])
+ else:_start('controls' if spec[0] in ['open_controls','open_inside'] else spec[0])
  if spec[0] in ['open_controls','open_inside']:
   fixture.graph.panels.set_open('door_left',68);fixture.graph.panels.set_open('door_right',50);fixture.graph.panels.set_open('bonnet',55);fixture.graph.panels.set_open('tailgate',65)
   for id in sliders:sliders[id].set_value_no_signal(rad_to_deg(fixture.graph.panels.find(id).target))
@@ -158,6 +181,7 @@ func _capture_tick() -> void:
  _capture_start()
 
 func _unhandled_input(event: InputEvent) -> void:
+ if capture_mode:return
  if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):yaw+=event.relative.x*.008;elevation=clampf(elevation+event.relative.y*.01,.2,6)
  if event is InputEventMouseButton and event.pressed:
   if event.button_index==MOUSE_BUTTON_WHEEL_UP:distance=maxf(2.5,distance-.5)
@@ -169,3 +193,15 @@ func _unhandled_input(event: InputEvent) -> void:
    KEY_P:paused=not paused
    KEY_C:inner_view=not inner_view
    KEY_ESCAPE:get_tree().quit()
+
+func _play_headon(name_: String) -> void:
+ _start(name_)
+ var path: String='res://probes/panels/data/'+name_+'.panelclip'
+ if not FileAccess.file_exists(path):return
+ var clip: Dictionary=FileAccess.open_compressed(path,FileAccess.READ,FileAccess.COMPRESSION_ZSTD).get_var(false)
+ fixture.frames=clip.frames;fixture.complete=true
+ _replay()
+ print('HEADON_REPLAY_READY ',name_,' ',clip.get('metrics',{}).get('measured_contact_kmh',-1),' km/h; zero live solves')
+func _launch_drive() -> void:
+ var pid: int=OS.create_process(OS.get_executable_path(),['--path',ProjectSettings.globalize_path('res://'),'res://probes/panels/drive_probe.tscn'])
+ print('PANEL_DRIVE_LAUNCHED pid=',pid)
