@@ -45,6 +45,8 @@ Actual driving and post-impact frames from the shared runtime:
 ![Driving before impact](images/driving_preview.png)
 ![Persistent deformation after driving into the barrier](images/driving_crash_preview.png)
 
+The [baked-driving adapter](BAKED_DRIVING.md), `driving_vehicle.gd`, extends that runtime for the sandbox. Baked mode uses its rigid aggregate and cheap contacts throughout; live mode calls the unchanged adaptive base. Both use the same graph and wheel implementation.
+
 ## Boundaries that keep updates small
 
 | File | Owns | Does not own |

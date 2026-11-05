@@ -27,10 +27,14 @@ python3 tools/demo.py drive
 ```
 
 W throttle, S brake, A/D steer, Space handbrake, Q forward/reverse, R repair/reset,
-C camera, T wheel-mount test, H head-on approach, and J/K low/high jump starts.
+C camera, T live wheel-mount test, H/Y 60/120 km/h wall starts, U/I ±20° starts,
+B baked/live crashes, and J/K low/high jump starts.
 Hold W after a jump start. Two smooth ramps share their visual/contact surfaces.
 The practice area uses the same car, wheels and damage state as the crash bench,
-with [adaptive simulation](docs/ADAPTIVE_SIMULATION.md) to skip structural solves during ordinary driving.
+with [baked driving](docs/BAKED_DRIVING.md) enabled by default. That mode uses zero
+deformation forecast calls or full structural solves, including after a bake.
+Turn baking off to use [live adaptive simulation](docs/ADAPTIVE_SIMULATION.md).
+The live tyre-grip and engine-power sliders keep their values through repairs.
 
 Both scenes use one [shared vehicle runtime](docs/SHARED_VEHICLE_RUNTIME.md).
 Tune `vehicles/niva.json` or improve the shared dynamics/wheel code once, then
@@ -74,8 +78,9 @@ Choose 20, 50, 80 or 120 km/h and either Full-width frontal or Offset / left fro
 6. [Wheel physics, suspension and contact setup](docs/WHEEL_PHYSICS.md)
 7. [Shared runtime, driving and future dynamics](docs/SHARED_VEHICLE_RUNTIME.md)
 8. [Adaptive simulation, recovery and ramps](docs/ADAPTIVE_SIMULATION.md)
-9. [Baked crash round trip](docs/BAKED_CRASH_PROBE.md)
-10. [Snapshot provenance and asset rights](docs/PROVENANCE.md)
+9. [Driving with bakes and live tuning](docs/BAKED_DRIVING.md)
+10. [Baked crash round trip](docs/BAKED_CRASH_PROBE.md)
+11. [Snapshot provenance and asset rights](docs/PROVENANCE.md)
 
 ```sh
 python3 tools/demo.py check

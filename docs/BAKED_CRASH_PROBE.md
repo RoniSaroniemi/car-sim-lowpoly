@@ -1,6 +1,6 @@
 # Baked crash library and contact-time selection
 
-The probe records the whole structural vehicle and its wheels, then selects the best compatible recording when an impact occurs. Rendering uses the same skeleton, textures and damage shader as the live solver. The probe is separate from free driving.
+The probe records the whole structural vehicle and its wheels, then selects the best compatible recording when an impact occurs. Rendering uses the same skeleton, textures and damage shader as the live solver. This page describes standalone inspection; [the driving sandbox](BAKED_DRIVING.md) now triggers the same bank from live driving too.
 
 ## Run and reproduce
 
@@ -73,4 +73,4 @@ The [saved local results](BAKED_CRASH_RESULTS.md) include all 26 selections and 
 
 Fresh reports: `verification/baked_roundtrip_validation.json` and `verification/crash_library_validation.json`. `python3 tools/demo.py capture-baked --no-import` produces GPU screenshots. Numerical agreement establishes fidelity to the recording, not crash-engineering accuracy. Timings in the reports exclude rendering, skin updates, setup and file I/O, and should not be read as whole-game frame-rate gains.
 
-Intermediate-angle playback is an approximation: registration can rotate the recorded barrier interaction relative to the real wall, and does not re-solve contact. Secondary collisions, arbitrary obstacles, blending speed bins, continuing live driving after playback, independently live detached wheels, glass and panel debris remain future integration work. Extreme folds can visibly intersect as in the source solver. Momentum/energy values and nodal momentum-loss histories are explicitly proxies, not calibrated wall forces.
+Intermediate-angle playback is an approximation: registration can rotate the recorded barrier interaction relative to the real wall, and does not re-solve contact. Secondary collisions, arbitrary obstacles, blending speed bins, general secondary-crash blending, glass and panel debris remain future integration work. The standalone probe holds the final pose; the sandbox instead resumes lightweight physics with a rigid damaged body and moving detached wheels. Extreme folds can visibly intersect as in the source solver. Momentum/energy values and nodal momentum-loss histories are explicitly proxies, not calibrated wall forces.

@@ -2,7 +2,12 @@ extends RefCounted
 const Vehicle=preload('res://scripts/vehicle_simulation.gd')
 const Zones=preload('res://scripts/impact_zone_grid.gd')
 const Clip=preload('res://scripts/baked_crash_clip.gd')
-var vehicle: RefCounted
+var _owned_vehicle: RefCounted
+var _live_vehicle: WeakRef
+var vehicle: RefCounted:
+ get:return _live_vehicle.get_ref() if _live_vehicle!=null else _owned_vehicle
+ set(value):
+  _owned_vehicle=value;_live_vehicle=null
 var grid:=Zones.new()
 var library: Array=[]
 var data: Dictionary={}
@@ -22,6 +27,8 @@ var handoff_position_jump_m:=0.0
 var pose_registration_error_m:=0.0
 var replay_rotation:=Basis.IDENTITY
 var handoff_offsets:=PackedVector3Array()
+var handoff_velocity_offsets:=PackedVector3Array()
+var handoff_velocity_jump_mps:=0.0
 var wheel_spin_offsets:=PackedFloat64Array()
 var wheel_handoff_rotations: Array=[]
 var blend_seconds:=.10
@@ -63,12 +70,23 @@ func reset() -> void:
   w.spin=wrapf(w.spin-w.spin_speed*approach_distance/speed,-PI,PI)
  state='APPROACH';time=0;incoming={};match_result={};full_steps=0;player_cpu_us=0;sample_count=0
  handoff_position_jump_m=0;pose_registration_error_m=0
- handoff_offsets.clear();wheel_spin_offsets.clear();wheel_handoff_rotations.clear()
+ handoff_offsets.clear();handoff_velocity_offsets.clear();wheel_spin_offsets.clear();wheel_handoff_rotations.clear()
  replay_rotation=Basis.IDENTITY
+
+func attach_live(owner: RefCounted,clips: Array,signature: Dictionary,selection: Dictionary) -> void:
+ # Reuse the live graph without constructing another vehicle or owning owner.
+ _owned_vehicle=null;_live_vehicle=weakref(owner)
+ library=clips;incoming=signature;match_result=selection
+ data=library[int(selection.index)]
+ time=0;state='REPLAY';full_steps=0;player_cpu_us=0;sample_count=0
+ handoff_offsets.clear();handoff_velocity_offsets.clear();wheel_spin_offsets.clear();wheel_handoff_rotations.clear()
+ handoff_position_jump_m=0;handoff_velocity_jump_mps=0;pose_registration_error_m=0
+ _begin_replay()
 
 func _begin_replay() -> void:
  var g: RefCounted=vehicle.solver
  var before: PackedVector3Array=g.points.duplicate()
+ var velocity_before: PackedVector3Array=g.velocities.duplicate()
  var wheel_before: Array=g.wheels.capture()
  # Register selected clip in the incoming car heading and contact anchor.
  var body_x: Vector3=grid.body_basis(g).x
@@ -77,21 +95,31 @@ func _begin_replay() -> void:
  origin=g.station_center(2)
  Clip.apply(g,data,0,origin,replay_rotation)
  handoff_offsets.resize(g.points.size())
+ handoff_velocity_offsets.resize(g.points.size())
  for i in g.points.size():
   handoff_offsets[i]=before[i]-g.points[i]
+  handoff_velocity_offsets[i]=velocity_before[i]-g.velocities[i]
   pose_registration_error_m=maxf(pose_registration_error_m,handoff_offsets[i].length())
  for i in g.wheels.wheels.size():
   var w= g.wheels.wheels[i]
   wheel_spin_offsets.append(angle_difference(w.spin,wheel_before[i].spin))
   wheel_handoff_rotations.append(wheel_before[i].rotation)
  apply_pose(0)
- for i in before.size():handoff_position_jump_m=maxf(handoff_position_jump_m,before[i].distance_to(g.points[i]))
+ for i in before.size():
+  handoff_position_jump_m=maxf(handoff_position_jump_m,before[i].distance_to(g.points[i]))
+  handoff_velocity_jump_mps=maxf(handoff_velocity_jump_mps,velocity_before[i].distance_to(g.velocities[i]))
 
 func apply_pose(at_time: float) -> void:
  var g: RefCounted=vehicle.solver
  Clip.apply(g,data,at_time,origin,replay_rotation)
- var weight: float=1.0-smoothstep(0,blend_seconds,at_time)
- for i in handoff_offsets.size():g.points[i]+=handoff_offsets[i]*weight
+ var s: float=clampf(at_time/blend_seconds,0,1)
+ var weight: float=1-3*s*s+2*s*s*s
+ var velocity_weight: float=s*s*s-2*s*s+s
+ var dp: float=(-6*s+6*s*s)/blend_seconds if s<1 else 0
+ var dv: float=3*s*s-4*s+1 if s<1 else 0
+ for i in handoff_offsets.size():
+  g.points[i]+=handoff_offsets[i]*weight+handoff_velocity_offsets[i]*blend_seconds*velocity_weight
+  g.velocities[i]+=handoff_offsets[i]*dp+handoff_velocity_offsets[i]*dv
  for i in wheel_spin_offsets.size():
   var w=g.wheels.wheels[i]
   w.spin=wrapf(w.spin+wheel_spin_offsets[i],-PI,PI)

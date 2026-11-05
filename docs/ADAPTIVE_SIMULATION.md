@@ -1,5 +1,7 @@
 # Adaptive driving and deformation
 
+The sandbox now defaults to [baked driving](BAKED_DRIVING.md), which skips the deformation forecast and full solver entirely. This page describes live mode, selected by turning baked crashes off.
+
 The driving sandbox uses the shared vehicle graph and wheel code, with three simulation states:
 
 - **DRIVE:** a rigid aggregate owns the existing 1,130 kg body/engine mass; the four separate 20 kg wheel nodes retain suspension and tire response. It runs at 120 Hz with three suspension sweeps and skips structural deformation links.

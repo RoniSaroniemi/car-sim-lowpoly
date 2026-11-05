@@ -36,7 +36,7 @@ def run(command):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'capture-driving', 'capture', 'import', 'check'))
+    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'capture-driving', 'capture', 'import', 'check'))
     parser.add_argument('--godot', help='Godot executable, or set GODOT_BIN')
     parser.add_argument('--no-import', action='store_true', help='Skip import after the first successful run')
     args = parser.parse_args()
@@ -53,7 +53,7 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--editor', '--import', '--quit'])
     if args.command == 'import':
         return
-    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked'):
+    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes'):
         import json
         if args.command == 'verify':
             run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
@@ -108,6 +108,12 @@ def main():
             if not library_report['passed']:
                 raise SystemExit('Crash library checks failed')
             print('PASS: complete impact library, contact-time nearest selection, registered replay and zero full solver steps.')
+        if args.command in ('verify', 'verify-driving-bakes'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_driving_bakes.gd'])
+            report = json.loads((ROOT / 'verification/driving_bakes_validation.json').read_text())
+            if not report['passed']:
+                raise SystemExit('Driving bake integration checks failed')
+            print('PASS: real driving triggers, continuous live/baked handoff, zero-forecast rigid recovery, live tuning, reset and fallback paths.')
     elif args.command == 'bake':
         run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/bake_frontal_clip.gd'])
     elif args.command == 'index-bakes':

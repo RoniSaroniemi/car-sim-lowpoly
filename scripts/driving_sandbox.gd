@@ -2,7 +2,7 @@ extends Node3D
 ## World/input/camera only. Vehicle physics is shared with the crash bench.
 const Terrain=preload('res://scripts/practice_terrain.gd')
 var terrain: RefCounted
-const Simulation=preload('res://scripts/vehicle_simulation.gd')
+const Simulation=preload('res://scripts/driving_vehicle.gd')
 const MountDemo=preload('res://scripts/wheel_mount_demo.gd')
 var mount_demo: RefCounted
 var capture_mounts:=false
@@ -13,6 +13,7 @@ var vehicle: RefCounted
 var view: Node3D
 var camera: Camera3D
 var readout: Label
+var bake_toggle: CheckButton
 var reverse:=false
 var camera_mode:=0
 var orbit:=0.0
@@ -25,8 +26,12 @@ var adaptive_capture_stage:=0
 var capture_jumps:=false
 var jump_capture_index:=0
 var jump_air_saved:=false
+var capture_baked_driving:=false
+var baked_capture_stage:=0
 
 func _ready() -> void:
+ DisplayServer.window_set_title('Niva sandbox — baked crashes and live tuning')
+ capture_baked_driving='--capture-driving-baked' in OS.get_cmdline_user_args()
  capture_mode='--capture-driving' in OS.get_cmdline_user_args()
  capture_mounts='--capture-mounts' in OS.get_cmdline_user_args()
  capture_adaptive='--capture-adaptive' in OS.get_cmdline_user_args()
@@ -35,6 +40,7 @@ func _ready() -> void:
  _world()
  vehicle=Simulation.new()
  vehicle.setup(vehicle_profile,true)
+ if capture_adaptive:vehicle.baked_enabled=false
  vehicle.solver.terrain=terrain
  mount_demo=MountDemo.new()
  vehicle.before_step.connect(mount_demo.step)
@@ -59,6 +65,7 @@ func _ready() -> void:
  if capture_mounts or '--mount-test' in OS.get_cmdline_user_args():call_deferred('_start_mount_test')
  if capture_jumps:call_deferred('_capture_jump_start')
  if capture_adaptive or '--head-on' in OS.get_cmdline_user_args():call_deferred('_start_head_on')
+ if capture_baked_driving:call_deferred('_start_head_on',120.0,20.0)
  print('DRIVING_SANDBOX_READY shared vehicle=',vehicle.profile.name)
 
 func _material(color: String) -> StandardMaterial3D:
@@ -163,7 +170,7 @@ func _hud() -> void:
  readout.add_theme_font_size_override('font_size',17)
  column.add_child(readout)
  var controls:=Label.new()
- controls.text='W throttle · S brake · A/D steer · Space handbrake\nQ forward/reverse · R repair/reset · C camera\nH head-on · T wheel test · J/K jump starts\n1 structure · 3 textured car · Drag: orbit · Esc: close'
+ controls.text='W throttle · S brake · A/D steer · Space handbrake\nQ forward/reverse · R repair/reset · C camera\nH 60 / Y 120 km/h wall starts · U/I ±20° starts\nB baked/live crashes · T wheel test · J/K jump starts\n1 structure · 3 textured car · Drag: orbit · Esc: close'
  controls.add_theme_font_size_override('font_size',13)
  column.add_child(controls)
  var reset:=Button.new()
@@ -174,20 +181,38 @@ func _hud() -> void:
  test_button.text='Test wheel mount'
  test_button.pressed.connect(_start_mount_test)
  column.add_child(test_button)
- var head_on:=Button.new()
- head_on.text='Head-on forecast test'
- head_on.pressed.connect(_start_head_on)
- column.add_child(head_on)
+ for row in [[['60 km/h wall start',60.0,0.0],['120 km/h wall start',120.0,0.0]],[['+20° wall start',120.0,20.0],['−20° wall start',120.0,-20.0]]]:
+  var buttons:=HBoxContainer.new();column.add_child(buttons)
+  for item in row:
+   var button:=Button.new();button.text=item[0]
+   button.pressed.connect(_start_head_on.bind(item[1],item[2]));buttons.add_child(button)
+ bake_toggle=CheckButton.new();bake_toggle.text='Use baked wall crashes';bake_toggle.button_pressed=vehicle.baked_enabled
+ bake_toggle.toggled.connect(func(value):vehicle.baked_enabled=value);column.add_child(bake_toggle)
+ var grip_label:=Label.new();column.add_child(grip_label)
+ var grip:=HSlider.new();grip.min_value=.10;grip.max_value=1.50;grip.step=.01;grip.value=vehicle.dynamics.parameters.tire_friction;column.add_child(grip)
+ grip_label.text='Tyre grip: %.2f'%grip.value
+ grip.value_changed.connect(func(value):
+  vehicle.set_tire_friction(value)
+  grip_label.text='Tyre grip: %.2f'%value)
+ var power_label:=Label.new();column.add_child(power_label)
+ var power:=HSlider.new();power.min_value=55;power.max_value=660;power.step=5;power.value=vehicle.dynamics.parameters.power_w/1000;column.add_child(power)
+ power_label.text='Engine power: %.0f kW'%power.value
+ power.value_changed.connect(func(value):
+  vehicle.set_engine_power_kw(value)
+  power_label.text='Engine power: %.0f kW'%value)
+ var tuning_note:=Label.new();tuning_note.text='Tuning affects live driving. Crash bakes keep their recorded motion.';tuning_note.add_theme_font_size_override('font_size',11);column.add_child(tuning_note)
 
-func _start_head_on() -> void:
+
+func _start_head_on(speed_kmh: float=60,heading_deg: float=0) -> void:
  _reset()
  head_on_case=true
  camera_mode=2
  orbit=0
- vehicle.reset(80,Vector3(-50,0,0))
+ vehicle.reset_wall_approach(speed_kmh,heading_deg)
 
 func _start_mount_test() -> void:
  _reset()
+ bake_toggle.button_pressed=false
  camera_mode=1
  orbit=0
  mount_demo.start(vehicle.solver)
@@ -211,10 +236,6 @@ func _physics_process(dt: float) -> void:
  if capture_jumps:
   vehicle.set_controls(.1,0,0,0)
   vehicle.advance(dt)
- elif head_on_case:
-  vehicle.set_controls(0,0,0,0)
-  vehicle.advance(dt)
-  if vehicle.solver.impact_started and vehicle.solver.simulated_time>vehicle.solver.impact_time+2.0:head_on_case=false
  elif mount_demo.active:
   vehicle.set_controls(0,0,0,0)
   vehicle.advance(dt,.5)
@@ -231,15 +252,31 @@ func _process(_dt: float) -> void:
  var angle: float=heading+([PI,0.60,PI/2][camera_mode])
  var offset:=Vector3(cos(angle)*7,3.2,sin(angle)*7)
  camera.position=center+offset
+ # Keep the inspection camera on the car's side of the opaque test wall.
+ if g.barrier_min.z-1<camera.position.z and camera.position.z<g.barrier_max.z+1:
+  if center.x<(g.barrier_min.x+g.barrier_max.x)*.5:camera.position.x=minf(camera.position.x,minf(center.x-absf(offset.x),g.barrier_min.x-.8))
+  else:camera.position.x=maxf(camera.position.x,maxf(center.x+absf(offset.x),g.barrier_max.x+.8))
  camera.look_at(center+Vector3(0,.3,0))
  view.update_pose()
  var speed: float=vehicle.velocity().length()*3.6
  var damage: Dictionary=g.metrics()
  readout.text='%3.0f km/h   %s\nSuspension failures: %d   Yielded members: %d' %[speed,'R' if reverse else 'D',damage.broken_suspension_links,damage.yielded_links]
  var performance: Dictionary=vehicle.statistics()
- var mode_name: Dictionary={'DRIVE':'Light driving','FULL':'Full deformation','SLEEP':'Parked / sleeping'}
+ var mode_name: Dictionary={'DRIVE':'Light driving','FULL':'Live deformation','SLEEP':'Parked / sleeping','BAKED':'Baked crash playback'}
  readout.text+='\nPhysics: '+mode_name[vehicle.mode]
+ readout.text+='\nBaked wall crashes: '+('ON' if vehicle.baked_enabled else 'OFF')
+ if not vehicle.last_bake.is_empty():
+  readout.text+='\nClip: '+str(vehicle.last_bake.id)
+  readout.text+='\nImpact %.0f km/h → %.0f km/h recording' %[vehicle.last_bake.actual_impact_kmh,vehicle.last_bake.recorded_speed_kmh]
+  if vehicle.mode=='BAKED':readout.text+='\nPlayback %.1f / 2.5 s · live solver paused'%vehicle.crash_player.time
+  else:readout.text+='\nReplay complete · R repairs the damaged car'
+
  readout.text+='\nFull structural steps: %d   Average: %.2f ms / 120 Hz frame' %[vehicle.full_steps,performance.cpu_ms_per_sim_second/120.0]
+ if capture_baked_driving:
+  if vehicle.mode=='BAKED' and vehicle.crash_player.time>.25 and baked_capture_stage==0:
+   _capture('driving_baked_impact.png');baked_capture_stage=1
+  elif vehicle.last_bake.get('completed',false) and baked_capture_stage==1:
+   _capture('driving_baked_resumed.png');get_tree().quit()
  if capture_adaptive:
   if vehicle.solver.simulated_time>1 and adaptive_capture_stage==0:
    adaptive_capture_stage=1
@@ -300,6 +337,10 @@ func _unhandled_input(event: InputEvent) -> void:
    KEY_R:_reset()
    KEY_T:_start_mount_test()
    KEY_H:_start_head_on()
+   KEY_Y:_start_head_on(120)
+   KEY_U:_start_head_on(120,20)
+   KEY_I:_start_head_on(120,-20)
+   KEY_B:bake_toggle.button_pressed=not bake_toggle.button_pressed
    KEY_J:_jump_start(0)
    KEY_K:_jump_start(1)
    KEY_Q:reverse=not reverse
