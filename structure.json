@@ -440,52 +440,52 @@
     {
       "a": 2,
       "b": 3,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "roof_ring",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 12000,
+      "max_compression": 0.55,
+      "max_extension": 0.15,
+      "damping_ns_per_m": 450
     },
     {
       "a": 0,
       "b": 2,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_pillar",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 8000,
+      "max_compression": 0.7,
+      "max_extension": 0.12,
+      "damping_ns_per_m": 400
     },
     {
       "a": 1,
       "b": 3,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_pillar",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 8000,
+      "max_compression": 0.7,
+      "max_extension": 0.12,
+      "damping_ns_per_m": 400
     },
     {
       "a": 0,
       "b": 3,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_diagonal",
+      "stiffness_n_per_m": 100000,
+      "yield_n": 3500,
+      "max_compression": 0.7,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 200
     },
     {
       "a": 1,
       "b": 2,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_diagonal",
+      "stiffness_n_per_m": 100000,
+      "yield_n": 3500,
+      "max_compression": 0.7,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 200
     },
     {
       "a": 4,
@@ -500,52 +500,52 @@
     {
       "a": 6,
       "b": 7,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "roof_ring",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 12000,
+      "max_compression": 0.55,
+      "max_extension": 0.15,
+      "damping_ns_per_m": 450
     },
     {
       "a": 4,
       "b": 6,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_pillar",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 8000,
+      "max_compression": 0.7,
+      "max_extension": 0.12,
+      "damping_ns_per_m": 400
     },
     {
       "a": 5,
       "b": 7,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_pillar",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 8000,
+      "max_compression": 0.7,
+      "max_extension": 0.12,
+      "damping_ns_per_m": 400
     },
     {
       "a": 4,
       "b": 7,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_diagonal",
+      "stiffness_n_per_m": 100000,
+      "yield_n": 3500,
+      "max_compression": 0.7,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 200
     },
     {
       "a": 5,
       "b": 6,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_diagonal",
+      "stiffness_n_per_m": 100000,
+      "yield_n": 3500,
+      "max_compression": 0.7,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 200
     },
     {
       "a": 8,
@@ -560,52 +560,52 @@
     {
       "a": 10,
       "b": 11,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "roof_ring",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 12000,
+      "max_compression": 0.55,
+      "max_extension": 0.15,
+      "damping_ns_per_m": 450
     },
     {
       "a": 8,
       "b": 10,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_pillar",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 8000,
+      "max_compression": 0.7,
+      "max_extension": 0.12,
+      "damping_ns_per_m": 400
     },
     {
       "a": 9,
       "b": 11,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_pillar",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 8000,
+      "max_compression": 0.7,
+      "max_extension": 0.12,
+      "damping_ns_per_m": 400
     },
     {
       "a": 8,
       "b": 11,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_diagonal",
+      "stiffness_n_per_m": 100000,
+      "yield_n": 3500,
+      "max_compression": 0.7,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 200
     },
     {
       "a": 9,
       "b": 10,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_diagonal",
+      "stiffness_n_per_m": 100000,
+      "yield_n": 3500,
+      "max_compression": 0.7,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 200
     },
     {
       "a": 12,
@@ -620,52 +620,52 @@
     {
       "a": 14,
       "b": 15,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "roof_ring",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 12000,
+      "max_compression": 0.55,
+      "max_extension": 0.15,
+      "damping_ns_per_m": 450
     },
     {
       "a": 12,
       "b": 14,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_pillar",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 8000,
+      "max_compression": 0.7,
+      "max_extension": 0.12,
+      "damping_ns_per_m": 400
     },
     {
       "a": 13,
       "b": 15,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_pillar",
+      "stiffness_n_per_m": 300000,
+      "yield_n": 8000,
+      "max_compression": 0.7,
+      "max_extension": 0.12,
+      "damping_ns_per_m": 400
     },
     {
       "a": 12,
       "b": 15,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_diagonal",
+      "stiffness_n_per_m": 100000,
+      "yield_n": 3500,
+      "max_compression": 0.7,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 200
     },
     {
       "a": 13,
       "b": 14,
-      "kind": "ring",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 110000,
-      "max_compression": 0.12,
-      "max_extension": 0.08,
-      "damping_ns_per_m": 1800
+      "kind": "cabin_diagonal",
+      "stiffness_n_per_m": 100000,
+      "yield_n": 3500,
+      "max_compression": 0.7,
+      "max_extension": 0.25,
+      "damping_ns_per_m": 200
     },
     {
       "a": 16,
@@ -871,21 +871,21 @@
       "a": 2,
       "b": 6,
       "kind": "roof",
-      "stiffness_n_per_m": 3000000.0,
-      "yield_n": 35000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 1400000,
+      "yield_n": 18000,
+      "max_compression": 0.45,
       "max_extension": 0.14,
-      "damping_ns_per_m": 1100
+      "damping_ns_per_m": 750
     },
     {
       "a": 3,
       "b": 7,
       "kind": "roof",
-      "stiffness_n_per_m": 3000000.0,
-      "yield_n": 35000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 1400000,
+      "yield_n": 18000,
+      "max_compression": 0.45,
       "max_extension": 0.14,
-      "damping_ns_per_m": 1100
+      "damping_ns_per_m": 750
     },
     {
       "a": 0,
@@ -910,62 +910,62 @@
     {
       "a": 2,
       "b": 7,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
+      "kind": "cabin_roof_planar",
+      "stiffness_n_per_m": 180000,
+      "yield_n": 6000,
       "max_compression": 0.65,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 250
     },
     {
       "a": 3,
       "b": 6,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
+      "kind": "cabin_roof_planar",
+      "stiffness_n_per_m": 180000,
+      "yield_n": 6000,
       "max_compression": 0.65,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 250
     },
     {
       "a": 0,
       "b": 6,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 2,
       "b": 4,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 1,
       "b": 7,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 3,
       "b": 5,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 4,
@@ -991,21 +991,21 @@
       "a": 6,
       "b": 10,
       "kind": "roof",
-      "stiffness_n_per_m": 3000000.0,
-      "yield_n": 35000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 1400000,
+      "yield_n": 18000,
+      "max_compression": 0.45,
       "max_extension": 0.14,
-      "damping_ns_per_m": 1100
+      "damping_ns_per_m": 750
     },
     {
       "a": 7,
       "b": 11,
       "kind": "roof",
-      "stiffness_n_per_m": 3000000.0,
-      "yield_n": 35000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 1400000,
+      "yield_n": 18000,
+      "max_compression": 0.45,
       "max_extension": 0.14,
-      "damping_ns_per_m": 1100
+      "damping_ns_per_m": 750
     },
     {
       "a": 4,
@@ -1030,62 +1030,62 @@
     {
       "a": 6,
       "b": 11,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
+      "kind": "cabin_roof_planar",
+      "stiffness_n_per_m": 180000,
+      "yield_n": 6000,
       "max_compression": 0.65,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 250
     },
     {
       "a": 7,
       "b": 10,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
+      "kind": "cabin_roof_planar",
+      "stiffness_n_per_m": 180000,
+      "yield_n": 6000,
       "max_compression": 0.65,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 250
     },
     {
       "a": 4,
       "b": 10,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 6,
       "b": 8,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 5,
       "b": 11,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 7,
       "b": 9,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 8,
@@ -1111,21 +1111,21 @@
       "a": 10,
       "b": 14,
       "kind": "roof",
-      "stiffness_n_per_m": 3000000.0,
-      "yield_n": 35000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 1400000,
+      "yield_n": 18000,
+      "max_compression": 0.45,
       "max_extension": 0.14,
-      "damping_ns_per_m": 1100
+      "damping_ns_per_m": 750
     },
     {
       "a": 11,
       "b": 15,
       "kind": "roof",
-      "stiffness_n_per_m": 3000000.0,
-      "yield_n": 35000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 1400000,
+      "yield_n": 18000,
+      "max_compression": 0.45,
       "max_extension": 0.14,
-      "damping_ns_per_m": 1100
+      "damping_ns_per_m": 750
     },
     {
       "a": 8,
@@ -1150,62 +1150,62 @@
     {
       "a": 10,
       "b": 15,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
+      "kind": "cabin_roof_planar",
+      "stiffness_n_per_m": 180000,
+      "yield_n": 6000,
       "max_compression": 0.65,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 250
     },
     {
       "a": 11,
       "b": 14,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
+      "kind": "cabin_roof_planar",
+      "stiffness_n_per_m": 180000,
+      "yield_n": 6000,
       "max_compression": 0.65,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 250
     },
     {
       "a": 8,
       "b": 14,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 10,
       "b": 12,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 9,
       "b": 15,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 11,
       "b": 13,
-      "kind": "cabin_brace",
-      "stiffness_n_per_m": 450000,
-      "yield_n": 14000,
-      "max_compression": 0.65,
+      "kind": "cabin_roof_brace",
+      "stiffness_n_per_m": 120000,
+      "yield_n": 3000,
+      "max_compression": 0.75,
       "max_extension": 0.4,
-      "damping_ns_per_m": 300
+      "damping_ns_per_m": 220
     },
     {
       "a": 12,
@@ -1771,91 +1771,91 @@
       "a": 28,
       "b": 12,
       "kind": "pillar",
-      "stiffness_n_per_m": 1800000.0,
-      "yield_n": 30000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 350000,
+      "yield_n": 8000,
+      "max_compression": 0.65,
       "max_extension": 0.2,
-      "damping_ns_per_m": 1000
+      "damping_ns_per_m": 400
     },
     {
       "a": 28,
       "b": 14,
       "kind": "pillar",
-      "stiffness_n_per_m": 1800000.0,
-      "yield_n": 30000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 350000,
+      "yield_n": 8000,
+      "max_compression": 0.65,
       "max_extension": 0.2,
-      "damping_ns_per_m": 1000
+      "damping_ns_per_m": 400
     },
     {
       "a": 28,
       "b": 10,
       "kind": "pillar",
-      "stiffness_n_per_m": 1800000.0,
-      "yield_n": 30000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 350000,
+      "yield_n": 8000,
+      "max_compression": 0.65,
       "max_extension": 0.2,
-      "damping_ns_per_m": 1000
+      "damping_ns_per_m": 400
     },
     {
       "a": 28,
       "b": 8,
       "kind": "pillar",
-      "stiffness_n_per_m": 1800000.0,
-      "yield_n": 30000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 350000,
+      "yield_n": 8000,
+      "max_compression": 0.65,
       "max_extension": 0.2,
-      "damping_ns_per_m": 1000
+      "damping_ns_per_m": 400
     },
     {
       "a": 29,
       "b": 13,
       "kind": "pillar",
-      "stiffness_n_per_m": 1800000.0,
-      "yield_n": 30000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 350000,
+      "yield_n": 8000,
+      "max_compression": 0.65,
       "max_extension": 0.2,
-      "damping_ns_per_m": 1000
+      "damping_ns_per_m": 400
     },
     {
       "a": 29,
       "b": 15,
       "kind": "pillar",
-      "stiffness_n_per_m": 1800000.0,
-      "yield_n": 30000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 350000,
+      "yield_n": 8000,
+      "max_compression": 0.65,
       "max_extension": 0.2,
-      "damping_ns_per_m": 1000
+      "damping_ns_per_m": 400
     },
     {
       "a": 29,
       "b": 11,
       "kind": "pillar",
-      "stiffness_n_per_m": 1800000.0,
-      "yield_n": 30000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 350000,
+      "yield_n": 8000,
+      "max_compression": 0.65,
       "max_extension": 0.2,
-      "damping_ns_per_m": 1000
+      "damping_ns_per_m": 400
     },
     {
       "a": 29,
       "b": 9,
       "kind": "pillar",
-      "stiffness_n_per_m": 1800000.0,
-      "yield_n": 30000,
-      "max_compression": 0.3,
+      "stiffness_n_per_m": 350000,
+      "yield_n": 8000,
+      "max_compression": 0.65,
       "max_extension": 0.2,
-      "damping_ns_per_m": 1000
+      "damping_ns_per_m": 400
     },
     {
       "a": 28,
       "b": 29,
       "kind": "roof_crossmember",
-      "stiffness_n_per_m": 2400000.0,
-      "yield_n": 120000,
-      "max_compression": 0.15,
-      "max_extension": 0.1,
-      "damping_ns_per_m": 1200
+      "stiffness_n_per_m": 500000,
+      "yield_n": 18000,
+      "max_compression": 0.5,
+      "max_extension": 0.15,
+      "damping_ns_per_m": 450
     },
     {
       "a": 30,
@@ -2533,7 +2533,7 @@
     28,
     29
   ],
-  "description": "Controlled static-wall structural bench. Mass-bearing nodes and elastic/plastic XPBD links own all car motion. Godot renders the same graph through native skeletal skinning; no second rigid chassis receives the impact.",
+  "description": "Three-axis game structure with yielding roof/pillar/side cabin members; shared live and baked crash material profile. Mass-bearing nodes and XPBD links own motion, without a duplicate chassis.",
   "limits": "Approximate game structure, not certified crash prediction. Analytic static box/floor and selective wheel/body contacts; no general world integration, panel self-contact or tearing.",
   "wheel_assemblies": [
     {
@@ -2696,5 +2696,7 @@
         }
       ]
     }
-  ]
+  ],
+  "material_profile": "niva_multiaxis_v1",
+  "material_profile_version": 1
 }

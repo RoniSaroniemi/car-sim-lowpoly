@@ -1,0 +1,58 @@
+{
+  "material_profile": "niva_multiaxis_v1",
+  "material_profile_version": 1,
+  "mass_kg": 1210,
+  "nodes": 38,
+  "links": 187,
+  "body_42_checks_passed": true,
+  "ordinary_regression_results": [
+    [
+      "retention",
+      false
+    ],
+    [
+      "driving",
+      true
+    ],
+    [
+      "ramps",
+      true
+    ],
+    [
+      "wheels",
+      true
+    ],
+    [
+      "structure",
+      true
+    ]
+  ],
+  "wheel_mount_11_checks_passed": true,
+  "retention_checks": {
+    "head_on_120.0_finite": true,
+    "head_on_120.0_rear_mounts_retained": true,
+    "head_on_80.0_finite": true,
+    "head_on_80.0_rear_mounts_retained": true,
+    "head_on_driving_120.0_finite": true,
+    "head_on_driving_120.0_rear_mounts_retained": true,
+    "head_on_driving_80.0_finite": true,
+    "head_on_driving_80.0_rear_mounts_retained": true,
+    "offset_120.0_finite": true,
+    "offset_120.0_rear_mounts_retained": true,
+    "offset_80.0_finite": true,
+    "offset_80.0_rear_mounts_retained": true,
+    "ramp_0_all_supports_retained": true,
+    "ramp_0_finite": true,
+    "ramp_0_flight_and_landing": true,
+    "ramp_0_no_permanent_alignment": true,
+    "ramp_1_all_supports_retained": true,
+    "ramp_1_finite": true,
+    "ramp_1_flight_and_landing": true,
+    "ramp_1_no_permanent_alignment": true,
+    "severe_local_front_damage_can_release": false
+  },
+  "known_changed_outcome": "Compliant cabin protects full front-wheel release in the old120km/h offset fixture. Rear and ramp retention remain true; explicit front-mount overload still releases and passes11 checks. Keep unchanged thresholds; update the outcome assertion separately.",
+  "structure_sha256": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+  "rebake_required": true,
+  "source_suspension_unchanged": true
+}

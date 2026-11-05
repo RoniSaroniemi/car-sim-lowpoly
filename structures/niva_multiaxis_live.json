@@ -2533,7 +2533,7 @@
     28,
     29
   ],
-  "description": "Experimental live-only roof/side material probe; not the published baked-crash input.",
+  "description": "Three-axis game structure with yielding roof/pillar/side cabin members; shared live and baked crash material profile. Mass-bearing nodes and XPBD links own motion, without a duplicate chassis.",
   "limits": "Approximate game structure, not certified crash prediction. Analytic static box/floor and selective wheel/body contacts; no general world integration, panel self-contact or tearing.",
   "wheel_assemblies": [
     {
@@ -2696,5 +2696,7 @@
         }
       ]
     }
-  ]
+  ],
+  "material_profile": "niva_multiaxis_v1",
+  "material_profile_version": 1
 }

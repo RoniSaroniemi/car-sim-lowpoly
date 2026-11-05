@@ -27,19 +27,34 @@ All **42 checks passed** across six baseline/experimental runs: finite positions
 ![Experimental live materials under the same angled roof landing](images/body_multiaxis/experimental_roof_corner.png)
 ![Experimental side-wall impact](images/body_multiaxis/experimental_side_wall.png)
 
-## Preserve the existing baked library
+## Promoted shared material profile and archived baseline
 
-The experiment is **not a silent replacement for `structure.json`**. The default graph is byte-identical to the published definition, and none of the 26 clips is rewritten. Generate the separate material definition with:
+The verified profile is now promoted to the default `structure.json` with **`material_profile: niva_multiaxis_v1`, `material_profile_version: 1`**, so normal full live simulation and all newly recorded bakes use the same roof/side strengths. The original front-bench material definition remains byte-identical to the pre-promotion graph at `structures/niva_front_bench_baseline.json`.
 
 ```sh
-python3 scripts/build_structure.py --multiaxis-live
+python3 scripts/build_structure.py                     # promoted structure.json
+python3 scripts/build_structure.py --baseline-materials # archived original comparison
+python3 scripts/build_structure.py --multiaxis-live      # promoted compatibility alias
 ```
 
-It writes `structures/niva_multiaxis_live.json`. Running the generator without that flag continues to write the original `structure.json`.
+The `--multiaxis-live` alias writes `structures/niva_multiaxis_live.json` for existing fixture callers; it is the same promoted definition. The old `experimental` boolean/API name is retained for compatibility: true selects the promoted profile, false explicitly selects the archived original profile.
 
-The experimental material variant keeps lower crossmembers, sills, front rails, engine, mounts, wheel properties and topology unchanged. It softens only roof rings, cabin pillars/diagonals, roof longitudinal members, mixed-height/upper cabin braces and the auxiliary A-pillar roof members. It also increases their compression travel so yielding can actually change cabin shape. For example, cabin vertical links use 300 kN/m, 8 kN yield and 70% allowed plastic compression; mixed-height roof braces use 120 kN/m and 3 kN yield. These are intentionally visible test parameters requiring review, not a proposed factory calibration.
+The promoted profile keeps lower crossmembers, sills, front rails, engine, mounts, wheel properties and topology unchanged. It changes only the following cabin/roof paths:
 
-Promoting those strengths into the default graph would require a full regression comparison and re-baking/revalidating the library. This isolated variant avoids that change while allowing immediate live sandbox testing.
+| Link class | Stiffness N/m | Yield N | Compression / extension cap | Damping Ns/m |
+|---|---:|---:|---:|---:|
+| Roof ring | 300,000 | 12,000 | .55 / .15 | 450 |
+| Cabin pillar | 300,000 | 8,000 | .70 / .12 | 400 |
+| Cabin diagonal | 100,000 | 3,500 | .70 / .25 | 200 |
+| Roof longitudinal | 1,400,000 | 18,000 | .45 / .14 | 750 |
+| Mixed-height cabin roof brace | 120,000 | 3,000 | .75 / .40 | 220 |
+| Upper cabin planar brace | 180,000 | 6,000 | .65 / .40 | 250 |
+| Auxiliary A-pillar | 350,000 | 8,000 | .65 / .20 | 400 |
+| Auxiliary roof crossmember | 500,000 | 18,000 | .50 / .15 | 450 |
+
+These are intentionally visible game parameters, not factory calibration. Promotion changes the structure fingerprint: **previous bakes must be regenerated/revalidated** before they can represent this profile. This patch does not silently rewrite the bank.
+
+Non-timing promotion regressions passed six structural cases, seven wheel cases,18 ordinary-driving checks and the ramp flight/landing checks. Rear retention and all ramp support/alignment checks remained true. One historical retention outcome changed: a120 km/h offset crash now bends the front mounting by about36° and breaks one support without fully detaching that wheel; the compliant cabin absorbs more energy. The old assertion demanding front release at that exact speed needs a material-aware test update, while explicit front-mount overload tests should retain the release-capability requirement. Suspension thresholds were not weakened to force the old outcome.
 
 ## Reusable sandbox fixture API
 
@@ -51,7 +66,7 @@ BodyFixture.start(vehicle, 'roof_corner', 1.0, true)
 # Other cases: 'roof_flat', 'side_wall'; final bool false compares original materials.
 ```
 
-The fixture disables baked mode and adaptive representation changes, applies the experimental link properties in-place, resets/poses the existing nodes and hub orientations, and supplies the declared initial velocity. It does not move render vertices or add another rigid body. Existing tyre/power parameters remain unchanged. The side case uses the current barrier position; roof cases temporarily disable that barrier.
+The fixture disables baked mode and adaptive representation changes, applies the selected link properties in-place, resets/poses the existing nodes and hub orientations, and supplies the declared initial velocity. It does not move render vertices or add another rigid body. Existing tyre/power parameters remain unchanged. The side case uses the current barrier position; roof cases temporarily disable that barrier.
 
 Before an ordinary reset or wall-start fixture, call:
 
@@ -60,9 +75,16 @@ BodyFixture.restore(vehicle)
 vehicle.reset(...)
 ```
 
-`restore` returns cached original link configuration/properties, `adaptive_enabled` and `barrier_enabled`. It does not repair the current shape itself; the following ordinary vehicle reset does that. The main scene should uncheck its baked-mode control when starting the live fixture and keep that UI state in sync. Material changes last only until restore/reset.
+`restore` returns cached original link configuration/properties, `adaptive_enabled` and `barrier_enabled`. It does not repair the current shape itself; the following ordinary vehicle reset does that. The main scene should uncheck its baked-mode control when starting the live fixture and keep that UI state in sync. Temporary baseline comparison properties last only until restore/reset; normal restoration returns the promoted/default caller configuration.
 
 Suggested sandbox buttons: **Live flat roof drop**, **Live angled roof drop**, **Live side impact**. The root agent owns that scene wiring; this branch deliberately does not alter its input/UI implementation.
+
+
+## Bake authoring descriptor
+
+`BodyFixture.descriptor(case_name, impact_speed_mps=-1, clearance=1)` returns a versioned JSON-safe descriptor: full `rotation_xyzw`, `initial_velocity_mps`, `family` (`roof_floor` or `side_wall`), floor/clearance/wall offsets and `material_profile`. `start` accepts the same speed as an optional fifth argument. Negative speed preserves the live fixture defaults of8 m/s downward or80 km/h broadside.
+
+This is an initial-loading descriptor, not an assertion of contact speed: gravity adds speed during a roof drop. The recorder must detect the floor contact event and measure or normalize its normal velocity, as for wall bakes. Roof/corner classification and registration require a full3D car frame; the earlier ground-plane/yaw-only classifier is insufficient. Keep independent roof/side families and normals in the recording metadata rather than disguising a roof drop as another horizontal heading.
 
 ## Standalone inspection and reproduction
 
@@ -72,7 +94,7 @@ godot --headless --path . --script res://scripts/verify_body_impacts.gd
 godot --path . --script res://scripts/capture_body_impacts.gd -- --capture-body
 ```
 
-On macOS use `/Applications/Godot.app/Contents/MacOS/Godot`. The probe exposes an original/experimental material toggle on identical fixtures. 1/2/3 select flat roof/corner/side, Space pauses, R repeats, V switches plain/textured skin, and drag/wheel orbit and zoom. Playback is slow presentation of the actual full solve, not a baked animation.
+On macOS use `/Applications/Godot.app/Contents/MacOS/Godot`. The probe exposes an original/promoted material toggle on identical fixtures. 1/2/3 select flat roof/corner/side, Space pauses, R repeats, V switches plain/textured skin, and drag/wheel orbit and zoom. Playback is slow presentation of the actual full solve, not a baked animation.
 
 For a matched baseline capture:
 
@@ -80,4 +102,4 @@ For a matched baseline capture:
 godot --path . --script res://scripts/capture_body_impacts.gd -- --capture-body --baseline-materials --capture-case=roof_corner
 ```
 
-Fresh numerical output goes to `verification/body_impacts_validation.json`; a saved local result is [body_multiaxis_validation.json](body_multiaxis_validation.json). GPU screenshots are generated under `verification/` and retained above for review. Material parameters, impact loading and coarse skin should be steered visually before making the variant a default or generating new roof/side bakes.
+Fresh numerical output goes to `verification/body_impacts_validation.json`; a saved local result is [body_multiaxis_validation.json](body_multiaxis_validation.json). GPU screenshots are generated under `verification/` and retained above for review. Material parameters, impact loading and coarse skin should still be steered visually as the new roof/side bakes are generated.

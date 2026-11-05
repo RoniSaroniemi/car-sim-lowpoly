@@ -50,7 +50,7 @@ func _ui() -> void:
  var column:=VBoxContainer.new();panel.add_child(column)
  var title:=Label.new();title.text='LIVE BODY / MULTIAXIS IMPACTS';title.add_theme_font_size_override('font_size',24);column.add_child(title)
  readout=Label.new();readout.add_theme_font_size_override('font_size',15);column.add_child(readout)
- material_toggle=CheckButton.new();material_toggle.text='Experimental roof / side materials';material_toggle.button_pressed=true
+ material_toggle=CheckButton.new();material_toggle.text='Promoted roof / side materials';material_toggle.button_pressed=true
  material_toggle.toggled.connect(func(_value):_start(scenario));column.add_child(material_toggle)
  for name_ in Fixture.CASES:
   var button:=Button.new();button.text=name_.replace('_',' ').capitalize();button.pressed.connect(_start.bind(name_));column.add_child(button)
@@ -69,7 +69,7 @@ func _process(dt: float) -> void:
  camera.look_at(center)
  view.update_pose()
  var m: Dictionary=Fixture.metrics(g)
- readout.text='%s · %s\nFull live solve / 480 Hz · %.2f s\nCabin height: %.3f m (change %+.3f)\nCabin width: %.3f m (change %+.3f)\nPlastic work: %.1f kJ · nodes %d · mass %.0f kg\nGame material probe; no calibrated crash prediction.' %[scenario,'experimental' if material_toggle.button_pressed else 'baseline',g.simulated_time,m.cabin_height_m,m.cabin_height_m-start_metrics.cabin_height_m,m.cabin_width_m,m.cabin_width_m-start_metrics.cabin_width_m,m.plastic_work_kj,g.points.size(),g.config.mass_kg]
+ readout.text='%s · %s\nFull live solve / 480 Hz · %.2f s\nCabin height: %.3f m (change %+.3f)\nCabin width: %.3f m (change %+.3f)\nPlastic work: %.1f kJ · nodes %d · mass %.0f kg\nGame material probe; no calibrated crash prediction.' %[scenario,'niva_multiaxis_v1' if material_toggle.button_pressed else 'front bench baseline',g.simulated_time,m.cabin_height_m,m.cabin_height_m-start_metrics.cabin_height_m,m.cabin_width_m,m.cabin_width_m-start_metrics.cabin_width_m,m.plastic_work_kj,g.points.size(),g.config.mass_kg]
  if capture_mode:
   if g.simulated_time>.5 and not peak_saved:
    _save(scenario+'_impact.png');peak_saved=true

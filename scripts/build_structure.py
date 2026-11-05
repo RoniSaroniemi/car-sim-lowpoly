@@ -1,7 +1,9 @@
 from pathlib import Path
 import json,math,argparse
 parser=argparse.ArgumentParser()
-parser.add_argument('--multiaxis-live',action='store_true')
+profiles=parser.add_mutually_exclusive_group()
+profiles.add_argument('--multiaxis-live',action='store_true',help='Write the promoted material profile to its compatibility alias path')
+profiles.add_argument('--baseline-materials',action='store_true',help='Write the original front-bench materials for comparison')
 args=parser.parse_args()
 root=Path(__file__).resolve().parents[1]
 stations=[(-1.72,1.20,.70,60),(-1.15,1.78,.72,160),(-.40,1.78,.72,290),(.45,1.25,.72,250),(.90,1.10,.70,100),(1.35,1.03,.72,50),(1.80,.97,.80,25)]
@@ -70,9 +72,9 @@ for front,x,s in [(False,-1.10,1),(True,1.10,4)]:
                          rigid_mount_until_yield=True,lateral_yield_n=18000,lateral_break_n=90000,
                          mount_break_delay_s=.035,detach_alignment_deg=65,detach_lateral_offset_m=.20,
                          body_capsules=[dict(a=a,b=b,radius_m=.045)for a,b in segments]))
-# Experimental live-only cabin materials. The published default/bake input is
-# unchanged unless this explicit generator flag is supplied.
-if args.multiaxis_live:
+# Promoted three-axis cabin materials, shared by live simulation and baking.
+# The original front-bench profile remains explicitly reproducible for comparison.
+if not args.baseline_materials:
  for raw in links:
   a,b=raw['a'],raw['b'];kind=raw['kind']
   if kind=='ring' and a//4<4:
@@ -91,8 +93,11 @@ if args.multiaxis_live:
 
 cfg=dict(schema_version=2,mass_kg=sum(n['mass_kg']for n in nodes),enforce_symmetry=True,fixed_step_s=1/480,iterations=8,gravity_mps2=9.81,hardening=0.35,nodes=nodes,links=links,station_x=[s[0]for s in stations],station_top_y=[s[1]for s in stations],station_half_width=[s[2]for s in stations],engine_nodes=engine,wheel_nodes=wheels,aux_roof_nodes=roof,description='Controlled static-wall structural bench. Mass-bearing nodes and elastic/plastic XPBD links own all car motion. Godot renders the same graph through native skeletal skinning; no second rigid chassis receives the impact.',limits='Approximate structure and game material parameters, not factory crash certification. Analytic wall/floor contacts, no tearing, glass particles, general world integration or panel self-contact.')
 cfg.update(schema_version=3,wheel_assemblies=assemblies,limits='Approximate game structure, not certified crash prediction. Analytic static box/floor and selective wheel/body contacts; no general world integration, panel self-contact or tearing.')
-output=root/('structures/niva_multiaxis_live.json' if args.multiaxis_live else 'structure.json')
+output=root/('structures/niva_front_bench_baseline.json' if args.baseline_materials else ('structures/niva_multiaxis_live.json' if args.multiaxis_live else 'structure.json'))
 output.parent.mkdir(parents=True,exist_ok=True)
-if args.multiaxis_live:cfg['description']='Experimental live-only roof/side material probe; not the published baked-crash input.'
+if not args.baseline_materials:
+ cfg['material_profile']='niva_multiaxis_v1'
+ cfg['material_profile_version']=1
+ cfg['description']='Three-axis game structure with yielding roof/pillar/side cabin members; shared live and baked crash material profile. Mass-bearing nodes and XPBD links own motion, without a duplicate chassis.'
 output.write_text(json.dumps(cfg,indent=2)+'\n')
 print(len(nodes),'nodes',len(links),'links',cfg['mass_kg'],'kg')
