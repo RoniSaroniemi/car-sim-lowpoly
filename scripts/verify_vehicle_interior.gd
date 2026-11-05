@@ -6,15 +6,21 @@ var checks: Dictionary={}
 var runs: Array=[]
 var evidence_frames: Array=[]
 func _initialize() -> void:call_deferred('_run')
+func _effects_for(car: RefCounted,settings: Dictionary={}) -> Dictionary:
+ var integrated: RefCounted=car.solver.get('effects')
+ if integrated!=null:
+  if not settings.is_empty():integrated.interior.setup(car.solver,settings)
+  return {'controller':integrated.interior,'manual':false}
+ var controller:=Interior.new();controller.setup(car.solver,settings)
+ return {'controller':controller,'manual':true}
 func run_crash(speed: float,settings: Dictionary={}) -> Dictionary:
  var car:=Vehicle.new();car.setup('res://vehicles/niva.json',false);car.solver.config.enforce_symmetry=false;car.reset(speed)
- var effects:=Interior.new();effects.setup(car.solver,settings)
+ var owned: Dictionary=_effects_for(car,settings)
+ var effects: RefCounted=owned.controller
  var samples: Array=[];var peak:=0.0;var finite:=true
  for step in 1440:
   car.step(1.0/480)
-  var before: PackedVector3Array=car.solver.points.duplicate()
-  effects.step_live(1.0/480)
-  checks['interior_does_not_move_chassis']=checks.get('interior_does_not_move_chassis',true) and before==car.solver.points
+  if owned.manual:effects.step_live(1.0/480)
   for seat in effects.seats:peak=maxf(peak,absf(seat.angle));finite=finite and is_finite(seat.angle)
   for point in effects.bag.points:finite=finite and point.is_finite()
   if step%4==3:samples.append({'body':car.solver.capture(),'interior':effects.capture()})
@@ -47,6 +53,12 @@ func run_crash(speed: float,settings: Dictionary={}) -> Dictionary:
   checks['playback_runs_no_cloth_or_seat_solve']=effects.live_steps==previous_live and effects.cloth_steps==previous_cloth
   var final: Dictionary=decoded[-1].interior
   effects.begin_playback(final)
+  effects.synchronize()
+  checks['synchronize_preserves_irreversible_state']=effects.seats[0].plastic_angle==final.seats[0].plastic_angle and effects.bag.triggered
+  var independent:=Interior.new();independent.setup(car.solver);independent.begin_playback(final);independent.synchronize()
+  var before: PackedVector3Array=car.solver.points.duplicate();var before_velocity: PackedVector3Array=car.solver.velocities.duplicate()
+  independent.step_live(1.0/240)
+  checks['active_interior_does_not_move_or_accelerate_chassis']=before==car.solver.points and before_velocity==car.solver.velocities
   checks['conditioned_initial_keeps_seat_and_airbag']=effects.seats[0].plastic_angle!=0 and effects.bag.triggered and effects.deployment_event_id==1
   effects.restore_interpolated({}, {},0)
   checks['legacy_frames_are_intact']=not effects.bag.triggered and effects.seats[0].angle==0
@@ -59,12 +71,17 @@ func _run() -> void:
  var high: Dictionary=run_crash(120)
  run_crash(120,{'airbag':{'enabled':false}})
  var car:=Vehicle.new();car.setup('res://vehicles/niva.json',true);car.solver.barrier_enabled=false;car.reset(60,Vector3(-30,0,0))
- var effects:=Interior.new();effects.setup(car.solver);car.set_controls(0,1,0)
- for step in 480:car.step(1.0/480);effects.step_live(1.0/480)
+ var owned: Dictionary=_effects_for(car)
+ var effects: RefCounted=owned.controller
+ car.set_controls(0,1,0)
+ for step in 480:
+  car.step(1.0/480)
+  if owned.manual:effects.step_live(1.0/480)
  checks['ordinary_braking_does_not_deploy']=not effects.bag.triggered and effects.cloth_steps==0
  checks['ordinary_braking_keeps_seat_elastic']=absf(effects.seats[0].plastic_angle)<.0001
  var view:=Node3D.new();view.set_script(SkinView);root.add_child(view);view.setup(car.solver,car.profile.model)
- var visual: Node3D=effects.create_visual(view,view.body);view.add_child(visual)
+ var visual: Node3D=view.get_node_or_null('InteriorSeatAndAirbagEffects')
+ if visual==null:visual=effects.create_visual(view,view.body);view.add_child(visual)
  checks['actual_car_front_seat_groups_extracted']=visual.seat_groups.size()==4 and visual.split_triangles==3352
  checks['original_interior_triangles_preserved']=visual.original_triangles==12498
  for group in visual.seat_groups:checks['group_has_actual_original_geometry']=checks.get('group_has_actual_original_geometry',true) and group.node.mesh.get_surface_count()>0
