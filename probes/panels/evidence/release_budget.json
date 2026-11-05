@@ -1,0 +1,79 @@
+{
+	"case": {
+		"anchor_peak_n": [
+			3565.77308177948,
+			5295.92084884644,
+			0
+		],
+		"angle_deg": -139.703912013448,
+		"body_mass_kg": 1185.0,
+		"case": "open_severe",
+		"contacts": 177,
+		"detached": true,
+		"failed_hinges": 2,
+		"finite": true,
+		"full_solver_steps": 1200,
+		"initial_energy_j": 0.260900807605184,
+		"latch_broken": true,
+		"latched": false,
+		"mass_kg": 1210.0000038147,
+		"max_plastic_edge_change_m": 0.262963025457995,
+		"max_step_us": 4139,
+		"maximum_energy_j": 3308.1107243092,
+		"maximum_mount_force_n": 5295.92084884644,
+		"mean_step_us": 3607.87833333333,
+		"panel_plastic_work_j": 2408.09714776975,
+		"panel_stats": {
+			"activation_continuity": [
+				{
+					"angular_error": 0.0,
+					"id": "door_left",
+					"linear_error": 0.0
+				}
+			],
+			"active_steps": 1920,
+			"contacts": 177,
+			"events": [
+				{
+					"force_n": 3565.77308177948,
+					"id": 0,
+					"kind": "lower_hinge",
+					"panel": "door_left",
+					"time": 0.0958333333333334
+				},
+				{
+					"force_n": 5295.92084884644,
+					"id": 1,
+					"kind": "upper_hinge",
+					"panel": "door_left",
+					"time": 0.110416666666667
+				},
+				{
+					"force_n": 5295.92084884644,
+					"id": 2,
+					"kind": "detached",
+					"panel": "door_left",
+					"time": 0.110416666666667
+				}
+			],
+			"idle_steps": 5760,
+			"mass_kg": 1210.0000038147,
+			"max_release_us": 40,
+			"panel_nodes": 40,
+			"release_continuity": [
+				{
+					"angular_error_nms": 0.0,
+					"linear_error_ns": 0.0,
+					"panel": "door_left",
+					"point_error_m": 0.0,
+					"velocity_error_mps": 0.0
+				}
+			]
+		},
+		"release_time": 0.110416666666667
+	},
+	"first_full_release_step_us": [
+		3855
+	],
+	"scope": "Whole shared body+activepanel480Hz calls; release bookkeeping is separately timed. No new render resources are created at detachment; GPU timing unavailable in native_budget.json."
+}

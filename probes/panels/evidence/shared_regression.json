@@ -1,0 +1,103 @@
+{
+  "command": "python3 tools/demo.py verify --no-import",
+  "exit_code": 0,
+  "base": "90aabde",
+  "reports": {
+    "sandbox_sequence_validation.json": {
+      "passed": true,
+      "checks": 19,
+      "runs": 0
+    },
+    "crash_library_validation.json": {
+      "passed": true,
+      "checks": 273,
+      "runs": 27
+    },
+    "structural_validation.json": {
+      "passed": true,
+      "checks": 0,
+      "runs": 6
+    },
+    "vehicle_interior_validation.json": {
+      "passed": true,
+      "checks": 29,
+      "runs": 4
+    },
+    "driving_bakes_validation.json": {
+      "passed": true,
+      "checks": 81,
+      "runs": 6
+    },
+    "adaptive_validation.json": {
+      "passed": true,
+      "checks": 51,
+      "runs": 8
+    },
+    "handover_validation.json": {
+      "passed": true,
+      "checks": 0,
+      "runs": 6
+    },
+    "driving_validation.json": {
+      "passed": true,
+      "checks": 18,
+      "runs": 0
+    },
+    "wheel_validation.json": {
+      "passed": true,
+      "checks": 17,
+      "runs": 7
+    },
+    "wheel_retention_validation.json": {
+      "passed": true,
+      "checks": 22,
+      "runs": 8
+    },
+    "baked_contact_sensor_validation.json": {
+      "passed": true,
+      "checks": 27,
+      "runs": 4
+    },
+    "baked_roundtrip_validation.json": {
+      "passed": true,
+      "checks": 21,
+      "runs": 0
+    },
+    "roof_bank_validation.json": {
+      "passed": true,
+      "checks": 10,
+      "runs": 0
+    },
+    "conditioned_bank_validation.json": {
+      "passed": true,
+      "checks": 42,
+      "runs": 3
+    },
+    "handover_wheel_validation.json": {
+      "passed": true,
+      "checks": 17,
+      "runs": 7
+    },
+    "conditioned_transition_validation.json": {
+      "passed": true,
+      "checks": 28,
+      "runs": 0
+    },
+    "vehicle_glass_validation.json": {
+      "passed": true,
+      "checks": 49,
+      "runs": 0
+    },
+    "wheel_mount_validation.json": {
+      "passed": true,
+      "checks": 11,
+      "runs": 0
+    },
+    "ramp_validation.json": {
+      "passed": true,
+      "checks": 10,
+      "runs": 2
+    }
+  },
+  "scope": "Unmodified shared runtime suites in isolated panel worktree; focused panel suite is validation.json."
+}

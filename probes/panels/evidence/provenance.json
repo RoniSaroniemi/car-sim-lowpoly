@@ -1,0 +1,117 @@
+{
+  "base_commit": "90aabde",
+  "source_glb": "assets/Niva_2121_LOD0.glb",
+  "sha256": "930f43ec759d404f642b7ec4da8adc5ea65ca99fa14da58c14366dee5a7815ae",
+  "same_as_earlier_operational_asset": "/Users/roni-saroniemi/Downloads/niva-godot-sandbox/assets/Niva_2121_LOD0.glb",
+  "gltf_nodes": 38,
+  "hinges": [
+    {
+      "children": [
+        2,
+        3
+      ],
+      "extras": {
+        "control_id": "bonnet",
+        "open_degrees": 72,
+        "axis_blender": [
+          0,
+          1,
+          0
+        ]
+      },
+      "name": "Hinge_Bonnet",
+      "translation": [
+        1.6150000095367432,
+        1.0700000524520874,
+        0
+      ]
+    },
+    {
+      "children": [
+        5,
+        6,
+        7
+      ],
+      "extras": {
+        "control_id": "door_left",
+        "open_degrees": 72,
+        "axis_blender": [
+          0,
+          0,
+          1
+        ]
+      },
+      "name": "Hinge_Door_Left",
+      "translation": [
+        0.5400000214576721,
+        1.0399999618530273,
+        0.9049999713897705
+      ]
+    },
+    {
+      "children": [
+        9,
+        10,
+        11
+      ],
+      "extras": {
+        "control_id": "door_right",
+        "open_degrees": -72,
+        "axis_blender": [
+          0,
+          0,
+          1
+        ]
+      },
+      "name": "Hinge_Door_Right",
+      "translation": [
+        0.5400000214576721,
+        1.0399999618530273,
+        -0.9049999713897705
+      ]
+    },
+    {
+      "children": [
+        13,
+        14,
+        15
+      ],
+      "extras": {
+        "control_id": "tailgate",
+        "open_degrees": 95,
+        "axis_blender": [
+          0,
+          1,
+          0
+        ]
+      },
+      "name": "Hinge_Tailgate",
+      "translation": [
+        -1.3600000143051147,
+        1.7799999713897705,
+        0
+      ]
+    }
+  ],
+  "animations": [
+    {
+      "name": "Panels_Open_Close",
+      "channels": 4
+    }
+  ],
+  "probe_input_sha256": {
+    "assets/Niva_2121_LOD0.glb": "930f43ec759d404f642b7ec4da8adc5ea65ca99fa14da58c14366dee5a7815ae",
+    "assets/vehicle_controls.json": "a72653ec047bf4a47631df2589f13bad7be710d4ad6bdbe3d63c6d5bf2401e06",
+    "structure.json": "12595c38ee1ba4138efa8bd8660c8d8e827c3e8b4943cb4c3ea118a6d2a6fab7",
+    "scripts/structure_solver.gd": "53b979c1060bd2f0d5a2e24b1ecb9fec2f68058b911f92a7c6688d4ae010f1e8",
+    "scripts/wheel_physics.gd": "e40251996a9acaf7632a31f0bbc623fb4f0353fc76dec5c295a337ad131daa62",
+    "scripts/car_attachment.gd": "e495ca186f97ff24166aafe0642a7433dbcbe2fad688cd7e010fd02bee4b49ac",
+    "probes/panels/panel_system.gd": "f775f527b59922eeca98df77c83f6efbbece132ff7851079c5ea5c36ada20d83",
+    "probes/panels/panel_graph.gd": "e57000362df501506ba0b17885e686b0c92f61e9d8363fe03cf2b7470c19e621",
+    "probes/panels/panel_skin.gd": "ee984460fbc27cf3b22201d2c64b1f5b89d1c4c7d656f781297e9924c5a0d3db",
+    "probes/panels/fixtures.gd": "a9a533e81b79343687ed31e7ba6c6bef4b0c02a20ba01eaff641efa87bb29017"
+  },
+  "panel_clip": "probes/panels/data/open_severe.panelclip",
+  "panel_clip_sha256": "26e4055dafc264a4e16e39c931b7efe102873b2e7e463e3babfff10376613bd1",
+  "scope": "Operational source provenance and isolated live/baked panel probe. SourceGLB unchanged; game parameters, not calibrated factory panel masses/strength."
+}
