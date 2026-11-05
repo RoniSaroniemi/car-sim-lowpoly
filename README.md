@@ -78,6 +78,12 @@ including panels, glass and interior state. [Multiaxis authoring and its viewer]
 are separate from the horizontal driving matcher; recording a direction does
 not automatically make every world contact compatible with it.
 
+```sh
+python3 tools/demo.py baked-3d
+```
+
+Choose a roof, underside or diagonal recording, replay it, or scrub the slider.
+
 ## Candidate layered damage materials
 
 The sandbox and baked/structural benches now share a persistent candidate surface treatment: impact-centred chipped paint and metal, peeling-edge shading, rough scuffs and cosmetic angular folds. It works with the existing crash bank, preserves earlier marks across the supported three-hit sequence, and clears on repair. The visual treatment remains open to art direction; integration is not final texture approval.
