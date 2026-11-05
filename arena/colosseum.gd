@@ -1,4 +1,5 @@
 extends Node3D
+const OrbitCamera=preload('res://arena/orbit_camera.gd')
 const Terrain=preload('res://arena/terrain.gd')
 const Stadium=preload('res://arena/stadium.gd')
 const Vehicle=preload('res://arena/vehicle.gd')
@@ -23,6 +24,9 @@ var capture_crash:=false
 var crash_saved:=false
 var camera_mode:=0
 var orbit:=0.0
+var camera_pitch:=.35
+var camera_distance:=8.0
+var orbit_dragging:=false
 var reverse:=false
 var capture:=false
 var capture_tick:=0
@@ -56,7 +60,7 @@ func _hud() -> void:
  var column:=VBoxContainer.new();column.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(column)
  var title:=Label.new();title.text='COLOSSEUM / DRIVE & CRASH';title.add_theme_font_size_override('font_size',19);column.add_child(title)
  readout=Label.new();readout.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;column.add_child(readout)
- var help:=Label.new();help.text='W/S throttle/brake · A/D steer · Space handbrake\nQ reverse · R repair · C camera · drag orbit\nH/Y 60/120 wall · U/I ±20° · B baked/live';help.add_theme_font_size_override('font_size',12);column.add_child(help)
+ var help:=Label.new();help.text='W/S throttle/brake · A/D steer · Space handbrake\nQ reverse · R repair · C camera\nDrag orbit/tilt · Wheel zoom\nH/Y 60/120 wall · U/I ±20° · B baked/live';help.add_theme_font_size_override('font_size',12);column.add_child(help)
  bake_toggle=CheckButton.new();bake_toggle.text='Use baked wall crashes';bake_toggle.button_pressed=car.baked_enabled;bake_toggle.toggled.connect(_baked_toggled);column.add_child(bake_toggle)
  var grip_label:=Label.new();column.add_child(grip_label)
  var grip:=HSlider.new();grip_control=grip;grip.min_value=.1;grip.max_value=1.5;grip.step=.01;grip.value=car.dynamics.parameters.tire_friction;column.add_child(grip)
@@ -91,7 +95,7 @@ func _baked_toggled(value: bool) -> void:
 func _reset() -> void:
  BodyFixture.restore(car);mount_demo.stop()
  if body_fixture_active:body_fixture_active=false;bake_toggle.button_pressed=body_previous_baked
- reverse=false;orbit=0;car.reset(0,Vector3(-12,0,0));car.solver.barrier_enabled=true
+ reverse=false;_reset_camera_orbit();car.reset(0,Vector3(-12,0,0));car.solver.barrier_enabled=true
 func _stage_feature(index: int) -> void:
  _reset()
  var f: Dictionary=terrain.features[index]
@@ -127,16 +131,17 @@ func _process(_dt: float) -> void:
  var center: Vector3=car.solver.station_center(2)
  var f: Vector3=car.forward()
  var heading:=atan2(f.z,f.x)+orbit
- if camera_mode==0:
-  camera.position=center+Vector3(-cos(heading)*7.5,3.0,-sin(heading)*7.5);camera.look_at(center+Vector3.UP*.6)
- elif camera_mode==1:
-  camera.position=center+Vector3(cos(heading+1)*8,3.0,sin(heading+1)*8);camera.look_at(center+Vector3.UP*.4)
+ if camera_mode!=2:
+  var target: Vector3=center+Vector3.UP*.4
+  var yaw: float=heading+(PI if camera_mode==0 else 1.0)
+  var wanted: Vector3=target+OrbitCamera.offset(yaw,camera_pitch,camera_distance)
+  if capture or capture_crash:
+   # Existing evidence presets retain their established framing.
+   target=center+Vector3.UP*(.6 if camera_mode==0 else .4)
+   wanted=center+(Vector3(-cos(heading)*7.5,3,-sin(heading)*7.5) if camera_mode==0 else Vector3(cos(heading+1)*8,3,sin(heading+1)*8))
+  camera.position=OrbitCamera.position(target,wanted,car.solver);camera.look_at(target)
  else:
   camera.position=Vector3(113,110,128);camera.look_at(Vector3(0,2,0))
- if camera_mode!=2 and car.solver.barrier_enabled and car.solver.barrier_min.z-1<camera.position.z and camera.position.z<car.solver.barrier_max.z+1:
-  if center.x<car.solver.barrier_min.x:camera.position.x=minf(camera.position.x,minf(center.x-absf(camera.position.x-center.x),car.solver.barrier_min.x-.8))
-  else:camera.position.x=maxf(camera.position.x,maxf(center.x+absf(camera.position.x-center.x),car.solver.barrier_max.x+.8))
-  camera.look_at(center+Vector3.UP*.4)
  if capture and capture_stage==2:
   camera.position=Vector3(18,5,-30);camera.look_at(Vector3(19,1.5,-18))
  if capture and capture_stage==5:
@@ -188,8 +193,20 @@ func _save(name_: String) -> void:
  capture_manifest.append({'file':name_,'simulation_time_s':car.solver.simulated_time,'full_solver_steps':car.full_steps,'camera_position':str(camera.position),'wheels':wheels})
  FileAccess.open('res://arena/evidence/'+('parity_capture.json' if capture_crash else 'captures.json'),FileAccess.WRITE).store_string(JSON.stringify(capture_manifest,'\t'))
  print('ARENA_CAPTURE ',name_)
+func _reset_camera_orbit() -> void:
+ orbit=0;camera_pitch=.35;camera_distance=8;orbit_dragging=false
+func _input(event: InputEvent) -> void:
+ if event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:orbit_dragging=false
 func _unhandled_input(event: InputEvent) -> void:
- if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):orbit+=event.relative.x*.008
+ if event is InputEventMouseButton and get_viewport().gui_get_hovered_control()==null:
+  if event.button_index==MOUSE_BUTTON_LEFT:orbit_dragging=event.pressed
+  if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+   if camera_mode==2:camera_mode=1
+   camera_distance=clampf(camera_distance*(.88 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.0/.88),OrbitCamera.MIN_DISTANCE,OrbitCamera.MAX_DISTANCE)
+ if event is InputEventMouseMotion and orbit_dragging and get_viewport().gui_get_hovered_control()==null:
+  if camera_mode==2:camera_mode=1
+  orbit=wrapf(orbit+event.relative.x*.008,-PI,PI)
+  camera_pitch=clampf(camera_pitch+event.relative.y*.005,OrbitCamera.MIN_PITCH,OrbitCamera.MAX_PITCH)
  if event is InputEventKey and event.pressed and not event.echo:
   match event.physical_keycode:
    KEY_R:_reset()
@@ -202,7 +219,7 @@ func _unhandled_input(event: InputEvent) -> void:
    KEY_J:_stage_feature(0)
    KEY_K:_stage_feature(2)
    KEY_Q:reverse=not reverse
-   KEY_C:camera_mode=(camera_mode+1)%3
+   KEY_C:camera_mode=(camera_mode+1)%3;_reset_camera_orbit()
    KEY_F3:debug_visible=not debug_visible
    KEY_1:_stage_feature(0)
    KEY_2:_stage_feature(1)

@@ -451,10 +451,10 @@
   "vehicles/niva.json": "e76acadacdcc04fc881639be3c335f3b6f37a392efe7de9b1651fea7cac771fc",
   "vehicles/niva_glass.json": "a77749c52288531e630b02b9cdf93bbae0a88b04e135c06e53a0d4b73b8e244f",
   "vehicles/niva_interior.json": "0a50ff6ccb9d2f1f695f5596ba1bdffe26549586d0313e8d2618c3a47553e358",
-  "arena/README.md": "a74b0290cfa59234badcad5d1cb726d4eec4021b4c97545eb87b99b269810179",
+  "arena/README.md": "f2416fff019b05443d6bbae8d04a36ff8f803d99d13a874baf0fb6204f8cecb3",
   "arena/benchmark.gd": "09a44e98b4cf10ab25f06032354f1d627b2168bd250d1b08ac51d9156175cce8",
   "arena/benchmark.gd.uid": "edc57050988fdcb6ade6772463afbc4630c9540926261149b111b2b218c86324",
-  "arena/colosseum.gd": "b2722d9be51c7907250122ce0d919e8e78d27e68e98e1c01b266723598b13758",
+  "arena/colosseum.gd": "1eeb64c021a2ac220cf9bd886aab69d3c80a006f67f1fdb4f2471fe4e84441f7",
   "arena/colosseum.gd.uid": "d3cf79a6ae80aac7730cba785a61a1f435b47f8c171a13f7cfd612fcd8178af0",
   "arena/colosseum.tscn": "4e33449155bf51c5eceb609d9b62cbbe5a6961e7b7b7869f51246c62edf6527d",
   "arena/evidence/captures.json": "1090730fa1bcda2bbb3d840efa6be41613c599f05fec13eb9ee394a27f278f03",
@@ -493,5 +493,11 @@
   "arena/verify_parity.gd": "c754a4595e55c9ae4aad8c24a9d54f0d4f4e2666ed8735ecbef4104ee587df30",
   "arena/verify_parity.gd.uid": "9a12035d8c738578568a651dfc92351a0a9e11b462091a6ec72075d207fc5876",
   "arena/world_contacts.gd": "3cb14e8dff752b5fd6e2ce2d7932e3401e541e5941800fb9c0c97954f7924184",
-  "arena/world_contacts.gd.uid": "d93364c03447e149409257157dfced354878edee08f612c2950b8227992750bd"
+  "arena/world_contacts.gd.uid": "d93364c03447e149409257157dfced354878edee08f612c2950b8227992750bd",
+  "arena/evidence/camera_orbit.png": "43c9049a5b2b468901282e0b6cf791d3eb45ac664c4b5f9080fc1096f2edf99b",
+  "arena/evidence/camera_validation.json": "d6ca4eceff3517f2e24d9a7ce410bd3dd91f92c85c29a1cc77bd55f8ded729f2",
+  "arena/orbit_camera.gd": "1a6941f8cbd7a3b3468cf4fb7b5eca591f0c7c10ca4a7cee88c8c5589f98bed7",
+  "arena/orbit_camera.gd.uid": "6223c9106b0cb05aa1b3fb956928274a0d9e107d0ed3324480749cffa2276514",
+  "arena/verify_camera.gd": "8ebe0908133bd58088b9930809b3efaaacf03e932d8b4426c5d7b87afcffcea4",
+  "arena/verify_camera.gd.uid": "3dc1033e81411d17877cf0e0801ff406b9bff9ff3dac49660485ba93519086d2"
 }

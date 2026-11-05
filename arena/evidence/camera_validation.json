@@ -1,0 +1,48 @@
+{
+	"checks": {
+		"actual_box_occlusion_shortens_same_ray": true,
+		"actual_drag_changes_yaw": true,
+		"actual_pitch_high_limit": true,
+		"actual_pitch_low_limit": true,
+		"actual_wheel_max_limit": true,
+		"actual_wheel_min_limit": true,
+		"camera_cycle_resets_orbit_defaults": true,
+		"cardinal_0_unfolded": true,
+		"cardinal_1_unfolded": true,
+		"cardinal_2_unfolded": true,
+		"cardinal_3_unfolded": true,
+		"full_circle_returns_same_yaw": true,
+		"gui_slider_does_not_orbit_or_zoom": true,
+		"repair_resets_orbit_defaults": true,
+		"ring_occlusion_shortens_same_ray": true,
+		"same_z_but_clear_box_ray_not_folded": true
+	},
+	"passed": true,
+	"poses": [
+		{
+			"camera": "(-4.885018, 4.323183, 0.0)",
+			"distance_m": 8.0,
+			"orbit": -1.0,
+			"relative_to_car_deg": 0
+		},
+		{
+			"camera": "(-12.4, 4.323183, 7.514982)",
+			"distance_m": 8.0,
+			"orbit": 0.57079638671875,
+			"relative_to_car_deg": 90
+		},
+		{
+			"camera": "(-19.91498, 4.323183, -0.000001)",
+			"distance_m": 8.0,
+			"orbit": 2.1415927734375,
+			"relative_to_car_deg": 180
+		},
+		{
+			"camera": "(-12.4, 4.323183, -7.514982)",
+			"distance_m": 8.0,
+			"orbit": -2.57079614702334,
+			"relative_to_car_deg": 270
+		}
+	],
+	"scope": "Native-rendered scene; InputEventMouseButton/MouseMotion traverse viewport GUI/input routing. Atlas rows: 0/90deg,180/270deg,min/max zoom. No car physics retuned."
+}

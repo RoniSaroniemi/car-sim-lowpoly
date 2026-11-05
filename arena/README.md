@@ -14,7 +14,7 @@ python3 tools/demo.py arena
 
 Use **Open colosseum arena** in the test yard and **Open test yard** in the arena to switch scenes. Switching starts a fresh car.
 
-The window is titled **Niva / Colosseum sand arena**. W accelerates, S brakes, A/D steer, Space is the handbrake, Q toggles reverse and R repairs/resets. C cycles chase, orbit and overview cameras; drag to orbit. Escape exits. B switches baked/live collision handling. H/Y stage 60/120 km/h wall approaches; U/I stage the ±20° cases. The engine-power and tyre-friction sliders change shared driving parameters and persist through repair/staging. The 480/960/1,920 Hz selector changes live precision. Roof/side fixtures, the wheel-mount test, textured/structure views and the three-impact conditioned sequence are available in the same scrolling controls. The obstacle buttons stage a repaired car on each approach; 1–5 select the same approaches. The three paired-ramp buttons select either lane or the shared seam. F3 exposes optional performance counters.
+The window is titled **Niva / Colosseum sand arena**. W accelerates, S brakes, A/D steer, Space is the handbrake, Q toggles reverse and R repairs/resets. C cycles chase, orbit and overview cameras; drag outside the controls to orbit horizontally and tilt vertically; use the mouse wheel to zoom (2.8–24 m). Orbit is continuous through 360°, pitch is limited to 5–80°, and C/repair resets the orbit distance and tilt predictably. Escape exits. B switches baked/live collision handling. H/Y stage 60/120 km/h wall approaches; U/I stage the ±20° cases. The engine-power and tyre-friction sliders change shared driving parameters and persist through repair/staging. The 480/960/1,920 Hz selector changes live precision. Roof/side fixtures, the wheel-mount test, textured/structure views and the three-impact conditioned sequence are available in the same scrolling controls. The obstacle buttons stage a repaired car on each approach; 1–5 select the same approaches. The three paired-ramp buttons select either lane or the shared seam. F3 exposes optional performance counters.
 
 There are smooth sand, concrete and timber jumps, a curved halfpipe fixture, and adjacent **42° / 24°** ramps. The pair has a common rounded toe, 3.8 m crest height and a continuous 1.24 m blended median, so wheels can straddle different profiles without an artificial collision curb. The stated angles are the straight portions; toe and crest transitions are rounded. Use moderate throttle on the approach. The straddling case deliberately produces strong roll; it does not alter the car to keep it upright.
 
@@ -97,3 +97,16 @@ The standard 35 environment checks still pass with the provider. On a clear rout
 
 
 The optional-contact interface was compared against unmodified `2ad1656` modules: positions, velocities, permanent link lengths and plastic work matched exactly at every sampled integration step for null-provider live 60/120 frontal cases and compact driving. `evidence/static_contact_compatibility.json` records this diagnostic. It does **not** waive historical source fingerprints. The full shared suite passed structural, wheels, mounts, driving, adaptive, ramps and retention, then stopped at baked input-provenance checks because the shared query hook changes physical source hashes. Independent driving-bakes, glass/interior, conditioned sequences and quality smoke tests pass; roof-bank and damage-surface provenance checks report the same expected hash mismatch. Existing recorded files have not been relabelled or regenerated. The main integration owner coordinates the final reviewed compatibility policy or regeneration together with production panel integration; the entire full suite must be rerun after that reconciliation.
+
+
+## Camera regression
+
+`orbit_camera.gd` replaces the previous wall-side X reflection. A finite padded box slab test and a bounded signed-distance trace against the actual finite ring shorten only the intended target-to-camera ray when it is occluded; they never reflect its direction or limit yaw. The radius-limited car contacts and crash selection are unchanged. This small camera adapter does not add general scenery/terrain camera collision.
+
+Run the native event-driven camera check with:
+
+```sh
+/Applications/Godot.app/Contents/MacOS/Godot --path . --script res://arena/verify_camera.gd
+```
+
+`evidence/camera_validation.json` records 16 passing checks: actual viewport mouse routing through a full turn, four cardinal views relative to the car, wheel zoom limits, pitch limits, C/repair defaults, HUD slider isolation and actual finite box/ring occlusion preserving the intended ray. `evidence/camera_orbit.png` is a visually inspected atlas of actual rendered frames: front/right/rear/left, then near/far zoom. The existing capture-only camera presets remain available.
