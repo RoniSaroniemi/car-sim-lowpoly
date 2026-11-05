@@ -23,7 +23,8 @@ func setup(controller: RefCounted,skin_view: Node3D,model_root: Node3D) -> void:
     var local: Vector3=p-origin
     uv.append(Vector2((local.dot(u)-float(raw.uv_bounds[0]))/float(raw.width_m),(local.dot(v)-float(raw.uv_bounds[2]))/float(raw.height_m)))
    arrays[Mesh.ARRAY_TEX_UV]=uv
-   mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS)
+   var flags: int=Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS if arrays[Mesh.ARRAY_BONES]!=null and arrays[Mesh.ARRAY_BONES].size()==positions.size()*8 else 0
+   mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},flags)
   node.mesh=mesh;node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
   var material:=ShaderMaterial.new();material.shader=GLASS_SHADER
   var image:=Image.create(40,13,false,Image.FORMAT_R8);image.fill(Color.WHITE)
@@ -68,7 +69,7 @@ func update_visual() -> void:
    var transform: Transform3D=controller._frame(pane,frames)
    var offsets:=PackedVector3Array()
    for i in pane.nodes_local.size():
-    var base: Vector3=Attachment.mapped(graph,pane.node_rest[i],pane.node_bind[i],frames)
+    var base: Vector3=controller._map_node(pane,i,frames)
     # GLES3 skinning precedes the user vertex shader: VERTEX is already in
     # graph/model space. Applying an inverse bone rotation here detached panes.
     offsets.append(transform*pane.nodes_local[i]-base)

@@ -233,6 +233,7 @@ func _hud() -> void:
   vehicle.set_engine_power_kw(value)
   power_label.text='Engine power: %.0f kW'%value)
  var tuning_note:=Label.new();tuning_note.text='Tuning affects live driving. Crash bakes keep their recorded motion.';tuning_note.add_theme_font_size_override('font_size',11);column.add_child(tuning_note)
+ var panel_controls:=VBoxContainer.new();panel_controls.set_script(load('res://scripts/panel_controls.gd'));column.add_child(panel_controls);panel_controls.setup(vehicle)
 
 
 func _baked_toggled(value: bool) -> void:

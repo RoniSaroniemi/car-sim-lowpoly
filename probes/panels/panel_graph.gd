@@ -1,6 +1,5 @@
 extends 'res://scripts/structure_solver.gd'
 const Panels=preload('res://probes/panels/panel_system.gd')
-var panels: RefCounted
 var release_step_us: Array=[]
 var structural_panel_wake:=false
 var structural_wake_count:=0

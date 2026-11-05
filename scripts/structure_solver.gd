@@ -1,6 +1,11 @@
 extends RefCounted
 ## Small mass-bearing XPBD graph. Plastic rest lengths persist after unloading.
 
+const VehiclePanels=preload('res://scripts/vehicle_panels.gd')
+var panels: RefCounted
+var panels_runtime_enabled:=false
+var rest_masses:=PackedFloat32Array()
+var body_mass_kg:=0.0
 const WheelPhysics=preload('res://scripts/wheel_physics.gd')
 
 class Edge:
@@ -76,6 +81,7 @@ func setup(definition_path: String='res://structure.json') -> void:
   masses.append(n.mass_kg)
   inverse_masses.append(1.0/float(n.mass_kg))
   radii.append(n.radius_m)
+ rest_masses=masses.duplicate();body_mass_kg=float(config.mass_kg)
  wheels=WheelPhysics.new()
  wheels.setup(self)
  for raw in config.links:
@@ -139,6 +145,7 @@ func request_full_solve(reason: String,hold_seconds: float=0) -> void:
  wake_hold_seconds=maxf(wake_hold_seconds,hold_seconds)
 
 func reset(speed_kmh: float,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -> void:
+ masses=rest_masses.duplicate();refresh_mass_cache()
  points=rest.duplicate()
  velocities.resize(rest.size())
  old_points.resize(rest.size())
@@ -167,6 +174,7 @@ func reset(speed_kmh: float,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -
  impact_time=-1
  simulated_time=0
  wheels.reset(speed_kmh/3.6)
+ if panels!=null and panels_runtime_enabled:panels.reset()
  if effects!=null:effects.reset()
  initial_energy=kinetic_energy()
  maximum_energy=initial_energy
@@ -176,6 +184,7 @@ func reset(speed_kmh: float,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -
 
 func step(dt: float) -> void:
  var began: int=Time.get_ticks_usec()
+ if panels!=null and panels_runtime_enabled:panels.prepare_step(dt)
  simulated_time+=dt
  last_impulse=0
  wheels.predict(dt)
@@ -219,6 +228,8 @@ func step(dt: float) -> void:
  wheels.finish_step(dt)
  _damping(dt)
  _break_links(dt)
+ if panels!=null and panels_runtime_enabled:
+  panels.finish_step();panels.wake_distorted_mounts();panels.synchronize_inactive()
  wall_impulse+=last_impulse
  maximum_energy=maxf(maximum_energy,kinetic_energy())
  step_count+=1
@@ -298,6 +309,7 @@ func mark_impact(i: int) -> void:
  node_contact[i]=maxf(node_contact[i],clampf(velocities[i].length()/24.0,0,1))
 
 func _contacts() -> void:
+ if panels!=null and panels_runtime_enabled:panels.solve()
  for i in points.size():
   if config.nodes[i].group=='wheel':continue
   var p: Vector3=points[i]
@@ -357,13 +369,13 @@ func kinetic_energy() -> float:
  var total:=0.0
  for i in velocities.size():
   total+=0.5*masses[i]*velocities[i].length_squared()
- return total+wheels.kinetic_energy()
+ return total+wheels.kinetic_energy()+(panels.kinetic_energy() if panels!=null and panels_runtime_enabled else 0.0)
 
 func center_of_mass() -> Vector3:
  var centre:=Vector3.ZERO
  for i in points.size():
   centre+=points[i]*masses[i]
- return centre/float(config.mass_kg)
+ return centre/maxf(.001,body_mass_kg if panels_runtime_enabled else float(config.mass_kg))
 
 func station_center(s: int) -> Vector3:
  return (points[s*4]+points[s*4+1]+points[s*4+2]+points[s*4+3])*0.25
@@ -392,12 +404,16 @@ func capture() -> Dictionary:
   damage.append(l.damage)
   broken.append(1 if l.broken else 0)
  var state: Dictionary={'wheels':wheels.capture(),'broken':broken,'velocities':velocities.duplicate(),'points':points.duplicate(),'damage':node_damage.duplicate(),'contact':node_contact.duplicate(),'lengths':lengths,'link_damage':damage,'time':simulated_time,'plastic_work':plastic_work}
+ if panels!=null and panels_runtime_enabled:state['panels_schema']=1;state['panels']=panels.capture();state['mass_nodes']=masses.duplicate()
  if effects!=null:state['effects']=effects.capture()
  return state
 
 func restore(frame: Dictionary,restore_effects: bool=true) -> void:
  points=frame.points.duplicate()
  velocities=frame.velocities.duplicate()
+ if panels!=null and panels_runtime_enabled and frame.has('panels'):
+  panels.restore(frame.panels);reconcile_panel_masses()
+ elif panels!=null and panels_runtime_enabled:panels.synchronize_inactive()
  wheels.restore(frame.wheels)
  node_damage=frame.damage.duplicate()
  node_contact=frame.contact.duplicate()
@@ -432,3 +448,22 @@ func _symmetric_pair(a: int,b: int) -> void:
  var z: float=(absf(points[a].z)+absf(points[b].z))*0.5
  points[a]=Vector3(x,y,-z)
  points[b]=Vector3(x,y,z)
+
+func configure_panels(settings: Dictionary={}) -> void:
+ panels_runtime_enabled=true;panels=VehiclePanels.new();panels.setup(self,settings)
+func refresh_mass_cache() -> void:
+ body_mass_kg=0
+ for i in masses.size():
+  body_mass_kg+=masses[i];inverse_masses[i]=1/masses[i]
+ for link in links:
+  link.weight_sum=inverse_masses[link.a]+inverse_masses[link.b]
+  link.damping_fraction=1-exp(-link.damping_ns_per_m*link.weight_sum*float(config.fixed_step_s))
+func reconcile_panel_masses() -> void:
+ masses=rest_masses.duplicate()
+ if panels!=null and panels_runtime_enabled:
+  for p in panels.panels:
+   if p.active:
+    for node in p.reservation:masses[node]-=float(p.reservation[node])
+ refresh_mass_cache()
+func owned_mass_kg() -> float:
+ return panels.total_mass() if panels!=null and panels_runtime_enabled else body_mass_kg

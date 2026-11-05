@@ -83,6 +83,7 @@ func _basic_eligibility() -> bool:
  return true
 
 func _is_pristine() -> bool:
+ if solver.panels_runtime_enabled and solver.panels.panels.any(func(p):return p.active or p.plastic_work>.01 or p.anchors.any(func(a):return a.broken)):return false
  if baked_count>0 or solver.links.any(func(link):return link.broken or link.damage>.03):return false
  for pane in solver.effects.glass.panes.values():
   if pane.stage>0:return false
@@ -114,7 +115,11 @@ func stage_next_supported() -> bool:
 func _choose_speed_bin(signature: Dictionary) -> Dictionary:
  if signature.is_empty():return {'accepted':false}
  if not _is_pristine():
-  var transition: Dictionary=States.choose(solver,signature,conditioned_library)
+  var pool: Array=[];var indices: Array=[]
+  for i in conditioned_library.size():
+   if CrashClip.input_compatibility(conditioned_library[i]).compatible:pool.append(conditioned_library[i]);indices.append(i)
+  var transition: Dictionary=States.choose(solver,signature,pool)
+  if transition.accepted:transition.index=indices[int(transition.index)]
   if transition.accepted:transition['library_kind']='conditioned'
   return transition
  var speed: float=float(signature.closing_speed_mps)*3.6
@@ -124,6 +129,7 @@ func _choose_speed_bin(signature: Dictionary) -> Dictionary:
  if (motion-normal*motion.dot(normal)).length()>maxf(4.0,float(signature.closing_speed_mps)*.65):return {'accepted':false}
  var nearest_speed:=0.0;var distance:=INF
  for clip in bake_library:
+  if not CrashClip.input_compatibility(clip).compatible:continue
   var difference: float=absf(float(clip.metadata.speed_kmh)-speed)
   if difference<distance:distance=difference;nearest_speed=float(clip.metadata.speed_kmh)
  # The demo has discrete severity bins. Select speed first, then compare zones
@@ -132,7 +138,7 @@ func _choose_speed_bin(signature: Dictionary) -> Dictionary:
  normalized.incident_impulse_proxy_ns*=nearest_speed/speed
  var subset: Array=[];var indices: Array=[]
  for i in bake_library.size():
-  if float(bake_library[i].metadata.speed_kmh)==nearest_speed:
+  if float(bake_library[i].metadata.speed_kmh)==nearest_speed and CrashClip.input_compatibility(bake_library[i]).compatible:
    subset.append(bake_library[i]);indices.append(i)
  var result: Dictionary=impact_grid.choose(normalized,subset)
  if result.accepted:
@@ -215,6 +221,7 @@ func _advance_lightweight(h: float) -> void:
  var began: int=Time.get_ticks_usec()
  if mode=='SLEEP' and absf(dynamics.throttle)+absf(dynamics.steering)<.001 and solver.wake_requested=='' and sleeping_box_min==solver.barrier_min and sleeping_box_max==solver.barrier_max:
   solver.simulated_time+=h;sleep_steps+=1;sleep_seconds+=h
+  step_reduced_panels(h)
   solver.effects.step_debris(h)
   sleep_cpu_us+=Time.get_ticks_usec()-began
   return
@@ -227,6 +234,7 @@ func _advance_lightweight(h: float) -> void:
  dynamics.step(h)
  compact.step(h)
  _rigid_body_contacts(h)
+ step_reduced_panels(h)
  solver.effects.step_debris(h)
  drive_steps+=1;drive_seconds+=h
  _try_sleep_drive(h)
@@ -268,6 +276,7 @@ func _advance_bake(dt: float) -> void:
  if crash_player.state=='COMPLETE':_finish_bake()
 
 func _finish_bake() -> void:
+ prepare_lightweight_panels()
  bake_end_full_steps=solver.step_count
  last_bake['solver_steps_during_replay']=bake_end_full_steps-bake_start_full_steps
  last_bake['completed']=true
