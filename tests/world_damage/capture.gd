@@ -13,6 +13,7 @@ func shot(label_: String) -> void:
  root.get_texture().get_image().save_png('res://docs/images/world_damage_'+label_+'.png')
  evidence.append({'label':label_,'impacts':scene.car.baked_count,'history':scene.car.impact_history,'full_steps':scene.car.full_steps,'body_steps':scene.car.solver.step_count,'cage_steps':scene.car.solver.panels.active_steps,'membrane_steps':scene.car.solver.effects.glass.membrane_solve_steps,'cloth_steps':scene.car.solver.effects.interior.cloth_steps})
 func _run() -> void:
+ DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path('res://verification/world_damage'))
  scene=load('res://arena/colosseum.tscn').instantiate();root.add_child(scene);scene.set_process(false);scene.set_physics_process(false)
  var car: RefCounted=scene.car;car.reset(60,Vector3(69,0,0));car.solver.barrier_enabled=false
  for tick in 150:

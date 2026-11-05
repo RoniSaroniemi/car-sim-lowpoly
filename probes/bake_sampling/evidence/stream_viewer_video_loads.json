@@ -1,0 +1,27 @@
+[
+	{
+		"block": 0,
+		"load_and_setup_ms": 2.367,
+		"resident_key_count": 44
+	},
+	{
+		"block": 1,
+		"load_and_setup_ms": 1.946,
+		"resident_key_count": 29
+	},
+	{
+		"block": 2,
+		"load_and_setup_ms": 1.065,
+		"resident_key_count": 19
+	},
+	{
+		"block": 3,
+		"load_and_setup_ms": 1.886,
+		"resident_key_count": 18
+	},
+	{
+		"block": 4,
+		"load_and_setup_ms": 1.574,
+		"resident_key_count": 9
+	}
+]

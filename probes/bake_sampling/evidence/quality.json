@@ -1,0 +1,213 @@
+{
+	"build_ms": 325.327,
+	"builder_sha256": "12f89483b29745258d14c7cac1ff2b8f12abbce952b6957173f7d926cd536837",
+	"checks": {
+		"adaptive_body_under11mm": true,
+		"adaptive_fewer_keys": true,
+		"adaptive_panels_under16mm": true,
+		"adaptive_smaller_than_source": true,
+		"all_discrete_states_exact": true,
+		"reference_body_exact": true,
+		"source_immutable": true
+	},
+	"codec_sha256": "5913e84e950eeb2187683f6ca141fd2d73ab1cdecb69342a2ce5f9d3513ac541",
+	"continuous_channels": 205,
+	"event_paths": 214,
+	"events": 6944,
+	"original_immutable": true,
+	"passed": true,
+	"scope": "One clip only. Packed Float32 continuous channels, unchanged template fields once, exact120Hz discrete changes; no production format changes.",
+	"source_id": "frontal_120",
+	"source_sha256": "d1727d67c0ba9caba1e15353e14e37e38bdce248886c946bb8c3c7fba1591883",
+	"variants": [
+		{
+			"body_max_error_m": 0.0,
+			"body_rms_error_m": 0.0,
+			"compressed_bytes": 2741896,
+			"discrete_states_exact_at120hz": true,
+			"hz": 120,
+			"key_count": 301,
+			"keys_per_halfsecond": [
+				60,
+				60,
+				60,
+				60,
+				61
+			],
+			"label": "120",
+			"metal_node_max_error_m": 0.0,
+			"panel_max_error_m": 0.0,
+			"sample_and_metric_ms": 266.34,
+			"serialized_bytes": 3690668,
+			"spin_max_error_deg": 0.0000539648822589452,
+			"stream_header_bytes": 16898,
+			"stream_packets": [
+				{
+					"bytes": 558400,
+					"path": "res://verification/bake_sampling/packet_120_0.track"
+				},
+				{
+					"bytes": 556043,
+					"path": "res://verification/bake_sampling/packet_120_1.track"
+				},
+				{
+					"bytes": 552657,
+					"path": "res://verification/bake_sampling/packet_120_2.track"
+				},
+				{
+					"bytes": 553057,
+					"path": "res://verification/bake_sampling/packet_120_3.track"
+				},
+				{
+					"bytes": 551755,
+					"path": "res://verification/bake_sampling/packet_120_4.track"
+				}
+			],
+			"wheel_center_max_error_m": 0.0,
+			"wheel_orientation_max_error_deg": 0.0395646811852521,
+			"worst_frame": -1
+		},
+		{
+			"body_max_error_m": 0.275098919868469,
+			"body_rms_error_m": 0.0129486278451817,
+			"compressed_bytes": 744459,
+			"discrete_states_exact_at120hz": true,
+			"hz": 30,
+			"key_count": 76,
+			"keys_per_halfsecond": [
+				15,
+				15,
+				15,
+				15,
+				16
+			],
+			"label": "30",
+			"metal_node_max_error_m": 0.275098919868469,
+			"panel_max_error_m": 0.163793995976448,
+			"sample_and_metric_ms": 271.901,
+			"serialized_bytes": 1117568,
+			"spin_max_error_deg": 36.6281964149308,
+			"stream_header_bytes": 16898,
+			"stream_packets": [
+				{
+					"bytes": 156785,
+					"path": "res://verification/bake_sampling/packet_30_0.track"
+				},
+				{
+					"bytes": 154785,
+					"path": "res://verification/bake_sampling/packet_30_1.track"
+				},
+				{
+					"bytes": 153972,
+					"path": "res://verification/bake_sampling/packet_30_2.track"
+				},
+				{
+					"bytes": 154118,
+					"path": "res://verification/bake_sampling/packet_30_3.track"
+				},
+				{
+					"bytes": 153761,
+					"path": "res://verification/bake_sampling/packet_30_4.track"
+				}
+			],
+			"wheel_center_max_error_m": 0.187816813588142,
+			"wheel_orientation_max_error_deg": 3.80127561511301,
+			"worst_frame": 2
+		},
+		{
+			"body_max_error_m": 0.435950338840485,
+			"body_rms_error_m": 0.0342517567968375,
+			"compressed_bytes": 416153,
+			"discrete_states_exact_at120hz": true,
+			"hz": 15,
+			"key_count": 39,
+			"keys_per_halfsecond": [
+				8,
+				7,
+				8,
+				7,
+				9
+			],
+			"label": "15",
+			"metal_node_max_error_m": 0.435950338840485,
+			"panel_max_error_m": 0.343009859323502,
+			"sample_and_metric_ms": 266.798,
+			"serialized_bytes": 694436,
+			"spin_max_error_deg": 50.3572416348902,
+			"stream_header_bytes": 16898,
+			"stream_packets": [
+				{
+					"bytes": 94315,
+					"path": "res://verification/bake_sampling/packet_15_0.track"
+				},
+				{
+					"bytes": 92627,
+					"path": "res://verification/bake_sampling/packet_15_1.track"
+				},
+				{
+					"bytes": 92105,
+					"path": "res://verification/bake_sampling/packet_15_2.track"
+				},
+				{
+					"bytes": 92176,
+					"path": "res://verification/bake_sampling/packet_15_3.track"
+				},
+				{
+					"bytes": 91836,
+					"path": "res://verification/bake_sampling/packet_15_4.track"
+				}
+			],
+			"wheel_center_max_error_m": 0.281712263822556,
+			"wheel_orientation_max_error_deg": 3.23785181637478,
+			"worst_frame": 3
+		},
+		{
+			"body_max_error_m": 0.00982662197202444,
+			"body_rms_error_m": 0.00132958478659664,
+			"compressed_bytes": 1065728,
+			"discrete_states_exact_at120hz": true,
+			"hz": 0,
+			"key_count": 112,
+			"keys_per_halfsecond": [
+				43,
+				28,
+				17,
+				16,
+				8
+			],
+			"label": "adaptive",
+			"metal_node_max_error_m": 0.00913064647465944,
+			"panel_max_error_m": 0.0148916961625218,
+			"sample_and_metric_ms": 266.707,
+			"serialized_bytes": 1529264,
+			"spin_max_error_deg": 1.54650432711926,
+			"stream_header_bytes": 16897,
+			"stream_packets": [
+				{
+					"bytes": 405612,
+					"path": "res://verification/bake_sampling/packet_adaptive_0.track"
+				},
+				{
+					"bytes": 270787,
+					"path": "res://verification/bake_sampling/packet_adaptive_1.track"
+				},
+				{
+					"bytes": 180900,
+					"path": "res://verification/bake_sampling/packet_adaptive_2.track"
+				},
+				{
+					"bytes": 171844,
+					"path": "res://verification/bake_sampling/packet_adaptive_3.track"
+				},
+				{
+					"bytes": 91871,
+					"path": "res://verification/bake_sampling/packet_adaptive_4.track"
+				}
+			],
+			"wheel_center_max_error_m": 0.00982662197202444,
+			"wheel_orientation_max_error_deg": 0.176938705151612,
+			"worst_frame": 261
+		}
+	],
+	"width_floats": 2855
+}

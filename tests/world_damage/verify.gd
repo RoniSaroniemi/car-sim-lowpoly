@@ -119,6 +119,7 @@ func _wheel_masking() -> void:
  checks.tire_contact_alone_not_roof_damage=c.roof_landing_sensor.event(c,.001,c.roof_landing_library).is_empty() and not c.roof_landing_sensor.latched
  checks.earlier_tire_does_not_hide_roof=c.roof_landing_sensor.event(c,.05,c.roof_landing_library).get('selection',{}).get('accepted',false)
 func _run() -> void:
+ DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path('res://verification/world_damage'))
  _ring();_ramps();_stack();_during();_rejection();_wheel_masking()
  var passed: bool=checks.values().all(func(v):return v)
  FileAccess.open('res://verification/world_damage/validation.json',FileAccess.WRITE).store_string(JSON.stringify({'passed':passed,'checks':checks,'runs':runs,'scope':'Approximate incremental local baked shapes; same physical root/wheels. Authored exact wall and conditioned path remains available; arbitrary histories use approximate additive deformation.'},'\t'))

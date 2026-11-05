@@ -1,0 +1,70 @@
+{
+	"backward_seek_exact": true,
+	"passed": true,
+	"runs": [
+		{
+			"body_difference_m": 0.0,
+			"compared_samples": 305,
+			"discrete_exact": true,
+			"independent_blocks": 5,
+			"tag": "120"
+		},
+		{
+			"body_difference_m": 0.0,
+			"compared_samples": 305,
+			"discrete_exact": true,
+			"independent_blocks": 5,
+			"tag": "30"
+		},
+		{
+			"body_difference_m": 0.0,
+			"compared_samples": 305,
+			"discrete_exact": true,
+			"independent_blocks": 5,
+			"tag": "15"
+		},
+		{
+			"body_difference_m": 0.0,
+			"compared_samples": 305,
+			"discrete_exact": true,
+			"independent_blocks": 5,
+			"tag": "adaptive"
+		}
+	],
+	"scope": "One source clip, half-second independent packet decoding vs same monolithic variant; includes boundary lookahead and exact120Hz event state. Not a network test.",
+	"source_immutable": true,
+	"streaming_body_error_m": 0.0,
+	"streaming_events_exact": true,
+	"streaming_loads": [
+		{
+			"block": 0,
+			"load_and_setup_ms": 1.247,
+			"resident_key_count": 44
+		},
+		{
+			"block": 1,
+			"load_and_setup_ms": 1.203,
+			"resident_key_count": 29
+		},
+		{
+			"block": 2,
+			"load_and_setup_ms": 1.047,
+			"resident_key_count": 19
+		},
+		{
+			"block": 3,
+			"load_and_setup_ms": 0.987,
+			"resident_key_count": 18
+		},
+		{
+			"block": 4,
+			"load_and_setup_ms": 0.857,
+			"resident_key_count": 9
+		},
+		{
+			"block": 0,
+			"load_and_setup_ms": 1.442,
+			"resident_key_count": 44
+		}
+	]
+}

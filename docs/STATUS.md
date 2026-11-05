@@ -50,6 +50,14 @@ sandbox matching. Some historical upper-angle cases fail energy-quality checks;
 a successful source/replay audit is not physical calibration. Whole-body splitting
 and arbitrary metal tearing remain deferred reference work.
 
+## Sampling/streaming experiment
+
+A separate [one-clip prototype](BAKE_SAMPLING_PROBE.md) compares uniform30/15 Hz
+and adaptive keys. Adaptive packing measured5.22 →1.07 MB, with112 of301 poses,
+body-point error below1 cm and exact reference discrete-event timing. Independent
+half-second blocks support a local streaming example. This has not replaced the
+main bank or normal playback; production storage optimization remains open.
+
 ## Multi-car examples
 
 ```sh

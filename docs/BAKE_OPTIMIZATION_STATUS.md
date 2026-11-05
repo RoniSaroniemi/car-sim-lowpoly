@@ -30,6 +30,15 @@ quantization, event-separated storage, keyframe reduction or measured decoded
 RAM budget yet. Startup/loading is excluded from the historical playback-only
 CPU benchmarks. Do not use those timings as a whole-game FPS claim.
 
+## Measured prototype, separate from shipping playback
+
+The [single-clip sampling/packing/streaming experiment](BAKE_SAMPLING_PROBE.md)
+now demonstrates about80% compressed size reduction and96% held-data heap
+reduction with adaptive keys, compact channels and exact sparse events. It has
+native visual comparisons and independent half-second packets. These are one-
+clip measurements, not bank-wide savings. The main format and runtime have not
+adopted those changes. Tests across the remaining cases are still needed.
+
 ## Next optimization experiments
 
 1. Measure disk, decoded/peak RAM, cold/warm loading, allocations and playback

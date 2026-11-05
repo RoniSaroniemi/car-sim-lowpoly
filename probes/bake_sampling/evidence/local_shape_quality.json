@@ -1,0 +1,33 @@
+{
+	"runs": [
+		{
+			"label": "120",
+			"local_body_max_error_m": 0.0,
+			"local_body_rms_error_m": 0.0,
+			"removed_frame_orientation_max_deg": 0.0559529096807445,
+			"removed_frame_translation_max_m": 0.0
+		},
+		{
+			"label": "30",
+			"local_body_max_error_m": 0.213863909244537,
+			"local_body_rms_error_m": 0.0117268899899641,
+			"removed_frame_orientation_max_deg": 1.81531465755788,
+			"removed_frame_translation_max_m": 0.0860193595290184
+		},
+		{
+			"label": "15",
+			"local_body_max_error_m": 0.308371812105179,
+			"local_body_rms_error_m": 0.0240671769460943,
+			"removed_frame_orientation_max_deg": 4.69419094106383,
+			"removed_frame_translation_max_m": 0.235105007886887
+		},
+		{
+			"label": "adaptive",
+			"local_body_max_error_m": 0.00904277339577675,
+			"local_body_rms_error_m": 0.000940138197367022,
+			"removed_frame_orientation_max_deg": 0.234067968174545,
+			"removed_frame_translation_max_m": 0.00327307288534939
+		}
+	],
+	"scope": "Body nodes excluding wheels, each pose expressed in the production incremental-player lower-chassis frame. Separates pose/root approximation from local shape error."
+}

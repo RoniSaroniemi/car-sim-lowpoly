@@ -1,0 +1,32 @@
+{
+  "generated_utc": "2026-11-05T22:04:04.756302+00:00",
+  "source_commit": "3cf551bdcc907c9c7a795652037fe865af91ffde",
+  "source_clip": "bakes/frontal_120.crashclip",
+  "source_sha256": "d1727d67c0ba9caba1e15353e14e37e38bdce248886c946bb8c3c7fba1591883",
+  "one_clip_only": true,
+  "authoring_hz": 1920,
+  "source_sample_hz": 120,
+  "source_key_count": 301,
+  "duration_s": 2.5,
+  "adaptive_key_count": 112,
+  "keys_per_halfsecond": [
+    43,
+    28,
+    17,
+    16,
+    8
+  ],
+  "snapshot_key_reduction_pct": 62.98134238446891,
+  "packed_adaptive_disk_reduction_pct": 79.5703816080373,
+  "packed_adaptive_heap_reduction_pct": 96.03554178348551,
+  "quality_passed": true,
+  "packets_passed": true,
+  "production_format_changed": false,
+  "network_transport_tested": false,
+  "scopes": [
+    "Heap means Godot tracked static allocations for held decoded data, not OS RSS or total game RAM.",
+    "Three fresh processes per load case; OS caches not evicted, so load times are not cold disk or network measurements.",
+    "Adaptive tolerances are measured control-point errors against the saved120Hz reference, not a mesh-vertex or new physical-simulation guarantee.",
+    "Sparse flags and failure timestamps retain the original120Hz reference semantics. Other continuous floating state is stored asFloat32."
+  ]
+}

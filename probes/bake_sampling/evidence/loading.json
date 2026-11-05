@@ -1,0 +1,658 @@
+{
+  "scope": "3 fresh Godot processes pervariant; OS file cache not evicted, so this is not a cold physical disk test. Load/decode excludes process startup and rendering. Heap is Godot static allocations, not OS RSS or a proven allocation high water mark. First-packet rows load metadata plus only the first0.5s block.",
+  "rows": [
+    {
+      "name": "source_120",
+      "paths": [
+        "res://bakes/frontal_120.crashclip"
+      ],
+      "disk_bytes": 5216583,
+      "median_load_decode_ms": 40.714,
+      "median_engine_heap_bytes": 59305859,
+      "median_observed_heap_peak_bytes": 59372414,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 5216583,
+          "engine_static_heap_delta_bytes": 59305859,
+          "engine_static_heap_observed_peak_delta_bytes": 59372414,
+          "heap_counter_available": true,
+          "load_decode_ms": 41.52,
+          "paths": [
+            "res://bakes/frontal_120.crashclip"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 255.68641698919237
+        },
+        {
+          "disk_bytes": 5216583,
+          "engine_static_heap_delta_bytes": 59305859,
+          "engine_static_heap_observed_peak_delta_bytes": 59372414,
+          "heap_counter_available": true,
+          "load_decode_ms": 40.671,
+          "paths": [
+            "res://bakes/frontal_120.crashclip"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 249.60541701875627
+        },
+        {
+          "disk_bytes": 5216583,
+          "engine_static_heap_delta_bytes": 59305859,
+          "engine_static_heap_observed_peak_delta_bytes": 59372414,
+          "heap_counter_available": true,
+          "load_decode_ms": 40.714,
+          "paths": [
+            "res://bakes/frontal_120.crashclip"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 244.78687508963048
+        }
+      ]
+    },
+    {
+      "name": "snapshots_120",
+      "paths": [
+        "res://verification/bake_sampling/snapshots_120.track"
+      ],
+      "disk_bytes": 5218013,
+      "median_load_decode_ms": 43.084,
+      "median_engine_heap_bytes": 59313635,
+      "median_observed_heap_peak_bytes": 59380264,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 5218013,
+          "engine_static_heap_delta_bytes": 59313635,
+          "engine_static_heap_observed_peak_delta_bytes": 59380264,
+          "heap_counter_available": true,
+          "load_decode_ms": 43.084,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_120.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 247.38266691565514
+        },
+        {
+          "disk_bytes": 5218013,
+          "engine_static_heap_delta_bytes": 59313635,
+          "engine_static_heap_observed_peak_delta_bytes": 59380264,
+          "heap_counter_available": true,
+          "load_decode_ms": 42.412,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_120.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 241.5894998703152
+        },
+        {
+          "disk_bytes": 5218013,
+          "engine_static_heap_delta_bytes": 59313635,
+          "engine_static_heap_observed_peak_delta_bytes": 59380264,
+          "heap_counter_available": true,
+          "load_decode_ms": 44.145,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_120.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 241.44420796073973
+        }
+      ]
+    },
+    {
+      "name": "packed_120",
+      "paths": [
+        "res://verification/bake_sampling/packed_120.track"
+      ],
+      "disk_bytes": 2741896,
+      "median_load_decode_ms": 6.267,
+      "median_engine_heap_bytes": 4528520,
+      "median_observed_heap_peak_bytes": 4555077,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 2741896,
+          "engine_static_heap_delta_bytes": 4528520,
+          "engine_static_heap_observed_peak_delta_bytes": 4555077,
+          "heap_counter_available": true,
+          "load_decode_ms": 5.861,
+          "paths": [
+            "res://verification/bake_sampling/packed_120.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 243.3885419741273
+        },
+        {
+          "disk_bytes": 2741896,
+          "engine_static_heap_delta_bytes": 4528520,
+          "engine_static_heap_observed_peak_delta_bytes": 4555077,
+          "heap_counter_available": true,
+          "load_decode_ms": 6.267,
+          "paths": [
+            "res://verification/bake_sampling/packed_120.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 258.83141602389514
+        },
+        {
+          "disk_bytes": 2741896,
+          "engine_static_heap_delta_bytes": 4528520,
+          "engine_static_heap_observed_peak_delta_bytes": 4555077,
+          "heap_counter_available": true,
+          "load_decode_ms": 6.276,
+          "paths": [
+            "res://verification/bake_sampling/packed_120.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 244.2572908475995
+        }
+      ]
+    },
+    {
+      "name": "first_packet_120",
+      "paths": [
+        "res://verification/bake_sampling/header_120.track",
+        "res://verification/bake_sampling/packet_120_0.track"
+      ],
+      "disk_bytes": 575298,
+      "median_load_decode_ms": 1.766,
+      "median_engine_heap_bytes": 1598612,
+      "median_observed_heap_peak_bytes": 1611475,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 575298,
+          "engine_static_heap_delta_bytes": 1598612,
+          "engine_static_heap_observed_peak_delta_bytes": 1611475,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.8,
+          "paths": [
+            "res://verification/bake_sampling/header_120.track",
+            "res://verification/bake_sampling/packet_120_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 243.8543331809342
+        },
+        {
+          "disk_bytes": 575298,
+          "engine_static_heap_delta_bytes": 1598612,
+          "engine_static_heap_observed_peak_delta_bytes": 1611475,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.766,
+          "paths": [
+            "res://verification/bake_sampling/header_120.track",
+            "res://verification/bake_sampling/packet_120_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 244.10533299669623
+        },
+        {
+          "disk_bytes": 575298,
+          "engine_static_heap_delta_bytes": 1598612,
+          "engine_static_heap_observed_peak_delta_bytes": 1611475,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.735,
+          "paths": [
+            "res://verification/bake_sampling/header_120.track",
+            "res://verification/bake_sampling/packet_120_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 244.60995802655816
+        }
+      ]
+    },
+    {
+      "name": "snapshots_30",
+      "paths": [
+        "res://verification/bake_sampling/snapshots_30.track"
+      ],
+      "disk_bytes": 1313179,
+      "median_load_decode_ms": 12.173,
+      "median_engine_heap_bytes": 14999307,
+      "median_observed_heap_peak_bytes": 15019755,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 1313179,
+          "engine_static_heap_delta_bytes": 14999307,
+          "engine_static_heap_observed_peak_delta_bytes": 15019755,
+          "heap_counter_available": true,
+          "load_decode_ms": 12.173,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_30.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 240.7581249717623
+        },
+        {
+          "disk_bytes": 1313179,
+          "engine_static_heap_delta_bytes": 14999307,
+          "engine_static_heap_observed_peak_delta_bytes": 15019755,
+          "heap_counter_available": true,
+          "load_decode_ms": 11.642,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_30.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 241.12575012259185
+        },
+        {
+          "disk_bytes": 1313179,
+          "engine_static_heap_delta_bytes": 14999307,
+          "engine_static_heap_observed_peak_delta_bytes": 15019755,
+          "heap_counter_available": true,
+          "load_decode_ms": 12.447,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_30.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 246.42445798963308
+        }
+      ]
+    },
+    {
+      "name": "packed_30",
+      "paths": [
+        "res://verification/bake_sampling/packed_30.track"
+      ],
+      "disk_bytes": 744459,
+      "median_load_decode_ms": 2.162,
+      "median_engine_heap_bytes": 1935764,
+      "median_observed_heap_peak_bytes": 1950328,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 744459,
+          "engine_static_heap_delta_bytes": 1935764,
+          "engine_static_heap_observed_peak_delta_bytes": 1950328,
+          "heap_counter_available": true,
+          "load_decode_ms": 2.162,
+          "paths": [
+            "res://verification/bake_sampling/packed_30.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 255.98420784808695
+        },
+        {
+          "disk_bytes": 744459,
+          "engine_static_heap_delta_bytes": 1935764,
+          "engine_static_heap_observed_peak_delta_bytes": 1950328,
+          "heap_counter_available": true,
+          "load_decode_ms": 2.131,
+          "paths": [
+            "res://verification/bake_sampling/packed_30.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 243.80687507800758
+        },
+        {
+          "disk_bytes": 744459,
+          "engine_static_heap_delta_bytes": 1935764,
+          "engine_static_heap_observed_peak_delta_bytes": 1950328,
+          "heap_counter_available": true,
+          "load_decode_ms": 3.279,
+          "paths": [
+            "res://verification/bake_sampling/packed_30.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 239.7874160669744
+        }
+      ]
+    },
+    {
+      "name": "first_packet_30",
+      "paths": [
+        "res://verification/bake_sampling/header_30.track",
+        "res://verification/bake_sampling/packet_30_0.track"
+      ],
+      "disk_bytes": 173683,
+      "median_load_decode_ms": 1.253,
+      "median_engine_heap_bytes": 1080080,
+      "median_observed_heap_peak_bytes": 1090577,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 173683,
+          "engine_static_heap_delta_bytes": 1080080,
+          "engine_static_heap_observed_peak_delta_bytes": 1090577,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.663,
+          "paths": [
+            "res://verification/bake_sampling/header_30.track",
+            "res://verification/bake_sampling/packet_30_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 146.61566610448062
+        },
+        {
+          "disk_bytes": 173683,
+          "engine_static_heap_delta_bytes": 1080080,
+          "engine_static_heap_observed_peak_delta_bytes": 1090577,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.253,
+          "paths": [
+            "res://verification/bake_sampling/header_30.track",
+            "res://verification/bake_sampling/packet_30_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 246.01112492382526
+        },
+        {
+          "disk_bytes": 173683,
+          "engine_static_heap_delta_bytes": 1080080,
+          "engine_static_heap_observed_peak_delta_bytes": 1090577,
+          "heap_counter_available": true,
+          "load_decode_ms": 0.983,
+          "paths": [
+            "res://verification/bake_sampling/header_30.track",
+            "res://verification/bake_sampling/packet_30_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 246.32166605442762
+        }
+      ]
+    },
+    {
+      "name": "snapshots_15",
+      "paths": [
+        "res://verification/bake_sampling/snapshots_15.track"
+      ],
+      "disk_bytes": 671355,
+      "median_load_decode_ms": 5.852,
+      "median_engine_heap_bytes": 7708951,
+      "median_observed_heap_peak_bytes": 7725594,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 671355,
+          "engine_static_heap_delta_bytes": 7708951,
+          "engine_static_heap_observed_peak_delta_bytes": 7725594,
+          "heap_counter_available": true,
+          "load_decode_ms": 6.658,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_15.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 245.7560410257429
+        },
+        {
+          "disk_bytes": 671355,
+          "engine_static_heap_delta_bytes": 7708951,
+          "engine_static_heap_observed_peak_delta_bytes": 7725594,
+          "heap_counter_available": true,
+          "load_decode_ms": 5.833,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_15.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 252.0647500641644
+        },
+        {
+          "disk_bytes": 671355,
+          "engine_static_heap_delta_bytes": 7708951,
+          "engine_static_heap_observed_peak_delta_bytes": 7725594,
+          "heap_counter_available": true,
+          "load_decode_ms": 5.852,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_15.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 267.18633412383497
+        }
+      ]
+    },
+    {
+      "name": "packed_15",
+      "paths": [
+        "res://verification/bake_sampling/packed_15.track"
+      ],
+      "disk_bytes": 416153,
+      "median_load_decode_ms": 1.568,
+      "median_engine_heap_bytes": 1508656,
+      "median_observed_heap_peak_bytes": 1521508,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 416153,
+          "engine_static_heap_delta_bytes": 1508656,
+          "engine_static_heap_observed_peak_delta_bytes": 1521508,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.568,
+          "paths": [
+            "res://verification/bake_sampling/packed_15.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 245.4032499808818
+        },
+        {
+          "disk_bytes": 416153,
+          "engine_static_heap_delta_bytes": 1508656,
+          "engine_static_heap_observed_peak_delta_bytes": 1521508,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.522,
+          "paths": [
+            "res://verification/bake_sampling/packed_15.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 149.1775829344988
+        },
+        {
+          "disk_bytes": 416153,
+          "engine_static_heap_delta_bytes": 1508656,
+          "engine_static_heap_observed_peak_delta_bytes": 1521508,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.597,
+          "paths": [
+            "res://verification/bake_sampling/packed_15.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 243.9349580090493
+        }
+      ]
+    },
+    {
+      "name": "first_packet_15",
+      "paths": [
+        "res://verification/bake_sampling/header_15.track",
+        "res://verification/bake_sampling/packet_15_0.track"
+      ],
+      "disk_bytes": 111213,
+      "median_load_decode_ms": 0.912,
+      "median_engine_heap_bytes": 999460,
+      "median_observed_heap_peak_bytes": 1009579,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 111213,
+          "engine_static_heap_delta_bytes": 999460,
+          "engine_static_heap_observed_peak_delta_bytes": 1009579,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.665,
+          "paths": [
+            "res://verification/bake_sampling/header_15.track",
+            "res://verification/bake_sampling/packet_15_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 146.5367921628058
+        },
+        {
+          "disk_bytes": 111213,
+          "engine_static_heap_delta_bytes": 999460,
+          "engine_static_heap_observed_peak_delta_bytes": 1009579,
+          "heap_counter_available": true,
+          "load_decode_ms": 0.912,
+          "paths": [
+            "res://verification/bake_sampling/header_15.track",
+            "res://verification/bake_sampling/packet_15_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 146.74208406358957
+        },
+        {
+          "disk_bytes": 111213,
+          "engine_static_heap_delta_bytes": 999460,
+          "engine_static_heap_observed_peak_delta_bytes": 1009579,
+          "heap_counter_available": true,
+          "load_decode_ms": 0.862,
+          "paths": [
+            "res://verification/bake_sampling/header_15.track",
+            "res://verification/bake_sampling/packet_15_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 244.48029091581702
+        }
+      ]
+    },
+    {
+      "name": "snapshots_adaptive",
+      "paths": [
+        "res://verification/bake_sampling/snapshots_adaptive.track"
+      ],
+      "disk_bytes": 1931109,
+      "median_load_decode_ms": 16.208,
+      "median_engine_heap_bytes": 22056359,
+      "median_observed_heap_peak_bytes": 22082516,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 1931109,
+          "engine_static_heap_delta_bytes": 22056359,
+          "engine_static_heap_observed_peak_delta_bytes": 22082516,
+          "heap_counter_available": true,
+          "load_decode_ms": 16.773,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_adaptive.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 242.03741690143943
+        },
+        {
+          "disk_bytes": 1931109,
+          "engine_static_heap_delta_bytes": 22056359,
+          "engine_static_heap_observed_peak_delta_bytes": 22082516,
+          "heap_counter_available": true,
+          "load_decode_ms": 16.208,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_adaptive.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 237.2010841500014
+        },
+        {
+          "disk_bytes": 1931109,
+          "engine_static_heap_delta_bytes": 22056359,
+          "engine_static_heap_observed_peak_delta_bytes": 22082516,
+          "heap_counter_available": true,
+          "load_decode_ms": 15.967,
+          "paths": [
+            "res://verification/bake_sampling/snapshots_adaptive.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 242.0438330154866
+        }
+      ]
+    },
+    {
+      "name": "packed_adaptive",
+      "paths": [
+        "res://verification/bake_sampling/packed_adaptive.track"
+      ],
+      "disk_bytes": 1065728,
+      "median_load_decode_ms": 2.72,
+      "median_engine_heap_bytes": 2351156,
+      "median_observed_heap_peak_bytes": 2368277,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 1065728,
+          "engine_static_heap_delta_bytes": 2351156,
+          "engine_static_heap_observed_peak_delta_bytes": 2368277,
+          "heap_counter_available": true,
+          "load_decode_ms": 3.818,
+          "paths": [
+            "res://verification/bake_sampling/packed_adaptive.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 240.87966606020927
+        },
+        {
+          "disk_bytes": 1065728,
+          "engine_static_heap_delta_bytes": 2351156,
+          "engine_static_heap_observed_peak_delta_bytes": 2368277,
+          "heap_counter_available": true,
+          "load_decode_ms": 2.72,
+          "paths": [
+            "res://verification/bake_sampling/packed_adaptive.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 142.3909158911556
+        },
+        {
+          "disk_bytes": 1065728,
+          "engine_static_heap_delta_bytes": 2351156,
+          "engine_static_heap_observed_peak_delta_bytes": 2368277,
+          "heap_counter_available": true,
+          "load_decode_ms": 2.708,
+          "paths": [
+            "res://verification/bake_sampling/packed_adaptive.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 241.75537494011223
+        }
+      ]
+    },
+    {
+      "name": "first_packet_adaptive",
+      "paths": [
+        "res://verification/bake_sampling/header_adaptive.track",
+        "res://verification/bake_sampling/packet_adaptive_0.track"
+      ],
+      "disk_bytes": 422509,
+      "median_load_decode_ms": 1.462,
+      "median_engine_heap_bytes": 1403520,
+      "median_observed_heap_peak_bytes": 1415295,
+      "heap_counter_available": true,
+      "trials": [
+        {
+          "disk_bytes": 422509,
+          "engine_static_heap_delta_bytes": 1403520,
+          "engine_static_heap_observed_peak_delta_bytes": 1415295,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.462,
+          "paths": [
+            "res://verification/bake_sampling/header_adaptive.track",
+            "res://verification/bake_sampling/packet_adaptive_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 143.448542105034
+        },
+        {
+          "disk_bytes": 422509,
+          "engine_static_heap_delta_bytes": 1403520,
+          "engine_static_heap_observed_peak_delta_bytes": 1415295,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.448,
+          "paths": [
+            "res://verification/bake_sampling/header_adaptive.track",
+            "res://verification/bake_sampling/packet_adaptive_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 145.12316696345806
+        },
+        {
+          "disk_bytes": 422509,
+          "engine_static_heap_delta_bytes": 1403520,
+          "engine_static_heap_observed_peak_delta_bytes": 1415295,
+          "heap_counter_available": true,
+          "load_decode_ms": 1.49,
+          "paths": [
+            "res://verification/bake_sampling/header_adaptive.track",
+            "res://verification/bake_sampling/packet_adaptive_0.track"
+          ],
+          "scope": "Fresh Godot process, filesystem caches uncontrolled/warm. Engine static allocations for held decoded data; not OS RSS, true allocation peak, renderer/model RAM, or network latency. Startup excluded.",
+          "process_wall_ms": 144.78683308698237
+        }
+      ]
+    }
+  ]
+}

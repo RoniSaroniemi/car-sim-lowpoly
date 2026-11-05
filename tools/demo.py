@@ -36,7 +36,7 @@ def run(command):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena', 'verify-bake-assets', 'verify-roof-landings', 'capture-surfaces', 'damage-studio', 'multicar', 'verify-multicar', 'bake', 'index-bakes', 'baked', 'baked-3d', 'capture-baked', 'drive', 'drive-sequence', 'arena', 'capture-driving', 'capture', 'import', 'check'))
+    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena', 'verify-bake-assets', 'verify-roof-landings', 'capture-surfaces', 'damage-studio', 'multicar', 'verify-multicar', 'sampling', 'verify-sampling', 'bake', 'index-bakes', 'baked', 'baked-3d', 'capture-baked', 'drive', 'drive-sequence', 'arena', 'capture-driving', 'capture', 'import', 'check'))
     parser.add_argument('--godot', help='Godot executable, or set GODOT_BIN')
     parser.add_argument('--no-import', action='store_true', help='Skip import after the first successful run')
     args = parser.parse_args()
@@ -53,7 +53,7 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--editor', '--import', '--quit'])
     if args.command == 'import':
         return
-    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena', 'verify-bake-assets', 'verify-roof-landings', 'verify-multicar'):
+    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'verify-arena', 'verify-bake-assets', 'verify-roof-landings', 'verify-multicar', 'verify-sampling'):
         import json
         if args.command == 'verify':
             run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
@@ -150,6 +150,26 @@ def main():
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://probes/multicar/verify.gd'])
         if args.command in ('verify', 'verify-bake-assets'):
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://tests/panels/verify_recorded_bank.gd', '--', '--expect-count=132'])
+        if args.command in ('verify', 'verify-sampling'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://probes/bake_sampling/build.gd'])
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://probes/bake_sampling/verify_packets.gd'])
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://probes/bake_sampling/local_shape_metrics.gd'])
+    elif args.command == 'sampling':
+        import hashlib
+        import json
+        report_path = ROOT / 'verification/bake_sampling/quality.json'
+        report = json.loads(report_path.read_text()) if report_path.exists() else {}
+        inputs = {'source_sha256': 'bakes/frontal_120.crashclip',
+                  'codec_sha256': 'probes/bake_sampling/packed_track.gd',
+                  'builder_sha256': 'probes/bake_sampling/build.gd'}
+        required = [f'verification/bake_sampling/packed_{hz}.track' for hz in (120, 30, 15)]
+        required += ['verification/bake_sampling/header_adaptive.track']
+        required += [f'verification/bake_sampling/packet_adaptive_{i}.track' for i in range(5)]
+        if (not report.get('passed') or any(not (ROOT / path).is_file() for path in required)
+                or any(report.get(key) != hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+                       for key, path in inputs.items())):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://probes/bake_sampling/build.gd'])
+        run([binary, '--path', str(ROOT), '--resolution', '2000x650', 'res://probes/bake_sampling/viewer.tscn'])
     elif args.command == 'multicar':
         run([binary, '--path', str(ROOT), 'res://probes/multicar/probe.tscn'])
     elif args.command == 'damage-studio':

@@ -26,6 +26,12 @@ See [current status, known problems and examples](docs/STATUS.md),
 [baking/optimization status](docs/BAKE_OPTIMIZATION_STATUS.md), and the separate
 [multi-car collision examples](docs/MULTICAR_BAKED_PROBE.md).
 
+A separate [measured sampling/streaming experiment](docs/BAKE_SAMPLING_PROBE.md)
+now compares 120/30/15 Hz and adaptive keys on one clip. Adaptive packing reduced
+that clip from 5.22 MB to 1.07 MB while retaining body-point error below 1 cm.
+This is a prototype; normal sandbox playback keeps its current format.
+Run `python3 tools/demo.py sampling` for the comparison viewer.
+
 ## Start locally
 
 Install the standard **Godot 4.7.2** build from [Godot's official release](https://github.com/godotengine/godot/releases/tag/4.7.2-stable). Python 3.10+ is only needed for the convenience runner and graph generator. Blender 4.5 is optional for model editing/rebuilding. No .NET, add-ons, package manager, external Jolt extension or network service is needed to run the example.
