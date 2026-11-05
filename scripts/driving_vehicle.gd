@@ -130,7 +130,15 @@ func _choose_speed_bin(signature: Dictionary,coverage: Dictionary={}) -> Diction
    if not coverage.is_empty() and not Coverage.compatible(coverage,recorded).accepted:return {'accepted':false,'reason':'no_conditioned_footprint_recording'}
    transition['library_kind']='conditioned'
   return transition
- if not coverage.is_empty():return Coverage.choose(signature,coverage,bake_library,float(signature.closing_speed_mps)*3.6)
+ if not coverage.is_empty():
+  # Filter before severity binning: a stale clip must not select a speed bin
+  # that hides a compatible recording at another speed.
+  var pool: Array=[];var indices: Array=[]
+  for i in bake_library.size():
+   if bake_library[i]._input_compatibility.compatible:pool.append(bake_library[i]);indices.append(i)
+  var selection: Dictionary=Coverage.choose(signature,coverage,pool,float(signature.closing_speed_mps)*3.6)
+  if selection.get('accepted',false):selection.index=indices[int(selection.index)]
+  return selection
  var speed: float=float(signature.closing_speed_mps)*3.6
  if speed<35 or speed>175:return {'accepted':false}
  var normal:=Vector3(signature.world_normal[0],signature.world_normal[1],signature.world_normal[2])
