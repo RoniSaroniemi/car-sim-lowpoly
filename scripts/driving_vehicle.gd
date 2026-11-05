@@ -37,6 +37,7 @@ func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=
  bake_library=cached_library
  if cached_conditioned.is_empty():cached_conditioned=States.read_library()
  conditioned_library=cached_conditioned
+ for clip in bake_library+conditioned_library:CrashClip.prepare_surfaces(solver,clip)
 
 func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -> void:
  contact_sensor.reset();sequence_active=false;sequence_notice=''

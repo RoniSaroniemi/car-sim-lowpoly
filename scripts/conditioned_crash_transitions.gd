@@ -37,7 +37,9 @@ static func _effect_transient(key: String) -> bool:
  return key.begins_with('last_') or key.ends_with('_cpu_us') or key.ends_with('_cpu_ms') or key.ends_with('_clock')
 
 static func irreversible_effects(value: Variant,key: String='') -> Variant:
- if _effect_transient(key):return null
+ # Cosmetic marks do not alter physical clip compatibility; the player retains
+ # them independently. Keep legacy glass/interior descriptor hashes exact.
+ if key=='surface' or _effect_transient(key):return null
  if value is Dictionary:
   var result: Dictionary={};var keys: Array=value.keys();keys.sort()
   for child in keys:

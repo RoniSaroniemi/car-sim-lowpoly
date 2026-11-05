@@ -1,5 +1,5 @@
 extends Node3D
-const SkinView=preload('res://scripts/structural_skin.gd')
+const SkinView=preload('res://scripts/damage_skin.gd')
 const Recorder=preload('res://scripts/crash_bake_recorder.gd')
 const Player=preload('res://scripts/baked_crash_player.gd')
 const Clip=preload('res://scripts/baked_crash_clip.gd')

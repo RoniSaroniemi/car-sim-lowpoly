@@ -4,15 +4,15 @@
 		"case_0_has_real_v3_source": true,
 		"case_0_history_monotonic": true,
 		"case_0_sampling_has_no_dynamics_or_mutation": true,
-		"case_0_source_inputs_match": true,
+		"case_0_source_inputs_compatible": true,
 		"case_1_has_real_v3_source": true,
 		"case_1_history_monotonic": true,
 		"case_1_sampling_has_no_dynamics_or_mutation": true,
-		"case_1_source_inputs_match": true,
+		"case_1_source_inputs_compatible": true,
 		"case_2_has_real_v3_source": true,
 		"case_2_history_monotonic": true,
 		"case_2_sampling_has_no_dynamics_or_mutation": true,
-		"case_2_source_inputs_match": true,
+		"case_2_source_inputs_compatible": true,
 		"field_is_read_only": true,
 		"field_no_extra_mass": true,
 		"front_away_from_hit_unmarked": true,
@@ -28,33 +28,33 @@
 		"plain_diagnostic_disables_surface_layers": true
 	},
 	"observations": {
-		"baseline_pose_mean_us": 32.12,
+		"baseline_pose_mean_us": 32.58,
 		"cases": [
 			{
 				"frames": 301,
-				"history_build_ms": 22.473,
+				"history_build_ms": 20.322,
 				"history_bytes": 45752,
 				"path": "res://probes/damage_surfaces/data/light_20.crashclip",
-				"source_frame_hash": "a42a53c6898a13bbdb2df4bfeaeb21539a2e36648234bf1a10144935ee1e0dc9"
+				"source_frame_hash": "70e746823a2892e4f47ec2d73b3a1c46bf7a2cc869fab73289b80508bc97c1b6"
 			},
 			{
 				"frames": 301,
-				"history_build_ms": 24.684,
+				"history_build_ms": 19.33,
 				"history_bytes": 45752,
 				"path": "res://bakes/impact_090_120.crashclip",
-				"source_frame_hash": "b551d0a0a692f41dcbf2cf38ccf5e491a4d2828ed6fe4a28cf29d11204006dc6"
+				"source_frame_hash": "6b5cb830a5d19dcf1e83a31571000746c660eaa62c606942a3896ee0621ae752"
 			},
 			{
 				"frames": 301,
-				"history_build_ms": 20.583,
+				"history_build_ms": 19.264,
 				"history_bytes": 45752,
 				"path": "res://bakes/conditioned/front_60_60_120_step_2.crashclip",
-				"source_frame_hash": "7c3e310ec1c6de367b48f1a71691a3176dc28b7d8f54c3b0185a7329e0ec485e"
+				"source_frame_hash": "3a32cca1f9aa21309b0d49da922420842d6ca9c60b036698bf41353afe48e98b"
 			}
 		],
 		"extra_draw_calls": 0,
-		"field_update_mean_us": 57.105,
-		"native_pose_plus_field_upload_mean_us": 96.7,
+		"field_update_mean_us": 48.32,
+		"native_pose_plus_field_upload_mean_us": 85.45,
 		"note": "Headless CPU calls only. Native raster/GPU evidence and timings are measured separately; no FPS claim.",
 		"render_bones": 39,
 		"render_triangles": 39673,

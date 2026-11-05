@@ -14,9 +14,7 @@ func _run() -> void:
  if library.is_empty():quit(1);return
  for data in library:
   var id: String=data.metadata.id
-  var valid:=true
-  for path in data.metadata.input_sha256:valid=valid and data.metadata.input_sha256[path]==FileAccess.get_sha256('res://'+path)
-  checks[id+'_inputs_match']=valid
+  checks[id+'_inputs_compatible']=Clip.input_compatibility(data).compatible
   checks[id+'_frames']=data.frames.size()==301
   checks[id+'_exact_impact_speed']=absf(float(data.metadata.signature.closing_speed_mps)*3.6-float(data.metadata.speed_kmh))<.0001
   var player:=Player.new();player.setup_library(library,data.metadata.heading_deg,data.metadata.speed_kmh)

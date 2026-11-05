@@ -1,5 +1,7 @@
 # Collision surface treatment: research and rendered probe
 
+This document records the original research/probe revision. The subsequent shared-runtime candidate integration is documented in [Damage material integration](DAMAGE_MATERIAL_INTEGRATION.md); its cosmetic adapter changes and compatibility receipts supersede the original “shared runtime unmodified” scope below. Artistic texture acceptance remains pending.
+
 This isolated worktree is based on main `90aabde`. It changes no shared solver, mass, model, textures, standard bank or sandbox. The new comparison scene renders the **same actual saved car state** three times: original textures with the native skin only, existing section detail, and section folds combined with local damage layers. The severe treatment deliberately remains strong at an ordinary inspection distance; it is not only a close-up roughness change.
 
 ![Severe recorded deformation, three material treatments](../probes/damage_surfaces/evidence/extreme_overall.png)

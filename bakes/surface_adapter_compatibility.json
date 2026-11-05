@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "scope": "Cosmetic surface state capture/restoration only; historical recording hashes are retained. Physics/structure/wheels/glass/interior/config inputs require exact hashes. Playback suites verify unchanged saved poses and zero solves.",
+  "adapters": {
+    "scripts/vehicle_effects.gd": {
+      "recorded": [
+        "bcfd8aa7b7a0fea3d826a6ffac809dfdf05fef48346e162de7d0af316f737162"
+      ],
+      "current": "dc80a5118c6ba8fc90731eeb275fb7a3e83ff893dcbfdeee04c9e86bf4ee728f"
+    },
+    "scripts/baked_crash_clip.gd": {
+      "recorded": [
+        "521bff00337f9a935f702e1667b0d9af12cb76a64734aaf07cbdf5a5bfa9a825"
+      ],
+      "current": "8d28053509c72a03de90cd2acae2345b052c23b7cf759cf7673cb3730a54aeab"
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "candidate_art_acceptance": "pending",
+  "reports": {
+    "structural_validation": {
+      "passed": true,
+      "checks": 0,
+      "sha256": "e5d591b5615f119f89f2b85f5062ba890d54e743d3b14a6ce8574e032855b6cf"
+    },
+    "wheel_validation": {
+      "passed": true,
+      "checks": 17,
+      "sha256": "23cb5940413c3fe67456046493ec481586128225b6eb76f9b2395c9f15b49497"
+    },
+    "wheel_mount_validation": {
+      "passed": true,
+      "checks": 11,
+      "sha256": "d7784d5590f7e5f401d2185e1032a5bd041d5e5ffa478c3517caabfd49acd968"
+    },
+    "wheel_retention_validation": {
+      "passed": true,
+      "checks": 22,
+      "sha256": "331df70ca0c6ac6491ba7807b76f982fc1e8e98b372e5dfa18dcfa316fc8d06e"
+    },
+    "driving_validation": {
+      "passed": true,
+      "checks": 18,
+      "sha256": "73fcbd73c140d20b8f58d15ca5f4dd5da70d493e51571fb1ce6f8ce38db33d9e"
+    },
+    "adaptive_validation": {
+      "passed": true,
+      "checks": 51,
+      "sha256": "762f7f831cb0cdabeb7038dc1ddb4ea2a3d0d9500a07dfd0f5f77f001ed76919"
+    },
+    "ramp_validation": {
+      "passed": true,
+      "checks": 10,
+      "sha256": "7ee101b6aa0acea77a14b45e4b5744c104d99439382b89705a8a99bc64311e22"
+    },
+    "baked_roundtrip_validation": {
+      "passed": true,
+      "checks": 21,
+      "sha256": "d6df26e2122206bf087b3142025b249faaed84ebfb874a21b8c05f39063c48a8"
+    },
+    "crash_library_validation": {
+      "passed": true,
+      "checks": 273,
+      "sha256": "dd065fd4cefebcb2543bb018ec0435aad47c770e7ad670ce38351a3604961a2f"
+    },
+    "driving_bakes_validation": {
+      "passed": true,
+      "checks": 81,
+      "sha256": "e0edae4dfb643e31b7fe434e25e5802cde726664ea02d97064223df5dd62b6d8"
+    },
+    "vehicle_glass_validation": {
+      "passed": true,
+      "checks": 49,
+      "sha256": "b1cd111e2cf738d3616b799bff0dd4f96346f90676923c86d9d80cb24a913761"
+    },
+    "vehicle_interior_validation": {
+      "passed": true,
+      "checks": 29,
+      "sha256": "aec72ae263f919b583d7d5e3bff515f1b158cb20706c227b5d98f06b34adf547"
+    },
+    "conditioned_transition_validation": {
+      "passed": true,
+      "checks": 28,
+      "sha256": "ac14560f44579a96c8c425c90e560868fcb35962bd2c5a349cbabdc2f289c85d"
+    },
+    "conditioned_bank_validation": {
+      "passed": true,
+      "checks": 42,
+      "sha256": "1246459bee234fe7ef3c2b4cebbf0e79f1340af2a1d87880d98314a5866082bb"
+    },
+    "sandbox_sequence_validation": {
+      "passed": true,
+      "checks": 19,
+      "sha256": "ff8c6be0de414b6a0e97b7ebd6c62f3883adf759be2ff5cdd6308a4f94a4abf9"
+    },
+    "roof_bank_validation": {
+      "passed": true,
+      "checks": 10,
+      "sha256": "ca75f90c23960938c99dc041d05b8249fbcc1d2bf9fb1ddd8800c97ac74fc2a7"
+    },
+    "vehicle_surface_validation": {
+      "passed": true,
+      "checks": 24,
+      "sha256": "dfbcff1b3a30eb8a40ad7f977c5468264e1f2bfdb135f0115cd4ee9920bca9bf"
+    }
+  },
+  "sources": {
+    "scripts/vehicle_surface.gd": "1cb66c422e09076b0cd13af12612737c65cfc8db0bf64dba6603ce3346293b5b",
+    "scripts/damage_layers.gdshader": "eb60c615f71f51d1fadcf8ad1c27fd7aea19cc213d85f38c1c2dedd2238da78f",
+    "scripts/damage_skin.gd": "776b9f1df408ba4bad630761f09cf408619e0f46a402d0fe2621407d77b979f6",
+    "scripts/baked_crash_clip.gd": "8d28053509c72a03de90cd2acae2345b052c23b7cf759cf7673cb3730a54aeab",
+    "scripts/baked_crash_player.gd": "c80b08abc65a84570f3682fc80cdb7071e0871227a6f5354ac14ca8fc91392c1",
+    "scripts/vehicle_effects.gd": "dc80a5118c6ba8fc90731eeb275fb7a3e83ff893dcbfdeee04c9e86bf4ee728f",
+    "vehicles/niva_surface.json": "9d372c60d88e2a2d301a78cf6c06744ec5070e0d225d6aff7f6fed3a394d3fac"
+  },
+  "render_review": "Actual sandbox screenshots inspected; live and three-clip playback/resumed driving/geometry/repair."
+}

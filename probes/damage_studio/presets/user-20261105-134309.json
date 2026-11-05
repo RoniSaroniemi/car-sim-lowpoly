@@ -1,0 +1,12 @@
+{
+  "crease_scale": 1.59,
+  "crease_strength": 4.0,
+  "fold_strength": 2.65,
+  "loss_threshold": 0.15,
+  "metal_color": "#c5c8cd",
+  "metal_roughness": 0.67,
+  "metal_shine": 0.72,
+  "paint_loss": 0.7,
+  "pattern_scale": 2.33,
+  "primer_color": "#959a95"
+}

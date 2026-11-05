@@ -12,10 +12,7 @@ func _run() -> void:
  checks['301_frames']=data.frames.size()==301
  checks['structure_matches']=data.metadata.structure_sha256==FileAccess.get_sha256('res://structure.json')
  checks['wheel_solver_matches']=data.metadata.wheel_solver_sha256==FileAccess.get_sha256('res://scripts/wheel_physics.gd')
- var provenance_matches: bool=data.metadata.has('input_sha256')
- for path in data.metadata.get('input_sha256',{}):
-  provenance_matches=provenance_matches and data.metadata.input_sha256[path]==FileAccess.get_sha256('res://'+path)
- checks['all_recorded_inputs_match']=provenance_matches
+ checks['recorded_inputs_playback_compatible']=Clip.input_compatibility(data).compatible
  var player:=Player.new();player.setup(data)
  for i in 500:
   player.advance(1.0/120)
@@ -82,7 +79,7 @@ func _run() -> void:
  for i in 500:local_player.advance(1.0/120)
  checks['fresh_live_disk_roundtrip_matches']=live_error<.00001 and live_damage_error<.00001 and local_player.state=='COMPLETE' and local_player.vehicle.solver.step_count==0
  var passed: bool=checks.values().all(func(c):return c)
- var report: Dictionary={'passed':passed,'checks':checks,'frames':data.frames.size(),'fresh_live_max_position_error_m':live_error,'fresh_live_max_damage_error':live_damage_error,'clip_bytes':FileAccess.get_file_as_bytes(Clip.PATH).size(),'match':player.match_result,'full_solver_steps_recording':data.metadata.full_solver_steps,'full_solver_steps_playback':player.vehicle.solver.step_count,'handoff_jump_m':player.handoff_position_jump_m,'max_sample_position_error_m':max_position_error,'max_sample_damage_error':max_damage_error,'max_wheel_rotation_dot_error':max_rotation_error,'max_wheel_spin_error_rad':max_spin_error,'record_cpu_ms':data.metadata.record_cpu_ms,'playback_cpu_ms':playback_ms,'scope':'One controlled fixed-heading frontal case; timings exclude rendering, skin updates and setup. Zone impulses/energies are incident proxies.'}
+ var report: Dictionary={'passed':passed,'input_provenance':Clip.input_compatibility(data),'checks':checks,'frames':data.frames.size(),'fresh_live_max_position_error_m':live_error,'fresh_live_max_damage_error':live_damage_error,'clip_bytes':FileAccess.get_file_as_bytes(Clip.PATH).size(),'match':player.match_result,'full_solver_steps_recording':data.metadata.full_solver_steps,'full_solver_steps_playback':player.vehicle.solver.step_count,'handoff_jump_m':player.handoff_position_jump_m,'max_sample_position_error_m':max_position_error,'max_sample_damage_error':max_damage_error,'max_wheel_rotation_dot_error':max_rotation_error,'max_wheel_spin_error_rad':max_spin_error,'record_cpu_ms':data.metadata.record_cpu_ms,'playback_cpu_ms':playback_ms,'scope':'One controlled fixed-heading frontal case; timings exclude rendering, skin updates and setup. Zone impulses/energies are incident proxies.'}
  FileAccess.open('res://verification/baked_roundtrip_validation.json',FileAccess.WRITE).store_string(JSON.stringify(report,'\t'))
  print('BAKED_ROUNDTRIP ',JSON.stringify(report))
  quit(0 if passed else 1)

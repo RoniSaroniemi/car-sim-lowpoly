@@ -57,6 +57,17 @@ invisible 5 × 3 × 3 classifier grid. Buttons play the frontal trio or the whol
 Replay applies the saved deformation and wheel states with zero structural solver steps.
 See [the round-trip procedure and limits](docs/BAKED_CRASH_PROBE.md).
 
+## Candidate layered damage materials
+
+The sandbox and baked/structural benches now share a persistent candidate surface treatment: impact-centred chipped paint and metal, peeling-edge shading, rough scuffs and cosmetic angular folds. It works with the existing crash bank, preserves earlier marks across the supported three-hit sequence, and clears on repair. The visual treatment remains open to art direction; integration is not final texture approval.
+
+```sh
+python3 tools/demo.py damage-studio
+python3 tools/demo.py verify-surfaces
+```
+
+See [runtime ownership, clip compatibility, controls and rendered evidence](docs/DAMAGE_MATERIAL_INTEGRATION.md).
+
 ## Inspect the result
 
 | Control | Action |

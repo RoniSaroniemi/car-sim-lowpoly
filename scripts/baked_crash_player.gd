@@ -36,6 +36,7 @@ var wheel_handoff_rotations: Array=[]
 var blend_seconds:=.10
 var persistent_free_wheels:=PackedInt32Array()
 var irreversible_initial: Dictionary={}
+var surface_initial: Dictionary={}
 
 func setup(clip_data: Dictionary) -> void:
  setup_library([clip_data],float(clip_data.metadata.get('heading_deg',0)),float(clip_data.metadata.speed_kmh))
@@ -46,6 +47,7 @@ func setup_library(clips: Array,heading_degrees: float=0,speed_kmh: float=120) -
  approach_speed_kmh=speed_kmh
  vehicle=Vehicle.new()
  vehicle.setup('res://vehicles/niva.json',false)
+ for clip in library:Clip.prepare_surfaces(vehicle.solver,clip)
  vehicle.solver.set_impact_mode(0)
  vehicle.solver.config.enforce_symmetry=false
  reset()
@@ -92,6 +94,7 @@ func attach_live(owner: RefCounted,clips: Array,signature: Dictionary,selection:
 
 func _begin_replay() -> void:
  var g: RefCounted=vehicle.solver
+ surface_initial=g.effects.surface.capture() if g.effects!=null else {}
  var before: PackedVector3Array=g.points.duplicate()
  var velocity_before: PackedVector3Array=g.velocities.duplicate()
  var wheel_before: Array=g.wheels.capture()
@@ -152,6 +155,7 @@ func apply_pose(at_time: float) -> void:
   w.rotation=(Quaternion.IDENTITY.slerp(correction,weight)*w.rotation).normalized()
 
  if not irreversible_initial.is_empty():States.irreversible_floor(g,irreversible_initial)
+ if g.effects!=null and not surface_initial.is_empty():g.effects.surface.retain(surface_initial)
  if not preserved.is_empty():
   var wheel_state: Array=g.wheels.capture()
   for index in persistent_free_wheels:

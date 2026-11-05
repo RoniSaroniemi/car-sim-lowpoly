@@ -1,0 +1,18 @@
+{
+  "crease_scale": 1.0,
+  "crease_strength": 2.4,
+  "fold_strength": 1.5,
+  "loss_threshold": 0.03,
+  "metal_color": "#c5c8cd",
+  "metal_roughness": 0.42,
+  "metal_shine": 0.72,
+  "paint_loss": 1.35,
+  "pattern_scale": 1.0,
+  "primer_color": "#959a95",
+  "scuff_strength": 0.85,
+  "peel_strength": 1.3,
+  "grime_amount": 0.28,
+  "grime_trail": 0.1,
+  "trail_direction": -1.0,
+  "impact_spread": 1.0
+}

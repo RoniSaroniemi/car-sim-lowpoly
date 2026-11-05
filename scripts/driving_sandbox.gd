@@ -8,7 +8,7 @@ const MountDemo=preload('res://scripts/wheel_mount_demo.gd')
 var mount_demo: RefCounted
 var capture_mounts:=false
 var mount_capture_stage:=0
-const SkinView=preload('res://scripts/structural_skin.gd')
+const SkinView=preload('res://scripts/damage_skin.gd')
 @export_file('*.json') var vehicle_profile: String='res://vehicles/niva.json'
 var vehicle: RefCounted
 var view: Node3D

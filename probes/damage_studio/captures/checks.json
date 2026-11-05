@@ -1,0 +1,29 @@
+{
+	"checks": {
+		"baseline_uses_original_shader": true,
+		"board_camera_registration_stable": true,
+		"fold_toggle_survives_upload": true,
+		"key_focus_1": true,
+		"key_focus_2": true,
+		"key_focus_3": true,
+		"key_focus_4": true,
+		"key_focus_5": true,
+		"key_focus_6": true,
+		"key_focus_7": true,
+		"key_focus_8": true,
+		"key_focus_9": true,
+		"light_displacement_stays_restrained": true,
+		"mask_toggle_survives_upload": true,
+		"named_preset_roundtrip": true,
+		"nine_real_frozen_cases": true,
+		"non_body_surfaces_keep_damage_disabled": true,
+		"oblique_impact_stays_on_contact_side": true,
+		"plain_disables_damage": true,
+		"previous_variant_available": true,
+		"roof_impact_uses_roof_contact": true,
+		"shared_parameters_reach_all_nine": true,
+		"studio_has_displacement_vertices": true,
+		"updates_do_not_resample_or_solve": true
+	},
+	"passed": true
+}

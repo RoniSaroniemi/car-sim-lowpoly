@@ -36,7 +36,7 @@ def run(command):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'drive-sequence', 'capture-driving', 'capture', 'import', 'check'))
+    parser.add_argument('command', choices=('run', 'verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces', 'capture-surfaces', 'damage-studio', 'bake', 'index-bakes', 'baked', 'capture-baked', 'drive', 'drive-sequence', 'capture-driving', 'capture', 'import', 'check'))
     parser.add_argument('--godot', help='Godot executable, or set GODOT_BIN')
     parser.add_argument('--no-import', action='store_true', help='Skip import after the first successful run')
     args = parser.parse_args()
@@ -53,7 +53,7 @@ def main():
         run([binary, '--headless', '--path', str(ROOT), '--editor', '--import', '--quit'])
     if args.command == 'import':
         return
-    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof'):
+    if args.command in ('verify', 'verify-wheels', 'verify-driving', 'verify-adaptive', 'verify-ramps', 'verify-retention', 'verify-baked', 'verify-driving-bakes', 'verify-effects', 'verify-sequence', 'verify-quality', 'verify-roof', 'verify-surfaces'):
         import json
         if args.command == 'verify':
             run([binary, '--headless', '--path', str(ROOT), '--fixed-fps', '120', '--', '--verify-structure'])
@@ -127,8 +127,26 @@ def main():
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_quality_smoke.gd'])
             if args.command == 'verify-quality':
                 run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_authoring_quality.gd'])
+        if args.command in ('verify', 'verify-surfaces'):
+            run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_vehicle_surface.gd'])
+            report = json.loads((ROOT / 'verification/vehicle_surface_validation.json').read_text())
+            if not report['passed']:
+                raise SystemExit('Surface state/skin/replay checks failed')
+            print('PASS: live/baked surface lifecycle, deterministic seeking, persistence, repair and native skin.')
         if args.command in ('verify', 'verify-roof'):
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/verify_roof_bank.gd'])
+    elif args.command == 'damage-studio':
+        run([binary, '--path', str(ROOT), '--resolution', '1600x1000', 'res://probes/damage_studio/studio.tscn'])
+    elif args.command == 'capture-surfaces':
+        command = [binary, '--path', str(ROOT), '--script', 'res://scripts/capture_damage_integration.gd']
+        import json
+        import time
+        for label, suffix in [('baked', []), ('live', ['--', '--surface-live'])]:
+            started = time.time()
+            run(command + suffix)
+            report = json.loads((ROOT / f'verification/damage_surface/{label}_journey.json').read_text())
+            if not report.get('repair_cleared') or report.get('completed_at', 0) < started:
+                raise SystemExit(f'{label} capture ended before the journey completed')
     elif args.command == 'bake':
         run([binary, '--headless', '--path', str(ROOT), '--script', 'res://scripts/bake_frontal_clip.gd'])
     elif args.command == 'index-bakes':

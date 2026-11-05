@@ -32,9 +32,8 @@ func _run() -> void:
  for i in paths.size():
   var data: Dictionary=Clip.read(paths[i]);checks['case_%d_has_real_v3_source'%i]=not data.is_empty() and data.metadata.version==3
   if data.is_empty():continue
-  var fingerprint:=true
-  for path in data.metadata.input_sha256:fingerprint=fingerprint and data.metadata.input_sha256[path]==FileAccess.get_sha256('res://'+path)
-  checks['case_%d_source_inputs_match'%i]=fingerprint
+  var fingerprint: bool=Clip.input_compatibility(data).compatible
+  checks['case_%d_source_inputs_compatible'%i]=fingerprint
   Clip.apply(g,data,[2.5,1.0,.75][i],Vector3.ZERO)
   var prior: Dictionary=g.capture()
   var history_began: int=Time.get_ticks_usec()

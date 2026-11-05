@@ -9,9 +9,7 @@ func _run() -> void:
   var data: Dictionary=Clip.read('res://bakes/roof/'+name_+'.crashclip')
   checks[name_+'_present']=not data.is_empty()
   if data.is_empty():continue
-  var current:=true
-  for path in data.metadata.input_sha256:current=current and data.metadata.input_sha256[path]==FileAccess.get_sha256('res://'+path)
-  checks[name_+'_current_v3_1920hz']=current and data.metadata.version==3 and data.metadata.physics_hz==1920 and data.metadata.family=='roof_floor'
+  checks[name_+'_compatible_v3_1920hz']=Clip.input_compatibility(data).compatible and data.metadata.version==3 and data.metadata.physics_hz==1920 and data.metadata.family=='roof_floor'
   var car:=Vehicle.new();car.setup()
   var rotation:=Basis(Vector3.UP,.7);var origin:=Vector3(11,3,-7)
   Clip.apply(car.solver,data,0,origin,rotation)

@@ -1,0 +1,12 @@
+{
+  "paint_loss": 1.0,
+  "loss_threshold": 0.0,
+  "pattern_scale": 1.0,
+  "crease_strength": 1.0,
+  "crease_scale": 1.0,
+  "fold_strength": 1.0,
+  "metal_roughness": 0.53,
+  "metal_shine": 0.72,
+  "primer_color": "#959a95",
+  "metal_color": "#c5c8cd"
+}

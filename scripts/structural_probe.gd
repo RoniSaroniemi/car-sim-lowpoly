@@ -2,7 +2,7 @@ extends Node3D
 const VehicleSimulation=preload('res://scripts/vehicle_simulation.gd')
 @export_file('*.json') var vehicle_profile: String='res://vehicles/niva.json'
 var simulation: RefCounted
-const SkinView=preload('res://scripts/structural_skin.gd')
+const SkinView=preload('res://scripts/damage_skin.gd')
 var solver: RefCounted
 var view: Node3D
 var camera: Camera3D

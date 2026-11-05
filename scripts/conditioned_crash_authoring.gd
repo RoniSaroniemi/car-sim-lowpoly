@@ -75,8 +75,7 @@ static func validate_prefix(first_clip: Dictionary) -> Dictionary:
  if first_clip.metadata.get('wheel_solver_sha256','')!=FileAccess.get_sha256('res://scripts/wheel_physics.gd'):return {'accepted':false,'reason':'prefix_wheel_fingerprint'}
  var fingerprints: Dictionary=first_clip.metadata.get('input_sha256',{})
  if fingerprints.is_empty():return {'accepted':false,'reason':'prefix_missing_input_fingerprints'}
- for path in fingerprints:
-  if fingerprints[path]!=FileAccess.get_sha256('res://'+path):return {'accepted':false,'reason':'prefix_input_fingerprint:'+str(path)}
+ if not Clip.input_compatibility(first_clip).compatible:return {'accepted':false,'reason':'prefix_input_fingerprint'}
  var definition: Dictionary=JSON.parse_string(FileAccess.get_file_as_string('res://structure.json'))
  if definition.get('material_profile','')!='niva_multiaxis_v1':return {'accepted':false,'reason':'requires_promoted_multiaxis_profile'}
  return {'accepted':true,'reason':'current_prefix'}

@@ -1,0 +1,32 @@
+{
+	"checks": {
+		"arbitrary_seeking_deterministic": true,
+		"bounded_overflow_does_not_drop_prior_damage": true,
+		"conditioned_sequence_keeps_surface_damage": true,
+		"derived_cache_not_saved": true,
+		"full_3d_rest_attributes": true,
+		"future_surface_schema_rejected": true,
+		"legacy_provenance_compatible": true,
+		"legacy_restores_damage_and_footprints": true,
+		"malformed_surface_state_rejected": true,
+		"native_binding_preserved": true,
+		"new_clip_has_versioned_surface": true,
+		"new_surface_state_exact_disk_roundtrip": true,
+		"no_update_time_topology_rebuild": true,
+		"non_body_materials_keep_ownership": true,
+		"physical_source_changes_rejected": true,
+		"plain_geometry_disables_displacement": true,
+		"precompute_does_not_touch_graph": true,
+		"repair_clears_all_layers": true,
+		"resume_live_keeps_material_state": true,
+		"resumed_driving_keeps_surface_exact": true,
+		"sampling_and_rendering_never_solve": true,
+		"seek_before_impact_clears_future_marks": true,
+		"sequence_keeps_zero_full_or_effect_solves": true,
+		"unrecognized_adapter_revision_rejected": true
+	},
+	"passed": true,
+	"render_triangles": 57624,
+	"rest_attribute_bytes": 572480,
+	"scope": "Native skin/lifecycle/legacy and new clip replay/real driving sequence; shader appearance separately rendered."
+}
