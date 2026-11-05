@@ -33,7 +33,7 @@ static func core_frame(points: PackedVector3Array) -> Transform3D:
 
 static func _effect_transient(key: String) -> bool:
  key=key.to_lower()
- if key in ['time','time_s','clock','elapsed','elapsed_s','age','age_s','t','dt','tick','ticks','positions','points','node_positions','previous','previous_positions','velocities','node_velocities','angular_velocity','rotation','rotations','frame','mount_frame','anchor_frame','world_transform','pose','angle','angles','theta','angular_speed','particles','debris','particle_positions','emission_cursor','playback','paused','recording','live_steps','playback_steps','simulation_steps','solver_steps','cpu_ms','cpu_us']:return true
+ if key in ['time','time_s','clock','elapsed','elapsed_s','age','age_s','t','dt','tick','ticks','positions','points','node_positions','previous','previous_positions','velocities','node_velocities','angular_velocity','rotation','rotations','frame','mount_frame','anchor_frame','world_transform','pose','angle','angles','theta','omega','angular_speed','event_time','trigger_time','deployment','particles','debris','particle_positions','emission_cursor','playback','paused','recording','live_steps','playback_steps','simulation_steps','solver_steps','cpu_ms','cpu_us']:return true
  return key.begins_with('last_') or key.ends_with('_cpu_us') or key.ends_with('_cpu_ms') or key.ends_with('_clock')
 
 static func irreversible_effects(value: Variant,key: String='') -> Variant:
@@ -50,6 +50,7 @@ static func irreversible_effects(value: Variant,key: String='') -> Variant:
    var pruned: Variant=irreversible_effects(item,key)
    if pruned!=null:result.append(pruned)
   return result
+ if value is PackedVector2Array or value is PackedVector3Array or value is PackedVector4Array:return null
  if value is Vector2 or value is Vector3 or value is Quaternion or value is Basis or value is Transform3D:return null
  if value is float:return snappedf(value,.000001)
  if value is PackedFloat32Array or value is PackedFloat64Array:

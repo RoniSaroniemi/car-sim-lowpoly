@@ -7,7 +7,7 @@ var checks: Dictionary={}
 
 func _initialize() -> void:call_deferred('_run')
 func fixture_effects(clock: float=0,mask: int=3,plastic: float=.12) -> Dictionary:
- return {'version':1,'glass':{'profile':'test_laminate_v1','time_s':clock,'panes':[{'stage':2,'retained_mask':PackedByteArray([mask]),'tear_links':PackedInt32Array([7]),'event_ids':PackedInt32Array([12]),'points':PackedVector3Array([Vector3(clock,0,0)])}]},'interior':{'profile':'test_seat_v1','time_s':clock,'seats':[{'plastic_angle':plastic,'angle':clock}],'airbag':{'deployed':true,'positions':PackedVector3Array([Vector3(clock,0,0)])}}}
+ return {'version':1,'glass':{'profile':'test_laminate_v1','time_s':clock,'panes':[{'stage':2,'retained_mask':PackedByteArray([mask]),'tear_links':PackedInt32Array([7]),'event_ids':PackedInt32Array([12]),'points':PackedVector3Array([Vector3(clock,0,0)]),'nodes':PackedVector3Array([Vector3(clock,0,0)])}]},'interior':{'profile':'test_seat_v1','time_s':clock,'seats':[{'plastic_angle':plastic,'angle':clock,'omega':clock}],'event_time':clock,'airbag':{'deployed':true,'trigger_time':clock,'deployment':clock,'positions':PackedVector3Array([Vector3(clock,0,0)])}}}
 func restore_body(graph: RefCounted,state: Dictionary) -> void:
  var snapshot: Dictionary=state.duplicate(true)
  var actual: Dictionary=States.capture(graph)
