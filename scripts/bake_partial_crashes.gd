@@ -22,5 +22,5 @@ func _run() -> void:
   if recorder.result.is_empty():push_error('Partial recording failed '+id);quit(1);return
   Clip.save(recorder.result,directory+'/'+id+'.crashclip',false)
   print('PARTIAL_BAKED ',id,' coverage=',JSON.stringify(recorder.initial_coverage),' cpu_ms=',recorder.cpu_us/1000.0)
- Library.write_catalog(directory)
+ if '--no-index' not in OS.get_cmdline_user_args():Library.write_catalog(directory)
  quit()
