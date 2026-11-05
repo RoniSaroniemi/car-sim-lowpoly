@@ -19,6 +19,7 @@ var grip_control: HSlider
 var panel_controls: VBoxContainer
 var mount_demo:=MountDemo.new()
 var body_fixture_active:=false
+var roof_landing_preview:=false
 var body_previous_baked:=true
 var capture_crash:=false
 var crash_saved:=false
@@ -61,7 +62,7 @@ func _hud() -> void:
  var title:=Label.new();title.text='COLOSSEUM / DRIVE & CRASH';title.add_theme_font_size_override('font_size',19);column.add_child(title)
  readout=Label.new();readout.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;column.add_child(readout)
  var help:=Label.new();help.text='W/S throttle/brake · A/D steer · Space handbrake\nQ reverse · R repair · C camera\nDrag orbit/tilt · Wheel zoom\nH/Y 60/120 wall · U/I ±20° · B baked/live';help.add_theme_font_size_override('font_size',12);column.add_child(help)
- bake_toggle=CheckButton.new();bake_toggle.text='Use baked wall crashes';bake_toggle.button_pressed=car.baked_enabled;bake_toggle.toggled.connect(_baked_toggled);column.add_child(bake_toggle)
+ bake_toggle=CheckButton.new();bake_toggle.text='Use baked crashes';bake_toggle.button_pressed=car.baked_enabled;bake_toggle.toggled.connect(_baked_toggled);column.add_child(bake_toggle)
  var grip_label:=Label.new();column.add_child(grip_label)
  var grip:=HSlider.new();grip_control=grip;grip.min_value=.1;grip.max_value=1.5;grip.step=.01;grip.value=car.dynamics.parameters.tire_friction;column.add_child(grip)
  grip_label.text='Tyre friction: %.2f'%grip.value;grip.value_changed.connect(func(v):car.set_tire_friction(v);grip_label.text='Tyre friction: %.2f'%v)
@@ -85,6 +86,8 @@ func _hud() -> void:
  for spec in [['Steep 42°',-2.3],['Medium 24°',2.3],['Straddle',0.]]:_button(pair_row,spec[0],_pair_start.bind(spec[1]))
  var body_row:=HBoxContainer.new();column.add_child(body_row)
  for spec in [['Flat roof','roof_flat'],['Angled roof','roof_corner'],['Side hit','side_wall']]:_button(body_row,spec[0],_start_body_test.bind(spec[1]))
+ var landing_row:=HBoxContainer.new();column.add_child(landing_row)
+ for spec in [['Roof landing',0.,4.],['Roll left',-15.,4.],['Roll right',15.,4.],['Hard roof',0.,7.]]:_button(landing_row,spec[0],_start_roof_landing.bind(spec[1],spec[2]))
  var view_row:=HBoxContainer.new();column.add_child(view_row)
  _button(view_row,'Wheel mount test',_start_mount_test);_button(view_row,'Structure',func():skin.set_mode(0));_button(view_row,'Textured',func():skin.set_mode(2))
  panel_controls=VBoxContainer.new();panel_controls.name='PanelControls';column.add_child(panel_controls)
@@ -94,9 +97,13 @@ func _baked_toggled(value: bool) -> void:
  if body_fixture_active and value:BodyFixture.restore(car);body_fixture_active=false
  car.baked_enabled=value
 func _reset() -> void:
+ roof_landing_preview=false
  BodyFixture.restore(car);mount_demo.stop()
  if body_fixture_active:body_fixture_active=false;bake_toggle.button_pressed=body_previous_baked
  reverse=false;_reset_camera_orbit();car.reset(0,Vector3(-12,0,0));car.solver.barrier_enabled=true
+func _start_roof_landing(roll: float=0,down: float=4) -> void:
+ _reset();bake_toggle.button_pressed=true;car.stage_roof_landing(roll,down)
+ camera_mode=1;roof_landing_preview=true
 func _stage_feature(index: int) -> void:
  _reset()
  var f: Dictionary=terrain.features[index]
@@ -125,7 +132,7 @@ func _physics_process(dt: float) -> void:
  if capture_air:throttle=.1;brake=0;steering=0
  car.set_controls(-throttle if reverse else throttle,brake,steering,1.0 if Input.is_physical_key_pressed(KEY_SPACE) else 0.0)
  if car.sequence_active or mount_demo.active:car.set_controls(0,0,0,0)
- car.advance(dt,.25 if body_fixture_active else (.5 if car.sequence_active or mount_demo.active else 1.0))
+ car.advance(dt,.35 if roof_landing_preview else (.25 if body_fixture_active else (.5 if car.sequence_active or mount_demo.active else 1.0)))
  if car.compact.center.length()>140 or car.compact.center.y< -10:_reset()
 func _process(_dt: float) -> void:
  skin.update_pose()
@@ -155,6 +162,8 @@ func _process(_dt: float) -> void:
  readout.text+='\n%s · baked %s · impacts %d'%[{'DRIVE':'Light driving','FULL':'Live deformation','BAKED':'Baked playback','SLEEP':'Sleeping'}[car.mode],'ON' if car.baked_enabled else 'OFF',car.baked_count]
  if not car.last_bake.is_empty():readout.text+='\n'+str(car.last_bake.id)
  if car.sequence_notice!='':readout.text+='\n'+car.sequence_notice
+ if roof_landing_preview:readout.text+='\nRoof landing · slow motion · R repairs'
+ if car.baked_count==0 and car.roof_landing_sensor.last_rejection!='':readout.text+='\n'+car.roof_landing_sensor.last_rejection.replace('_',' ')
  if debug_visible:readout.text+='\n%d full solves · %.2f ms / 120 Hz\n%d instances · %d triangles'%[car.full_steps,car.statistics().cpu_ms_per_sim_second/120,stadium.instances,stadium.mesh_triangles]
  if capture:_capture_step()
  if capture_crash and not crash_saved and car.mode=='BAKED' and car.crash_player.time>.65:

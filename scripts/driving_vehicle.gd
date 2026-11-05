@@ -8,8 +8,14 @@ const ConditionedAuthor=preload('res://scripts/conditioned_crash_authoring.gd')
 const Coverage=preload('res://scripts/baked_contact_coverage.gd')
 const Partials=preload('res://scripts/partial_crash_library.gd')
 const ContactSensor=preload('res://scripts/baked_contact_sensor.gd')
+const RoofLandingCases=preload('res://scripts/roof_landing_cases.gd')
+const RoofLandingSensor=preload('res://scripts/roof_landing_sensor.gd')
+const PanelFloorWake=preload('res://scripts/panel_floor_wake.gd')
 static var cached_library: Array=[]
 static var cached_conditioned: Array=[]
+static var cached_roof_landings: Array=[]
+var roof_landing_library: Array=[]
+var roof_landing_sensor:=RoofLandingSensor.new()
 var baked_enabled:=true
 var bake_library: Array=[]
 var conditioned_library: Array=[]
@@ -39,12 +45,24 @@ func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=
  bake_library=cached_library
  if cached_conditioned.is_empty():cached_conditioned=States.read_library()
  conditioned_library=cached_conditioned
- for clip in bake_library+conditioned_library:
+ if cached_roof_landings.is_empty():cached_roof_landings=RoofLandingCases.read_library()
+ roof_landing_library=cached_roof_landings
+ for clip in bake_library+conditioned_library+roof_landing_library:
   if not clip.has('_input_compatibility'):clip['_input_compatibility']=CrashClip.input_compatibility(clip)
   CrashClip.prepare_surfaces(solver,clip)
+ if not before_step.is_connected(_live_panel_floor_wake):before_step.connect(_live_panel_floor_wake)
+
+func _live_panel_floor_wake(h: float) -> void:
+ if not baked_enabled and mode=='FULL':PanelFloorWake.step(solver,h)
+
+func stage_roof_landing(roll_deg: float=0,down_mps: float=4) -> void:
+ var spec: Dictionary={'roll_deg':roll_deg,'forward_kmh':60.0,'down_mps':down_mps,'roll_rate':signf(roll_deg)*.35}
+ RoofLandingCases.place(self,spec,.30)
+ baked_enabled=true;mode='DRIVE';solver.compact_active=true
 
 func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -> void:
  contact_sensor.reset();sequence_active=false;sequence_notice=''
+ roof_landing_sensor.reset()
  crash_player=null;baked_consumed=false;baked_count=0;baked_steps=0
  baked_cpu_us=0;baked_search_cpu_us=0;baked_seconds=0;rigid_contact_count=0;driver_accumulator=0;last_bake={};bake_status='Ready'
  super.reset(speed_kmh,start,weaken)
@@ -166,6 +184,8 @@ func _choose_speed_bin(signature: Dictionary,coverage: Dictionary={}) -> Diction
  return result
 
 func _contact_event(horizon: float) -> Dictionary:
+ var roof_event: Dictionary=roof_landing_sensor.event(self,horizon,roof_landing_library)
+ if not roof_event.is_empty():return roof_event
  var motion: Vector3=velocity()
  if not contact_sensor.nearby(solver,motion):
   contact_sensor.cancel('clear_road');return {}
@@ -261,7 +281,11 @@ func _begin_bake(event: Dictionary) -> void:
  var travel: float=event.toi
  if solver.panels_runtime_enabled:solver.panels.synchronize_inactive()
  solver.compact_active=false
- for i in solver.points.size():solver.points[i]+=solver.velocities[i]*travel
+ for i in solver.points.size():
+  solver.points[i]+=solver.velocities[i]*travel
+  if event.get('floor_contact',false):
+   solver.points[i]+=Vector3.DOWN*float(solver.config.gravity_mps2)*travel*travel
+   solver.velocities[i]+=Vector3.DOWN*float(solver.config.gravity_mps2)*travel
  if solver.panels_runtime_enabled:
   for p in solver.panels.panels:
    for i in 10:p.points[i]+=p.velocity[i]*travel
@@ -270,6 +294,7 @@ func _begin_bake(event: Dictionary) -> void:
     var omega: Vector3=p.reduced_data.omega;var angle: float=omega.length()*travel
     if angle>1e-9:p.reduced_data.rotation=(Quaternion(omega.normalized(),angle)*p.reduced_data.rotation).normalized()
   solver.panels.pose_revision+=1
+  if event.get('floor_contact',false):solver.panels.synchronize_inactive()
  for wheel in solver.wheels.wheels:
   wheel.spin=wrapf(wheel.spin+wheel.spin_speed*travel,-PI,PI)
   var angle: float=wheel.angular_velocity.length()*travel
@@ -280,12 +305,15 @@ func _begin_bake(event: Dictionary) -> void:
  bake_start_full_steps=solver.step_count;bake_end_full_steps=bake_start_full_steps
  baked_consumed=true;baked_count+=1
  crash_player=CrashPlayer.new()
+ var contact_gap:=RoofLandingCases.Geometry.minimum_gap(solver) if event.get('floor_contact',false) else INF
  var selected_library: Array=conditioned_library if event.selection.get('library_kind','')=='conditioned' else bake_library
+ if event.selection.get('library_kind','')=='roof_landing':selected_library=roof_landing_library
  crash_player.attach_live(self,selected_library,event.signature,event.selection)
  var previous: String=mode
  mode='BAKED';bake_status='Playing'
  solver.impact_started=true;solver.impact_time=bake_start_clock
  last_bake=event.selection.duplicate(true)
+ if event.get('floor_contact',false):last_bake['contact_gap_m']=contact_gap
  last_bake.erase('candidates')
  last_bake['start_time_s']=bake_start_clock
  last_bake['handoff_position_jump_m']=crash_player.handoff_position_jump_m

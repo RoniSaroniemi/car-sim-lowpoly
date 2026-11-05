@@ -1,0 +1,73 @@
+[
+	{
+		"baked_count": 0,
+		"cloth_steps": 0,
+		"full_steps": 0,
+		"label": "before",
+		"last_bake": {},
+		"membrane_steps": 0,
+		"mode": "DRIVE",
+		"panel_steps": 0,
+		"path": "res://docs/images/roof_landing_before.png"
+	},
+	{
+		"baked_count": 1,
+		"cloth_steps": 0,
+		"full_steps": 0,
+		"label": "impact",
+		"last_bake": {
+			"accepted": true,
+			"actual_impact_kmh": 25.8203275196455,
+			"angle_error_deg": 0.835328309784588,
+			"closing_speed_mps": 7.17231319990154,
+			"contact_family": "roof_landing_floor",
+			"contact_gap_m": 0.0,
+			"floor_y": 0.0,
+			"forward_speed_kmh": 59.9837173461914,
+			"handoff_position_jump_m": 0.0,
+			"handoff_velocity_jump_mps": 0.0,
+			"id": "roof_landing_f60_d7_rp15",
+			"impulse_ratio": 1.00344360368228,
+			"index": 5,
+			"library_kind": "roof_landing",
+			"recorded_speed_kmh": 25.7317176818848,
+			"score": 0.910679619193762,
+			"start_time_s": 0.0428515683117944,
+			"zone_overlap": 0.56140351775207
+		},
+		"membrane_steps": 0,
+		"mode": "BAKED",
+		"panel_steps": 0,
+		"path": "res://docs/images/roof_landing_impact.png"
+	},
+	{
+		"baked_count": 1,
+		"cloth_steps": 0,
+		"full_steps": 0,
+		"label": "crushed",
+		"last_bake": {
+			"accepted": true,
+			"actual_impact_kmh": 25.8203275196455,
+			"angle_error_deg": 0.835328309784588,
+			"closing_speed_mps": 7.17231319990154,
+			"contact_family": "roof_landing_floor",
+			"contact_gap_m": 0.0,
+			"floor_y": 0.0,
+			"forward_speed_kmh": 59.9837173461914,
+			"handoff_position_jump_m": 0.0,
+			"handoff_velocity_jump_mps": 0.0,
+			"id": "roof_landing_f60_d7_rp15",
+			"impulse_ratio": 1.00344360368228,
+			"index": 5,
+			"library_kind": "roof_landing",
+			"recorded_speed_kmh": 25.7317176818848,
+			"score": 0.910679619193762,
+			"start_time_s": 0.0428515683117944,
+			"zone_overlap": 0.56140351775207
+		},
+		"membrane_steps": 0,
+		"mode": "BAKED",
+		"panel_steps": 0,
+		"path": "res://docs/images/roof_landing_crushed.png"
+	}
+]

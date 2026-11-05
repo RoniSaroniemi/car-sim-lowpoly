@@ -3,6 +3,7 @@ extends SceneTree
 const Clip=preload('res://scripts/baked_crash_clip.gd')
 const Partial=preload('res://scripts/partial_crash_library.gd')
 const Multiaxis=preload('res://scripts/multiaxis_crash_cases.gd')
+const RoofLanding=preload('res://scripts/roof_landing_cases.gd')
 func _initialize() -> void:
  var jobs: Array=[]
  for spec in Clip.specifications():
@@ -16,5 +17,7 @@ func _initialize() -> void:
  jobs.append({'id':'conditioned_sequence','family':'conditioned','script':'bake_conditioned_transitions.gd','args':[],'metadata':''})
  for spec in Multiaxis.specifications():
   jobs.append({'id':spec.id,'family':'multiaxis','script':'bake_multiaxis_clips.gd','args':['--only='+spec.id,'--quality=4','--no-index'],'metadata':'bakes/multiaxis/'+spec.id+'.json'})
+ for spec in RoofLanding.specifications():
+  jobs.append({'id':spec.id,'family':'roof_landing','script':'bake_roof_landings.gd','args':['--only='+spec.id,'--quality=4'],'metadata':'bakes/roof_landing/'+spec.id+'.json'})
  print('BAKE_JOBS_JSON='+JSON.stringify(jobs))
  quit()

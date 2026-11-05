@@ -125,6 +125,14 @@ func _begin_replay() -> void:
   var actual_heading: float=rad_to_deg(atan2(-body_x.z,body_x.x))
   replay_rotation=Basis(Vector3.UP,deg_to_rad(actual_heading-float(data.metadata.heading_deg)))
  origin=g.station_center(2)
+ if data.metadata.get('family','')=='roof_landing_floor':
+  # Keep the recorded floor horizontal. Small roll-bin differences blend from
+  # the incoming pose rather than tilting the entire recorded ground plane.
+  var actual_x: Vector3=Roof.full_chassis_basis(g).x
+  var q: Array=data.metadata.contact_rotation_xyzw
+  var recorded_x: Vector3=Basis(Quaternion(q[0],q[1],q[2],q[3])).x
+  replay_rotation=Basis(Vector3.UP,atan2(-actual_x.z,actual_x.x)-atan2(-recorded_x.z,recorded_x.x))
+  origin.y=g.floor_sample(origin).w+float(data.metadata.origin[1])
  Clip.apply(g,data,0,origin,replay_rotation,retained)
  panel_handoff={}
  if g.panels_runtime_enabled and not panels_before.is_empty():

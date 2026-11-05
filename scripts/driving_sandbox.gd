@@ -8,6 +8,7 @@ const MountDemo=preload('res://scripts/wheel_mount_demo.gd')
 var mount_demo: RefCounted
 var capture_mounts:=false
 var mount_capture_stage:=0
+var roof_landing_preview:=false
 const SkinView=preload('res://scripts/damage_skin.gd')
 @export_file('*.json') var vehicle_profile: String='res://vehicles/niva.json'
 var vehicle: RefCounted
@@ -209,7 +210,7 @@ func _hud() -> void:
   for item in row:
    var button:=Button.new();button.text=item[0]
    button.pressed.connect(_start_head_on.bind(item[1],item[2]));buttons.add_child(button)
- bake_toggle=CheckButton.new();bake_toggle.text='Use baked wall crashes';bake_toggle.button_pressed=vehicle.baked_enabled
+ bake_toggle=CheckButton.new();bake_toggle.text='Use baked crashes';bake_toggle.button_pressed=vehicle.baked_enabled
  bake_toggle.toggled.connect(_baked_toggled);column.add_child(bake_toggle)
  var sequence_buttons:=HBoxContainer.new();column.add_child(sequence_buttons)
  for item in [['Three baked impacts',_start_baked_sequence],['Stage next impact',_stage_next_impact]]:
@@ -217,6 +218,9 @@ func _hud() -> void:
  var body_buttons:=HBoxContainer.new();column.add_child(body_buttons)
  for item in [['Live flat roof','roof_flat'],['Live angled roof','roof_corner'],['Live side hit','side_wall']]:
   var button:=Button.new();button.text=item[0];button.pressed.connect(_start_body_test.bind(item[1]));body_buttons.add_child(button)
+ var landing_buttons:=HBoxContainer.new();column.add_child(landing_buttons)
+ for item in [['Roof landing',0.,4.],['Roll left',-15.,4.],['Roll right',15.,4.],['Hard roof',0.,7.]]:
+  var button:=Button.new();button.text=item[0];button.pressed.connect(_start_roof_landing.bind(item[1],item[2]));landing_buttons.add_child(button)
  experimental_body=CheckButton.new();experimental_body.text='Promoted roof / side materials for live test';experimental_body.button_pressed=true;column.add_child(experimental_body)
  var quality_row:=HBoxContainer.new();column.add_child(quality_row)
  var quality_label:=Label.new();quality_label.text='Live precision';quality_row.add_child(quality_label)
@@ -255,6 +259,10 @@ func _start_body_test(case_name: String) -> void:
  camera_mode=2;orbit=0
  if vehicle.solver.effects!=null:vehicle.solver.effects.synchronize()
 
+func _start_roof_landing(roll: float=0,down: float=4) -> void:
+ _reset();bake_toggle.button_pressed=true;vehicle.stage_roof_landing(roll,down)
+ camera_mode=2;orbit=0;roof_landing_preview=true
+
 func _start_head_on(speed_kmh: float=60,heading_deg: float=0) -> void:
  _reset()
  head_on_case=true
@@ -282,6 +290,7 @@ func _start_mount_test() -> void:
  mount_demo.start(vehicle.solver)
 
 func _reset() -> void:
+ roof_landing_preview=false
  BodyFixture.restore(vehicle)
  if body_fixture_active:
   body_fixture_active=false;body_case=''
@@ -304,6 +313,9 @@ func _physics_process(dt: float) -> void:
  if vehicle.sequence_active:
   vehicle.set_controls(0,0,0,0)
   vehicle.advance(dt,.5)
+ elif roof_landing_preview:
+  vehicle.set_controls(0,0,0,0)
+  vehicle.advance(dt,.35)
  elif body_fixture_active:
   vehicle.set_controls(0,0,0,0)
   vehicle.advance(dt,.25)
@@ -338,7 +350,9 @@ func _process(_dt: float) -> void:
  var performance: Dictionary=vehicle.statistics()
  var mode_name: Dictionary={'DRIVE':'Light driving','FULL':'Live deformation','SLEEP':'Parked / sleeping','BAKED':'Baked crash playback'}
  readout.text+='\nPhysics: '+mode_name[vehicle.mode]
- readout.text+='\nBaked wall crashes: '+('ON' if vehicle.baked_enabled else 'OFF')
+ readout.text+='\nBaked crashes: '+('ON' if vehicle.baked_enabled else 'OFF')
+ if roof_landing_preview:readout.text+='\nRoof landing · slow motion · R repairs'
+ if vehicle.baked_count==0 and vehicle.roof_landing_sensor.last_rejection!='':readout.text+='\n'+vehicle.roof_landing_sensor.last_rejection.replace('_',' ')
  if vehicle.sequence_notice!='':readout.text+='\n'+vehicle.sequence_notice
  if vehicle.baked_count>0:readout.text+='\nBaked impacts: %d'%vehicle.baked_count
  if body_fixture_active:
@@ -350,7 +364,8 @@ func _process(_dt: float) -> void:
 
  if not vehicle.last_bake.is_empty():
   readout.text+='\nClip: '+str(vehicle.last_bake.id)
-  readout.text+='\nImpact %.0f km/h → %.0f km/h recording' %[vehicle.last_bake.actual_impact_kmh,vehicle.last_bake.recorded_speed_kmh]
+  if vehicle.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nRoof contact %.1f m/s · forward %.0f km/h'%[vehicle.last_bake.closing_speed_mps,vehicle.last_bake.forward_speed_kmh]
+  else:readout.text+='\nImpact %.0f km/h → %.0f km/h recording' %[vehicle.last_bake.actual_impact_kmh,vehicle.last_bake.recorded_speed_kmh]
   if vehicle.mode=='BAKED':readout.text+='\nPlayback %.1f / 2.5 s · live solver paused'%vehicle.crash_player.time
   else:readout.text+='\nReplay complete · R repairs the damaged car'
 
