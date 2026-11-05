@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "niva-interior-demo-v1",
+  "cosmetic_one_way": true,
+  "seats": [
+    {"id": "driver", "pivot": [-0.27, 0.826, 0.39], "mount": [-0.02, 0.58, 0.39], "back_mass_kg": 10, "equivalent_load_kg": 0, "lever_arm_m": 0.30, "equivalent_inertia": 5.5, "spring_nm_per_rad": 3500, "damping_nms": 90, "yield_torque_nm": 450, "minimum_angle_deg": -20, "maximum_angle_deg": 55},
+    {"id": "passenger", "pivot": [-0.27, 0.826, -0.39], "mount": [-0.02, 0.58, -0.39], "back_mass_kg": 10, "equivalent_load_kg": 0, "lever_arm_m": 0.30, "equivalent_inertia": 5.5, "spring_nm_per_rad": 3500, "damping_nms": 90, "yield_torque_nm": 450, "minimum_angle_deg": -20, "maximum_angle_deg": 55}
+  ],
+  "airbag": {
+    "enabled": true,
+    "equipment": "Optional demonstration retrofit, not an original-equipment claim",
+    "hub": [0.12, 1.18, 0.39],
+    "axis": [0.88, -0.47, 0.0],
+    "radius_m": 0.22,
+    "axial_radius_m": 0.20,
+    "deployment_seconds": 0.065,
+    "minimum_deceleration_mps2": 35,
+    "minimum_delta_v_mps": 0.65,
+    "delta_v_window_s": 0.055,
+    "minimum_forward_speed_mps": 7.0,
+    "require_frontal_wall_contact": true,
+    "maximum_acceleration_mps2": 600,
+    "torso_proxy_radius_m": 0.13,
+    "dash_backstop_x_m": 0.12,
+    "lower_backstop_y_m": -0.48
+  }
+}
