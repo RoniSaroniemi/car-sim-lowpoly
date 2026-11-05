@@ -62,7 +62,7 @@ func extra_checks() -> void:
  checks['low_speed_uses_rigid_contact']=car.baked_count==0 and car.full_steps==0 and car.rigid_contact_count>0
  car.reset_wall_approach(60);car.solver.links[0].damage=.2
  for i in 140:car.advance(1.0/120)
- checks['preexisting_damage_uses_rigid_without_healing']=car.baked_count==0 and car.full_steps==0 and car.rigid_contact_count>0 and car.solver.links[0].damage>=.2
+ checks['preexisting_damage_adds_recorded_damage_without_healing']=car.baked_count==1 and car.last_bake.get('incremental',false) and car.full_steps==0 and car.rigid_contact_count>0 and car.solver.links[0].damage>=.2
  car.reset_wall_approach(60)
  for i in 50:car.advance(1.0/120)
  car.solver.barrier_enabled=false

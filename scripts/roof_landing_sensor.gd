@@ -7,25 +7,36 @@ const Grid=preload('res://scripts/impact_zone_grid.gd')
 var last_rejection: String=''
 var checks:=0
 var probe_queries:=0
-func reset() -> void:last_rejection='';checks=0;probe_queries=0
+var latched:=false
+var clear_seconds:=0.0
+func reset() -> void:last_rejection='';checks=0;probe_queries=0;latched=false;clear_seconds=0
 func reject(reason: String) -> Dictionary:last_rejection=reason;return {}
 func event(vehicle: RefCounted,horizon: float,library: Array) -> Dictionary:
  checks+=1
  var g: RefCounted=vehicle.solver;var frame:=Geometry.basis(g)
- if vehicle.baked_count>0:
-  last_rejection='';return {}
  var center: Vector3=g.station_center(2)
  var surface: Vector4=g.floor_sample(center)
  var reference_normal:=Vector3(surface.x,surface.y,surface.z).normalized()
+ if latched:
+  g.panels.synchronize_inactive()
+  var clear:=true
+  for p in Geometry.probes(g):
+   if p.source=='wheel' or p.rest.y<1.05:continue
+   if Ground.gap(g,p.position,p.radius).distance<.15:clear=false;break
+  clear_seconds=clear_seconds+horizon if clear else 0.0
+  if clear_seconds<.1:return {}
+  latched=false
+  clear_seconds=0
  if -frame.y.dot(reference_normal)<.05:
   last_rejection='';return {}
  if center.y-surface.w>3:return {}
  if library.is_empty():return reject('roof_recordings_missing')
- if not vehicle._is_pristine():return reject('roof_damage_history_not_recorded')
  var motion: Vector3=vehicle.compact.linear_velocity
  var omega: Vector3=vehicle.compact.angular_velocity
  if motion.length()>75 or omega.length()>16:return reject('roof_speed_outside_slice')
- var packet: Dictionary=Ground.packet(vehicle,horizon)
+ # Tire support is not a veto on a simultaneous/later roof contact. Query
+ # non-wheel proxies so an earlier tire touch cannot hide the roof in this step.
+ var packet: Dictionary=Ground.packet(vehicle,horizon,false)
  if packet.is_empty():return {}
  probe_queries+=1
  var signature: Dictionary=packet.signature
@@ -60,5 +71,7 @@ func event(vehicle: RefCounted,horizon: float,library: Array) -> Dictionary:
   best={'accepted':true,'index':index,'id':clip.metadata.id,'library_kind':'roof_landing','contact_family':'roof_landing_floor','score':score,'zone_overlap':matched.zone_overlap,'angle_error_deg':angle,'closing_speed_mps':speed,'forward_speed_kmh':forward*3.6,'actual_impact_kmh':speed*3.6,'recorded_speed_kmh':float(expected.closing_speed_mps)*3.6,'impulse_ratio':ratio,'floor_y':surface.w,'ground_normal':[normal_world.x,normal_world.y,normal_world.z],'ground_point':[packet.ground_point.x,packet.ground_point.y,packet.ground_point.z],'roof_damage_gain':Response.GAIN,'activation_threshold_mps':.01}
  if best.is_empty():return reject('roof_no_matching_pose_or_speed')
  last_rejection=''
+ best['incremental']=true
+ latched=true
  packet['selection']=best
  return packet

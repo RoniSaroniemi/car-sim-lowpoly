@@ -13,6 +13,9 @@ const RoofLandingSensor=preload('res://scripts/roof_landing_sensor.gd')
 const PanelFloorWake=preload('res://scripts/panel_floor_wake.gd')
 const SoftRoof=preload('res://scripts/soft_roof_profile.gd')
 const GroundImpact=preload('res://scripts/ground_impact_geometry.gd')
+const IncrementalPlayer=preload('res://scripts/incremental_crash_player.gd')
+const WorldSensor=preload('res://scripts/world_impact_sensor.gd')
+var world_impact_sensor:=WorldSensor.new()
 const RoofResponse=preload('res://scripts/roof_landing_response.gd')
 static var cached_library: Array=[]
 static var cached_conditioned: Array=[]
@@ -40,6 +43,7 @@ var bake_start_full_steps:=0
 var bake_end_full_steps:=0
 var driver_accumulator:=0.0
 var last_bake: Dictionary={}
+var impact_history: Array=[]
 var bake_status: String='Ready'
 
 func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=true) -> void:
@@ -54,6 +58,7 @@ func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=
   if not clip.has('_input_compatibility'):clip['_input_compatibility']=CrashClip.input_compatibility(clip)
   CrashClip.prepare_surfaces(solver,clip)
  for clip in roof_landing_library:CrashClip.prepare_surfaces(solver,RoofResponse.prepare(solver,clip))
+ for clip in bake_library+roof_landing_library:IncrementalPlayer.prepare(solver,clip)
  if not before_step.is_connected(_live_panel_floor_wake):before_step.connect(_live_panel_floor_wake)
 
 func _live_panel_floor_wake(h: float) -> void:
@@ -68,7 +73,9 @@ func stage_roof_landing(roll_deg: float=0,down_mps: float=4) -> void:
 
 func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false) -> void:
  contact_sensor.reset();sequence_active=false;sequence_notice=''
+ impact_history.clear()
  roof_landing_sensor.reset()
+ world_impact_sensor.reset()
  crash_player=null;baked_consumed=false;baked_count=0;baked_steps=0
  baked_cpu_us=0;baked_search_cpu_us=0;baked_seconds=0;rigid_contact_count=0;driver_accumulator=0;last_bake={};bake_status='Ready'
  super.reset(speed_kmh,start,weaken)
@@ -194,17 +201,17 @@ func _contact_event(horizon: float) -> Dictionary:
  if not roof_event.is_empty():return roof_event
  var motion: Vector3=velocity()
  if not contact_sensor.nearby(solver,motion):
-  contact_sensor.cancel('clear_road');return {}
+  contact_sensor.cancel('clear_road');return world_impact_sensor.event(self,horizon,bake_library)
  if not _basic_eligibility():
-  contact_sensor.cancel('state_or_pose_unsupported');return {}
+  contact_sensor.cancel('state_or_pose_unsupported');return world_impact_sensor.event(self,horizon,bake_library)
  var packet: Dictionary=contact_sensor.event(solver,motion,horizon)
- if packet.is_empty():return {}
+ if packet.is_empty():return world_impact_sensor.event(self,horizon,bake_library)
  var candidates: Array=[{'band_m':.025,'signature':packet.signature}]
  candidates.append_array(packet.fallback_signatures)
  var representative: Dictionary={}
  for candidate in candidates:
   if not candidate.signature.is_empty():representative=candidate.signature;break
- if representative.is_empty():contact_sensor.note_rejection('empty_contact');return {}
+ if representative.is_empty():contact_sensor.note_rejection('empty_contact');return world_impact_sensor.event(self,horizon,bake_library)
  var coverage: Dictionary=Coverage.describe(solver,packet,representative)
  var rejection: String='no_compatible_footprint_recording'
  for candidate in candidates:
@@ -218,7 +225,7 @@ func _contact_event(horizon: float) -> Dictionary:
    return {'toi':packet.toi,'signature':signature,'selection':selection}
   rejection=selection.get('reason',rejection)
  contact_sensor.note_rejection(rejection)
- return {}
+ return world_impact_sensor.event(self,horizon,bake_library)
 
 func _wake(reason: String) -> void:
  if baked_enabled:return
@@ -262,7 +269,7 @@ func _rigid_contact(index: int,normal: Vector3,depth: float,_dt: float) -> void:
 
 func _advance_lightweight(h: float) -> void:
  var began: int=Time.get_ticks_usec()
- if mode=='SLEEP' and absf(dynamics.throttle)+absf(dynamics.steering)<.001 and solver.wake_requested=='' and sleeping_box_min==solver.barrier_min and sleeping_box_max==solver.barrier_max:
+ if mode=='SLEEP' and compact.linear_velocity.length_squared()<.0025 and compact.angular_velocity.length_squared()<.0025 and not compact.external_change() and absf(dynamics.throttle)+absf(dynamics.steering)<.001 and solver.wake_requested=='' and sleeping_box_min==solver.barrier_min and sleeping_box_max==solver.barrier_max:
   solver.simulated_time+=h;sleep_steps+=1;sleep_seconds+=h
   step_reduced_panels(h)
   solver.effects.step_debris(h)
@@ -287,11 +294,12 @@ func _begin_bake(event: Dictionary) -> void:
  var travel: float=event.toi
  if solver.panels_runtime_enabled:solver.panels.synchronize_inactive()
  solver.compact_active=false
- if event.get('floor_contact',false):GroundImpact.advance(self,travel)
+ var rigid_contact: bool=event.get('rigid_contact',event.get('floor_contact',false))
+ if rigid_contact:GroundImpact.advance(self,travel)
  for i in solver.points.size():
-  if event.get('floor_contact',false):continue
+  if rigid_contact:continue
   solver.points[i]+=solver.velocities[i]*travel
- if solver.panels_runtime_enabled and not event.get('floor_contact',false):
+ if solver.panels_runtime_enabled and not rigid_contact:
   for p in solver.panels.panels:
    for i in 10:p.points[i]+=p.velocity[i]*travel
    if p.has('reduced_data'):
@@ -303,13 +311,13 @@ func _begin_bake(event: Dictionary) -> void:
  for wheel in solver.wheels.wheels:
   wheel.spin=wrapf(wheel.spin+wheel.spin_speed*travel,-PI,PI)
   var angle: float=wheel.angular_velocity.length()*travel
-  if angle>1e-9 and not event.get('floor_contact',false):wheel.rotation=(Quaternion(wheel.angular_velocity.normalized(),angle)*wheel.rotation).normalized()
+  if angle>1e-9 and not rigid_contact:wheel.rotation=(Quaternion(wheel.angular_velocity.normalized(),angle)*wheel.rotation).normalized()
  solver.simulated_time+=travel
  drive_seconds+=travel
  bake_start_clock=solver.simulated_time;bake_clock=bake_start_clock
  bake_start_full_steps=solver.step_count;bake_end_full_steps=bake_start_full_steps
  baked_consumed=true;baked_count+=1
- crash_player=CrashPlayer.new()
+ crash_player=IncrementalPlayer.new() if event.selection.get('incremental',false) else CrashPlayer.new()
  var contact_gap:=RoofLandingCases.Geometry.minimum_gap(solver) if event.get('floor_contact',false) else INF
  var selected_library: Array=conditioned_library if event.selection.get('library_kind','')=='conditioned' else bake_library
  if event.selection.get('library_kind','')=='roof_landing':selected_library=roof_landing_library
@@ -318,11 +326,13 @@ func _begin_bake(event: Dictionary) -> void:
  mode='BAKED';bake_status='Playing'
  solver.impact_started=true;solver.impact_time=bake_start_clock
  last_bake=event.selection.duplicate(true)
+ if event.selection.get('contact_family','')=='roof_landing_floor':world_impact_sensor.latches['terrain_body']=true
  if event.get('floor_contact',false):last_bake['contact_gap_m']=contact_gap
  last_bake.erase('candidates')
  last_bake['start_time_s']=bake_start_clock
  last_bake['handoff_position_jump_m']=crash_player.handoff_position_jump_m
  last_bake['handoff_velocity_jump_mps']=crash_player.handoff_velocity_jump_mps
+ impact_history.append(last_bake.duplicate(true))
  transitions.append({'from':previous,'to':mode,'reason':'matching_baked_impact','time_s':bake_start_clock,'clip':last_bake.id})
 
 func _advance_bake(dt: float) -> void:
@@ -334,11 +344,54 @@ func _advance_bake(dt: float) -> void:
  baked_cpu_us+=Time.get_ticks_usec()-began
  if crash_player.state=='COMPLETE':_finish_bake()
 
+func _advance_incremental_root(h: float) -> void:
+ before_step.emit(h)
+ dynamics.step(h);compact.step(h);_rigid_body_contacts(h)
+ step_reduced_panels(h);solver.effects.step_debris(h)
+
+func _fit_incremental_contacts() -> void:
+ # The render/panel roof can extend past the sparse structural spheres. Keep
+ # those same contact proxies outside terrain after an incremental shape edit.
+ for iteration in 4:
+  solver.panels.synchronize_inactive()
+  var deepest:=0.0;var normal:=Vector3.ZERO
+  for p in RoofLandingCases.Geometry.probes(solver):
+   if p.source=='wheel':continue
+   var floor_hit: Dictionary=GroundImpact.gap(solver,p.position,p.radius)
+   if floor_hit.distance<deepest:deepest=floor_hit.distance;normal=floor_hit.normal
+   var hit: Dictionary=solver.static_contact(p.position,p.radius)
+   var gap: float=float(hit.distance)-p.radius
+   if gap<deepest:deepest=gap;normal=hit.normal
+  if deepest>=-.001:break
+  compact.center+=normal*(-deepest+.0001)
+  var inward: float=compact.linear_velocity.dot(normal)
+  if inward<0:compact.linear_velocity-=normal*inward
+  compact.flush()
+ solver.panels.synchronize_inactive()
+ # Shape changes and finite wheel rotation can leave a small nonlinear contact
+ # remainder after the normal suspension iterations. Preserve tire compliance,
+ # but keep the existing wheel mass/hard rim above the same world surfaces.
+ for wheel in solver.wheels.wheels:
+  var position: Vector3=solver.points[wheel.node]
+  var floor_hit: Vector4=solver.floor_sample(position)
+  var normal:=Vector3(floor_hit.x,floor_hit.y,floor_hit.z).normalized()
+  var support: Vector3=solver.wheels.support(wheel,-normal)
+  var distance: float=(position.y-floor_hit.w)*normal.y+support.dot(normal)
+  var excess: float=-float(wheel.max_compression)-distance
+  if excess>.001:
+   solver.points[wheel.node]+=normal*excess
+   var inward: float=solver.velocities[wheel.node].dot(normal)
+   if inward<0:solver.velocities[wheel.node]-=normal*inward
+
 func _finish_bake() -> void:
  prepare_lightweight_panels()
  bake_end_full_steps=solver.step_count
  last_bake['solver_steps_during_replay']=bake_end_full_steps-bake_start_full_steps
  last_bake['completed']=true
+ for item in impact_history:
+  if item.get('start_time_s',-1)==last_bake.start_time_s:item.merge(last_bake,true)
+  if item.get('overlay',false) and item.get('parent_id','')==last_bake.id and not item.get('completed',false):
+   item['completed']=true;item['solver_steps_during_replay']=bake_end_full_steps-bake_start_full_steps
  # Clear pre-crash constraint accumulators; retain recorded damage and momentum.
  for link in solver.links:
   link.lambda=0;link.peak_force=0;link.overload_time=0
@@ -387,6 +440,7 @@ func statistics() -> Dictionary:
  result['baked_count']=baked_count;result['baked_steps']=baked_steps
  result['baked_cpu_ms']=baked_cpu_us/1000.0;result['bake_search_cpu_ms']=baked_search_cpu_us/1000.0
  result['last_bake']=last_bake.duplicate(true)
+ result['impact_history']=impact_history.duplicate(true)
  result['contact_sensor']=contact_sensor.statistics()
  result['rigid_contacts']=rigid_contact_count;result['baked_seconds']=baked_seconds
  result.total_cpu_ms+=float(baked_cpu_us+baked_search_cpu_us)/1000

@@ -14,9 +14,10 @@ static func gap(g: RefCounted,position: Vector3,radius: float) -> Dictionary:
  var surface: Vector4=g.floor_sample(position)
  var normal:=Vector3(surface.x,surface.y,surface.z).normalized()
  return {'distance':(position.y-surface.w)*normal.y-radius,'normal':normal,'point':Vector3(position.x,surface.w,position.z)}
-static func packet(vehicle: RefCounted,horizon: float) -> Dictionary:
+static func packet(vehicle: RefCounted,horizon: float,include_wheels: bool=true) -> Dictionary:
  var g: RefCounted=vehicle.solver;g.panels.synchronize_inactive()
  var probes: Array=Geometry.probes(g);var first:=INF;var first_hit: Dictionary={}
+ if not include_wheels:probes=probes.filter(func(p):return p.source!='wheel')
  for p in probes:
   var initial: Dictionary=gap(g,p.position,p.radius)
   var travel: Dictionary=motion(vehicle,p,horizon)

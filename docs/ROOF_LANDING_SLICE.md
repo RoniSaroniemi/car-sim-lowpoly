@@ -13,8 +13,7 @@ Run `python3 tools/demo.py arena` or `python3 tools/demo.py drive`. Leave
 case. These buttons place the shared car and let the ordinary contact detector
 start playback. The staged view runs at 35% speed; **R** repairs and returns to
 normal driving. Rolling off a ramp uses the same detector, with no test flag.
-Repair before a new trial: arbitrary roof-after-wall damage histories remain
-outside this library and are explicitly rejected rather than healing damage.
+Roof hits after earlier damage now use the [incremental world-damage path](WORLD_DAMAGE_STACKING.md), preserving the earlier crush. Repair with R to compare identical starting cars.
 
 ## Recorded conditions
 
@@ -53,17 +52,17 @@ under nearly static support. Wheel-first landings do not trigger roof damage.
 There is no requirement to travel along world X or to meet the old wall speed
 threshold. Motion up to 75 m/s and angular speed up to 16 rad/s is accepted;
 nearest recorded roof orientation and severity are approximations outside the
-six authoring cases. Higher speeds and unsupported damaged histories keep rigid
-contacts. This is not a general pole or ceiling collision implementation.
+six authoring cases. Higher speeds keep rigid contacts. Later damage histories use the approximate incremental path. This is not a general pole or ceiling collision implementation.
 
 ## Playback and verification
 
-Playback maps the recorded floor to the **actual contact plane**. It uses the
-incoming tangent heading and floor height, blends the pose continuously and
-projects small numerical penetration out along actual terrain normals. A
-separate tangent-velocity adjustment preserves incoming forward/sideways motion,
-including zero forward speed, instead of accelerating a stationary car to the
-recording's 60 km/h. Completion returns the damaged graph to rigid driving.
+Playback adds cached local shape changes to the current damaged geometry. The
+existing lightweight body and wheels continue moving under gravity, angular
+momentum, suspension and actual world contacts. It does not assign the recorded
+60 km/h root velocity to an incoming stationary car. Small panel/body contact
+remainders are projected along actual terrain normals; tire compliance remains
+active, with a hard-rim limit. Completion returns the same damaged graph to
+rigid driving. Previously crushed members and irreversible failures are retained.
 
 The chase camera holds its heading reference while airborne, so pitching through
 vertical no longer makes the camera swing to the opposite side. This changes
@@ -109,8 +108,9 @@ are reported separately rather than presented as the same simulation.
 
 Natural-driving regression: `tests/roof_landing/drive_rollover.gd` drives the
 actual paired-ramp seam at 35/50/70 km/h with two lateral offsets. Paths reaching
-roof contact trigger one recorded roof event with zero full solves. Lower-roll
-paths remain ordinary rigid contacts. The evidence contains the measured roll,
+roof contact trigger a recorded roof event with zero full solves. Lower-roll
+paths can select generic body damage when the body hits the ramp; tire-only
+contacts remain suspension events. The evidence contains the measured roll,
 contact normal, selected clip and continuous-handoff errors for every path.
 The original car-local grid is used as a similarity score for this deliberately
 permissive roof family, not as a strict direction gate; no world-X alignment is

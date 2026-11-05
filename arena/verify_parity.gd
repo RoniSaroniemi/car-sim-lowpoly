@@ -37,7 +37,7 @@ func _run() -> void:
   for tick in 420:car.advance(1.0/120)
   var radius:=Vector2(car.compact.center.x,car.compact.center.z).length()
   checks['ring_%s_retains'%str(mode)]=radius<77.5 and _finite(car)
-  checks['ring_%s_no_wrong_bake'%str(mode)]=car.baked_count==0
+  checks['ring_%s_correct_damage_path'%str(mode)]=car.baked_count==1 and car.last_bake.get('incremental',false) if mode else car.baked_count==0
   checks['ring_%s_mode'%str(mode)]=car.full_steps==0 if mode else car.full_steps>0
   runs.append({'case':'ring_baked_'+str(mode),'radius_m':radius,'work_j':car.solver.plastic_work,'stats':car.statistics()})
  car=_car();car.baked_enabled=false;car.reset_wall_approach(60,0)

@@ -355,6 +355,7 @@ func _process(_dt: float) -> void:
  readout.text+='\nBaked crashes: '+('ON' if vehicle.baked_enabled else 'OFF')
  if roof_landing_preview:readout.text+='\nRoof landing · slow motion · R repairs'
  if vehicle.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nWeak roof · ramps and ground contacts'
+ if vehicle.last_bake.get('incremental',false):readout.text+='\nDamage accumulates · '+str(vehicle.last_bake.get('contact_family','')).replace('_',' ')
  if vehicle.baked_count==0 and vehicle.roof_landing_sensor.last_rejection!='':readout.text+='\n'+vehicle.roof_landing_sensor.last_rejection.replace('_',' ')
  if vehicle.sequence_notice!='':readout.text+='\n'+vehicle.sequence_notice
  if vehicle.baked_count>0:readout.text+='\nBaked impacts: %d'%vehicle.baked_count

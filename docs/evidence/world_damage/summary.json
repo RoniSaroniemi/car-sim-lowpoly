@@ -1,0 +1,95 @@
+{
+  "base_commit": "8e477685e24303be6309e90572f18f7a6c010b74",
+  "godot": "4.7.2.stable.official.ed1daf0bf",
+  "passed": true,
+  "reports": {
+    "world_contacts": {
+      "passed": true,
+      "checks": 66,
+      "report": "docs/evidence/world_damage/world_contacts.json"
+    },
+    "roof_landings": {
+      "passed": true,
+      "checks": 141,
+      "report": "docs/evidence/world_damage/roof_landings.json"
+    },
+    "roof_response": {
+      "passed": true,
+      "checks": 108,
+      "report": "docs/evidence/world_damage/roof_response.json"
+    },
+    "terrain_roof": {
+      "passed": true,
+      "checks": 43,
+      "report": "docs/evidence/world_damage/terrain_roof.json"
+    },
+    "airborne": {
+      "passed": true,
+      "checks": 35,
+      "report": "docs/evidence/world_damage/airborne.json"
+    },
+    "driven_rollover": {
+      "passed": true,
+      "checks": 0,
+      "report": "docs/evidence/world_damage/driven_rollover.json"
+    },
+    "arena": {
+      "passed": true,
+      "checks": 35,
+      "report": "docs/evidence/world_damage/arena.json"
+    },
+    "asset_audit": {
+      "passed": true,
+      "complete": true,
+      "audited": 132,
+      "failed": 0,
+      "checks": 0,
+      "report": "docs/evidence/world_damage/asset_audit.json"
+    }
+  },
+  "full_regression": "python3 tools/demo.py verify --no-import passed through the roof-bank suite, then stopped at the obsolete rigid-only arena-ring assertion. That assertion was updated to require incremental ring damage; verify-arena, verify-roof-landings and verify-bake-assets then passed, completing the remaining suites. Roof matching and driven roof-support checks were rerun after the tire masking correction.",
+  "logs": {
+    "full_verify": {
+      "sha256": "c03174a17d6a1d10c82b0b39838e9ce551aa0ba771339118b95115979ff0d739",
+      "retained_at": "verification/world_damage/full_verify.log"
+    },
+    "arena_suite": {
+      "sha256": "031ce07168310dc62a07598bd184e026d2eb7007ec084704bfbb4249888f4b93",
+      "retained_at": "verification/world_damage/arena_suite.log"
+    },
+    "roof_suite": {
+      "sha256": "cea79e6df474601723cb628fb7ecd9e745de24ef8c5fccf9eed3127aa0251f57",
+      "retained_at": "verification/world_damage/roof_suite.log"
+    },
+    "roof_final": {
+      "sha256": "c867a0068e9ceea4652b41c4653bba997e34e8dce61a79e27e9ec46769756a27",
+      "retained_at": "verification/world_damage/roof_final.log"
+    },
+    "driven_final": {
+      "sha256": "b615883c208ca259106d6273053a93f7cc080e1a20f7550e83b0ce2bb7d82b46",
+      "retained_at": "verification/world_damage/driven_final.log"
+    },
+    "asset_suite": {
+      "sha256": "cd568b3c49d099720e798229579c8e532384e571f780327b8292a11eaa52c71d",
+      "retained_at": "verification/world_damage/asset_suite.log"
+    },
+    "partial_controls": {
+      "sha256": "36ae61c0992303baadf23648a3962a23d0085ae76b459642f07de89a1d7233f4",
+      "retained_at": "verification/world_damage/partial_controls.log"
+    },
+    "native_latest": {
+      "sha256": "3db69651b59d196983cb6c74af371e0e5fc13594cdea16a26208149c43f16bb2",
+      "retained_at": "verification/world_damage/native_latest.log"
+    }
+  },
+  "native_images": [
+    "docs/images/world_damage_arena_wall.png",
+    "docs/images/world_damage_wall_then_roof.png"
+  ],
+  "solver_ownership": "One 1210kg graph. Compact body/wheels own root motion. Incremental playback calls zero full structural, panel cage, glass membrane or interior cloth steps.",
+  "limitations": [
+    "Approximate additive local damage for arbitrary histories; authored conditioned trio retains its exact path.",
+    "Overlapping roof layer is supported during incremental playback, not arbitrary overlapping legacy absolute clips.",
+    "No new self-collision/body tearing or seat-to-collapsed-roof contact."
+  ]
+}

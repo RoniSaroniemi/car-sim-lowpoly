@@ -44,7 +44,7 @@ func _case(roll: float,grade: float,yaw: float,down: float,stationary: bool) -> 
    for p in Geometry.probes(car.solver):
     if p.source!='wheel':gap=minf(gap,Ground.gap(car.solver,p.position,p.radius).distance)
  var key: String='roll%d_grade%.2f_yaw%.2f_static%s'%[roundi(roll),grade,yaw,str(stationary)]
- checks[key+'_triggered']=car.baked_count==1 and car.last_bake.get('completed',false)
+ checks[key+'_triggered']=car.baked_count>=1 and car.impact_history.any(func(hit):return hit.get('contact_family','')=='roof_landing_floor')
  checks[key+'_roof_buckled']=minimum<lower-.10
  checks[key+'_no_live_solve']=car.full_steps==0 and car.solver.step_count==0 and car.solver.panels.active_steps==0 and car.solver.effects.glass.membrane_solve_steps==0
  checks[key+'_no_floor_penetration']=gap>-.015
@@ -67,7 +67,7 @@ func _ramp() -> void:
  for i in car.solver.points.size():car.solver.points[i]+=normal*(.03-low)
  car.solver.panels.synchronize_inactive();car.solver.effects.synchronize();car.compact.capture_shape()
  for tick in 420:car.advance(1./120)
- checks.actual_arena_ramp_triggers=car.baked_count==1 and car.last_bake.get('completed',false) and car.full_steps==0
+ checks.actual_arena_ramp_triggers=car.baked_count>=1 and car.impact_history.any(func(hit):return hit.get('contact_family','')=='roof_landing_floor') and car.full_steps==0
  runs.append({'case':'actual_42_degree_ramp','bake':car.last_bake,'rejection':car.roof_landing_sensor.last_rejection})
 func _run() -> void:
  for roll in [0.,-60.,60.]:

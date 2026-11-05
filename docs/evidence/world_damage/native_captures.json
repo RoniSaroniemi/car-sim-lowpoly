@@ -1,0 +1,126 @@
+[
+	{
+		"body_steps": 0,
+		"cage_steps": 0,
+		"cloth_steps": 0,
+		"full_steps": 0,
+		"history": [
+			{
+				"accepted": true,
+				"actual_impact_kmh": 59.5408550262451,
+				"completed": true,
+				"contact_family": "arena_ring",
+				"damage_center_local": "(1.8, 0.97, 0.0)",
+				"damage_scale": 0.992347583770752,
+				"handoff_position_jump_m": 0.0,
+				"handoff_velocity_jump_mps": 0.0,
+				"id": "impact_000_60",
+				"incremental": true,
+				"index": 3,
+				"library_kind": "world_incremental",
+				"recorded_speed_kmh": 60.0,
+				"score": 0.99879205233137,
+				"solver_steps_during_replay": 0,
+				"start_time_s": 0.310868326822917
+			},
+			{
+				"accepted": true,
+				"activation_threshold_mps": 0.01,
+				"actual_impact_kmh": 6.69877771400513,
+				"angle_error_deg": 0.159490382944794,
+				"closing_speed_mps": 1.86077158722365,
+				"contact_family": "roof_landing_floor",
+				"contact_gap_m": 0.000000920146703720093,
+				"floor_y": 0.0,
+				"forward_speed_kmh": 71.9881004333496,
+				"ground_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"ground_point": [
+					-29.76291847229,
+					0.0,
+					-0.720347225666046
+				],
+				"handoff_position_jump_m": 0.0,
+				"handoff_velocity_jump_mps": 0.0,
+				"id": "roof_landing_f60_d4_r000",
+				"impulse_ratio": 1.00000001986822,
+				"incremental": true,
+				"index": 1,
+				"library_kind": "roof_landing",
+				"recorded_speed_kmh": 14.3999997138977,
+				"roof_damage_gain": 4.0,
+				"score": 0.916196712097221,
+				"start_time_s": 4.56345520019533,
+				"zone_overlap": 0.581014727762732
+			}
+		],
+		"impacts": 1,
+		"label": "arena_wall",
+		"membrane_steps": 0
+	},
+	{
+		"body_steps": 0,
+		"cage_steps": 0,
+		"cloth_steps": 0,
+		"full_steps": 0,
+		"history": [
+			{
+				"accepted": true,
+				"actual_impact_kmh": 59.5408550262451,
+				"completed": true,
+				"contact_family": "arena_ring",
+				"damage_center_local": "(1.8, 0.97, 0.0)",
+				"damage_scale": 0.992347583770752,
+				"handoff_position_jump_m": 0.0,
+				"handoff_velocity_jump_mps": 0.0,
+				"id": "impact_000_60",
+				"incremental": true,
+				"index": 3,
+				"library_kind": "world_incremental",
+				"recorded_speed_kmh": 60.0,
+				"score": 0.99879205233137,
+				"solver_steps_during_replay": 0,
+				"start_time_s": 0.310868326822917
+			},
+			{
+				"accepted": true,
+				"activation_threshold_mps": 0.01,
+				"actual_impact_kmh": 6.69877771400513,
+				"angle_error_deg": 0.159490382944794,
+				"closing_speed_mps": 1.86077158722365,
+				"contact_family": "roof_landing_floor",
+				"contact_gap_m": 0.000000920146703720093,
+				"floor_y": 0.0,
+				"forward_speed_kmh": 71.9881004333496,
+				"ground_normal": [
+					0.0,
+					1.0,
+					0.0
+				],
+				"ground_point": [
+					-29.76291847229,
+					0.0,
+					-0.720347225666046
+				],
+				"handoff_position_jump_m": 0.0,
+				"handoff_velocity_jump_mps": 0.0,
+				"id": "roof_landing_f60_d4_r000",
+				"impulse_ratio": 1.00000001986822,
+				"incremental": true,
+				"index": 1,
+				"library_kind": "roof_landing",
+				"recorded_speed_kmh": 14.3999997138977,
+				"roof_damage_gain": 4.0,
+				"score": 0.916196712097221,
+				"start_time_s": 4.56345520019533,
+				"zone_overlap": 0.581014727762732
+			}
+		],
+		"impacts": 2,
+		"label": "wall_then_roof",
+		"membrane_steps": 0
+	}
+]

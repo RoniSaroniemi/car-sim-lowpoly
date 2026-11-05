@@ -47,7 +47,7 @@ unstaged compatible landings. See [roof-landing coverage and tests](docs/ROOF_LA
 Click **Three baked impacts** or run `python3 tools/demo.py drive-sequence` to
 play 60 frontal → 60 at +20° → 120 at −20° on the same damaged car. Glass, seats
 and the optional demo airbag are recorded too; playback performs no live cloth
-or structural solves. Other damage histories need matching conditioned clips.
+or structural solves. The exact sequence uses conditioned clips; other supported world contacts accumulate approximate local damage as described in [world damage stacking](docs/WORLD_DAMAGE_STACKING.md).
 
 Both scenes use one [shared vehicle runtime](docs/SHARED_VEHICLE_RUNTIME.md).
 Tune `vehicles/niva.json` or improve the shared dynamics/wheel code once, then
@@ -61,7 +61,7 @@ python3 tools/demo.py arena
 
 The alternative arena has tiered seating, repeating arches, a sand floor, sand/concrete/timber jumps, a halfpipe, and adjacent **42° / 24° ramps** with a straddling start. W/S/A/D, Space, Q and R keep their usual controls. Use **Open colosseum arena** in the test yard or **Open test yard** in the arena to switch locations; switching starts a fresh car. Both scenes use the shared vehicle runtime and current damage materials.
 
-The arena uses sky ambient fill, material cavity shading and a shadowed sun. Its curved retaining wall uses cheap rigid contacts; it does not apply incompatible planar-wall crash recordings. Drag to orbit through 360° and tilt; use the wheel to zoom. Both driving areas expose the shared engine/grip, baked/live, precision and opening-panel controls. See [arena controls, lighting, evidence and limits](arena/README.md) and [panel mechanics, glass and replay](docs/VEHICLE_PANELS.md).
+The arena uses sky ambient fill, material cavity shading and a shadowed sun. Its curved retaining wall uses shared world contacts and incremental local baked deformation, with physical root motion preserved. Drag to orbit through 360° and tilt; use the wheel to zoom. Both driving areas expose the shared engine/grip, baked/live, precision and opening-panel controls. See [arena controls, lighting, evidence and limits](arena/README.md) and [panel mechanics, glass and replay](docs/VEHICLE_PANELS.md).
 
 ```sh
 python3 tools/demo.py verify-arena --no-import

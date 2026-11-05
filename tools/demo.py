@@ -144,7 +144,7 @@ def main():
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://arena/verify_parity.gd'])
         if args.command in ('verify', 'verify-roof-landings'):
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://tests/roof_landing/verify.gd'])
-            for script in ('res://tests/roof_landing/response.gd', 'res://tests/roof_landing/terrain.gd', 'res://tests/airborne/verify.gd', 'res://tests/roof_landing/drive_rollover.gd'):
+            for script in ('res://tests/roof_landing/response.gd', 'res://tests/roof_landing/terrain.gd', 'res://tests/airborne/verify.gd', 'res://tests/roof_landing/drive_rollover.gd', 'res://tests/world_damage/verify.gd'):
                 run([binary, '--headless', '--path', str(ROOT), '--script', script])
         if args.command in ('verify', 'verify-bake-assets'):
             run([binary, '--headless', '--path', str(ROOT), '--script', 'res://tests/panels/verify_recorded_bank.gd', '--', '--expect-count=132'])

@@ -38,24 +38,30 @@ func _landing(roll: float,pitch: float,forward: float,down: float) -> void:
  car.solver.panels.synchronize_inactive();car.solver.effects.synchronize();car.compact.capture_shape()
  car.mode='DRIVE';car.solver.compact_active=true
  var preparations_before: int=Response.preparations
- var minimum:=INF;var maximum_speed:=0.0;var entry_forward:=0.0;var saw_entry:=false
+ var minimum:=INF;var body_minimum:=INF;var tire_overcompression:=0.0;var maximum_speed:=0.0;var entry_forward:=0.0;var saw_entry:=false
  for tick in 420:
   car.advance(1.0/120)
   if car.mode=='BAKED':
    minimum=minf(minimum,Geometry.minimum_gap(car.solver))
+   for probe in Geometry.probes(car.solver):
+    var gap: float=probe.position.y-probe.radius-car.solver.floor_sample(probe.position).w
+    if probe.source=='wheel':
+     var wheel: Variant=car.solver.wheels.wheels[car.solver.wheels.by_node[probe.node]]
+     tire_overcompression=maxf(tire_overcompression,-gap-float(wheel.max_compression))
+    else:body_minimum=minf(body_minimum,gap)
    if not saw_entry:
     entry_forward=car.velocity().x;saw_entry=true
    for v in car.solver.velocities:maximum_speed=maxf(maximum_speed,v.length())
  var key: String='roll%d_pitch%d_forward%d_down%.1f'%[roundi(roll),roundi(pitch),roundi(forward),down]
  checks[key+'_triggers']=car.baked_count==1 and car.last_bake.get('completed',false)
  checks[key+'_no_live_solves']=car.full_steps==0 and car.solver.step_count==0 and car.solver.panels.active_steps==0 and car.solver.effects.glass.membrane_solve_steps==0 and car.solver.effects.interior.cloth_steps==0
- checks[key+'_floor_safe']=minimum>-.012
+ checks[key+'_floor_safe']=body_minimum>-.012 and tire_overcompression<.012
  checks[key+'_finite_velocity']=maximum_speed<100 and Array(car.solver.points).all(func(p):return p.is_finite())
  checks[key+'_continuous_entry']=car.last_bake.get('handoff_position_jump_m',INF)<.00001 and car.last_bake.get('handoff_velocity_jump_mps',INF)<.0001
  checks[key+'_forward_preserved']=absf(entry_forward-forward/3.6)<1.5
  checks[key+'_no_contact_time_prepare']=Response.preparations==preparations_before
- runs.append({'case':key,'last_bake':car.last_bake,'minimum_gap_m':minimum,'maximum_velocity_mps':maximum_speed,'entry_forward_mps':entry_forward})
- print('EASY_ROOF ',key,' selected=',car.last_bake.get('id','NONE'),' gap=',minimum,' vmax=',maximum_speed)
+ runs.append({'case':key,'last_bake':car.last_bake,'minimum_gap_m':minimum,'body_minimum_gap_m':body_minimum,'tire_overcompression_m':tire_overcompression,'maximum_velocity_mps':maximum_speed,'entry_forward_mps':entry_forward})
+ print('EASY_ROOF ',key,' selected=',car.last_bake.get('id','NONE'),' gap=',minimum,' body_gap=',body_minimum,' tire_overcompression=',tire_overcompression,' vmax=',maximum_speed)
 func _run() -> void:
  var car:=Driving.new();car.setup();_source_checks(car)
  for speed in [0.,30.,100.,160.]:_landing(0,0,speed,.8)

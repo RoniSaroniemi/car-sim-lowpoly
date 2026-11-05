@@ -69,7 +69,7 @@ func _run() -> void:
  for tick in 360:car.advance(1.0/120)
  var radius:=Vector2(car.compact.center.x,car.compact.center.z).length()
  checks['visible_ring_wall_stops_vehicle']=car.boundary_contacts>0 and radius<76
- checks['ring_wall_does_not_apply_wrong_wall_bake']=car.baked_count==0 and car.full_steps==0
+ checks['ring_wall_uses_incremental_world_damage']=car.baked_count==1 and car.last_bake.get('incremental',false) and car.last_bake.get('contact_family','')=='arena_ring' and car.full_steps==0
  for angle in [PI*.5,PI,PI*1.5]:
   var heading:=Basis(Vector3.UP,-angle);var start:=heading*Vector3(69,0,0)
   car.reset(55,start);car.solver.barrier_enabled=false

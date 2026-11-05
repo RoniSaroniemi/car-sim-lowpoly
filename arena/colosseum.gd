@@ -166,6 +166,7 @@ func _process(_dt: float) -> void:
  if car.sequence_notice!='':readout.text+='\n'+car.sequence_notice
  if roof_landing_preview:readout.text+='\nRoof landing · slow motion · R repairs'
  if car.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nWeak roof · ramps and ground contacts'
+ if car.last_bake.get('incremental',false):readout.text+='\nDamage accumulates · '+str(car.last_bake.get('contact_family','')).replace('_',' ')
  if car.baked_count==0 and car.roof_landing_sensor.last_rejection!='':readout.text+='\n'+car.roof_landing_sensor.last_rejection.replace('_',' ')
  if debug_visible:readout.text+='\n%d full solves · %.2f ms / 120 Hz\n%d instances · %d triangles'%[car.full_steps,car.statistics().cpu_ms_per_sim_second/120,stadium.instances,stadium.mesh_triangles]
  if capture:_capture_step()

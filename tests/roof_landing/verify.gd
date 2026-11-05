@@ -35,10 +35,12 @@ func _run_case(spec: Dictionary,yaw: float,step_s: float,arena: bool=false) -> v
    ground_error=maxf(ground_error,(transform*Vector3.UP).distance_to(Vector3.UP))
   minimum_height=minf(minimum_height,car.solver.points[10].distance_to(car.solver.points[8]))
  var key: String='%s_y%.2f_dt%.4f_arena%s'%[spec.id,yaw,step_s,str(arena)]
- checks[key+'_played_once']=car.baked_count==1 and car.last_bake.get('completed',false)
- checks[key+'_actual_ground_contact']=saw_air and absf(float(car.last_bake.get('contact_gap_m',INF)))<.001
+ var roof_hits: Array=car.impact_history.filter(func(hit):return hit.get('contact_family','')=='roof_landing_floor')
+ var first: Dictionary=roof_hits[0] if not roof_hits.is_empty() else {}
+ checks[key+'_first_landing_completed']=car.baked_count>=1 and first.get('completed',false)
+ checks[key+'_actual_ground_contact']=saw_air and absf(float(first.get('contact_gap_m',INF)))<.001
  checks[key+'_zero_solvers']=_counts(car)==[0,0,0,0,0]
- checks[key+'_continuous_entry']=car.last_bake.get('handoff_position_jump_m',INF)<.00001 and car.last_bake.get('handoff_velocity_jump_mps',INF)<.0001
+ checks[key+'_continuous_entry']=first.get('handoff_position_jump_m',INF)<.00001 and first.get('handoff_velocity_jump_mps',INF)<.0001
  checks[key+'_floor_not_tilted']=ground_error<.00001
  checks[key+'_same_graph_mass_finite']=graph_id==car.solver.get_instance_id() and absf(car.solver.owned_mass_kg()-1210)<.001 and Array(car.solver.points).all(func(p):return p.is_finite())
  checks[key+'_real_roof_deformation']=minimum_height<initial_height-.005
@@ -62,14 +64,14 @@ func _negative_cases() -> void:
  car=Driving.new();car.setup();car.solver.barrier_enabled=false;Cases.place(car,base,.3)
  car.solver.links[0].damage=.5
  for tick in 40:car.advance(1.0/120)
- checks.existing_damage_not_healed=car.baked_count==0 and car.solver.links[0].damage>=.5
+ checks.existing_damage_not_healed=car.baked_count==1 and car.last_bake.get('incremental',false) and car.solver.links[0].damage>=.5
  car=Driving.new();car.setup();car.solver.barrier_enabled=false;car.solver.terrain=Slope.new();Cases.place(car,base,.3)
  for tick in 40:car.advance(1.0/120)
  checks.slope_registers_recording_to_contact_plane=car.baked_count==1 and car.full_steps==0 and car.last_bake.get('ground_normal',[]).size()==3
  # Elevated flat ground must change only the replay origin's height.
  car=Driving.new();car.setup();car.solver.terrain=RaisedFloor.new();car.solver.barrier_enabled=false;Cases.place(car,base,.3)
  for tick in 60:car.advance(1.0/120)
- checks.raised_flat_ground_registered=car.baked_count==1 and absf(car.crash_player.origin.y-float(car.crash_player.data.metadata.origin[1])-1.25)<.0001
+ checks.raised_flat_ground_registered=car.baked_count==1 and absf(float(car.last_bake.get('floor_y',0))-1.25)<.0001 and Geometry.minimum_gap(car.solver)>-.025
 func _bank_checks() -> void:
  var library: Array=Cases.read_library();checks.six_clips=library.size()==6
  for data in library:
@@ -84,7 +86,7 @@ func _ui_checks() -> void:
   scene._start_roof_landing(40,4)
   var car: RefCounted=scene.car if path.contains('arena') else scene.vehicle
   for tick in 360:car.advance(1.0/120)
-  checks[path+'_actual_shared_car_button']=car.baked_count==1 and car.full_steps==0 and car.last_bake.get('completed',false)
+  checks[path+'_actual_shared_car_button']=car.baked_count>=1 and car.full_steps==0 and car.impact_history.any(func(hit):return hit.get('contact_family','')=='roof_landing_floor' and hit.get('completed',false))
   scene._reset();checks[path+'_repair_restores_drive']=car.baked_count==0 and car.mode=='DRIVE' and not scene.roof_landing_preview
   scene.queue_free()
 func _run() -> void:
