@@ -57,6 +57,10 @@ func _run() -> void:
  scene._start_body_test('roof_corner');checks['hud_roof_fixture_live']=scene.body_fixture_active and scene.car.mode=='FULL' and not scene.car.baked_enabled
  scene._reset();scene._start_mount_test();checks['hud_mount_fixture_active']=scene.mount_demo.active
  checks['panel_widget_integration_container']=scene.panel_controls!=null and scene.panel_controls.name=='PanelControls'
+ checks['panel_widget_uses_shared_vehicle']=scene.panel_controls.vehicle==scene.car and scene.panel_controls.labels.size()==4
+ scene.panel_controls._command('door_left',70)
+ for tick in 120:scene.car.advance(1.0/120)
+ checks['panel_widget_opens_actual_panel']=not scene.car.panel_state('door_left').latched
  scene.queue_free()
  var tuning: Array=[]
  for power in [55.,660.]:

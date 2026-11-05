@@ -88,6 +88,7 @@ func _hud() -> void:
  var view_row:=HBoxContainer.new();column.add_child(view_row)
  _button(view_row,'Wheel mount test',_start_mount_test);_button(view_row,'Structure',func():skin.set_mode(0));_button(view_row,'Textured',func():skin.set_mode(2))
  panel_controls=VBoxContainer.new();panel_controls.name='PanelControls';column.add_child(panel_controls)
+ panel_controls.set_script(load('res://scripts/panel_controls.gd'));panel_controls.setup(car)
  _button(column,'Open test yard',func():get_tree().change_scene_to_file('res://driving.tscn'))
 func _baked_toggled(value: bool) -> void:
  if body_fixture_active and value:BodyFixture.restore(car);body_fixture_active=false
