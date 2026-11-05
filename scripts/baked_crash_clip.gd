@@ -20,6 +20,10 @@ static func specifications(three_only: bool=false) -> Array:
   # Settled low-speed suspension rotates the 60° contact frame slightly.
   # Record the observed 75° coverage gap while preserving the zone/angle gates.
   cases.append({'angle':75.0,'speed':60.0})
+  # Keep the established cases and add the user's 45-degree compass coverage.
+  for speed in [60.0,120.0]:
+   for angle in [45.0,135.0,-135.0,-45.0]:cases.append({'angle':angle,'speed':speed})
+  for angle in [20.0,-20.0]:cases.append({'angle':angle,'speed':60.0})
  return cases
 static func case_path(angle: float,speed: float=120) -> String:return 'res://bakes/'+case_id(angle,speed)+'.crashclip'
 static func read_library() -> Array:
