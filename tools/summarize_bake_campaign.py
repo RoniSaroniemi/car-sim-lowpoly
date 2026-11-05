@@ -13,14 +13,23 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--publish', action='store_true')
     args = parser.parse_args()
+    audit_path = ROOT / 'verification/bake_campaign/asset_audit.json'
+    audit = json.loads(audit_path.read_text()) if audit_path.exists() else {}
+    audited_metadata = {row['id']: row['metadata'] for row in audit.get('records', [])
+                        if not row.get('pending') and not row.get('failures')}
     records = []
     for family, expected in EXPECTED.items():
         directory = ROOT / 'bakes' / ('' if family == 'horizontal' else family)
         assets = []
         for clip in sorted(directory.glob('*.crashclip')):
-            meta = json.loads(clip.with_suffix('.json').read_text())
+            sidecar = clip.with_suffix('.json')
+            # Conditioned clips intentionally keep metadata inside compressed
+            # files; use the read-only disk auditor's extracted metadata.
+            meta = json.loads(sidecar.read_text()) if sidecar.exists() else audited_metadata.get(clip.stem)
+            if meta is None:
+                continue
             assets.append({'id': meta['id'], 'bytes': clip.stat().st_size,
-                           'frames': meta['frame_count'], 'physics_hz': meta['physics_hz'],
+                           'frames': meta.get('frame_count', audit.get('samples_per_clip', 0)), 'physics_hz': meta['physics_hz'],
                            'sample_hz': meta['sample_hz'], 'duration_s': meta['duration_s'],
                            'panels_schema': meta.get('panels_schema', 0)})
         path = ROOT / 'verification' / 'bake_campaign' / (family + '.json')
@@ -46,8 +55,6 @@ def main():
                         'workers': timing.get('workers'),
                         'timing_complete': timing.get('complete', False) and timing.get('success', False),
                         'assets': assets})
-    audit_path = ROOT / 'verification/bake_campaign/asset_audit.json'
-    audit = json.loads(audit_path.read_text()) if audit_path.exists() else {}
     report = {'generated_utc': datetime.now(timezone.utc).isoformat(),
               'families': records, 'clips': sum(r['count'] for r in records),
               'bytes': sum(r['bytes'] for r in records),
