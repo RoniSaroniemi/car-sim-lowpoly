@@ -2,6 +2,8 @@
 
 This extends the isolated [operable-panel probe](ARTICULATED_PANEL_PROBE.md). It changes only `probes/panels/`; the production driving sandbox, GLB, shared solvers and main crash bank remain unchanged.
 
+The current conservative road-profile and stiff-hinge correction supersedes the early outcomes/one-hinge approximation below. See [driving fix and current evidence](PANEL_DRIVING_FIX.md).
+
 ## Run and steer the probe
 
 ```sh

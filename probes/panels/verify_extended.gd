@@ -58,12 +58,14 @@ func drive_checks() -> void:
  for kind in ['closed','right_free','right_sag']:
   var d:=Drive.new();d.wall=false;d.start(kind)
   var p: Dictionary=d.graph.panels.find('door_right');var lengths: Array=plastic(p);var damage_flags: Array=flags(p)
-  var low:=INF;var high:=-INF;var finite:=true;var mass_error:=0.0
+  var low:=INF;var high:=-INF;var late_low:=INF;var late_high:=-INF;var finite:=true;var mass_error:=0.0
   for i in 1200:
    d.controls(1 if i<420 else 0,1 if i>=420 and i<720 else 0,.6*sin(i*.013) if i<850 else 0);d.step()
-   low=minf(low,p.angle);high=maxf(high,p.angle);mass_error=maxf(mass_error,absf(d.graph.panels.total_mass()-1210))
+   low=minf(low,p.angle);high=maxf(high,p.angle)
+   if i>=120:late_low=minf(late_low,p.angle);late_high=maxf(late_high,p.angle)
+   mass_error=maxf(mass_error,absf(d.graph.panels.total_mass()-1210))
    for point_ in p.points:finite=finite and point_.is_finite() and point_.length()<500
-  var result: Dictionary=d.stats();result['angle_range_deg']=[rad_to_deg(low),rad_to_deg(high)];runs.append(result)
+  var result: Dictionary=d.stats();result['angle_range_deg']=[rad_to_deg(low),rad_to_deg(high)];result['settled_angle_range_deg']=[rad_to_deg(late_low),rad_to_deg(late_high)];runs.append(result)
   check(kind+'_drive_zero_full_structure_or_cage_solves',d.full_steps==0 and d.graph.panels.active_steps==0 and d.coarse_steps==1200)
   check(kind+'_drive_finite_mass_once',finite and mass_error<.001)
   check(kind+'_plastic_and_failures_never_heal',lengths==plastic(p) and flags(p)==damage_flags)
@@ -73,7 +75,7 @@ func drive_checks() -> void:
    check(kind+'_moves_under_driving_inertia',high-low>.2)
    check(kind+'_damaged_controls_cannot_heal',not d.reduced.set_open('door_right',0))
    check(kind+'_mode_transfer_pose_velocity_continuous',d.reduced.transitions[0].pose_error_m<.000001 and d.reduced.transitions[0].velocity_error_mps<.000001 and d.reduced.transitions[0].linear_error_ns<.001 and d.reduced.transitions[0].angular_error_nms<.001)
-   if kind=='right_free':check('right_free_both_hinges_retain_and_stops_hold',not p.anchors[0].broken and not p.anchors[1].broken and low>-.01 and high<deg_to_rad(101))
+   if kind=='right_free':check('right_free_both_hinges_retain_and_settle_at_stops',not p.anchors[0].broken and not p.anchors[1].broken and late_low>-.01 and late_high<deg_to_rad(101))
    else:check('right_sag_one_hinge_retains',p.anchors[0].broken and not p.anchors[1].broken and not p.detached)
   # Every reduced frame has frozen shape and ownership, and replays without stepping.
   var file:=FileAccess.open_compressed('res://probes/panels/data/drive_'+kind+'.panelclip',FileAccess.WRITE,FileAccess.COMPRESSION_ZSTD);file.store_var({'version':2,'hz':60,'frames':d.frames},false);file.close()

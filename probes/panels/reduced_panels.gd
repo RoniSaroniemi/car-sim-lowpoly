@@ -1,5 +1,6 @@
 extends RefCounted
 ## Frozen plastic shape, reduced rigid momentum, and reciprocal two-point hinges.
+const AngularMount=preload('res://probes/panels/panel_angular_mount.gd')
 const Attachment=preload('res://scripts/car_attachment.gd')
 var graph: RefCounted
 var system: RefCounted
@@ -124,7 +125,7 @@ func _hinge(p: Dictionary,index: int,target: Vector3,h: float,axial_free: Vector
   normals=[perpendicular,axial_free.cross(perpendicular).normalized()]
  for normal in normals:
   var relative: Vector3=_velocity(p,a.node)-target_velocity
-  var error: Vector3=point_-target
+  var error: Vector3=point_-(target-target_velocity*h)
   var weight: float=1/p.mass+r.cross(normal).dot(_inverse(p,r.cross(normal)))+_body_weight(target,normal)
   var impulse: Vector3=normal*(-relative.dot(normal)-error.dot(normal)*.18/h)/maxf(.0001,weight)
   _impulse(p,a.node,impulse);_body_impulse(target,-impulse)
@@ -174,6 +175,7 @@ func step(h: float) -> void:
       if seat.broken:continue
       var target: Vector3=Attachment.mapped(graph,seat.rest,seat.binding,frames)
       _seat(p,seat,target,mount.basis*Vector3.BACK*float(p.side),h)
+  AngularMount.reduced(self,p,frames,h)
   d.center+=d.linear*h;_rotate(p,d.omega*h)
   # Cheap finite support proxies; floor response is rigid impulse, not cage solving.
   var grounded:=false
@@ -197,6 +199,8 @@ func step(h: float) -> void:
   damping_energy_j+=maxf(0,energy_before-.5*p.mass*d.linear.length_squared())
   _stop(p,mount,hinge_axis,sign_,h)
   _publish(p)
+  system.try_detach(p)
+  if p.detached:p.reduced_mode='detached' if not d.sleep else 'detached_sleep'
   if not p.detached and not p.anchors[2].broken and p.target<.01 and absf(p.angle)<.008 and absf(p.angular_speed)<.05:
    p['close_quiet']=p.get('close_quiet',0.0)+h
    if p.close_quiet>.18:
@@ -227,7 +231,9 @@ func stats() -> Dictionary:
  return {'modes':modes,'reduced_steps':reduced_steps,'full_impact_wakes':full_wakes,'projection_energy_j':projection_energy_j,'damping_energy_j':damping_energy_j,'contacts':contacts,'transitions':transitions,'mass_kg':system.total_mass()}
 
 func _stop(p: Dictionary,mount: Transform3D,hinge_axis: Vector3,sign_: float,h: float) -> void:
- if p.detached or p.anchors[0].broken or p.anchors[1].broken:return
+ if p.detached:return
+ if p.anchors[0].broken or p.anchors[1].broken:
+  if not AngularMount.single(p):return
  var arm: Vector3=_point(p,7)-(_point(p,0)+_point(p,2))*.5
  var base: Vector3=mount.basis*(p.rest[7]-(p.rest[0]+p.rest[2])*.5)
  var angle: float=atan2(hinge_axis.dot(base.cross(arm)),base.dot(arm))*sign_
@@ -248,9 +254,10 @@ func _stop(p: Dictionary,mount: Transform3D,hinge_axis: Vector3,sign_: float,h: 
 
 func _seat(p: Dictionary,seat: Dictionary,target: Vector3,normal: Vector3,h: float) -> void:
  var point_: Vector3=_point(p,seat.node);var r: Vector3=point_-p.reduced_data.center
- var v: Vector3=_velocity(p,seat.node)-_body_velocity(seat.binding,target)
+ var target_velocity: Vector3=_body_velocity(seat.binding,target)
+ var v: Vector3=_velocity(p,seat.node)-target_velocity
  var weight: float=1/p.mass+r.cross(normal).dot(_inverse(p,r.cross(normal)))+_body_weight(target,normal)
- var impulse: Vector3=normal*(-v.dot(normal)-(point_-target).dot(normal)*.12/h)/maxf(.0001,weight)
+ var impulse: Vector3=normal*(-v.dot(normal)-(point_-(target-target_velocity*h)).dot(normal)*.12/h)/maxf(.0001,weight)
  _impulse(p,seat.node,impulse);_body_impulse(target,-impulse)
 
 func _wall_contact(p: Dictionary,i: int,old_center: Vector3,old_rotation: Quaternion,_h: float) -> void:

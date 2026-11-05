@@ -3,6 +3,7 @@ extends RefCounted
 const Graph=preload('res://probes/panels/panel_graph.gd')
 const Compact=preload('res://scripts/compact_chassis.gd')
 const Dynamics=preload('res://scripts/vehicle_dynamics.gd')
+const RoadProfile=preload('res://probes/panels/road_panel_profile.gd')
 const Reduced=preload('res://probes/panels/reduced_panels.gd')
 var graph: RefCounted
 var compact: RefCounted
@@ -26,11 +27,12 @@ var body_projection_energy_j:=0.0
 func start(kind: String='closed') -> void:
  mode_=kind;graph=Graph.new();graph.setup();graph.reset(0,Vector3.ZERO);graph.panels.reset()
  graph.config.enforce_symmetry=false
- for p in graph.panels.panels:graph.panels.configure_closing_seats(p)
+ RoadProfile.apply(graph.panels)
  if kind in ['right_free','right_sag']:
   var file:=FileAccess.open('res://probes/panels/data/'+kind+'.panelstate',FileAccess.READ)
   graph.restore(file.get_var(true))
   # This is the measured struck car, including plastic shape and broken mounts.
+  RoadProfile.apply(graph.panels)
  graph.barrier_enabled=wall;graph.barrier_min=Vector3(45,0,-12);graph.barrier_max=Vector3(45.5,3.5,12)
  graph.panels.obstacle={};graph.structural_panel_wake=false
  graph.wake_requested='';graph.wake_hold_seconds=0
@@ -48,12 +50,14 @@ func controls(throttle: float,brake: float,steer: float,parking: float=0) -> voi
 
 func _near_hit() -> bool:
  if not graph.barrier_enabled:return false
- if compact.linear_velocity.x>1:
-  for i in compact.indices:
-   if graph.points[i].x+graph.radii[i]+compact.linear_velocity.x*h>=graph.barrier_min.x and graph.points[i].z>-12 and graph.points[i].z<12:return true
+ for i in compact.indices:
+  var motion: Vector3=compact.point_velocity(i)
+  var future: Vector3=graph.points[i]+motion*h
+  var hit: Dictionary=graph.barrier_distance(future)
+  if hit.distance<graph.radii[i]+.04 and motion.dot(hit.normal)<-1:return true
  for p in graph.panels.panels:
   if not p.active or p.detached:continue
-  for i in [0,2,6,8]:
+  for i in [0,2,6,8,9]:
    var pos: Vector3=p.points[i]
    var hit: Dictionary=graph.barrier_distance(pos)
    if hit.distance<.06+p.velocity[i].length()*h and p.velocity[i].dot(hit.normal)<-1:return true
@@ -61,11 +65,12 @@ func _near_hit() -> bool:
 
 func begin_impact() -> void:
  if full_remaining>0:return
+ var audit_before: Array=handoff_audit()
  graph.compact_active=false;full_remaining=.65;graph.structural_panel_wake=true;_set_step(full_h)
  graph.panels.obstacle={'center':(graph.barrier_min+graph.barrier_max)*.5,'size':graph.barrier_max-graph.barrier_min,'velocity':Vector3.ZERO,'retracting':true}
  for p in graph.panels.panels:
   if p.active:reduced.wake_impact(p)
- transitions.append({'to':'full_impact','time':time})
+ transitions.append({'to':'full_impact','time':time,'panel_handoff':audit_before})
 
 func end_impact() -> void:
  graph.panels.obstacle={};graph.structural_panel_wake=false;_set_step(h)
@@ -133,3 +138,13 @@ func stats() -> Dictionary:
 func _set_step(dt: float) -> void:
  graph.config.fixed_step_s=dt
  for link in graph.links:link.damping_fraction=1-exp(-link.damping_ns_per_m*link.weight_sum*dt)
+
+func handoff_audit() -> Array:
+ var out: Array=[];var frames_: Array=graph.panels.Attachment.rotations(graph)
+ for p in graph.panels.panels:
+  if not p.active:continue
+  var errors: Array=[];var edge_error:=0.0
+  for a in p.anchors:errors.append(p.points[a.node].distance_to(graph.panels.Attachment.mapped(graph,a.rest,a.binding,frames_)))
+  for edge in p.edges:edge_error=maxf(edge_error,absf(p.points[edge.a].distance_to(p.points[edge.b])-edge.length))
+  out.append({'id':p.id,'anchor_residual_m':errors,'enabled_anchors':p.anchors.map(func(a):return not a.broken),'latch_engaged':p.latched,'edge_residual_m':edge_error,'angle_deg':rad_to_deg(p.angle),'p0':p.points[0],'velocity0':p.velocity[0],'center_velocity':compact.linear_velocity})
+ return out

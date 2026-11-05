@@ -1,0 +1,531 @@
+{
+  "case": "W throttle fromrest, actual drive barrier",
+  "contact_kmh": 83.0202896118164,
+  "events": [],
+  "final": [
+    {
+      "contacts": 0,
+      "detached": false,
+      "hinge_n": 16000.0,
+      "hinges": [
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 5804.22048568726
+        },
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 7077.91872024536
+        },
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 4487.85967826843
+        }
+      ],
+      "id": "door_left",
+      "latch_n": 8000.0,
+      "latched": true,
+      "mode": "frozen_plastic",
+      "normal": "(0.0, 0.0, 0.0)",
+      "plastic_j": 1360.55905263563,
+      "seats": [
+        {
+          "broken": false,
+          "node": 6,
+          "peak_n": 194.310607753058
+        },
+        {
+          "broken": false,
+          "node": 8,
+          "peak_n": 268.380891357552
+        }
+      ]
+    },
+    {
+      "contacts": 0,
+      "detached": false,
+      "hinge_n": 16000.0,
+      "hinges": [
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 5758.53066444397
+        },
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 7074.12629127502
+        },
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 4483.23040008545
+        }
+      ],
+      "id": "door_right",
+      "latch_n": 8000.0,
+      "latched": true,
+      "mode": "frozen_plastic",
+      "normal": "(0.0, 0.0, 0.0)",
+      "plastic_j": 1355.45664773037,
+      "seats": [
+        {
+          "broken": false,
+          "node": 6,
+          "peak_n": 170.133451432005
+        },
+        {
+          "broken": false,
+          "node": 8,
+          "peak_n": 281.760364282132
+        }
+      ]
+    },
+    {
+      "contacts": 2099,
+      "detached": false,
+      "hinge_n": 16000.0,
+      "hinges": [
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 43339.351272583
+        },
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 43654.4631958008
+        },
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 4438.17658424377
+        }
+      ],
+      "id": "bonnet",
+      "latch_n": 8000.0,
+      "latched": true,
+      "mode": "frozen_plastic",
+      "normal": "(-1.0, 0.0, 0.0)",
+      "plastic_j": 2124.96697938555,
+      "seats": []
+    },
+    {
+      "contacts": 0,
+      "detached": false,
+      "hinge_n": 16000.0,
+      "hinges": [
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 3560.52560806274
+        },
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 3536.91380023956
+        },
+        {
+          "broken": false,
+          "exposure_s": 0.0,
+          "peak_n": 4407.16252326965
+        }
+      ],
+      "id": "tailgate",
+      "latch_n": 8000.0,
+      "latched": true,
+      "mode": "frozen_plastic",
+      "normal": "(0.0, 0.0, 0.0)",
+      "plastic_j": 241.917570566051,
+      "seats": []
+    }
+  ],
+  "history": [
+    {
+      "parts": [
+        {
+          "contacts": 0,
+          "detached": false,
+          "hinge_n": 16000.0,
+          "hinges": [
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            }
+          ],
+          "id": "door_left",
+          "latch_n": 8000.0,
+          "latched": true,
+          "mode": "asleep_closed",
+          "normal": "(0.0, 0.0, 0.0)",
+          "plastic_j": 0,
+          "seats": [
+            {
+              "broken": false,
+              "node": 6,
+              "peak_n": 0.0
+            },
+            {
+              "broken": false,
+              "node": 8,
+              "peak_n": 0.0
+            }
+          ]
+        },
+        {
+          "contacts": 0,
+          "detached": false,
+          "hinge_n": 16000.0,
+          "hinges": [
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            }
+          ],
+          "id": "door_right",
+          "latch_n": 8000.0,
+          "latched": true,
+          "mode": "asleep_closed",
+          "normal": "(0.0, 0.0, 0.0)",
+          "plastic_j": 0,
+          "seats": [
+            {
+              "broken": false,
+              "node": 6,
+              "peak_n": 0.0
+            },
+            {
+              "broken": false,
+              "node": 8,
+              "peak_n": 0.0
+            }
+          ]
+        },
+        {
+          "contacts": 0,
+          "detached": false,
+          "hinge_n": 16000.0,
+          "hinges": [
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            }
+          ],
+          "id": "bonnet",
+          "latch_n": 8000.0,
+          "latched": true,
+          "mode": "asleep_closed",
+          "normal": "(0.0, 0.0, 0.0)",
+          "plastic_j": 0,
+          "seats": []
+        },
+        {
+          "contacts": 0,
+          "detached": false,
+          "hinge_n": 16000.0,
+          "hinges": [
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            }
+          ],
+          "id": "tailgate",
+          "latch_n": 8000.0,
+          "latched": true,
+          "mode": "asleep_closed",
+          "normal": "(0.0, 0.0, 0.0)",
+          "plastic_j": 0,
+          "seats": []
+        }
+      ],
+      "time": 0
+    },
+    {
+      "kind": "full_wake",
+      "parts": [
+        {
+          "contacts": 0,
+          "detached": false,
+          "hinge_n": 16000.0,
+          "hinges": [
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 328.467205166817
+            },
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 624.209797382355
+            },
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 7.41510596126318
+            }
+          ],
+          "id": "door_left",
+          "latch_n": 8000.0,
+          "latched": true,
+          "mode": "asleep_closed",
+          "normal": "(0.0, 0.0, 0.0)",
+          "plastic_j": 0,
+          "seats": [
+            {
+              "broken": false,
+              "node": 6,
+              "peak_n": 0.118762825768024
+            },
+            {
+              "broken": false,
+              "node": 8,
+              "peak_n": 0.415428485860056
+            }
+          ]
+        },
+        {
+          "contacts": 0,
+          "detached": false,
+          "hinge_n": 16000.0,
+          "hinges": [
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 469.215077161789
+            },
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 695.225250720978
+            },
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 26.9171627238393
+            }
+          ],
+          "id": "door_right",
+          "latch_n": 8000.0,
+          "latched": true,
+          "mode": "asleep_closed",
+          "normal": "(0.0, 0.0, 0.0)",
+          "plastic_j": 0,
+          "seats": [
+            {
+              "broken": false,
+              "node": 6,
+              "peak_n": 4.53608882446411
+            },
+            {
+              "broken": false,
+              "node": 8,
+              "peak_n": 4.08759239541578
+            }
+          ]
+        },
+        {
+          "contacts": 0,
+          "detached": false,
+          "hinge_n": 16000.0,
+          "hinges": [
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 6836.67612075806
+            },
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 6829.8538684845
+            },
+            {
+              "broken": false,
+              "exposure_s": 0.0,
+              "peak_n": 82.999824732542
+            }
+          ],
+          "id": "bonnet",
+          "latch_n": 8000.0,
+          "latched": true,
+          "mode": "asleep_closed",
+          "normal": "(0.0, 0.0, 0.0)",
+          "plastic_j": 177.715858081632,
+          "seats": []
+        },
+        {
+          "contacts": 0,
+          "detached": false,
+          "hinge_n": 16000.0,
+          "hinges": [
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            },
+            {
+              "broken": false,
+              "exposure_s": 0,
+              "peak_n": 0
+            }
+          ],
+          "id": "tailgate",
+          "latch_n": 8000.0,
+          "latched": true,
+          "mode": "asleep_closed",
+          "normal": "(0.0, 0.0, 0.0)",
+          "plastic_j": 0,
+          "seats": []
+        }
+      ],
+      "time": 3.74999999999999
+    }
+  ],
+  "stats": {
+    "body_projection_energy_j": 206.668867530258,
+    "coarse_body_steps": 449,
+    "full_panel_steps": 2428,
+    "full_structure_steps": 624,
+    "mass_kg": 1210.0000038147,
+    "mean_us": 9289.98102466793,
+    "mode": "closed",
+    "p95_us": 55509,
+    "p99_us": 56932,
+    "reduced": {
+      "contacts": 0,
+      "damping_energy_j": 0.0,
+      "full_impact_wakes": 0,
+      "mass_kg": 1210.0000038147,
+      "modes": {
+        "bonnet": "frozen_plastic",
+        "door_left": "frozen_plastic",
+        "door_right": "frozen_plastic",
+        "tailgate": "frozen_plastic"
+      },
+      "projection_energy_j": 24.2661310521886,
+      "reduced_steps": 0,
+      "transitions": [
+        {
+          "angular_error_nms": 0.0,
+          "id": "door_left",
+          "linear_error_ns": 0.0,
+          "pose_error_m": 0.0,
+          "removed_internal_energy_j": 3.11830317042768,
+          "time": 4.39166666666662,
+          "to": "coarse_swing",
+          "velocity_error_mps": 0.0
+        },
+        {
+          "id": "door_left",
+          "mass_kg": 1210.0000038147,
+          "pose_error_m": 0.00000499151110489038,
+          "time": 4.39166666666662,
+          "to": "frozen_plastic"
+        },
+        {
+          "angular_error_nms": 0.0,
+          "id": "door_right",
+          "linear_error_ns": 0.0,
+          "pose_error_m": 0.0,
+          "removed_internal_energy_j": 2.75832587201148,
+          "time": 4.39166666666662,
+          "to": "coarse_swing",
+          "velocity_error_mps": 0.0
+        },
+        {
+          "id": "door_right",
+          "mass_kg": 1210.0000038147,
+          "pose_error_m": 0.00000439137011198909,
+          "time": 4.39166666666662,
+          "to": "frozen_plastic"
+        },
+        {
+          "angular_error_nms": 0.0,
+          "id": "bonnet",
+          "linear_error_ns": 0.0,
+          "pose_error_m": 0.0,
+          "removed_internal_energy_j": 10.8659563630819,
+          "time": 4.39166666666662,
+          "to": "coarse_swing",
+          "velocity_error_mps": 0.0
+        },
+        {
+          "id": "bonnet",
+          "mass_kg": 1210.0000038147,
+          "pose_error_m": 0.00000393255186281749,
+          "time": 4.39166666666662,
+          "to": "frozen_plastic"
+        },
+        {
+          "angular_error_nms": 0.0,
+          "id": "tailgate",
+          "linear_error_ns": 0.0,
+          "pose_error_m": 0.0,
+          "removed_internal_energy_j": 7.5235456466675,
+          "time": 4.39166666666662,
+          "to": "coarse_swing",
+          "velocity_error_mps": 0.0
+        },
+        {
+          "id": "tailgate",
+          "mass_kg": 1210.0000038147,
+          "pose_error_m": 0.00000763149000704288,
+          "time": 4.39166666666662,
+          "to": "frozen_plastic"
+        }
+      ]
+    },
+    "speed_kmh": 2.80656824111938,
+    "time_s": 4.39166666666667
+  }
+}

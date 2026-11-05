@@ -20,7 +20,7 @@ func step(dt: float) -> void:
    var axis: int=panels.obstacle.get('travel_axis',2)
    var stop: float=panels.obstacle.get('stop',.62)
    if (panels.obstacle.velocity[axis]<0 and panels.obstacle.center[axis]<stop) or (panels.obstacle.velocity[axis]>0 and panels.obstacle.center[axis]>stop):
-    panels.obstacle.velocity=-panels.obstacle.velocity;panels.obstacle.retracting=true
+    panels.obstacle.velocity=Vector3.ZERO if panels.obstacle.get('hold_at_stop',false) else -panels.obstacle.velocity;panels.obstacle.retracting=true
  if panels.release_continuity.size()>old_releases:release_step_us.append(Time.get_ticks_usec()-began)
 func _contacts() -> void:
  if panels!=null:panels.solve()

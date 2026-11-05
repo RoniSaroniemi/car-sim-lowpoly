@@ -1,5 +1,6 @@
 extends RefCounted
 ## Probe-owned panels. Intact shut mass is condensed; active cage mass is extracted once.
+const AngularMount=preload('res://probes/panels/panel_angular_mount.gd')
 const Attachment=preload('res://scripts/car_attachment.gd')
 var graph: WeakRef
 var panels: Array=[]
@@ -44,7 +45,7 @@ func setup(g: RefCounted) -> void:
   # Extracting by visual skin weights could make a 2.5 kg roof control negative.
   var donors: Array=[8,9,12,13] if side!=0 else ([16,17,20,21,24,25] if id=='bonnet' else [0,1,4,5])
   for node in donors:reservation[node]=float(item[1])/donors.size()
-  panels.append({'id':id,'side':side,'mass':float(item[1]),'pivot':pivot,'rest':rest,'points':rest.duplicate(),'old':rest.duplicate(),'velocity':PackedVector3Array(),'edges':edges,'anchors':anchors,'reservation':reservation,'active':false,'detached':false,'latched':true,'target':0.0,'angle':0.0,'angular_speed':0.0,'plastic_work':0.0,'contacts':0,'last_normal':Vector3.ZERO,'maximum_force':0.0,'maximum_deflection':0.0,'release_time':-1.0,'active_seconds':0.0,'control_work':0.0,'contact_work':0.0,'hinge_strength_n':3800.0,'latch_strength_n':1300.0,'failure_delay_s':.012})
+  panels.append({'id':id,'profile_id':'illustrative_weak_striker','side':side,'mass':float(item[1]),'pivot':pivot,'rest':rest,'points':rest.duplicate(),'old':rest.duplicate(),'velocity':PackedVector3Array(),'edges':edges,'anchors':anchors,'reservation':reservation,'active':false,'detached':false,'latched':true,'target':0.0,'angle':0.0,'angular_speed':0.0,'plastic_work':0.0,'contacts':0,'last_normal':Vector3.ZERO,'maximum_force':0.0,'maximum_deflection':0.0,'release_time':-1.0,'active_seconds':0.0,'control_work':0.0,'contact_work':0.0,'hinge_strength_n':3800.0,'latch_strength_n':1300.0,'failure_delay_s':.012})
   panels[-1]['bindings']=[]
   for point_ in rest:panels[-1].bindings.append(Attachment.binding(g,point_))
  reset()
@@ -159,6 +160,7 @@ func prepare_step(h: float) -> void:
    if AABB(low-padding,high-low+padding*2).intersects(AABB(center-obstacle.size*.5,obstacle.size)):activate(p)
   if not p.active or p.get('reduced',false):idle_steps+=1;continue
   active_steps+=1;p.active_seconds+=h
+  p['contact_step_mask']=0;p['contact_step_normal']=Vector3.ZERO;p['contact_step_force']=0.0;p['contact_step_lever']=0.0
   p.old=p.points.duplicate()
   var frames: Array=Attachment.rotations(graph.get_ref())
   var hinge: Vector3=(p.points[0]+p.points[2])*.5
@@ -201,6 +203,7 @@ func prepare_step(h: float) -> void:
   for edge in p.edges:edge.lambda=0
   for anchor in p.anchors:anchor.lambda=Vector3.ZERO;anchor.peak_n=0
   for seat in p.get('closing_supports',[]):seat.lambda=0.0;seat.peak_n=0.0
+  if p.has('angular_mount'):p.angular_mount.lambda=Vector3.ZERO;p.angular_mount.step_peak_nm=0.0
  total_cpu_us+=Time.get_ticks_usec()-began
 
 func solve() -> void:
@@ -239,6 +242,7 @@ func solve() -> void:
     anchor.lambda+=dl;p.points[anchor.node]+=dl*inv
     for k in anchor.binding.ids.size():g.points[anchor.binding.ids[k]]-=dl*g.inverse_masses[anchor.binding.ids[k]]*anchor.binding.weights[k]
     anchor.peak_n=maxf(anchor.peak_n,anchor.lambda.length()/(dt*dt));anchor.maximum_n=maxf(anchor.maximum_n,anchor.peak_n);p.maximum_force=maxf(p.maximum_force,anchor.peak_n)
+  AngularMount.cage(self,p,frames)
   _solve_closing_seats(p,frames)
   for i in 10:
    if not obstacle.is_empty():_box_contact(p,i)
@@ -272,6 +276,13 @@ func _box_contact(p: Dictionary,i: int) -> void:
    normal[hit_axis]=-signf(delta[hit_axis]);p.points[i][hit_axis]=center[hit_axis]+normal[hit_axis]*half[hit_axis]
  if normal.length_squared()>.5:
   contact_count+=1;p.contacts+=1;p.last_normal=normal
+  if p.get('local_failure',false) and not graph.get_ref().impact_started:
+   graph.get_ref().impact_started=true;graph.get_ref().impact_time=clock
+  if p.get('local_failure',false):
+   var correction: float=absf((p.points[i]-relative_end-center).dot(normal))
+   p.contact_step_mask|=(1<<i);p.contact_step_normal=normal
+   p.contact_step_force=maxf(p.contact_step_force,correction*p.mass/10/(dt*dt))
+   p.contact_step_lever=maxf(p.contact_step_lever,p.points[i].distance_to((p.points[0]+p.points[2])*.5))
   p.contact_work+=maxf(0,obstacle.velocity.dot(normal))*p.mass/10*maxf(0,(p.points[i]-p.old[i]).dot(normal))/dt
 
 func finish_step() -> void:
@@ -289,25 +300,24 @@ func finish_step() -> void:
    var relative: float=(p.velocity[edge.b]-p.velocity[edge.a]).dot(n)
    var correction: Vector3=n*relative*(1-exp(-25*dt))*.5
    p.velocity[edge.a]+=correction;p.velocity[edge.b]-=correction
+  if p.get('local_failure',false):_update_local_evidence(p)
+  if AngularMount.single(p):
+   var angular_frames: Array=Attachment.rotations(graph.get_ref())
+   AngularMount.finish(self,p,AngularMount.axis_from_points(p),AngularMount.target(graph.get_ref(),p,angular_frames),angular_frames,dt)
   for index in 3:
    var a: Dictionary=p.anchors[index]
    if a.broken or (index==2 and not p.latched):continue
    var limit: float=p.latch_strength_n if index==2 else p.hinge_strength_n*(p.get('lower_strength_fraction',.60) if index==0 else 1.0)
-   a.exposure=maxf(0,a.exposure+dt*(1 if a.peak_n>limit else -2))
-   var delay: float=.008 if index==0 else p.failure_delay_s
+   var gate: Dictionary=failure_eligibility(p,index)
+   a['blocked_peak_n']=maxf(a.get('blocked_peak_n',0),a.peak_n if not gate.allowed else 0)
+   a.exposure=maxf(0,a.exposure+dt*(1 if (a.peak_n>limit or gate.get('material_torn',false)) and gate.allowed else -2))
+   var delay: float=(.045 if p.impact_evidence.was_closed else .024) if p.get('local_failure',false) else (.008 if index==0 else p.failure_delay_s)
    if a.exposure>=delay:
     a.broken=true
-    events.append({'id':events.size(),'time':clock,'panel':p.id,'kind':['lower_hinge','upper_hinge','latch'][index],'force_n':a.peak_n})
+    events.append({'id':events.size(),'time':clock,'panel':p.id,'kind':['lower_hinge','upper_hinge','latch'][index],'force_n':a.peak_n,'profile':p.get('profile_id','illustrative_weak_striker'),'criterion':gate})
     if index==2:p.latched=false
   _finish_closing_seats(p)
-  var closing_released: bool=not p.latched and (not p.get('closing_engaged',false) or p.get('closing_supports',[]).all(func(s):return s.broken))
-  if not p.detached and p.anchors[0].broken and p.anchors[1].broken and closing_released:
-   var began: int=Time.get_ticks_usec();var before: Dictionary=momentum();var positions: PackedVector3Array=p.points.duplicate();var velocities: PackedVector3Array=p.velocity.duplicate()
-   p.detached=true;p.latched=false;p.anchors[2].broken=true;p.release_time=clock
-   events.append({'id':events.size(),'time':clock,'panel':p.id,'kind':'detached','force_n':p.maximum_force})
-   var after: Dictionary=momentum()
-   release_continuity.append({'panel':p.id,'point_error_m':0.0 if positions==p.points else INF,'velocity_error_mps':0.0 if velocities==p.velocity else INF,'linear_error_ns':before.linear.distance_to(after.linear),'angular_error_nms':before.angular.distance_to(after.angular)})
-   max_release_us=maxi(max_release_us,Time.get_ticks_usec()-began)
+  try_detach(p)
   if not p.detached and not p.anchors[2].broken and p.target<.01 and absf(p.angle)<.025 and absf(p.angular_speed)<.12:
    p.latch_ready_s+=dt
    if p.latch_ready_s>.08:
@@ -337,14 +347,14 @@ func capture() -> Dictionary:
  for p in panels:
   states.append({'id':p.id,'points':p.points.duplicate(),'velocity':p.velocity.duplicate(),'active':p.active,'detached':p.detached,'latched':p.latched,'target':p.target,'angle':p.angle,'plastic_work':p.plastic_work,'anchors':p.anchors.duplicate(true),'edges':p.edges.duplicate(true),'release_time':p.release_time,'contacts':p.contacts,'maximum_force':p.maximum_force})
  for i in panels.size():
-  for key in ['reduced','frozen_local','reduced_mode','reduced_data','closing_engaged','closing_supports','hinge_strength_n','latch_strength_n','failure_delay_s','lower_strength_fraction']:
+  for key in ['reduced','frozen_local','reduced_mode','reduced_data','closing_engaged','closing_supports','hinge_strength_n','latch_strength_n','failure_delay_s','lower_strength_fraction','profile_id','local_failure','impact_evidence','angular_mount','weak_mount_reference']:
    if panels[i].has(key):states[i][key]=panels[i][key].duplicate(true) if panels[i][key] is Dictionary or panels[i][key] is Array else panels[i][key].duplicate() if panels[i][key] is PackedVector3Array else panels[i][key]
  return {'version':2,'panels':states,'events':events.duplicate(true),'time':clock,'mass':total_mass()}
 
 func restore(state: Dictionary) -> void:
  clock=state.time;events=state.events.duplicate(true)
  for i in panels.size():
-  for key in ['reduced','reduced_mode','reduced_data','frozen_local','closing_engaged','closing_supports','lower_strength_fraction']:
+  for key in ['reduced','reduced_mode','reduced_data','frozen_local','closing_engaged','closing_supports','lower_strength_fraction','profile_id','local_failure','impact_evidence','angular_mount','weak_mount_reference']:
    if not state.panels[i].has(key):panels[i].erase(key)
   for key in state.panels[i]:
    if key!='id':panels[i][key]=state.panels[i][key].duplicate(true) if state.panels[i][key] is Dictionary or state.panels[i][key] is Array else state.panels[i][key]
@@ -386,6 +396,69 @@ func _finish_closing_seats(p: Dictionary) -> void:
  if not p.get('closing_engaged',false):return
  for seat in p.get('closing_supports',[]):
   if seat.broken:continue
-  seat.exposure=maxf(0,seat.exposure+dt*(1 if seat.peak_n>seat.failure_n else -2))
-  if seat.exposure>=.012:
-   seat.broken=true;events.append({'id':events.size(),'time':clock,'panel':p.id,'kind':'frame_seat_'+str(seat.node),'force_n':seat.peak_n})
+  var gate: Dictionary=failure_eligibility(p,2)
+  seat.exposure=maxf(0,seat.exposure+dt*(1 if seat.peak_n>seat.failure_n and gate.allowed else -2))
+  if seat.exposure>=(.035 if p.get('local_failure',false) else .012):
+   seat.broken=true;events.append({'id':events.size(),'time':clock,'panel':p.id,'kind':'frame_seat_'+str(seat.node),'force_n':seat.peak_n,'criterion':gate})
+
+func _outward(p: Dictionary,frames: Array) -> Vector3:
+ var mount: Transform3D=Attachment.frame_with_rotations(graph.get_ref(),p.pivot,frames)
+ if p.side!=0:return mount.basis*Vector3.BACK*float(p.side)
+ if p.id=='bonnet':return mount.basis*Vector3.UP
+ return mount.basis*Vector3.LEFT
+
+func _update_local_evidence(p: Dictionary) -> void:
+ var frames: Array=Attachment.rotations(graph.get_ref());var normal: Vector3=_outward(p,frames)
+ var e: Dictionary=p.impact_evidence
+ var inward:=0.0;var outward:=0.0
+ for i in 9:
+  var target: Vector3=Attachment.mapped(graph.get_ref(),p.rest[i],p.bindings[i],frames)
+  var delta: float=(p.points[i]-target).dot(normal)
+  inward=maxf(inward,-delta);outward=maxf(outward,delta)
+ e.current_inward_m=inward
+ for edge in p.edges:e.plastic_m=maxf(e.plastic_m,absf(edge.length-edge.original))
+ if p.get('contact_step_mask',0)!=0:
+  if clock-e.last_contact_s>.15:
+   e.was_closed=p.latched or (p.get('closing_engaged',false) and p.get('closing_supports',[]).any(func(s):return not s.broken))
+   e.inward_alignment=0.0;e.max_inward_m=0.0;e.max_outward_m=0.0;e.lever_m=0.0;e.patch_mask=0;e['epoch_anchor_peak']=[0.0,0.0,0.0]
+  e.last_contact_s=clock;e.patch_mask|=p.contact_step_mask
+  e.inward_alignment=maxf(e.inward_alignment,-p.contact_step_normal.dot(normal))
+  e.max_contact_force_n=maxf(e.max_contact_force_n,p.contact_step_force);e.lever_m=maxf(e.lever_m,p.contact_step_lever)
+ if not e.has('hinge_plastic_m'):e['hinge_plastic_m']=[0.0,0.0]
+ for index in 2:
+  var node: int=p.anchors[index].node
+  for edge in p.edges:
+   if edge.a==node or edge.b==node:e.hinge_plastic_m[index]=maxf(e.hinge_plastic_m[index],absf(edge.length-edge.original))
+ if clock-e.last_contact_s<.10:
+  if not e.has('epoch_anchor_peak'):e['epoch_anchor_peak']=[0.0,0.0,0.0]
+  for index in 3:e.epoch_anchor_peak[index]=maxf(e.epoch_anchor_peak[index],p.anchors[index].peak_n)
+  e.max_inward_m=maxf(e.max_inward_m,inward);e.max_outward_m=maxf(e.max_outward_m,outward)
+
+func failure_eligibility(p: Dictionary,index: int) -> Dictionary:
+ if not p.get('local_failure',false):return {'allowed':true,'reason':'named_weak_striker_reference'}
+ var e: Dictionary=p.impact_evidence
+ var recent: bool=clock-e.last_contact_s<.10
+ if e.was_closed:
+  var required: float=.16 if index<2 else .065
+  var allowed: bool=recent and e.inward_alignment>.70 and e.max_inward_m>required and e.plastic_m>(.075 if index<2 else .025)
+  var torn: bool=index<2 and allowed and e.max_inward_m>.45 and e.get('hinge_plastic_m',[0.0,0.0])[index]>.16 and e.get('epoch_anchor_peak',[0.0,0.0,0.0])[index]>p.hinge_strength_n*(p.get('lower_strength_fraction',.60) if index==0 else 1.0)*1.25
+  return {'allowed':allowed,'material_torn':torn,'local_hinge_plastic_m':e.get('hinge_plastic_m',[0.0,0.0])[index] if index<2 else 0.0,'episode_peak_n':e.get('epoch_anchor_peak',[0.0,0.0,0.0])[index],'reason':'local_mount_metal_torn' if torn else 'local_inward_mount_crush' if allowed else 'closed_no_local_admissible_crush','inward_m':e.max_inward_m,'normal_alignment':e.inward_alignment,'plastic_m':e.plastic_m,'contact_age_s':clock-e.last_contact_s}
+ var allowed: bool=recent and e.lever_m>.35 and e.plastic_m>.035
+ var torn: bool=index<2 and allowed and e.get('hinge_plastic_m',[0.0,0.0])[index]>.12 and e.get('epoch_anchor_peak',[0.0,0.0,0.0])[index]>p.hinge_strength_n*(p.get('lower_strength_fraction',.60) if index==0 else 1.0)*1.25
+ return {'allowed':allowed,'material_torn':torn,'local_hinge_plastic_m':e.get('hinge_plastic_m',[0.0,0.0])[index] if index<2 else 0.0,'episode_peak_n':e.get('epoch_anchor_peak',[0.0,0.0,0.0])[index],'reason':'exposed_mount_metal_torn' if torn else 'exposed_panel_lever_strike' if allowed else 'open_no_local_lever_damage','lever_m':e.lever_m,'plastic_m':e.plastic_m,'contact_age_s':clock-e.last_contact_s}
+
+func release_eligibility(p: Dictionary) -> bool:
+ if not p.get('local_failure',false):return true
+ var e: Dictionary=p.impact_evidence
+ if p.get('angular_mount',{}).get('torn',false):return true
+ return (e.max_inward_m>.22 and e.inward_alignment>.70 and e.plastic_m>.10) if e.was_closed else (e.lever_m>.35 and e.plastic_m>.06)
+
+func try_detach(p: Dictionary) -> void:
+ var closing_released: bool=not p.latched and (not p.get('closing_engaged',false) or p.get('closing_supports',[]).all(func(s):return s.broken))
+ if not p.detached and p.anchors[0].broken and p.anchors[1].broken and closing_released and release_eligibility(p):
+  var began: int=Time.get_ticks_usec();var before: Dictionary=momentum();var positions: PackedVector3Array=p.points.duplicate();var velocities: PackedVector3Array=p.velocity.duplicate()
+  p.detached=true;p.latched=false;p.anchors[2].broken=true;p.release_time=clock
+  events.append({'id':events.size(),'time':clock,'panel':p.id,'kind':'detached','force_n':p.maximum_force})
+  var after: Dictionary=momentum()
+  release_continuity.append({'panel':p.id,'point_error_m':0.0 if positions==p.points else INF,'velocity_error_mps':0.0 if velocities==p.velocity else INF,'linear_error_ns':before.linear.distance_to(after.linear),'angular_error_nms':before.angular.distance_to(after.angular)})
+  max_release_us=maxi(max_release_us,Time.get_ticks_usec()-began)

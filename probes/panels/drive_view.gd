@@ -26,7 +26,8 @@ func _ready() -> void:
  DisplayServer.window_set_title('Niva / lightweight driving and swinging damaged door')
  _world();_hud();camera=Camera3D.new();camera.current=true;camera.fov=53;add_child(camera)
  var fill:=DirectionalLight3D.new();fill.light_energy=.7;camera.add_child(fill)
- capture_mode='--capture-drive-panels' in OS.get_cmdline_user_args()
+ capture_mode='--capture-drive-panels' in OS.get_cmdline_user_args() or '--capture-road-crash' in OS.get_cmdline_user_args()
+ if '--capture-road-crash' in OS.get_cmdline_user_args():capture_names=[['closed',4.5,'driving_frontal_corrected']]
  _start('closed')
  print('PANEL_DRIVE_READY W throttle S brake A/D steer Space handbrake Q reverse R repair 120Hz compact drive')
 func material(color_: String) -> StandardMaterial3D:
@@ -45,7 +46,7 @@ func _hud() -> void:
  var title:=Label.new();title.text='NIVA / LIGHTWEIGHT DOOR DYNAMICS';title.add_theme_font_size_override('font_size',19);col.add_child(title)
  speed_label=Label.new();speed_label.add_theme_font_size_override('font_size',24);col.add_child(speed_label)
  label=Label.new();label.add_theme_font_size_override('font_size',14);col.add_child(label)
- for item in [['Intact / closed','closed'],['Measured damage / free right door','right_free'],['Measured damage / one hinge sag','right_sag']]:
+ for item in [['Intact / closed','closed'],['Measured damage / free right door','right_free'],['Measured damage / one stiff hinge','right_sag']]:
   var b:=Button.new();b.text=item[0];b.pressed.connect(_start.bind(item[1]));col.add_child(b)
  var caption:=Label.new();caption.text='Undamaged right door control';col.add_child(caption)
  target_slider=HSlider.new();target_slider.min_value=0;target_slider.max_value=82;target_slider.value_changed.connect(func(v):runtime.reduced.set_open('door_right',v));col.add_child(target_slider)
@@ -73,6 +74,8 @@ func _physics_process(dt: float) -> void:
  if capture_mode:
   parking=0
   throttle=1 if runtime.time<2 else 0;brake=1 if runtime.time>2.3 else 0;steering=.5 if runtime.time>1.2 else 0
+  if '--capture-road-crash' in OS.get_cmdline_user_args():
+   throttle=1;brake=0;steering=0
   if capture_names[capture_index].size()>3:
    throttle=1 if runtime.time<.4 else 0;brake=1 if runtime.time>=.4 else 0;steering=0
  runtime.controls(throttle,brake,steering,parking)

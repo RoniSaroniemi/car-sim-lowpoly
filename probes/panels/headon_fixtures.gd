@@ -1,4 +1,5 @@
 extends 'res://probes/panels/fixtures.gd'
+const RoadProfile=preload('res://probes/panels/road_panel_profile.gd')
 var requested_kmh:=60.0
 var measured_contact_kmh:=-1.0
 var contact_time:=-1.0
@@ -12,8 +13,7 @@ func start(case_name: String) -> void:
  graph.barrier_enabled=true;graph.barrier_min=Vector3(0,0,-2.25);graph.barrier_max=Vector3(.5,3.5,2.25)
  graph.structural_panel_wake=true
  # A common stronger road-car mount profile; same values at both launch speeds.
- for p in graph.panels.panels:
-  p.hinge_strength_n=16000;p.latch_strength_n=8000;graph.panels.configure_closing_seats(p)
+ RoadProfile.apply(graph.panels)
  graph.panels.obstacle={'center':Vector3(.25,1.75,0),'size':Vector3(.5,3.5,4.5),'velocity':Vector3.ZERO,'travel_axis':0,'stop':-100,'retracting':true}
  # Author at960Hz. Rate-based stiffness/damping/failure windows stay seconds.
  h=1.0/960;graph.config.fixed_step_s=h

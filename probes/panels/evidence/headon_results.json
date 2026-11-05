@@ -14,9 +14,9 @@
         "id": "door_left",
         "latch_broken": false,
         "latched": true,
-        "max_plastic_edge_change_m": 0.0993938073720907,
-        "mount_peak_n": 5789.11428451538,
-        "plastic_work_j": 590.913045433013,
+        "max_plastic_edge_change_m": 0.105865138739868,
+        "mount_peak_n": 5670.97606658936,
+        "plastic_work_j": 622.232104721282,
         "seats": [
           {
             "binding": {
@@ -44,10 +44,10 @@
             "broken": false,
             "exposure": 0.0,
             "failure_n": 3500.0,
-            "lambda": -0.00000978965416120102,
-            "maximum_n": 127.603315026679,
+            "lambda": -0.0000136745990571542,
+            "maximum_n": 127.806170460147,
             "node": 6,
-            "peak_n": 9.81524616574586,
+            "peak_n": 13.4488871518713,
             "rest": "(-0.48, 0.565, 0.905)",
             "stiffness": 25000.0
           },
@@ -77,10 +77,10 @@
             "broken": false,
             "exposure": 0.0,
             "failure_n": 3500.0,
-            "lambda": 0.0000942777147068012,
-            "maximum_n": 409.153073647029,
+            "lambda": 0.0000638182306036977,
+            "maximum_n": 503.24571202387,
             "node": 8,
-            "peak_n": 86.9033557569951,
+            "peak_n": 58.8299389989671,
             "rest": "(-0.48, 1.72, 0.905)",
             "stiffness": 25000.0
           }
@@ -99,9 +99,9 @@
         "id": "door_right",
         "latch_broken": false,
         "latched": true,
-        "max_plastic_edge_change_m": 0.103761688309034,
-        "mount_peak_n": 5948.46239089966,
-        "plastic_work_j": 634.516022316871,
+        "max_plastic_edge_change_m": 0.106119409020642,
+        "mount_peak_n": 5652.20017433167,
+        "plastic_work_j": 623.920183718388,
         "seats": [
           {
             "binding": {
@@ -129,10 +129,10 @@
             "broken": false,
             "exposure": 0.0,
             "failure_n": 3500.0,
-            "lambda": -0.00000416923892022424,
-            "maximum_n": 169.088039902813,
+            "lambda": -0.00000989264494478449,
+            "maximum_n": 126.803555426092,
             "node": 6,
-            "peak_n": 4.63629779790674,
+            "peak_n": 9.93070038059428,
             "rest": "(-0.48, 0.565, -0.905)",
             "stiffness": 25000.0
           },
@@ -162,10 +162,10 @@
             "broken": false,
             "exposure": 0.0,
             "failure_n": 3500.0,
-            "lambda": 0.000112833562146423,
-            "maximum_n": 294.912163861847,
+            "lambda": 0.0000430419291430481,
+            "maximum_n": 464.140737911753,
             "node": 8,
-            "peak_n": 104.007299091998,
+            "peak_n": 39.6795865027788,
             "rest": "(-0.48, 1.72, -0.905)",
             "stiffness": 25000.0
           }
@@ -176,17 +176,17 @@
         "closing": {
           "engaged": true,
           "frame_seats": 0,
-          "hinges": 0,
+          "hinges": 2,
           "latch": true
         },
         "detached": false,
-        "failed_hinges": 2,
+        "failed_hinges": 0,
         "id": "bonnet",
         "latch_broken": false,
         "latched": true,
-        "max_plastic_edge_change_m": 0.164557945772843,
-        "mount_peak_n": 32220.7237243652,
-        "plastic_work_j": 1515.74086520913,
+        "max_plastic_edge_change_m": 0.186107618550006,
+        "mount_peak_n": 39233.9973449707,
+        "plastic_work_j": 1566.88956429457,
         "seats": []
       },
       {
@@ -209,28 +209,28 @@
       }
     ],
     "anchor_peak_n": [
-      5789.11428451538,
+      5670.97606658936,
       4686.43627166748,
-      3816.2787437439
+      3921.12951278687
     ],
-    "angle_deg": -0.472198822376653,
+    "angle_deg": -0.544588676845795,
     "author_hz": 960.0,
     "body": {
       "broken_suspension_links": 0,
-      "cabin_shortening_m": 0.0314804315567017,
-      "front_shortening_m": 0.422391593456268,
+      "cabin_shortening_m": 0.0293375253677368,
+      "front_shortening_m": 0.424542963504791,
       "impact_mode": 0,
       "impact_time_s": 0.190625,
       "initial_energy_kj": 175.986189720786,
-      "kinetic_kj": 1.5033384653519,
+      "kinetic_kj": 2.50613864603344,
       "links": 187,
       "mass_kg": 1142.0,
-      "max_step_us": 42267,
+      "max_step_us": 35411,
       "maximum_kinetic_kj": 176.031140065584,
-      "mean_step_us": 5358.79625,
+      "mean_step_us": 5387.13708333333,
       "nodes": 38,
-      "plastic_work_kj": 62.280305992377,
-      "roof_drop_m": 0.0437553644180297,
+      "plastic_work_kj": 62.9068710137703,
+      "roof_drop_m": 0.0457986116409301,
       "wheels": [
         {
           "angular_finite": true,
@@ -239,14 +239,14 @@
           "detached": false,
           "hub_tilt_deg": 0.0197823410294464,
           "knuckle_broken": false,
-          "lateral_error_m": 0.0,
+          "lateral_error_m": 0.0000000298023223876953,
           "name": "rear_wheel_-1",
           "node": 34,
-          "peak_lateral_force_n": 193.480928782539,
-          "peak_tire_compression_m": 0.0316477119922638,
+          "peak_lateral_force_n": 250.595098466266,
+          "peak_tire_compression_m": 0.031159900599595,
           "permanent_alignment_deg": 0.0,
           "permanent_lateral_offset_m": 0.0,
-          "spin_rad_s": 4.05292526136626,
+          "spin_rad_s": 5.25291602199219,
           "wheel_body_constraint_impulse_ns": 0.0
         },
         {
@@ -256,14 +256,14 @@
           "detached": false,
           "hub_tilt_deg": 0.0197823410294464,
           "knuckle_broken": false,
-          "lateral_error_m": 0.0,
+          "lateral_error_m": -0.0000000372529029846191,
           "name": "rear_wheel_1",
           "node": 35,
-          "peak_lateral_force_n": 211.458886184527,
-          "peak_tire_compression_m": 0.0324105620384216,
+          "peak_lateral_force_n": 185.640738163651,
+          "peak_tire_compression_m": 0.0312721051613759,
           "permanent_alignment_deg": 0.0,
           "permanent_lateral_offset_m": 0.0,
-          "spin_rad_s": 4.06351730659189,
+          "spin_rad_s": 5.2331398321104,
           "wheel_body_constraint_impulse_ns": 0.0
         },
         {
@@ -273,14 +273,14 @@
           "detached": false,
           "hub_tilt_deg": 0.0,
           "knuckle_broken": false,
-          "lateral_error_m": 0.00000000745058059692383,
+          "lateral_error_m": -0.0000000298023223876953,
           "name": "front_wheel_-1",
           "node": 36,
-          "peak_lateral_force_n": 2251.61461842294,
-          "peak_tire_compression_m": 0.0309729557725581,
+          "peak_lateral_force_n": 2031.64478770914,
+          "peak_tire_compression_m": 0.0292953028938384,
           "permanent_alignment_deg": 0.0,
           "permanent_lateral_offset_m": 0.0,
-          "spin_rad_s": 4.05477690914263,
+          "spin_rad_s": 5.21217794743814,
           "wheel_body_constraint_impulse_ns": 0.0
         },
         {
@@ -290,18 +290,18 @@
           "detached": false,
           "hub_tilt_deg": 0.0,
           "knuckle_broken": false,
-          "lateral_error_m": 0.0000000298023223876953,
+          "lateral_error_m": 0.0,
           "name": "front_wheel_1",
           "node": 37,
-          "peak_lateral_force_n": 2169.26542457034,
-          "peak_tire_compression_m": 0.0306928489052637,
+          "peak_lateral_force_n": 2074.30447003555,
+          "peak_tire_compression_m": 0.0293059658197024,
           "permanent_alignment_deg": 0.0,
           "permanent_lateral_offset_m": 0.0,
-          "spin_rad_s": 4.07293742796336,
+          "spin_rad_s": 5.22986425628309,
           "wheel_body_constraint_impulse_ns": 0.0
         }
       ],
-      "yielded_links": 56
+      "yielded_links": 54
     },
     "body_mass_kg": 1142.0,
     "case": "headon_60",
@@ -315,15 +315,15 @@
     "latch_broken": false,
     "latched": true,
     "mass_kg": 1210.0000038147,
-    "max_plastic_edge_change_m": 0.0993938073720907,
-    "max_step_us": 42654,
+    "max_plastic_edge_change_m": 0.105865138739868,
+    "max_step_us": 44023,
     "maximum_energy_j": 176031.140065584,
-    "maximum_mount_force_n": 5789.11428451538,
-    "mean_step_us": 5746.785,
+    "maximum_mount_force_n": 5670.97606658936,
+    "mean_step_us": 5987.98,
     "measured_contact_kmh": 60.0030601501465,
-    "p95_step_us": 6652,
-    "p99_step_us": 8706,
-    "panel_plastic_work_j": 590.913045433013,
+    "p95_step_us": 6568,
+    "p99_step_us": 7879,
+    "panel_plastic_work_j": 622.232104721282,
     "panel_stats": {
       "activation_continuity": [
         {
@@ -342,30 +342,15 @@
           "linear_error": 0.0000558332321816124
         },
         {
-          "angular_error": 0.000245715084020048,
+          "angular_error": 0.000488832301925868,
           "condense": true,
           "id": "door_left",
-          "linear_error": 0.000122739031212404
+          "linear_error": 0.00048831437015906
         }
       ],
       "active_steps": 6645,
-      "contacts": 330,
-      "events": [
-        {
-          "force_n": 30794.4271087646,
-          "id": 0,
-          "kind": "lower_hinge",
-          "panel": "bonnet",
-          "time": 0.21875
-        },
-        {
-          "force_n": 29746.4172363281,
-          "id": 1,
-          "kind": "upper_hinge",
-          "panel": "bonnet",
-          "time": 0.225
-        }
-      ],
+      "contacts": 1660,
+      "events": [],
       "idle_steps": 2955,
       "mass_kg": 1210.0000038147,
       "max_release_us": 0,
@@ -391,9 +376,9 @@
         "id": "door_left",
         "latch_broken": false,
         "latched": true,
-        "max_plastic_edge_change_m": 0.294174822262689,
-        "mount_peak_n": 16500.1413345337,
-        "plastic_work_j": 3372.99811867655,
+        "max_plastic_edge_change_m": 0.298723640266025,
+        "mount_peak_n": 16844.439125061,
+        "plastic_work_j": 3362.84386929826,
         "seats": [
           {
             "binding": {
@@ -421,10 +406,10 @@
             "broken": false,
             "exposure": 0.0,
             "failure_n": 3500.0,
-            "lambda": -0.0000127478322462288,
-            "maximum_n": 779.699567454846,
+            "lambda": -0.0000387896135051852,
+            "maximum_n": 761.07915329345,
             "node": 6,
-            "peak_n": 12.7894577240165,
+            "peak_n": 36.8031745908608,
             "rest": "(-0.48, 0.565, 0.905)",
             "stiffness": 25000.0
           },
@@ -454,10 +439,10 @@
             "broken": false,
             "exposure": 0.0,
             "failure_n": 3500.0,
-            "lambda": 0.0000508485840746667,
-            "maximum_n": 476.330785918352,
+            "lambda": 0.000055123973003753,
+            "maximum_n": 263.04374795323,
             "node": 8,
-            "peak_n": 48.3307460035694,
+            "peak_n": 52.2902245577975,
             "rest": "(-0.48, 1.72, 0.905)",
             "stiffness": 25000.0
           }
@@ -476,9 +461,9 @@
         "id": "door_right",
         "latch_broken": false,
         "latched": true,
-        "max_plastic_edge_change_m": 0.308851652138073,
-        "mount_peak_n": 16791.3013458252,
-        "plastic_work_j": 3352.71253879909,
+        "max_plastic_edge_change_m": 0.301694879194018,
+        "mount_peak_n": 16879.5902252197,
+        "plastic_work_j": 3374.46109438113,
         "seats": [
           {
             "binding": {
@@ -506,10 +491,10 @@
             "broken": false,
             "exposure": 0.0,
             "failure_n": 3500.0,
-            "lambda": -0.0000224777248555741,
-            "maximum_n": 852.103821020065,
+            "lambda": -0.0000416748213787645,
+            "maximum_n": 772.772801530546,
             "node": 6,
-            "peak_n": 21.5791855662402,
+            "peak_n": 39.5342718813188,
             "rest": "(-0.48, 0.565, -0.905)",
             "stiffness": 25000.0
           },
@@ -539,10 +524,10 @@
             "broken": false,
             "exposure": 0.0,
             "failure_n": 3500.0,
-            "lambda": 0.000127200877650971,
-            "maximum_n": 497.141901912538,
+            "lambda": 0.000051379212107158,
+            "maximum_n": 293.257750476751,
             "node": 8,
-            "peak_n": 118.700769012391,
+            "peak_n": 49.0181470480437,
             "rest": "(-0.48, 1.72, -0.905)",
             "stiffness": 25000.0
           }
@@ -553,17 +538,17 @@
         "closing": {
           "engaged": true,
           "frame_seats": 0,
-          "hinges": 0,
+          "hinges": 2,
           "latch": true
         },
         "detached": false,
-        "failed_hinges": 2,
+        "failed_hinges": 0,
         "id": "bonnet",
         "latch_broken": false,
         "latched": true,
-        "max_plastic_edge_change_m": 0.488862358808517,
-        "mount_peak_n": 57546.6064453125,
-        "plastic_work_j": 4091.26093697533,
+        "max_plastic_edge_change_m": 0.508278913021088,
+        "mount_peak_n": 57957.6461791992,
+        "plastic_work_j": 5759.07743965931,
         "seats": []
       },
       {
@@ -579,51 +564,51 @@
         "id": "tailgate",
         "latch_broken": false,
         "latched": true,
-        "max_plastic_edge_change_m": 0.160730565352727,
-        "mount_peak_n": 8303.40929031372,
-        "plastic_work_j": 1844.93833865102,
+        "max_plastic_edge_change_m": 0.150806187549319,
+        "mount_peak_n": 7782.63072967529,
+        "plastic_work_j": 1703.88082473044,
         "seats": []
       }
     ],
     "anchor_peak_n": [
-      14087.7410888672,
-      16500.1413345337,
-      4588.99784088135
+      14134.7685813904,
+      16844.439125061,
+      4691.94574356079
     ],
-    "angle_deg": 179.189849363033,
+    "angle_deg": 179.95791729625,
     "author_hz": 960.0,
     "body": {
       "broken_suspension_links": 0,
-      "cabin_shortening_m": 0.1886146068573,
-      "front_shortening_m": 0.707431852817535,
+      "cabin_shortening_m": 0.184779047966003,
+      "front_shortening_m": 0.722658216953278,
       "impact_mode": 0,
       "impact_time_s": 0.0958333333333333,
       "initial_energy_kj": 703.944758883143,
-      "kinetic_kj": 7.67659564375278,
+      "kinetic_kj": 10.0343401341618,
       "links": 187,
       "mass_kg": 1120.0,
-      "max_step_us": 63065,
+      "max_step_us": 7223,
       "maximum_kinetic_kj": 703.961295664336,
-      "mean_step_us": 6205.72708333333,
+      "mean_step_us": 6036.60833333333,
       "nodes": 38,
-      "plastic_work_kj": 238.962249212307,
-      "roof_drop_m": 0.121846866607666,
+      "plastic_work_kj": 239.332532003613,
+      "roof_drop_m": 0.125420045852661,
       "wheels": [
         {
           "angular_finite": true,
           "body_contact_events": 0,
           "detach_reason": "",
           "detached": false,
-          "hub_tilt_deg": 0.0197823410294464,
+          "hub_tilt_deg": 0.0,
           "knuckle_broken": false,
-          "lateral_error_m": 0.0000000298023223876953,
+          "lateral_error_m": -0.00000000745058059692383,
           "name": "rear_wheel_-1",
           "node": 34,
-          "peak_lateral_force_n": 620.912782634609,
-          "peak_tire_compression_m": 0.0265125744707737,
+          "peak_lateral_force_n": 325.928689802449,
+          "peak_tire_compression_m": 0.0281699116952473,
           "permanent_alignment_deg": 0.0,
           "permanent_lateral_offset_m": 0.0,
-          "spin_rad_s": 8.95641322564787,
+          "spin_rad_s": 11.8395531283568,
           "wheel_body_constraint_impulse_ns": 0.0
         },
         {
@@ -631,59 +616,59 @@
           "body_contact_events": 0,
           "detach_reason": "",
           "detached": false,
-          "hub_tilt_deg": 0.0279764551182933,
+          "hub_tilt_deg": 0.0,
           "knuckle_broken": false,
-          "lateral_error_m": 0.0,
+          "lateral_error_m": 0.0000000298023223876953,
           "name": "rear_wheel_1",
           "node": 35,
-          "peak_lateral_force_n": 190.822648182774,
-          "peak_tire_compression_m": 0.0293401013007639,
+          "peak_lateral_force_n": 606.880429545452,
+          "peak_tire_compression_m": 0.0278531721856476,
           "permanent_alignment_deg": 0.0,
           "permanent_lateral_offset_m": 0.0,
-          "spin_rad_s": 10.3695657162116,
+          "spin_rad_s": 10.3666910238974,
           "wheel_body_constraint_impulse_ns": 0.0
         },
         {
           "angular_finite": true,
-          "body_contact_events": 505,
+          "body_contact_events": 432,
           "detach_reason": "",
           "detached": false,
-          "hub_tilt_deg": 6.01141292533436,
+          "hub_tilt_deg": 7.10547595494945,
           "knuckle_broken": false,
-          "lateral_error_m": 0.000000017803435184427,
+          "lateral_error_m": 0.00000000369912162012653,
           "name": "front_wheel_-1",
           "node": 36,
-          "peak_lateral_force_n": 1283.56810377728,
+          "peak_lateral_force_n": 1759.49966549661,
           "peak_tire_compression_m": 0.045,
-          "permanent_alignment_deg": 6.01138031561518,
-          "permanent_lateral_offset_m": -0.0298546283657597,
-          "spin_rad_s": 10.4123662283163,
-          "wheel_body_constraint_impulse_ns": 1647.20057846256
+          "permanent_alignment_deg": 7.10542073733463,
+          "permanent_lateral_offset_m": -0.0390310026443578,
+          "spin_rad_s": 11.7980943469433,
+          "wheel_body_constraint_impulse_ns": 1658.99255877309
         },
         {
           "angular_finite": true,
-          "body_contact_events": 462,
+          "body_contact_events": 435,
           "detach_reason": "",
           "detached": false,
-          "hub_tilt_deg": 7.34454254806596,
+          "hub_tilt_deg": 7.07803540858801,
           "knuckle_broken": false,
-          "lateral_error_m": 0.0000000149011611938477,
+          "lateral_error_m": -0.0000000235545802307335,
           "name": "front_wheel_1",
           "node": 37,
-          "peak_lateral_force_n": 1552.98264741382,
+          "peak_lateral_force_n": 1909.70420327835,
           "peak_tire_compression_m": 0.045,
-          "permanent_alignment_deg": 7.34448911843094,
-          "permanent_lateral_offset_m": 0.0430909246206284,
-          "spin_rad_s": 11.4932635784491,
-          "wheel_body_constraint_impulse_ns": 1617.87638484639
+          "permanent_alignment_deg": 7.07800769334651,
+          "permanent_lateral_offset_m": 0.0393086907375026,
+          "spin_rad_s": 11.1135343141243,
+          "wheel_body_constraint_impulse_ns": 1658.94958630038
         }
       ],
-      "yielded_links": 89
+      "yielded_links": 86
     },
     "body_mass_kg": 1120.0,
     "case": "headon_120",
     "contact_time_s": 0.0958333333333333,
-    "contacts": 497,
+    "contacts": 475,
     "detached": false,
     "failed_hinges": 0,
     "finite": true,
@@ -692,15 +677,15 @@
     "latch_broken": false,
     "latched": true,
     "mass_kg": 1210.0000038147,
-    "max_plastic_edge_change_m": 0.294174822262689,
-    "max_step_us": 63789,
+    "max_plastic_edge_change_m": 0.298723640266025,
+    "max_step_us": 7967,
     "maximum_energy_j": 703961.295664336,
-    "maximum_mount_force_n": 16500.1413345337,
-    "mean_step_us": 6628.99416666667,
+    "maximum_mount_force_n": 16844.439125061,
+    "mean_step_us": 6726.72833333333,
     "measured_contact_kmh": 119.984353637695,
-    "p95_step_us": 7368,
-    "p99_step_us": 8319,
-    "panel_plastic_work_j": 3372.99811867655,
+    "p95_step_us": 7163,
+    "p99_step_us": 7357,
+    "panel_plastic_work_j": 3362.84386929826,
     "panel_stats": {
       "activation_continuity": [
         {
@@ -719,36 +704,21 @@
           "linear_error": 0.00391065189614892
         },
         {
-          "angular_error": 0.00198446400463581,
+          "angular_error": 0.00390657922253013,
           "id": "tailgate",
-          "linear_error": 0.00104298489168286
+          "linear_error": 0.00390625139698386
         },
         {
-          "angular_error": 0.00140248110983521,
+          "angular_error": 0.00176052306778729,
           "condense": true,
           "id": "door_left",
-          "linear_error": 0.000553538731765002
+          "linear_error": 0.0001220703125
         }
       ],
-      "active_steps": 9191,
-      "contacts": 1961,
-      "events": [
-        {
-          "force_n": 55598.4901428223,
-          "id": 0,
-          "kind": "lower_hinge",
-          "panel": "bonnet",
-          "time": 0.1125
-        },
-        {
-          "force_n": 42635.4297637939,
-          "id": 1,
-          "kind": "upper_hinge",
-          "panel": "bonnet",
-          "time": 0.119791666666667
-        }
-      ],
-      "idle_steps": 409,
+      "active_steps": 9190,
+      "contacts": 3364,
+      "events": [],
+      "idle_steps": 410,
       "mass_kg": 1210.0000038147,
       "max_release_us": 0,
       "panel_nodes": 40,
