@@ -13,6 +13,7 @@ var skin: Node3D
 var camera: Camera3D
 var readout: Label
 var bake_toggle: CheckButton
+var roof_control: HSlider
 var quality_control: OptionButton
 var power_control: HSlider
 var grip_control: HSlider
@@ -70,6 +71,11 @@ func _hud() -> void:
  var power_label:=Label.new();column.add_child(power_label)
  var power:=HSlider.new();power_control=power;power.min_value=55;power.max_value=660;power.step=5;power.value=car.dynamics.parameters.power_w/1000.;column.add_child(power)
  power_label.text='Engine power: %.0f kW'%power.value;power.value_changed.connect(func(v):car.set_engine_power_kw(v);power_label.text='Engine power: %.0f kW'%v)
+ var roof_label:=Label.new();column.add_child(roof_label)
+ roof_control=HSlider.new();roof_control.name='RoofStiffness';roof_control.min_value=car.RoofStiffness.MINIMUM;roof_control.max_value=car.RoofStiffness.MAXIMUM;roof_control.step=.25;roof_control.value=car.roof_stiffness;column.add_child(roof_control)
+ roof_control.tooltip_text='Higher values resist roof crushing. Repair with R to compare settings.'
+ roof_label.text='Roof stiffness: %.2f×'%roof_control.value
+ roof_control.value_changed.connect(func(value):car.set_roof_stiffness(value);roof_label.text='Roof stiffness: %.2f×'%value)
  var quality_row:=HBoxContainer.new();column.add_child(quality_row)
  var label:=Label.new();label.text='Live precision';quality_row.add_child(label)
  quality_control=OptionButton.new();quality_row.add_child(quality_control)
@@ -165,7 +171,7 @@ func _process(_dt: float) -> void:
  if not car.last_bake.is_empty():readout.text+='\n'+str(car.last_bake.id)
  if car.sequence_notice!='':readout.text+='\n'+car.sequence_notice
  if roof_landing_preview:readout.text+='\nRoof landing · slow motion · R repairs'
- if car.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nWeak roof · ramps and ground contacts'
+ if car.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nRoof damage · ramps and ground contacts'
  if car.last_bake.get('incremental',false):readout.text+='\nDamage accumulates · '+str(car.last_bake.get('contact_family','')).replace('_',' ')
  if car.baked_count==0 and car.roof_landing_sensor.last_rejection!='':readout.text+='\n'+car.roof_landing_sensor.last_rejection.replace('_',' ')
  if debug_visible:readout.text+='\n%d full solves · %.2f ms / 120 Hz\n%d instances · %d triangles'%[car.full_steps,car.statistics().cpu_ms_per_sim_second/120,stadium.instances,stadium.mesh_triangles]

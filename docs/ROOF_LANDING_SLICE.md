@@ -15,6 +15,42 @@ start playback. The staged view runs at 35% speed; **R** repairs and returns to
 normal driving. Rolling off a ramp uses the same detector, with no test flag.
 Roof hits after earlier damage now use the [incremental world-damage path](WORLD_DAMAGE_STACKING.md), preserving the earlier crush. Repair with R to compare identical starting cars.
 
+## Roof stiffness control
+
+Both driving scenes expose **Roof stiffness**, from **0.5× to 8×**, default **3×**.
+The previous deliberately fragile setup is **1×**. Higher values resist crushing;
+repair with R before comparing the same impact. The value survives repair and
+staging, and each scene starts with its default when opened.
+
+For baked roof contacts, stiffness scales the cached local deformation by its
+reciprocal, including a roof layer during another incremental impact. The setting
+is captured at contact: changing the slider during playback affects later roof
+hits and cannot repair existing damage or abruptly rescale the active clip.
+The selector's contact sensitivity is unchanged. No new clip preparation, full
+structural solver or cloth solver runs because the slider changes. Ordinary
+frontal/conditioned recordings retain their authored response.
+
+For live collisions, the shared runtime scales the roof/pillar members' stiffness
+and yield strength from their material definition, with corresponding damping.
+It leaves the lower rails unchanged and recomputes parameters only when the
+setting, simulation precision or fixture materials change. Scaling starts from
+the definition each time, so repeated changes do not multiply cumulatively.
+
+This control is gameplay tuning. Baked geometry scaling is an approximation,
+not a newly simulated material response; recorded glass/interior/wheel failure
+states retain their source severity. Existing source recordings and fingerprints
+remain unchanged. `tests/roof_landing/stiffness.gd` compares equal impacts at
+1×/2×/3×/4×, runs real live roof collisions, and checks slider wiring, persistence,
+bounds, active-playback behavior and zero baked solver work.
+
+Equal 60 km/h forward, 4 m/s downward baked comparisons measured cabin-height
+loss of **0.815 m at 1×**, **0.460 m at 2×**, **0.311 m at the 3× default**, and **0.235 m at 4×**. Separate real
+live 4 m/s roof-drop runs over 0.75 seconds measured **0.225 m at 1×** versus
+**0.165 m at 4×**. These are distinct playback and live measurements, not a
+claim that the approximate slider reproduces the live solver exactly.
+
+[Roof stiffness measurements](evidence/roof_stiffness/validation.json) · [Native control preview](images/roof_stiffness_control.png)
+
 ## Recorded conditions
 
 Six clips combine **60 km/h forward**, **4 or 7 m/s downward**, and roof roll
@@ -84,8 +120,8 @@ It requires zero body, panel cage, glass membrane and airbag cloth solves.
 The earlier six-clip batch timing was 109.2 s elapsed / 216.4 CPU s. The new
 soft-roof batch is measured independently in
 `verification/bake_campaign/roof_landing.json`; do not compare the old timing
-as if it described the new source. In the latest 20 m/s forward and static
-support tests, amplified cabin-height loss ranges approximately **0.34–0.80 m**.
+as if it described the new source. At the earlier 1× setting, 20 m/s forward and static
+support tests measured amplified cabin-height loss of approximately **0.34–0.80 m**.
 The native PNGs show the actual severe roof response. All runtime replay tests
 require zero structural, cage, membrane and cloth solves.
 

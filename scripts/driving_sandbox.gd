@@ -21,6 +21,7 @@ var body_fixture_active:=false
 var body_case:=''
 var body_previous_baked:=true
 var experimental_body: CheckButton
+var roof_control: HSlider
 var quality_control: OptionButton
 var reverse:=false
 var camera_mode:=0
@@ -241,7 +242,12 @@ func _hud() -> void:
  power.value_changed.connect(func(value):
   vehicle.set_engine_power_kw(value)
   power_label.text='Engine power: %.0f kW'%value)
- var tuning_note:=Label.new();tuning_note.text='Tuning affects live driving. Crash bakes keep their recorded motion.';tuning_note.add_theme_font_size_override('font_size',11);column.add_child(tuning_note)
+ var roof_label:=Label.new();column.add_child(roof_label)
+ roof_control=HSlider.new();roof_control.name='RoofStiffness';roof_control.min_value=vehicle.RoofStiffness.MINIMUM;roof_control.max_value=vehicle.RoofStiffness.MAXIMUM;roof_control.step=.25;roof_control.value=vehicle.roof_stiffness;column.add_child(roof_control)
+ roof_control.tooltip_text='Higher values resist roof crushing. Repair with R to compare settings.'
+ roof_label.text='Roof stiffness: %.2f×'%roof_control.value
+ roof_control.value_changed.connect(func(value):vehicle.set_roof_stiffness(value);roof_label.text='Roof stiffness: %.2f×'%value)
+ var tuning_note:=Label.new();tuning_note.text='R repairs the car; tuning settings are kept.';tuning_note.add_theme_font_size_override('font_size',11);column.add_child(tuning_note)
  var panel_controls:=VBoxContainer.new();panel_controls.set_script(load('res://scripts/panel_controls.gd'));column.add_child(panel_controls);panel_controls.setup(vehicle)
 
 
@@ -354,7 +360,7 @@ func _process(_dt: float) -> void:
  readout.text+='\nPhysics: '+mode_name[vehicle.mode]
  readout.text+='\nBaked crashes: '+('ON' if vehicle.baked_enabled else 'OFF')
  if roof_landing_preview:readout.text+='\nRoof landing · slow motion · R repairs'
- if vehicle.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nWeak roof · ramps and ground contacts'
+ if vehicle.last_bake.get('contact_family','')=='roof_landing_floor':readout.text+='\nRoof damage · ramps and ground contacts'
  if vehicle.last_bake.get('incremental',false):readout.text+='\nDamage accumulates · '+str(vehicle.last_bake.get('contact_family','')).replace('_',' ')
  if vehicle.baked_count==0 and vehicle.roof_landing_sensor.last_rejection!='':readout.text+='\n'+vehicle.roof_landing_sensor.last_rejection.replace('_',' ')
  if vehicle.sequence_notice!='':readout.text+='\n'+vehicle.sequence_notice

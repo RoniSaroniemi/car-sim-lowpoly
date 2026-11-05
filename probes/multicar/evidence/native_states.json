@@ -1,0 +1,413 @@
+[
+	{
+		"case": "head_on",
+		"path": "res://probes/multicar/evidence/head_on_before.png",
+		"stage": "before",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 33.3333320617676,
+							"depth": 0.0000000786805021135706,
+							"impulse": 20771.6658742905,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(-0.0, 0.720489, 0.0)",
+							"pre_relative": "(-33.33333, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 302.5,
+					"energy_before_j": 336111.102905273,
+					"momentum_error_ns": 0.0,
+					"removed_energy_j": 335808.602905273,
+					"time": 0.308333333333333
+				}
+			],
+			"broadphase_passes": 0,
+			"car_count": 2,
+			"contacts": 0,
+			"energy_j": 336111.102905273,
+			"full_structure_steps": 0,
+			"mass_kg": 2420.0,
+			"mean_us": 331.25,
+			"momentum": "(0.0, 0.0, 0.0)",
+			"p95_us": 635,
+			"p99_us": 635,
+			"pairs": 8,
+			"steps": 8
+		}
+	},
+	{
+		"case": "head_on",
+		"path": "res://probes/multicar/evidence/head_on_impact.png",
+		"stage": "impact",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 33.3333320617676,
+							"depth": 0.0000000786805021135706,
+							"impulse": 20771.6658742905,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(-0.0, 0.720489, 0.0)",
+							"pre_relative": "(-33.33333, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 302.5,
+					"energy_before_j": 336111.102905273,
+					"momentum_error_ns": 0.0,
+					"removed_energy_j": 335808.602905273,
+					"time": 0.308333333333333
+				}
+			],
+			"broadphase_passes": 4,
+			"car_count": 2,
+			"contacts": 1,
+			"energy_j": 302.5,
+			"full_structure_steps": 0,
+			"mass_kg": 2420.0,
+			"mean_us": 1296.33333333333,
+			"momentum": "(0.0, 0.0, 0.0)",
+			"p95_us": 6916,
+			"p99_us": 18829,
+			"pairs": 72,
+			"steps": 72
+		}
+	},
+	{
+		"case": "head_on",
+		"path": "res://probes/multicar/evidence/head_on_after.png",
+		"stage": "after",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 33.3333320617676,
+							"depth": 0.0000000786805021135706,
+							"impulse": 20771.6658742905,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(-0.0, 0.720489, 0.0)",
+							"pre_relative": "(-33.33333, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 302.5,
+					"energy_before_j": 336111.102905273,
+					"momentum_error_ns": 0.0,
+					"removed_energy_j": 335808.602905273,
+					"time": 0.308333333333333
+				}
+			],
+			"broadphase_passes": 4,
+			"car_count": 2,
+			"contacts": 1,
+			"energy_j": 302.5,
+			"full_structure_steps": 0,
+			"mass_kg": 2420.0,
+			"mean_us": 1672.91764705882,
+			"momentum": "(0.0, 0.0, 0.0)",
+			"p95_us": 3280,
+			"p99_us": 6916,
+			"pairs": 340,
+			"steps": 340
+		}
+	},
+	{
+		"case": "parked",
+		"path": "res://probes/multicar/evidence/parked_before.png",
+		"stage": "before",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 33.3333320617676,
+							"depth": 0.0000000786805021135706,
+							"impulse": 20771.6658742905,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(2.15658, 0.720489, 0.0)",
+							"pre_relative": "(-33.33333, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 336413.584442139,
+					"energy_before_j": 672222.205810547,
+					"momentum_error_ns": 0.0,
+					"removed_energy_j": 335808.621368408,
+					"time": 0.308333333333333
+				}
+			],
+			"broadphase_passes": 0,
+			"car_count": 2,
+			"contacts": 0,
+			"energy_j": 672222.205810547,
+			"full_structure_steps": 0,
+			"mass_kg": 2420.0,
+			"mean_us": 336.875,
+			"momentum": "(40333.33, 0.0, 0.0)",
+			"p95_us": 618,
+			"p99_us": 618,
+			"pairs": 8,
+			"steps": 8
+		}
+	},
+	{
+		"case": "parked",
+		"path": "res://probes/multicar/evidence/parked_impact.png",
+		"stage": "impact",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 33.3333320617676,
+							"depth": 0.0000000786805021135706,
+							"impulse": 20771.6658742905,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(2.15658, 0.720489, 0.0)",
+							"pre_relative": "(-33.33333, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 336413.584442139,
+					"energy_before_j": 672222.205810547,
+					"momentum_error_ns": 0.0,
+					"removed_energy_j": 335808.621368408,
+					"time": 0.308333333333333
+				}
+			],
+			"broadphase_passes": 4,
+			"car_count": 2,
+			"contacts": 1,
+			"energy_j": 336413.584442139,
+			"full_structure_steps": 0,
+			"mass_kg": 2420.0,
+			"mean_us": 1504.62857142857,
+			"momentum": "(40333.33, 0.0, 0.0)",
+			"p95_us": 4691,
+			"p99_us": 30942,
+			"pairs": 70,
+			"steps": 70
+		}
+	},
+	{
+		"case": "parked",
+		"path": "res://probes/multicar/evidence/parked_after.png",
+		"stage": "after",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 33.3333320617676,
+							"depth": 0.0000000786805021135706,
+							"impulse": 20771.6658742905,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(2.15658, 0.720489, 0.0)",
+							"pre_relative": "(-33.33333, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 336413.584442139,
+					"energy_before_j": 672222.205810547,
+					"momentum_error_ns": 0.0,
+					"removed_energy_j": 335808.621368408,
+					"time": 0.308333333333333
+				}
+			],
+			"broadphase_passes": 4,
+			"car_count": 2,
+			"contacts": 1,
+			"energy_j": 336413.584442139,
+			"full_structure_steps": 0,
+			"mass_kg": 2420.0,
+			"mean_us": 1697.04733727811,
+			"momentum": "(40333.33, 0.0, 0.0)",
+			"p95_us": 3117,
+			"p99_us": 8123,
+			"pairs": 338,
+			"steps": 338
+		}
+	},
+	{
+		"case": "triple",
+		"path": "res://probes/multicar/evidence/triple_before.png",
+		"stage": "before",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 23.5702266693115,
+							"depth": 0.0,
+							"impulse": 29371.9866063535,
+							"normal": "(-1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(-1.916581, 0.720489, 0.0)",
+							"pre_relative": "(23.57023, 0.0, 0.0)"
+						},
+						{
+							"a": 0,
+							"b": 2,
+							"closing": 23.5702266693115,
+							"depth": 0.0,
+							"impulse": 29368.4009537935,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(1.843419, 0.720489, 0.0)",
+							"pre_relative": "(-23.57023, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 597.425096901097,
+					"energy_before_j": 672222.279663086,
+					"momentum_error_ns": 0.0001220703125,
+					"removed_energy_j": 671624.854566185,
+					"time": 0.25
+				}
+			],
+			"broadphase_passes": 0,
+			"car_count": 3,
+			"contacts": 0,
+			"energy_j": 672222.279663086,
+			"full_structure_steps": 0,
+			"mass_kg": 3630.0,
+			"mean_us": 487.75,
+			"momentum": "(0.0, 0.0, 0.0)",
+			"p95_us": 894,
+			"p99_us": 894,
+			"pairs": 24,
+			"steps": 8
+		}
+	},
+	{
+		"case": "triple",
+		"path": "res://probes/multicar/evidence/triple_impact.png",
+		"stage": "impact",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 23.5702266693115,
+							"depth": 0.0,
+							"impulse": 29371.9866063535,
+							"normal": "(-1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(-1.916581, 0.720489, 0.0)",
+							"pre_relative": "(23.57023, 0.0, 0.0)"
+						},
+						{
+							"a": 0,
+							"b": 2,
+							"closing": 23.5702266693115,
+							"depth": 0.0,
+							"impulse": 29368.4009537935,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(1.843419, 0.720489, 0.0)",
+							"pre_relative": "(-23.57023, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 597.425096901097,
+					"energy_before_j": 672222.279663086,
+					"momentum_error_ns": 0.0001220703125,
+					"removed_energy_j": 671624.854566185,
+					"time": 0.25
+				}
+			],
+			"broadphase_passes": 9,
+			"car_count": 3,
+			"contacts": 2,
+			"energy_j": 597.425096901097,
+			"full_structure_steps": 0,
+			"mass_kg": 3630.0,
+			"mean_us": 2197.65671641791,
+			"momentum": "(0.000122, 0.0, 0.0)",
+			"p95_us": 6836,
+			"p99_us": 34340,
+			"pairs": 201,
+			"steps": 67
+		}
+	},
+	{
+		"case": "triple",
+		"path": "res://probes/multicar/evidence/triple_after.png",
+		"stage": "after",
+		"stats": {
+			"batches": [
+				{
+					"angular_error_nms": 0.0,
+					"contacts": [
+						{
+							"a": 0,
+							"b": 1,
+							"closing": 23.5702266693115,
+							"depth": 0.0,
+							"impulse": 29371.9866063535,
+							"normal": "(-1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(-1.916581, 0.720489, 0.0)",
+							"pre_relative": "(23.57023, 0.0, 0.0)"
+						},
+						{
+							"a": 0,
+							"b": 2,
+							"closing": 23.5702266693115,
+							"depth": 0.0,
+							"impulse": 29368.4009537935,
+							"normal": "(1.0, 0.0, 0.0)",
+							"overlap_width": 1.80000007152557,
+							"point": "(1.843419, 0.720489, 0.0)",
+							"pre_relative": "(-23.57023, 0.0, 0.0)"
+						}
+					],
+					"energy_after_j": 597.425096901097,
+					"energy_before_j": 672222.279663086,
+					"momentum_error_ns": 0.0001220703125,
+					"removed_energy_j": 671624.854566185,
+					"time": 0.25
+				}
+			],
+			"broadphase_passes": 9,
+			"car_count": 3,
+			"contacts": 2,
+			"energy_j": 597.425096901097,
+			"full_structure_steps": 0,
+			"mass_kg": 3630.0,
+			"mean_us": 2471.92625368732,
+			"momentum": "(0.000122, 0.0, 0.0)",
+			"p95_us": 4901,
+			"p99_us": 11837,
+			"pairs": 1017,
+			"steps": 339
+		}
+	}
+]

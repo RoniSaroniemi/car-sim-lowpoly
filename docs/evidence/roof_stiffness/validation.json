@@ -1,0 +1,92 @@
+{
+	"checks": {
+		"active_hit_keeps_captured_scale": true,
+		"baked_1.0_captured_tuning": true,
+		"baked_1.0_mass_finite": true,
+		"baked_1.0_no_rebuild": true,
+		"baked_1.0_triggered": true,
+		"baked_1.0_zero_solves": true,
+		"baked_2.0_captured_tuning": true,
+		"baked_2.0_mass_finite": true,
+		"baked_2.0_no_rebuild": true,
+		"baked_2.0_triggered": true,
+		"baked_2.0_zero_solves": true,
+		"baked_3.0_captured_tuning": true,
+		"baked_3.0_mass_finite": true,
+		"baked_3.0_no_rebuild": true,
+		"baked_3.0_triggered": true,
+		"baked_3.0_zero_solves": true,
+		"baked_4.0_captured_tuning": true,
+		"baked_4.0_mass_finite": true,
+		"baked_4.0_no_rebuild": true,
+		"baked_4.0_triggered": true,
+		"baked_4.0_zero_solves": true,
+		"baked_monotonic": true,
+		"fixture_replacement_reapplies": true,
+		"invalid_uses_default": true,
+		"live_1.0_actually_solved": true,
+		"live_1.0_mass_finite": true,
+		"live_4.0_actually_solved": true,
+		"live_4.0_mass_finite": true,
+		"live_idempotent": true,
+		"live_resists_more": true,
+		"live_stiffness_and_yield_scale": true,
+		"lower_bound": true,
+		"quality_keeps_damping_consistent": true,
+		"rails_unchanged": true,
+		"repair_keeps_tuning": true,
+		"res://arena/colosseum.tscn_reset_keeps_setting": true,
+		"res://arena/colosseum.tscn_slider_default": true,
+		"res://arena/colosseum.tscn_slider_wired": true,
+		"res://driving.tscn_reset_keeps_setting": true,
+		"res://driving.tscn_slider_default": true,
+		"res://driving.tscn_slider_wired": true,
+		"slider_does_not_repair_current_shape": true,
+		"stronger_default": true,
+		"upper_bound": true
+	},
+	"passed": true,
+	"runs": [
+		{
+			"full_steps": 0,
+			"height_loss_m": 0.815094858407974,
+			"impacts": 1,
+			"mode": "baked",
+			"stiffness": 1.0
+		},
+		{
+			"full_steps": 0,
+			"height_loss_m": 0.460138767957687,
+			"impacts": 1,
+			"mode": "baked",
+			"stiffness": 2.0
+		},
+		{
+			"full_steps": 0,
+			"height_loss_m": 0.311161905527115,
+			"impacts": 1,
+			"mode": "baked",
+			"stiffness": 3.0
+		},
+		{
+			"full_steps": 0,
+			"height_loss_m": 0.234656512737274,
+			"impacts": 1,
+			"mode": "baked",
+			"stiffness": 4.0
+		},
+		{
+			"full_steps": 360,
+			"height_loss_m": 0.22536712884903,
+			"mode": "live",
+			"stiffness": 1.0
+		},
+		{
+			"full_steps": 360,
+			"height_loss_m": 0.165287673473358,
+			"mode": "live",
+			"stiffness": 4.0
+		}
+	],
+	"scope": "Baked roof shape scale vs true live roof-member tuning. Existing recordings are immutable; this is not newly simulated material interpolation."
+}

@@ -8,7 +8,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - name: Download standard Godot 4.7.2 and check its release checksum
@@ -25,5 +25,16 @@ jobs:
         run: |
           python3 tools/demo.py check
           python3 model/source/test_cabin_fit.py
-      - name: Run structural, wheel, driving and native skin checks
+      - name: Run shared physics, baked damage, roof tuning and multi-car checks
         run: python3 tools/demo.py verify --godot "$RUNNER_TEMP/car-sim-godot/Godot_v4.7.2-stable_linux.x86_64"
+
+      - name: Retain verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: car-sim-verification
+          path: |
+            verification/*.json
+            verification/**/*.json
+            verification/**/*.csv
+          if-no-files-found: ignore

@@ -10,6 +10,22 @@ condensed mode; the combined car and panels still own **1,210 kg once**.
 
 This isolated example includes the latest wheel revision: finite-width oriented wheels, independent hub tilt and rim spin, yielding/breakable suspension, limited tire compression and selective wheel-to-body load transfer. It includes the model, textures, editable Blender file, procedural model source and structural, wheel and driving verification suites.
 
+## Current development status
+
+**Roof stiffness defaults to 3×** and can be tuned from 0.5× to 8×. The main
+sandbox supports repeated incremental damage, roof rollovers, articulated panels
+and contacts with all arena ramps and the retaining wall.
+
+**Baked data is still 120 Hz and is not optimized for shipping**: 132 main
+recordings occupy 622.18 MiB compressed. Lower-rate/key-reduced tracks, packed
+storage and bounded loading/cache policies remain future work. Seats can still
+penetrate heavily crushed bodywork; seat/body contact and seat-frame/cushion
+collapse remain unfinished.
+
+See [current status, known problems and examples](docs/STATUS.md),
+[baking/optimization status](docs/BAKE_OPTIMIZATION_STATUS.md), and the separate
+[multi-car collision examples](docs/MULTICAR_BAKED_PROBE.md).
+
 ## Start locally
 
 Install the standard **Godot 4.7.2** build from [Godot's official release](https://github.com/godotengine/godot/releases/tag/4.7.2-stable). Python 3.10+ is only needed for the convenience runner and graph generator. Blender 4.5 is optional for model editing/rebuilding. No .NET, add-ons, package manager, external Jolt extension or network service is needed to run the example.
@@ -38,7 +54,7 @@ The practice area uses the same car, wheels and damage state as the crash bench,
 with [baked driving](docs/BAKED_DRIVING.md) enabled by default. That mode uses zero
 deformation forecast calls or full structural solves, including after a bake.
 Turn baking off to use [live adaptive simulation](docs/ADAPTIVE_SIMULATION.md).
-The live tyre-grip and engine-power sliders keep their values through repairs.
+The tyre-grip, engine-power and roof-stiffness sliders keep their values through repairs. Roof stiffness defaults to 3×; set 1× for the earlier fragile response, or tune from 0.5× to 8×. It affects later baked roof deformation and live roof-member strength.
 **Roof landing**, **Roll left/right**, and **Hard roof** stage forward-moving
 roof-first landings. The shared detector selects one of six dedicated
 low-vertical-speed floor recordings at roof contact, including ramp slopes and side-roof roll;
@@ -92,6 +108,17 @@ python3 tools/demo.py baked-3d
 ```
 
 Choose a roof, underside or diagonal recording, replay it, or scrub the slider.
+
+## Multi-car collision examples
+
+```sh
+python3 tools/demo.py multicar
+```
+
+Choose two-car head-on, moving-into-parked, simultaneous three-car or the small
+driving case. Physical contact impulses move the cars; baked local shapes supply
+deformation. This is a separate planar probe with condensed wheels/panels, not
+3D multi-car integration into the arena. [Evidence, controls and limitations](docs/MULTICAR_BAKED_PROBE.md).
 
 ## Candidate layered damage materials
 

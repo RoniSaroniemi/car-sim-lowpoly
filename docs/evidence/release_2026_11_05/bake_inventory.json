@@ -1,0 +1,44 @@
+{
+  "scope": "Main-bank file counts and actual compressed bytes; excludes model/textures, decoded RAM and the separate multi-car composite. Sampling verified by main asset audit.",
+  "families": {
+    "horizontal": {
+      "clips": 37,
+      "compressed_bytes": 184189758,
+      "compressed_mib": 175.66
+    },
+    "partial": {
+      "clips": 48,
+      "compressed_bytes": 257438267,
+      "compressed_mib": 245.51
+    },
+    "conditioned": {
+      "clips": 3,
+      "compressed_bytes": 16163326,
+      "compressed_mib": 15.41
+    },
+    "roof_landing": {
+      "clips": 6,
+      "compressed_bytes": 25536403,
+      "compressed_mib": 24.35
+    },
+    "roof": {
+      "clips": 2,
+      "compressed_bytes": 7694884,
+      "compressed_mib": 7.34
+    },
+    "multiaxis": {
+      "clips": 36,
+      "compressed_bytes": 161375476,
+      "compressed_mib": 153.9
+    }
+  },
+  "clips": 132,
+  "compressed_bytes": 652398114,
+  "sample_hz": 120,
+  "duration_s": 2.5,
+  "frames_per_clip": 301,
+  "shipping_optimized": false,
+  "driving_eager_clip_count": 94,
+  "decoded_ram_measured": false,
+  "compressed_mib": 622.18
+}

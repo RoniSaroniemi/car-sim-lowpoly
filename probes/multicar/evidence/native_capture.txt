@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M3
+
+STRUCTURE_SKIN_READY triangles=57624 build_ms=416.376
+STRUCTURE_SKIN_READY triangles=57624 build_ms=354.232
+MULTICAR_CASE head_on
+MULTICAR_PROBE_READY root motion physical / shape recorded / 120Hz planar
+MULTICAR_CAPTURE res://probes/multicar/evidence/head_on_before.png
+MULTICAR_CAPTURE res://probes/multicar/evidence/head_on_impact.png
+MULTICAR_CAPTURE res://probes/multicar/evidence/head_on_after.png
+STRUCTURE_SKIN_READY triangles=57624 build_ms=352.682
+STRUCTURE_SKIN_READY triangles=57624 build_ms=358.943
+MULTICAR_CASE parked
+MULTICAR_CAPTURE res://probes/multicar/evidence/parked_before.png
+MULTICAR_CAPTURE res://probes/multicar/evidence/parked_impact.png
+MULTICAR_CAPTURE res://probes/multicar/evidence/parked_after.png
+STRUCTURE_SKIN_READY triangles=57624 build_ms=364.559
+STRUCTURE_SKIN_READY triangles=57624 build_ms=361.785
+STRUCTURE_SKIN_READY triangles=57624 build_ms=369.581
+MULTICAR_CASE triple
+MULTICAR_CAPTURE res://probes/multicar/evidence/triple_before.png
+MULTICAR_CAPTURE res://probes/multicar/evidence/triple_impact.png
+MULTICAR_CAPTURE res://probes/multicar/evidence/triple_after.png

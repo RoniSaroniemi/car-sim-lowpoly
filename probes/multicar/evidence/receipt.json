@@ -1,0 +1,22 @@
+{
+  "integration_base": "fa59200812d5a3a81e46b6b13d23870fd5e2cc06",
+  "original_probe_commit": "5244f14",
+  "validation_checks": 86,
+  "validation_passed": true,
+  "current_source_composite_reauthored": true,
+  "native_captures_refreshed": true,
+  "video_refreshed": true,
+  "original_performance_tables_remeasured": false,
+  "scope": "Standalone planar example on current repository; attached panels condensed; no production multicar 3D integration.",
+  "sha256": {
+    "probes/multicar/car.gd": "532753b8c12b5281047ef204c463b84b271081998ae5e24300dae670858c0da2",
+    "probes/multicar/library.gd": "8af75ede39a9aaffd1684cf0f1a5c25a218fe0abc3d1c0371b3a067e5ec0b743",
+    "probes/multicar/world.gd": "ac60a06e86e24b16eeee5c5c816f86fd10878cb4f00ace35cd93ec30a8afbd35",
+    "probes/multicar/verify.gd": "3e5086351154ec6703ffbe36438180939a3cf2d081bd3c347f8d340e8aa9b814",
+    "probes/multicar/author_composite.gd": "42b039643e9511e35a1b41ad582fb5f1c8e842f8f0923ac915016091922fe42e",
+    "probes/multicar/data/opposed_front_rear_60.crashclip": "ebbd36f27fb6448cd9bcf877fbbe28ac703220d2536aabd87d74825e5e719543",
+    "probes/multicar/evidence/validation.json": "3f90232daaf25dd1e65426d408405f7890882a08cef2a558ccb1a1114a768a76",
+    "probes/multicar/evidence/native_states.json": "1fe12765afb6300fbf256df4bfc91d12f0bcef4b46b7d8906038dc1d7d0ad2a1",
+    "probes/multicar/evidence/multicar_replay.mp4": "fbe77befd1e6835af09ee6e010d4de8bbb0dd8165993b0facd6485eef77f34a1"
+  }
+}

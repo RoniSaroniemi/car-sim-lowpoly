@@ -11,7 +11,8 @@ const ContactSensor=preload('res://scripts/baked_contact_sensor.gd')
 const RoofLandingCases=preload('res://scripts/roof_landing_cases.gd')
 const RoofLandingSensor=preload('res://scripts/roof_landing_sensor.gd')
 const PanelFloorWake=preload('res://scripts/panel_floor_wake.gd')
-const SoftRoof=preload('res://scripts/soft_roof_profile.gd')
+const RoofStiffness=preload('res://scripts/roof_stiffness_tuning.gd')
+var roof_stiffness: float=RoofStiffness.DEFAULT
 const GroundImpact=preload('res://scripts/ground_impact_geometry.gd')
 const IncrementalPlayer=preload('res://scripts/incremental_crash_player.gd')
 const WorldSensor=preload('res://scripts/world_impact_sensor.gd')
@@ -63,7 +64,7 @@ func setup(profile_path: String='res://vehicles/niva.json',enable_driving: bool=
 
 func _live_panel_floor_wake(h: float) -> void:
  if not baked_enabled and mode=='FULL':
-  SoftRoof.apply(solver);PanelFloorWake.step(solver,h)
+  RoofStiffness.apply_live(solver,roof_stiffness);PanelFloorWake.step(solver,h)
 
 func stage_roof_landing(roll_deg: float=0,down_mps: float=4) -> void:
  var spec: Dictionary={'roll_deg':roll_deg,'forward_kmh':60.0,'down_mps':down_mps,'roll_rate':signf(roll_deg)*.35}
@@ -79,6 +80,10 @@ func reset(speed_kmh: float=0,start: Vector3=Vector3(-9,0,0),weaken: bool=false)
  crash_player=null;baked_consumed=false;baked_count=0;baked_steps=0
  baked_cpu_us=0;baked_search_cpu_us=0;baked_seconds=0;rigid_contact_count=0;driver_accumulator=0;last_bake={};bake_status='Ready'
  super.reset(speed_kmh,start,weaken)
+
+func set_roof_stiffness(value: float) -> void:
+ roof_stiffness=RoofStiffness.bounded(value)
+ if not baked_enabled and mode=='FULL':RoofStiffness.apply_live(solver,roof_stiffness)
 
 func set_tire_friction(value: float) -> void:
  dynamics.parameters.tire_friction=clampf(value,.10,1.50)
@@ -437,6 +442,7 @@ func advance(elapsed: float,time_scale: float=1.0) -> void:
 
 func statistics() -> Dictionary:
  var result: Dictionary=super.statistics()
+ result['roof_stiffness']=roof_stiffness
  result['baked_count']=baked_count;result['baked_steps']=baked_steps
  result['baked_cpu_ms']=baked_cpu_us/1000.0;result['bake_search_cpu_ms']=baked_search_cpu_us/1000.0
  result['last_bake']=last_bake.duplicate(true)

@@ -49,7 +49,16 @@ python3 tools/demo.py import
 
 The verifier can also run against an isolated pre-effects base for module testing. On the integrated shared base, **29 checks passed**: four actual crash cases, ordinary braking suppression, finite/anchored cloth, unchanged vehicle mass/nodes and chassis motion, exact disk replay of local seat/cloth poses, no live/cloth solve during playback, conditioned-state retention through synchronization, repair/legacy defaults, and actual-mesh extraction without triangle loss. Fresh reports go to `verification/vehicle_interior_validation.json`; the checked local evidence is [vehicle_interior_validation.json](vehicle_interior_validation.json).
 
-The earlier [standalone probe](INTERIOR_DYNAMICS_PROBE.md) remains useful for isolated parameter experiments. Its timing numbers describe that separate solve, not the full car. The production module supplies `input_fingerprints()` for recorder provenance, covering its profile, controller, hinge/cloth solver, geometry/visual adapters and attachment helper.
+Earlier standalone experiments used a separate interior solve; their historical timing numbers do not describe the full current car. The production module supplies `input_fingerprints()` for recorder provenance, covering its profile, controller, hinge/cloth solver, geometry/visual adapters and attachment helper.
+
+## Visible seat/body penetration — open work
+
+The driver and passenger seats can protrude through a severely crushed roof or
+body mesh. Current backrest hinges do not provide contact against the collapsing
+body, nor do the seat frames/rails/cushions crush in response. These need simple
+interior collision proxies, yielding/collapsible supports, live/offline validation
+and newly recorded interior tracks for baked playback. The current snapshots do
+not fix these intersections. See [the current status and next interior slice](STATUS.md).
 
 ## Limits
 

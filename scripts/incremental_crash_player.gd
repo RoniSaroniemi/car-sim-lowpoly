@@ -56,14 +56,14 @@ func advance(dt: float) -> void:
  if roof_overlay.is_empty() and data.metadata.get('family','')!='roof_landing_floor':
   var roof_event: Dictionary=vehicle.roof_landing_sensor.event(vehicle,dt,vehicle.roof_landing_library)
   if not roof_event.is_empty():
-   roof_overlay={'data':RoofResponse.prepare(g,vehicle.roof_landing_library[int(roof_event.selection.index)]),'start':time+float(roof_event.toi)}
+   roof_overlay={'data':RoofResponse.prepare(g,vehicle.roof_landing_library[int(roof_event.selection.index)]),'start':time+float(roof_event.toi),'scale':float(roof_event.selection.get('damage_scale',1))}
    duration=maxf(duration,float(roof_overlay.start)+float(roof_overlay.data.metadata.duration_s))
    vehicle.baked_count+=1
    for edge in g.links:
     if g.wheels.by_node.has(edge.a) or g.wheels.by_node.has(edge.b):continue
     if float(edge.length)<float(edge.original)-.005:damage_tethers.append({'a':edge.a,'b':edge.b,'maximum':g.points[edge.a].distance_to(g.points[edge.b])})
-   vehicle.last_bake['roof_overlay']={'id':roof_overlay.data.metadata.id,'time_s':time,'closing_speed_mps':roof_event.signature.closing_speed_mps}
-   vehicle.impact_history.append({'id':roof_overlay.data.metadata.id,'contact_family':'roof_landing_floor','incremental':true,'overlay':true,'start_time_s':g.simulated_time,'parent_id':data.metadata.id})
+   vehicle.last_bake['roof_overlay']={'id':roof_overlay.data.metadata.id,'time_s':time,'closing_speed_mps':roof_event.signature.closing_speed_mps,'roof_stiffness':roof_event.selection.roof_stiffness,'damage_scale':roof_overlay.scale}
+   vehicle.impact_history.append({'id':roof_overlay.data.metadata.id,'contact_family':'roof_landing_floor','incremental':true,'overlay':true,'start_time_s':g.simulated_time,'parent_id':data.metadata.id,'roof_stiffness':roof_event.selection.roof_stiffness,'damage_scale':roof_overlay.scale})
    vehicle.world_impact_sensor.latches['terrain_body']=true
  vehicle._advance_incremental_root(dt)
  time=minf(time+dt,duration)
@@ -76,7 +76,7 @@ func advance(dt: float) -> void:
   if not roof_overlay.is_empty():
    var roof_sample: float=clampf((time-float(roof_overlay.start))*120,0,roof_overlay.data.frames.size()-1)
    var ra:=floori(roof_sample);var rb:=mini(ceili(roof_sample),roof_overlay.data.frames.size()-1)
-   target+=roof_overlay.data._incremental_track[ra][i].lerp(roof_overlay.data._incremental_track[rb][i],roof_sample-ra)
+   target+=roof_overlay.data._incremental_track[ra][i].lerp(roof_overlay.data._incremental_track[rb][i],roof_sample-ra)*float(roof_overlay.scale)
   # Retain wheel physical ownership, rather than teleporting wheel centres.
   if g.wheels.by_node.has(i):continue
   var increment: Vector3=target-applied[i]

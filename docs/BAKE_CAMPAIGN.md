@@ -6,6 +6,10 @@ deformation and mount failures are recorded; failure is not forced by a speed
 label. Glass cracks, membrane motion and released fragments are saved alongside
 seat and optional demonstration-airbag states.
 
+The bank is still sampled at **120 Hz** and its storage/loading/playback format
+has not undergone a shipping optimization pass. The current 132 clips occupy
+622.18 MiB compressed. See [optimization status](BAKE_OPTIMIZATION_STATUS.md).
+
 ## Coverage
 
 | Family | Cases | Purpose |
@@ -15,7 +19,8 @@ seat and optional demonstration-airbag states.
 | Multiaxis | 36 | 18 directions at 60/120 km/h: top, underside, and eight azimuths at each of +45° and −45° elevation |
 | Roof fixtures | 2 | Retain the existing flat/corner 35 km/h inspection cases |
 | Conditioned sequence | 3 | 60 frontal → 60 at +20° → 120 at −20°, preserving previous damage |
-| Total | 126 | Includes the conditioned sequence's copy of the frontal prefix |
+| Moving roof landing | 6 | Dedicated forward-moving roof/floor cases with low vertical speed and roll |
+| Total | 132 | Includes the conditioned sequence's copy of the frontal prefix |
 
 The multiaxis family uses controlled whole-car floor impacts. Contact includes
 the structural body, actual oriented tires and panel contact proxies; underside
@@ -36,6 +41,7 @@ python3 tools/bake_campaign.py --family horizontal --workers 4 --resume
 python3 tools/bake_campaign.py --family partial --workers 4 --resume
 python3 tools/bake_campaign.py --family multiaxis --workers 4 --resume
 python3 tools/bake_campaign.py --family roof --workers 1 --resume
+python3 tools/bake_campaign.py --family roof_landing --workers 2 --resume
 # Requires the newly generated impact_000_60 prefix:
 python3 tools/bake_campaign.py --family conditioned --workers 1
 ```
@@ -74,7 +80,9 @@ recordings require matching pose, geometry and footprint registration. An
 unsupported hit must keep its documented rigid/live fallback rather than play
 an unrelated clip. Similarly, the three-hit conditioned sequence covers its
 recorded damage history; it does not authorize stacking arbitrary absolute
-deformation tracks or healing earlier damage.
+deformation tracks or healing earlier damage. The current world-contact path
+adds bounded local shape increments to the damaged car; see
+[world damage stacking](WORLD_DAMAGE_STACKING.md).
 
 General car-body splitting remains a deferred reference probe and is not part
 of this campaign.

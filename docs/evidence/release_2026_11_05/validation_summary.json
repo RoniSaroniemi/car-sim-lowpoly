@@ -1,0 +1,160 @@
+{
+  "base_commit": "fa59200812d5a3a81e46b6b13d23870fd5e2cc06",
+  "default_roof_stiffness": 3.0,
+  "roof_stiffness_range": [
+    0.5,
+    8.0
+  ],
+  "godot": "4.7.2.stable.official.ed1daf0bf",
+  "platform": "macOS / Apple M3 / Compatibility",
+  "passed": true,
+  "checks": {
+    "structural": {
+      "passed": true,
+      "check_count": 0,
+      "case_count": 6,
+      "sha256": "6e9389733becf18616137c17e687e52f70d037d3e2ebc7739d1d04b88c287eda",
+      "local_output": "verification/structural_validation.json"
+    },
+    "wheels": {
+      "passed": true,
+      "check_count": 17,
+      "case_count": 7,
+      "sha256": "3d200ca903bfb75410cc917bc17db2168d1a83407913df09c2aa77c56fdb2f01",
+      "local_output": "verification/wheel_validation.json"
+    },
+    "wheel_mounts": {
+      "passed": true,
+      "check_count": 11,
+      "case_count": 0,
+      "sha256": "e97c4badd6b031f7ae0e29359c52b4ab5fbb5313cc930f6d09cde23ab2b00edc",
+      "local_output": "verification/wheel_mount_validation.json"
+    },
+    "driving": {
+      "passed": true,
+      "check_count": 18,
+      "case_count": 0,
+      "sha256": "73fcbd73c140d20b8f58d15ca5f4dd5da70d493e51571fb1ce6f8ce38db33d9e",
+      "local_output": "verification/driving_validation.json"
+    },
+    "adaptive": {
+      "passed": true,
+      "check_count": 51,
+      "case_count": 8,
+      "sha256": "402db064109805f35bfefcf7514d5de0e908e3febeb40949255d071fb516758b",
+      "local_output": "verification/adaptive_validation.json"
+    },
+    "ramps": {
+      "passed": true,
+      "check_count": 10,
+      "case_count": 2,
+      "sha256": "82e0c1ef4a3738a8ade3f511b3ba1cee7ae5750bd55aebed83342df6b86f292b",
+      "local_output": "verification/ramp_validation.json"
+    },
+    "glass": {
+      "passed": true,
+      "check_count": 49,
+      "case_count": 0,
+      "sha256": "b1cd111e2cf738d3616b799bff0dd4f96346f90676923c86d9d80cb24a913761",
+      "local_output": "verification/vehicle_glass_validation.json"
+    },
+    "interior": {
+      "passed": true,
+      "check_count": 29,
+      "case_count": 4,
+      "sha256": "95dad25e4a3a3f9d7e409ea15a8bb649a68bf1a4ad3df302243d7ccc2b7cce76",
+      "local_output": "verification/vehicle_interior_validation.json"
+    },
+    "roof_landings": {
+      "passed": true,
+      "check_count": 141,
+      "case_count": 14,
+      "sha256": "13d341c7b29e2e725c7030f652a30f9181274bac410684e301ab212d7a93f452",
+      "local_output": "verification/roof_landing/validation.json"
+    },
+    "roof_response": {
+      "passed": true,
+      "check_count": 108,
+      "case_count": 12,
+      "sha256": "3318f5b9a21bfb3b6638cf1c97273bb24f99793f2575bfe14143056791863294",
+      "local_output": "verification/roof_response/response.json"
+    },
+    "roof_terrain": {
+      "passed": true,
+      "check_count": 43,
+      "case_count": 8,
+      "sha256": "69b2f437cbb1e79795851ce1a3a363040faac2082da238aa655e9efd7053e506",
+      "local_output": "verification/roof_response/terrain.json"
+    },
+    "airborne": {
+      "passed": true,
+      "check_count": 35,
+      "case_count": 8,
+      "sha256": "cccead8d0cdc1bbf5fca647a58eb4db9a67d2b8fc8a43c45d7004546917732f6",
+      "local_output": "verification/airborne/validation.json"
+    },
+    "driven_rollover": {
+      "passed": true,
+      "check_count": 0,
+      "case_count": 6,
+      "sha256": "c73bac2b602ee51b99958053c61909280b8b29e4cb2a3d06daceb37e5ccabd43",
+      "local_output": "verification/roof_response/driven_rollover.json"
+    },
+    "world_contacts": {
+      "passed": true,
+      "check_count": 66,
+      "case_count": 15,
+      "sha256": "8602a9ac821b8c5c4887b4818a9fb3045c74926c279f9058c3669ff47e6934f2",
+      "local_output": "verification/world_damage/validation.json"
+    },
+    "roof_stiffness": {
+      "passed": true,
+      "check_count": 44,
+      "case_count": 6,
+      "sha256": "58951bbdba239035e82a6e3b3b73b68223c631b9dee5801698de2b88ebf823a5",
+      "local_output": "verification/roof_stiffness/validation.json"
+    },
+    "multicar": {
+      "passed": true,
+      "check_count": 86,
+      "case_count": 7,
+      "sha256": "3f90232daaf25dd1e65426d408405f7890882a08cef2a558ccb1a1114a768a76",
+      "local_output": "verification/multicar/validation.json"
+    },
+    "asset_audit": {
+      "passed": true,
+      "check_count": 0,
+      "case_count": 0,
+      "sha256": "bd28a460974050d6d3747c5dce384b63af771d2521ab739a2dff96d5beb93da1",
+      "local_output": "verification/bake_campaign/asset_audit.json",
+      "audited": 132,
+      "failed": 0,
+      "complete": true
+    },
+    "arena": {
+      "passed": true,
+      "check_count": 35,
+      "case_count": 7,
+      "sha256": "08d5a755282aec2920d60a7b58891e6c5f15ee0e8013c17077d363ca7dd7e4e4",
+      "local_output": "verification/arena_validation.json"
+    }
+  },
+  "full_suite_execution": "python3 tools/demo.py verify --no-import completed all groups through the driven-rollover test, then stopped because the old wall-then-roof test required exactly one subsequent roof hit. At stiffness 3 the car physically separated and landed again; the first roof hit had completed and all other invariants passed. The assertion now checks that first completed roof hit; the corrected 66-check world suite, final 132-asset audit, 44-check stiffness suite and 86-check multi-car suite all passed separately. CI runs the combined current runner including the new suites.",
+  "commands": [
+    "python3 tools/demo.py verify --no-import",
+    "python3 tools/demo.py verify-bake-assets --no-import",
+    "python3 tools/demo.py verify-multicar --no-import",
+    "Godot --headless --path . --script res://tests/world_damage/verify.gd",
+    "Godot --headless --path . --script res://tests/roof_landing/stiffness.gd",
+    "python3 model/source/test_cabin_fit.py"
+  ],
+  "cabin_fit_cases": 7,
+  "composite_reauthored": "probes/multicar/data/opposed_front_rear_60.crashclip regenerated on current source; not counted in the 132 main recordings",
+  "known_limits": [
+    "Baked tracks are still 120 Hz / 301 full samples; storage/loading/playback is not shipping-optimized.",
+    "Seats can penetrate crushed bodywork; interior contact and frame/cushion collapse remain open work.",
+    "Multi-car is a planar separate probe, not 3D multi-car integration in the arena.",
+    "Eight historical experimental upper-angle multiaxis cases fail the documented energy-quality observation; exact source/replay validation is a separate contract."
+  ],
+  "main_recordings_rewritten": false
+}

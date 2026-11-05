@@ -1,0 +1,3 @@
++ /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 /Users/roni-saroniemi/Downloads/car-sim-lowpoly-multicar-probe/tools/check_package.py
+38 nodes 187 links 1210.0 kg
+PASS: reproducible graph, 1,210 kg, GLB structure, editable model, shared vehicle profile and published file checksums.

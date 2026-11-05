@@ -1,0 +1,1235 @@
+{
+	"cases": [
+		{
+			"cars": [
+				{
+					"clip": "impact_000_60",
+					"id": 0,
+					"plastic_work_j": 65404.7844864855,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 167904.301452637,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 59.972993189513,
+						"per_contact_equivalent_kmh": [
+							59.972993189513
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							119.999995422363
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								0.0
+							],
+							"world_normal": [
+								-1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 0.308333333333333,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				},
+				{
+					"clip": "impact_000_60",
+					"id": 1,
+					"plastic_work_j": 65404.7844864855,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 167904.301452637,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 59.972993189513,
+						"per_contact_equivalent_kmh": [
+							59.972993189513
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							119.999995422363
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								-0.0000000874227765734759
+							],
+							"world_normal": [
+								1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 0.308333333333333,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				}
+			],
+			"case": "head_on",
+			"max_overlap_m": 0.0,
+			"stats": {
+				"batches": [
+					{
+						"angular_error_nms": 0.0,
+						"contacts": [
+							{
+								"a": 0,
+								"b": 1,
+								"closing": 33.3333320617676,
+								"depth": 0.0000000786805021135706,
+								"impulse": 20771.6658742905,
+								"normal": "(1.0, 0.0, 0.0)",
+								"overlap_width": 1.80000007152557,
+								"point": "(-0.0, 0.720489, 0.0)",
+								"pre_relative": "(-33.33333, 0.0, 0.0)"
+							}
+						],
+						"energy_after_j": 302.5,
+						"energy_before_j": 336111.102905273,
+						"momentum_error_ns": 0.0,
+						"removed_energy_j": 335808.602905273,
+						"time": 0.308333333333333
+					}
+				],
+				"broadphase_passes": 4,
+				"car_count": 2,
+				"contacts": 1,
+				"energy_j": 302.5,
+				"full_structure_steps": 0,
+				"mass_kg": 2420.0,
+				"mean_us": 1178.50714285714,
+				"momentum": "(0.0, 0.0, 0.0)",
+				"p95_us": 1197,
+				"p99_us": 1240,
+				"pairs": 420,
+				"steps": 420
+			}
+		},
+		{
+			"cars": [
+				{
+					"clip": "impact_000_60",
+					"id": 0,
+					"plastic_work_j": 65404.7844864855,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 167904.310684204,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 59.9729948382043,
+						"per_contact_equivalent_kmh": [
+							59.9729948382043
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							119.999995422363
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								0.0
+							],
+							"world_normal": [
+								-1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 0.308333333333333,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				},
+				{
+					"clip": "impact_000_60",
+					"id": 1,
+					"plastic_work_j": 65404.7844864855,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 167904.310684204,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 59.9729948382043,
+						"per_contact_equivalent_kmh": [
+							59.9729948382043
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							119.999995422363
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								-0.0000000874227765734759
+							],
+							"world_normal": [
+								1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 0.308333333333333,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				}
+			],
+			"case": "parked",
+			"max_overlap_m": 0.0,
+			"stats": {
+				"batches": [
+					{
+						"angular_error_nms": 0.0,
+						"contacts": [
+							{
+								"a": 0,
+								"b": 1,
+								"closing": 33.3333320617676,
+								"depth": 0.0000000786805021135706,
+								"impulse": 20771.6658742905,
+								"normal": "(1.0, 0.0, 0.0)",
+								"overlap_width": 1.80000007152557,
+								"point": "(2.15658, 0.720489, 0.0)",
+								"pre_relative": "(-33.33333, 0.0, 0.0)"
+							}
+						],
+						"energy_after_j": 336413.584442139,
+						"energy_before_j": 672222.205810547,
+						"momentum_error_ns": 0.0,
+						"removed_energy_j": 335808.621368408,
+						"time": 0.308333333333333
+					}
+				],
+				"broadphase_passes": 4,
+				"car_count": 2,
+				"contacts": 1,
+				"energy_j": 336413.584442139,
+				"full_structure_steps": 0,
+				"mass_kg": 2420.0,
+				"mean_us": 1040.11904761905,
+				"momentum": "(40333.33, 0.0, 0.0)",
+				"p95_us": 1232,
+				"p99_us": 1290,
+				"pairs": 420,
+				"steps": 420
+			}
+		},
+		{
+			"cars": [
+				{
+					"clip": "opposed_front_rear_60",
+					"id": 0,
+					"plastic_work_j": 148289.096268995,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 335812.427283092,
+						"clip": "opposed_front_rear_60",
+						"contact_count": 2,
+						"equivalent_wall_kmh": 84.8151033017162,
+						"per_contact_equivalent_kmh": [
+							59.9733346916811,
+							59.9733346916811
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "authored_opposed_composite",
+						"relative_closing_kmh": [
+							84.8528160095215,
+							84.8528160095215
+						],
+						"time": 0.25
+					}
+				},
+				{
+					"clip": "impact_000_60",
+					"id": 1,
+					"plastic_work_j": 65404.7844864855,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 167906.213641546,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 59.9733346916811,
+						"per_contact_equivalent_kmh": [
+							59.9733346916811
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							84.8528160095215
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								0.0
+							],
+							"world_normal": [
+								-1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 0.25,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				},
+				{
+					"clip": "impact_000_60",
+					"id": 2,
+					"plastic_work_j": 65404.7844864855,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 167906.213641546,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 59.9733346916811,
+						"per_contact_equivalent_kmh": [
+							59.9733346916811
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							84.8528160095215
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								-0.0000000874227765734759
+							],
+							"world_normal": [
+								1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 0.25,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				}
+			],
+			"case": "triple",
+			"max_overlap_m": 0.0,
+			"stats": {
+				"batches": [
+					{
+						"angular_error_nms": 0.0,
+						"contacts": [
+							{
+								"a": 0,
+								"b": 1,
+								"closing": 23.5702266693115,
+								"depth": 0.0,
+								"impulse": 29371.9866063535,
+								"normal": "(-1.0, 0.0, 0.0)",
+								"overlap_width": 1.80000007152557,
+								"point": "(-1.916581, 0.720489, 0.0)",
+								"pre_relative": "(23.57023, 0.0, 0.0)"
+							},
+							{
+								"a": 0,
+								"b": 2,
+								"closing": 23.5702266693115,
+								"depth": 0.0,
+								"impulse": 29368.4009537935,
+								"normal": "(1.0, 0.0, 0.0)",
+								"overlap_width": 1.80000007152557,
+								"point": "(1.843419, 0.720489, 0.0)",
+								"pre_relative": "(-23.57023, 0.0, 0.0)"
+							}
+						],
+						"energy_after_j": 597.425096901097,
+						"energy_before_j": 672222.279663086,
+						"momentum_error_ns": 0.0001220703125,
+						"removed_energy_j": 671624.854566185,
+						"time": 0.25
+					}
+				],
+				"broadphase_passes": 9,
+				"car_count": 3,
+				"contacts": 2,
+				"energy_j": 597.425096901097,
+				"full_structure_steps": 0,
+				"mass_kg": 3630.0,
+				"mean_us": 1669.09285714286,
+				"momentum": "(0.000122, 0.0, 0.0)",
+				"p95_us": 1786,
+				"p99_us": 4629,
+				"pairs": 1260,
+				"steps": 420
+			}
+		},
+		{
+			"cars": [
+				{
+					"clip": "opposed_front_rear_60",
+					"id": 0,
+					"plastic_work_j": 148289.096268995,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 335812.427283092,
+						"clip": "opposed_front_rear_60",
+						"contact_count": 2,
+						"equivalent_wall_kmh": 84.8151033017162,
+						"per_contact_equivalent_kmh": [
+							59.9733346916811,
+							59.9733346916811
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "authored_opposed_composite",
+						"relative_closing_kmh": [
+							84.8528160095215,
+							84.8528160095215
+						],
+						"time": 0.25
+					}
+				},
+				{
+					"clip": "impact_000_60",
+					"id": 1,
+					"plastic_work_j": 65404.7844864855,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 167906.213641546,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 59.9733346916811,
+						"per_contact_equivalent_kmh": [
+							59.9733346916811
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							84.8528160095215
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								0.0
+							],
+							"world_normal": [
+								-1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 0.25,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				},
+				{
+					"clip": "impact_000_60",
+					"id": 2,
+					"plastic_work_j": 65404.7844864855,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 167906.213641546,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 59.9733346916811,
+						"per_contact_equivalent_kmh": [
+							59.9733346916811
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							84.8528160095215
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								-0.0000000874227765734759
+							],
+							"world_normal": [
+								1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 0.25,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				}
+			],
+			"case": "triple",
+			"max_overlap_m": 0.0,
+			"stats": {
+				"batches": [
+					{
+						"angular_error_nms": 0.0,
+						"contacts": [
+							{
+								"a": 0,
+								"b": 1,
+								"closing": 23.5702266693115,
+								"depth": 0.0,
+								"impulse": 29371.9866063535,
+								"normal": "(-1.0, 0.0, 0.0)",
+								"overlap_width": 1.80000007152557,
+								"point": "(-1.916581, 0.720489, 0.0)",
+								"pre_relative": "(23.57023, 0.0, 0.0)"
+							},
+							{
+								"a": 0,
+								"b": 2,
+								"closing": 23.5702266693115,
+								"depth": 0.0,
+								"impulse": 29368.4009537935,
+								"normal": "(1.0, 0.0, 0.0)",
+								"overlap_width": 1.80000007152557,
+								"point": "(1.843419, 0.720489, 0.0)",
+								"pre_relative": "(-23.57023, 0.0, 0.0)"
+							}
+						],
+						"energy_after_j": 597.425096901097,
+						"energy_before_j": 672222.279663086,
+						"momentum_error_ns": 0.0001220703125,
+						"removed_energy_j": 671624.854566185,
+						"time": 0.25
+					}
+				],
+				"broadphase_passes": 9,
+				"car_count": 3,
+				"contacts": 2,
+				"energy_j": 597.425096901097,
+				"full_structure_steps": 0,
+				"mass_kg": 3630.0,
+				"mean_us": 1529.50476190476,
+				"momentum": "(0.000122, 0.0, 0.0)",
+				"p95_us": 1761,
+				"p99_us": 4456,
+				"pairs": 1260,
+				"steps": 420
+			}
+		},
+		{
+			"cars": [
+				{
+					"clip": "",
+					"id": 0,
+					"plastic_work_j": 0.0,
+					"selection": {
+						"accepted": false,
+						"assigned_energy_j": 148266.958900222,
+						"contact_count": 1,
+						"equivalent_wall_kmh": 56.3568879735294,
+						"per_contact_equivalent_kmh": [
+							56.3568879735294
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "partial_or_oblique_not_authored",
+						"relative_closing_kmh": [
+							119.999995422363
+						],
+						"time": 0.275
+					}
+				},
+				{
+					"clip": "",
+					"id": 1,
+					"plastic_work_j": 0.0,
+					"selection": {
+						"accepted": false,
+						"assigned_energy_j": 148266.958900222,
+						"contact_count": 1,
+						"equivalent_wall_kmh": 56.3568879735294,
+						"per_contact_equivalent_kmh": [
+							56.3568879735294
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "partial_or_oblique_not_authored",
+						"relative_closing_kmh": [
+							119.999995422363
+						],
+						"time": 0.275
+					}
+				}
+			],
+			"case": "corner",
+			"max_overlap_m": 0.00474034547806212,
+			"stats": {
+				"batches": [
+					{
+						"angular_error_nms": 0.001953125,
+						"contacts": [
+							{
+								"a": 0,
+								"b": 1,
+								"closing": 33.3333320617676,
+								"depth": 0.0,
+								"impulse": 18342.302409544,
+								"normal": "(1.0, 0.0, 0.0)",
+								"overlap_width": 0.900000256524266,
+								"point": "(2.15658, 0.720489, 0.45)",
+								"pre_relative": "(-33.33333, 0.0, 0.0)"
+							}
+						],
+						"energy_after_j": 375688.288010104,
+						"energy_before_j": 672222.205810547,
+						"momentum_error_ns": 0.0,
+						"removed_energy_j": 296533.917800443,
+						"time": 0.275
+					}
+				],
+				"broadphase_passes": 27,
+				"car_count": 2,
+				"contacts": 23,
+				"energy_j": 343670.080293175,
+				"full_structure_steps": 0,
+				"mass_kg": 2420.0,
+				"mean_us": 229.557142857143,
+				"momentum": "(40333.33, 0.0, 0.0)",
+				"p95_us": 269,
+				"p99_us": 285,
+				"pairs": 420,
+				"steps": 420
+			}
+		},
+		{
+			"cars": [
+				{
+					"clip": "",
+					"id": 0,
+					"plastic_work_j": 0.0,
+					"selection": {
+						"accepted": false,
+						"assigned_energy_j": 604.455481767654,
+						"contact_count": 1,
+						"equivalent_wall_kmh": 3.59837958106646,
+						"per_contact_equivalent_kmh": [
+							3.59837958106646
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "low_energy_no_bake",
+						"relative_closing_kmh": [
+							7.2
+						],
+						"time": 1.15
+					}
+				},
+				{
+					"clip": "",
+					"id": 1,
+					"plastic_work_j": 0.0,
+					"selection": {
+						"accepted": false,
+						"assigned_energy_j": 604.455481767654,
+						"contact_count": 1,
+						"equivalent_wall_kmh": 3.59837958106646,
+						"per_contact_equivalent_kmh": [
+							3.59837958106646
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "low_energy_no_bake",
+						"relative_closing_kmh": [
+							7.2
+						],
+						"time": 1.15
+					}
+				}
+			],
+			"case": "low",
+			"max_overlap_m": 0.0,
+			"stats": {
+				"batches": [
+					{
+						"angular_error_nms": 0.0,
+						"contacts": [
+							{
+								"a": 0,
+								"b": 1,
+								"closing": 2.0,
+								"depth": 0.0,
+								"impulse": 1246.3,
+								"normal": "(1.0, 0.0, 0.0)",
+								"overlap_width": 1.80000007152557,
+								"point": "(1.15658, 0.720489, 0.0)",
+								"pre_relative": "(-2.0, 0.0, 0.0)"
+							}
+						],
+						"energy_after_j": 1211.08903646469,
+						"energy_before_j": 2420.0,
+						"momentum_error_ns": 0.0,
+						"removed_energy_j": 1208.91096353531,
+						"time": 1.15
+					}
+				],
+				"broadphase_passes": 308,
+				"car_count": 2,
+				"contacts": 1,
+				"energy_j": 1211.08903646469,
+				"full_structure_steps": 0,
+				"mass_kg": 2420.0,
+				"mean_us": 228.516666666667,
+				"momentum": "(2420.0, 0.0, 0.0)",
+				"p95_us": 238,
+				"p99_us": 244,
+				"pairs": 420,
+				"steps": 420
+			}
+		},
+		{
+			"cars": [
+				{
+					"clip": "impact_000_60",
+					"id": 0,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 85308.8403320312,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 42.7485937268701,
+						"per_contact_equivalent_kmh": [
+							42.7485937268701
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							85.535684967041
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								0.0
+							],
+							"world_normal": [
+								-1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 3.04999999999999,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				},
+				{
+					"clip": "impact_000_60",
+					"id": 1,
+					"selection": {
+						"accepted": true,
+						"assigned_energy_j": 85308.8403320312,
+						"clip": "impact_000_60",
+						"contact_count": 1,
+						"equivalent_wall_kmh": 42.7485937268701,
+						"per_contact_equivalent_kmh": [
+							42.7485937268701
+						],
+						"policy": "island lost energy, pair incident weight, equal compliance halves",
+						"reason": "bounded_front_or_rear_shape",
+						"recorded_speed_kmh": 60,
+						"relative_closing_kmh": [
+							85.535684967041
+						],
+						"signature": {
+							"closing_speed_mps": 16.6666666666667,
+							"hit_nodes": [
+								24,
+								25,
+								26,
+								27
+							],
+							"incident_impulse_proxy_ns": 20166.6666666667,
+							"normal": [
+								-1.0,
+								0.0,
+								-0.0000000874227765734759
+							],
+							"world_normal": [
+								1.0,
+								0,
+								0.0
+							],
+							"zones": [
+								{
+									"id": 36,
+									"weight": 0.42
+								},
+								{
+									"id": 38,
+									"weight": 0.42
+								},
+								{
+									"id": 39,
+									"weight": 0.08
+								},
+								{
+									"id": 41,
+									"weight": 0.08
+								}
+							]
+						},
+						"time": 3.04999999999999,
+						"zone_match": {
+							"accepted": true,
+							"angle_error_deg": 0.0,
+							"impulse_ratio": 1.00000003814697,
+							"normal_alignment": 1.0,
+							"reason": "Recorded case matched",
+							"score": 0.999999996185303,
+							"zone_overlap": 1.0
+						}
+					}
+				},
+				{
+					"clip": "",
+					"id": 2,
+					"selection": {}
+				}
+			],
+			"case": "drive_from_rest",
+			"stats": {
+				"batches": [
+					{
+						"angular_error_nms": 0.0,
+						"contacts": [
+							{
+								"a": 0,
+								"b": 1,
+								"closing": 23.7599124908447,
+								"depth": 0.0,
+								"impulse": 14805.9908649445,
+								"normal": "(1.0, 0.0, 0.0)",
+								"overlap_width": 1.80000007152557,
+								"point": "(3.15658, 0.720489, 0.0)",
+								"pre_relative": "(-23.75991, 0.0, 0.0)"
+							}
+						],
+						"energy_after_j": 170925.054931641,
+						"energy_before_j": 341542.735595703,
+						"momentum_error_ns": 0.0,
+						"removed_energy_j": 170617.680664062,
+						"time": 3.04999999999999
+					}
+				],
+				"broadphase_passes": 4,
+				"car_count": 3,
+				"contacts": 1,
+				"energy_j": 167677.426452637,
+				"full_structure_steps": 0,
+				"mass_kg": 3630.0,
+				"mean_us": 771.941666666667,
+				"momentum": "(28464.76, 0.0, 0.0)",
+				"p95_us": 1282,
+				"p99_us": 1307,
+				"pairs": 2160,
+				"steps": 720
+			}
+		}
+	],
+	"checks": {
+		"body_local_shape_cannot_move_mass_center": true,
+		"composite_contains_both_end_crush": true,
+		"composite_fingerprints_current": true,
+		"connected_contacts_one_island": true,
+		"corner_actual_contacts": true,
+		"corner_bounded_overlap": true,
+		"corner_energy_does_not_grow": true,
+		"corner_finite": true,
+		"corner_impulses_conserve_P_and_L": true,
+		"corner_momentum_preserved": true,
+		"corner_no_healing": true,
+		"corner_same_graphs": true,
+		"corner_single_mass_owner": true,
+		"corner_zero_full_or_cloth_steps": true,
+		"deformation_handoff_root_and_pose_continuous": true,
+		"detached_wheel_channel_explicitly_rejected": true,
+		"disjoint_contacts_use_two_islands": true,
+		"disk_replay_effects_and_transient_particles_exact": true,
+		"disk_replay_roots_shapes_flags_exact": true,
+		"disk_replay_zero_full_cloth_calls": true,
+		"drivable_case_no_heavy_solves": true,
+		"far_pair_rejected": true,
+		"head_on_actual_contacts": true,
+		"head_on_bounded_overlap": true,
+		"head_on_energy_does_not_grow": true,
+		"head_on_finite": true,
+		"head_on_impulses_conserve_P_and_L": true,
+		"head_on_momentum_preserved": true,
+		"head_on_no_healing": true,
+		"head_on_same_graphs": true,
+		"head_on_single_mass_owner": true,
+		"head_on_zero_full_or_cloth_steps": true,
+		"headon_both_front60": true,
+		"headon_relative120_maps_each60": true,
+		"headon_stops_symmetrically": true,
+		"later_pristine_clip_rejected": true,
+		"low_actual_contacts": true,
+		"low_bounded_overlap": true,
+		"low_energy_contact_does_not_bake": true,
+		"low_energy_does_not_grow": true,
+		"low_finite": true,
+		"low_impulses_conserve_P_and_L": true,
+		"low_momentum_preserved": true,
+		"low_no_healing": true,
+		"low_same_graphs": true,
+		"low_single_mass_owner": true,
+		"low_zero_full_or_cloth_steps": true,
+		"moving_away_sweep_rejected": true,
+		"parked_actual_contacts": true,
+		"parked_both_receive_deformation": true,
+		"parked_bounded_overlap": true,
+		"parked_energy_does_not_grow": true,
+		"parked_finite": true,
+		"parked_impulses_conserve_P_and_L": true,
+		"parked_momentum_preserved": true,
+		"parked_no_healing": true,
+		"parked_receives_momentum": true,
+		"parked_same_graphs": true,
+		"parked_single_mass_owner": true,
+		"parked_zero_full_or_cloth_steps": true,
+		"partial_corner_explicit_fallback": true,
+		"player_accelerates_from_rest_into_car": true,
+		"player_and_struck_car_play_bakes": true,
+		"recording_contains_transient_particles": true,
+		"repair_clears_recorded_damage": true,
+		"simultaneous_repeat_is_deterministic": true,
+		"source_physical_fingerprints_current": true,
+		"triple_actual_contacts": true,
+		"triple_bounded_overlap": true,
+		"triple_center_uses_authored_composite": true,
+		"triple_energy_does_not_grow": true,
+		"triple_energy_not_double_assigned": true,
+		"triple_finite": true,
+		"triple_impulses_conserve_P_and_L": true,
+		"triple_momentum_preserved": true,
+		"triple_no_healing": true,
+		"triple_outer_front60": true,
+		"triple_same_graphs": true,
+		"triple_single_mass_owner": true,
+		"triple_two_contacts_one_batch": true,
+		"triple_zero_full_or_cloth_steps": true,
+		"unequal_mass_does_not_create_energy": true,
+		"unequal_mass_impulses_preserve_momentum": true,
+		"unequal_mass_severity_uses_each_mass": true,
+		"unequal_mass_velocity_transfer": true,
+		"wall_root_does_not_override_moving_car": true
+	},
+	"passed": true,
+	"scope": "Isolated planar condensed rigid roots with finite car contacts and body-local recorded deformation. Explicit composite fixture; no 3D suspension or arbitrary composite/history coverage."
+}

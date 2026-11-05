@@ -1,0 +1,55 @@
+{
+  "scope": "Observation of existing experimental metadata; not a newly simulated acceptance or retuning.",
+  "criterion": "maximum kinetic kJ > initial kinetic kJ * 1.06 + 1",
+  "energy_quality_passed": false,
+  "failures": [
+    {
+      "id": "upper_az135_60",
+      "initial_kj": 168.058116577922,
+      "maximum_kj": 196.717174546285,
+      "ratio": 1.170530638757188
+    },
+    {
+      "id": "upper_az090_120",
+      "initial_kj": 672.215349000461,
+      "maximum_kj": 757.483046660665,
+      "ratio": 1.12684580586711
+    },
+    {
+      "id": "upper_az180_60",
+      "initial_kj": 168.05559845772,
+      "maximum_kj": 447.89169933787,
+      "ratio": 2.6651400099030447
+    },
+    {
+      "id": "upper_az270_60",
+      "initial_kj": 168.071223869161,
+      "maximum_kj": 270.393171671494,
+      "ratio": 1.6088011109027676
+    },
+    {
+      "id": "upper_az180_120",
+      "initial_kj": 672.221970173555,
+      "maximum_kj": 934.344677709357,
+      "ratio": 1.3899347524570298
+    },
+    {
+      "id": "upper_az225_60",
+      "initial_kj": 168.062403493211,
+      "maximum_kj": 196.718059964984,
+      "ratio": 1.170506049396887
+    },
+    {
+      "id": "upper_az090_60",
+      "initial_kj": 168.054590510085,
+      "maximum_kj": 270.442284057497,
+      "ratio": 1.6092525841551923
+    },
+    {
+      "id": "upper_az270_120",
+      "initial_kj": 672.215928803844,
+      "maximum_kj": 757.480974077671,
+      "ratio": 1.126841750723684
+    }
+  ]
+}

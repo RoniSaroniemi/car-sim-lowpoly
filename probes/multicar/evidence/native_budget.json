@@ -1,0 +1,47 @@
+{
+	"adapter": "Apple M3",
+	"renderer": "gl_compatibility",
+	"runs": [
+		{
+			"cars": 1,
+			"full_structure_steps": 0,
+			"gpu_timestamp_available": false,
+			"model_triangles_per_car": 57624,
+			"pose_upload_all_cars_us": 36.89,
+			"render_objects": 173,
+			"shadow_draws": 0,
+			"viewport_cpu_mean_ms": 12.8943933893423,
+			"viewport_gpu_mean_ms": 0.0,
+			"visible_draws": 167,
+			"visible_primitives_counter": 57784
+		},
+		{
+			"cars": 2,
+			"full_structure_steps": 0,
+			"gpu_timestamp_available": false,
+			"model_triangles_per_car": 57624,
+			"pose_upload_all_cars_us": 79.2,
+			"render_objects": 297,
+			"shadow_draws": 0,
+			"viewport_cpu_mean_ms": 21.8379998441602,
+			"viewport_gpu_mean_ms": 0.0,
+			"visible_draws": 285,
+			"visible_primitives_counter": 115448
+		},
+		{
+			"cars": 3,
+			"full_structure_steps": 0,
+			"gpu_timestamp_available": false,
+			"model_triangles_per_car": 57624,
+			"pose_upload_all_cars_us": 146.86,
+			"render_objects": 418,
+			"shadow_draws": 0,
+			"viewport_cpu_mean_ms": 34.0830163173988,
+			"viewport_gpu_mean_ms": 0.0,
+			"visible_draws": 400,
+			"visible_primitives_counter": 173100
+		}
+	],
+	"scope": "Native full probe scene including floor/labels/UI/shadow passes. Warm paused frames, pose upload separately. GPU zero means unavailable; not an FPS or overall memory benchmark.",
+	"size": "(1280, 800)"
+}

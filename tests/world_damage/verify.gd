@@ -64,7 +64,10 @@ func _stack() -> void:
  var front_before: float=c.solver.station_center(6).distance_to(c.solver.station_center(3))
  launch_roof(c);var first_count: int=c.baked_count
  for tick in 600:c.advance(1./120)
- checks.wall_then_roof=c.baked_count==first_count+1 and c.last_bake.get('contact_family','')=='roof_landing_floor' and c.last_bake.get('completed',false)
+ # Stiffer roofs can physically separate and strike again before this window
+ # ends. Require the first later roof hit to complete, not exactly one hit.
+ var first_roof: Dictionary=c.impact_history[first_count] if c.impact_history.size()>first_count else {}
+ checks.wall_then_roof=first_roof.get('contact_family','')=='roof_landing_floor' and first_roof.get('completed',false)
  checks.same_graph_stacked=c.solver.get_instance_id()==graph_id
  checks.prior_work_retained=c.solver.plastic_work>=float(before.plastic_work)
  var no_heal:=true

@@ -72,6 +72,8 @@ func event(vehicle: RefCounted,horizon: float,library: Array) -> Dictionary:
  if best.is_empty():return reject('roof_no_matching_pose_or_speed')
  last_rejection=''
  best['incremental']=true
+ best['roof_stiffness']=vehicle.roof_stiffness
+ best['damage_scale']=vehicle.RoofStiffness.playback_scale(vehicle.roof_stiffness)
  latched=true
  packet['selection']=best
  return packet
