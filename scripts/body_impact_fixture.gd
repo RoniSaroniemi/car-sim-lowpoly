@@ -53,7 +53,11 @@ static func restore(vehicle: RefCounted) -> void:
   vehicle.remove_meta('body_fixture_barrier_enabled')
 static func _apply_config(g: RefCounted,definition: Dictionary) -> void:
  assert(definition.nodes.size()==g.points.size() and definition.links.size()==g.links.size())
+ var step_s: float=g.config.fixed_step_s
+ var quality: int=int(g.config.get('simulation_quality_multiplier',1))
  g.config=definition.duplicate(true)
+ g.config.fixed_step_s=step_s
+ g.config['simulation_quality_multiplier']=quality
  for i in g.links.size():
   var link=g.links[i];var raw: Dictionary=definition.links[i]
   assert(link.a==raw.a and link.b==raw.b)
