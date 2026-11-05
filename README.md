@@ -52,7 +52,7 @@ python3 tools/demo.py arena
 
 The alternative arena has tiered seating, repeating arches, a sand floor, sand/concrete/timber jumps, a halfpipe, and adjacent **42° / 24° ramps** with a straddling start. W/S/A/D, Space, Q and R keep their usual controls. Use **Open colosseum arena** in the test yard or **Open test yard** in the arena to switch locations; switching starts a fresh car. Both scenes use the shared vehicle runtime and current damage materials.
 
-The arena uses sky ambient fill, material cavity shading and a shadowed sun. Its curved retaining wall uses cheap rigid contacts; it does not apply incompatible planar-wall crash recordings. See [arena controls, lighting, evidence and limits](arena/README.md).
+The arena uses sky ambient fill, material cavity shading and a shadowed sun. Its curved retaining wall uses cheap rigid contacts; it does not apply incompatible planar-wall crash recordings. Drag to orbit through 360° and tilt; use the wheel to zoom. Both driving areas expose the shared engine/grip, baked/live, precision and opening-panel controls. See [arena controls, lighting, evidence and limits](arena/README.md) and [panel mechanics, glass and replay](docs/VEHICLE_PANELS.md).
 
 ```sh
 python3 tools/demo.py verify-arena --no-import
@@ -64,12 +64,19 @@ python3 tools/demo.py verify-arena --no-import
 python3 tools/demo.py baked
 ```
 
-Choose an impact angle and 60/120 km/h. The library covers the full circle every
-30°, plus the two ±20° frontal cases and a 75°/60 km/h coverage case: 27 recordings. Space triggers contact-time
+Choose an impact angle and 60/120 km/h. The horizontal library retains the full
+30° circle and adds the 45° compass directions, frontal ±20° at both speeds,
+and a 75°/60 km/h coverage case: 37 recordings. Space triggers contact-time
 selection of the closest compatible bake; L records a fresh case; Z shows the
 invisible 5 × 3 × 3 classifier grid. Buttons play the frontal trio or the whole bank.
 Replay applies the saved deformation and wheel states with zero structural solver steps.
 See [the round-trip procedure and limits](docs/BAKED_CRASH_PROBE.md).
+
+The expanded [offline bake campaign](docs/BAKE_CAMPAIGN.md) also records partial
+wall hits, roof/underside/diagonal impacts and the supported damage sequence,
+including panels, glass and interior state. [Multiaxis authoring and its viewer](docs/MULTIAXIS_BAKING.md)
+are separate from the horizontal driving matcher; recording a direction does
+not automatically make every world contact compatible with it.
 
 ## Candidate layered damage materials
 

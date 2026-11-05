@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--godot', default='/Applications/Godot.app/Contents/MacOS/Godot')
-    parser.add_argument('--family', required=True, choices=['horizontal', 'partial', 'roof', 'conditioned'])
+    parser.add_argument('--family', required=True, choices=['horizontal', 'partial', 'roof', 'conditioned', 'multiaxis'])
     parser.add_argument('--workers', type=int, default=4)
     parser.add_argument('--resume', action='store_true')
     parser.add_argument('--timeout', type=float, default=1200)

@@ -34,6 +34,7 @@ Use the timed campaign runner from the repository root:
 ```sh
 python3 tools/bake_campaign.py --family horizontal --workers 4 --resume
 python3 tools/bake_campaign.py --family partial --workers 4 --resume
+python3 tools/bake_campaign.py --family multiaxis --workers 4 --resume
 python3 tools/bake_campaign.py --family roof --workers 1 --resume
 # Requires the newly generated impact_000_60 prefix:
 python3 tools/bake_campaign.py --family conditioned --workers 1
@@ -42,8 +43,8 @@ python3 tools/bake_campaign.py --family conditioned --workers 1
 The case inventory comes from the Godot authoring definitions rather than a
 second manually maintained list. Parallel jobs suppress catalog updates; rebuild
 the catalogs after workers finish. Use one worker for the legacy roof fixtures,
-whose CLI writes a shared catalog. The multiaxis helper has its own authoring
-CLI and separate catalog.
+whose CLI writes a shared catalog. The multiaxis helper also has its own authoring
+CLI and separate catalog; the same timed runner supports it.
 
 Quality 4 runs physics at **1,920 Hz**, records **2.5 seconds** after contact and
 saves **301 samples at 120 Hz**. The initial isolated frontal-60 pilot measured
